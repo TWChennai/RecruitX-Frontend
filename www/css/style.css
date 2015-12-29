@@ -1,0 +1,24 @@
+.item-checkbox{
+  border:none;
+}
+
+.item-checkbox .checkbox{
+  left:0px;
+}
+
+.checkbox{
+  padding-left:0px;
+}
+
+.item-select select{
+  position:relative;
+  padding:0px 0px 0px 0px;
+  direction:ltr;
+}
+
+.bar {
+  padding:0px
+}
+
+
+
