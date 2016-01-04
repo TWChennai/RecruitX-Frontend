@@ -6,7 +6,7 @@ angular.module('starter').controller('createCandidateProfileController', functio
     python: false,
     other: false
   };
-  $scope.validate = function () {
+  $scope.validateForm = function () {
     return !($scope.candidate.java || $scope.candidate.csharp || $scope.candidate.ruby || $scope.candidate.python || ($scope.candidate.other)) || $scope.candidateForm.$invalid;
   };
   $scope.redirectToScheduleInterviewPage = function () {
