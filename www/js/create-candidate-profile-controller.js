@@ -1,4 +1,6 @@
 angular.module('starter').controller('createCandidateProfileController', function ($scope) {
+  'use strict';
+
   $scope.candidate = {
     java: false,
     csharp: false,
@@ -11,7 +13,7 @@ angular.module('starter').controller('createCandidateProfileController', functio
   };
   $scope.redirectToScheduleInterviewPage = function () {
     if ($scope.candidateForm.$valid) {
-      window.location = "schedule-interview.html";
+      window.location = 'schedule-interview.html';
     }
   };
-})
+});

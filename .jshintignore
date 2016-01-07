@@ -1,0 +1,6 @@
+www/lib/angular-animate/**/*.js
+www/lib/angular-mocks/**/*.js
+www/lib/angular-sanitize/**/*.js
+www/lib/angular-ui-router/**/*.js
+www/lib/angular/**/*.js
+www/lib/ionic/**/*.js
