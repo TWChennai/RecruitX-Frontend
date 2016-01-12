@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic'])
+angular.module('starter', ['ionic','controllers','ui.router'])
   .run(function ($ionicPlatform) {
     'use strict';
 
@@ -23,10 +23,29 @@ angular.module('starter', ['ionic'])
       }
     });
   })
-  .controller('mainController', function ($scope) {
-    'use strict';
 
-    $scope.redirectToCreateCandidateProfilePage = function () {
-      window.location = 'create-candidate-profile.html';
-    };
-  });
+  .config(function ($stateProvider, $urlRouterProvider) {
+
+    $stateProvider
+
+        .state('candidate-index', {
+            url: '/candidates',
+            templateUrl: 'templates/candidate-index.html',
+            controller: 'createCandidateProfileController'
+        })
+
+        .state('create-candidate-profile', {
+            url: '/candidates/new',
+            templateUrl: 'templates/create-candidate-profile.html',
+            controller: 'createCandidateProfileController'
+        })
+
+        .state('schedule-interview',{
+          url: '/candidates/interviews/new',
+          templateUrl: 'templates/schedule-interview.html',
+          controller: 'scheduleInterviewController'
+        });
+
+    // if none of the above states are matched, use this as the fallback
+    $urlRouterProvider.otherwise('/candidates');
+});

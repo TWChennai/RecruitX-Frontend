@@ -1,0 +1,54 @@
+<ion-pane>
+  <ion-header-bar class="bar-positive">
+    <h1 class="title">Add Candidate</h1>
+  </ion-header-bar>
+  <ion-content>
+    <div ng-controller="createCandidateProfileController">
+      <form name="candidateForm" novalidate>
+        <div class="item item-input" ng-class="{ 'has-error' : candidateForm.name.$invalid && !candidateForm.name.$pristine }">
+          <label class="input-label">Name</label>
+          <div class="new-block">
+            <input type="text" name="name" ng-model="candidate.name" ng-maxlength="30" placeholder="Name" required>
+            <p ng-show="candidateForm.name.$error.required && !candidateForm.name.$pristine">is required</p>
+            <p ng-show="candidateForm.name.$error.maxlength && !candidateForm.name.$pristine">exceeded 30 characters</p>
+          </div>
+        </div>
+        <div class="item item-input item-select" ng-class="{ 'has-error' : candidateForm.role.$invalid && !candidateForm.role.$pristine }">
+          <label class="input-label">Role</label>
+          <select name="role" ng-model="candidate.role" required>
+            <option disabled>Select a role</option>
+            <option value="dev">Dev</option>
+            <option value="qa">QA</option>
+            <option value="ba">BA</option>
+          </select>
+        </div>
+        <div class="item item-input" ng-class="{ 'has-error' : candidateForm.experience.$invalid && !candidateForm.experience.$pristine }">
+          <span class="input-label">Experience</span>
+          <div class="new-block">
+            <input type="number" name="experience" ng-model="candidate.experience" min="0" placeholder="Experience" required>
+            <p ng-show="candidateForm.experience.$error.min">should be positive</p>
+            <p ng-show="candidateForm.experience.$error.required && !candidateForm.experience.$pristine">
+              is required</p>
+          </div>
+        </div>
+        <div class="item item-input" ng-class="{ 'has-error' : candidateForm.skillSet.$invalid && !candidateForm.skillSet.$pristine }">
+          <span class="input-label">Skills</span>
+          <div class="new-block ">
+            <ion-list name="skillSet">
+              <ion-checkbox name="skill" ng-model="candidate.java">Java</ion-checkbox>
+              <ion-checkbox name="skill" ng-model="candidate.csharp">C#</ion-checkbox>
+              <ion-checkbox name="skill" ng-model="candidate.ruby">Ruby</ion-checkbox>
+              <ion-checkbox name="skill" ng-model="candidate.python">Python</ion-checkbox>
+              <ion-checkbox name="skill" ng-model="candidate.other">Other</ion-checkbox>
+            </ion-list>
+            <div ng-if="candidate.other" ng-class="{ 'has-error' : candidateForm.otherSkills.$invalid && !candidateForm.otherSkills.$pristine }">
+              <textarea placeholder="Other Skills" name="otherSkills" ng-model="candidate.otherSkills" required></textarea>
+            </div>
+          </div>
+        </div>
+        <a class="button button-full icon-right ion-chevron-right button-positive" ng-disabled="validateForm()" href="#/candidates/interviews/new">Next
+        </a>
+      </form>
+    </div>
+  </ion-content>
+</ion-pane>

@@ -1,4 +1,6 @@
-angular.module('starter').controller('createCandidateProfileController', function ($scope) {
+angular.module('controllers', [])
+
+.controller('createCandidateProfileController', function ($scope) {
   'use strict';
 
   $scope.candidate = {
@@ -8,12 +10,11 @@ angular.module('starter').controller('createCandidateProfileController', functio
     python: false,
     other: false
   };
+  
   $scope.validateForm = function () {
     return !($scope.candidate.java || $scope.candidate.csharp || $scope.candidate.ruby || $scope.candidate.python || ($scope.candidate.other)) || $scope.candidateForm.$invalid;
   };
-  $scope.redirectToScheduleInterviewPage = function () {
-    if ($scope.candidateForm.$valid) {
-      window.location = 'schedule-interview.html';
-    }
-  };
+})
+
+.controller('scheduleInterviewController', function($scope){
 });
