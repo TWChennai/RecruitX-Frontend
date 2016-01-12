@@ -13,6 +13,8 @@ angular.module('starter')
     {name: "Other"}
   ];
 
+  $scope.roles= ["Dev", "QA", "BA"];
+
   $scope.isAtleastOneSkillSelected = function(){
       var validity = false;
       angular.forEach( $scope.candidate.skills, function(value, key){
