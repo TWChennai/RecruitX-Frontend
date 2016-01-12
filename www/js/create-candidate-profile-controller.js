@@ -27,7 +27,7 @@ angular.module('starter')
     var otherSkills = false;
     angular.forEach( $scope.candidate.skills, function(value, key){
       if( value.name == "Other"){
-        otherSkills = value.checked;
+        otherSkills = value.checked || false;
       }
     });
     return otherSkills;
