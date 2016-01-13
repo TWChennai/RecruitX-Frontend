@@ -37,8 +37,8 @@
             <ion-list >
               <ion-checkbox ng-repeat="skill in candidate.skills" ng-model="skill.checked">{{skill.name}}</ion-checkbox>
             </ion-list>
-            <div ng-if="hasOtherSkills()" ng-class="{ 'has-error' : candidateForm.otherSkills.$invalid && !candidateForm.otherSkills.$pristine }">
-              <textarea placeholder="Other Skills" name="otherSkills" ng-model="candidate.otherSkills" required></textarea>
+            <div ng-if="getOtherCheckbox().checked">
+              <textarea placeholder="Other Skills" name="otherSkills" ng-model="getOtherCheckbox().detail" required></textarea>
             </div>
           </div>
         </div>

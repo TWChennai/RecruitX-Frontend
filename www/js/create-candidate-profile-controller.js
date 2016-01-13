@@ -15,25 +15,35 @@ angular.module('starter')
 
   $scope.roles= ["Dev", "QA", "BA"];
 
-  $scope.isAtleastOneSkillSelected = function(){
+  $scope.isAtleastOnePredefinedSkillSelected = function(){
       var validity = false;
       angular.forEach( $scope.candidate.skills, function(value, key){
-        validity = value.checked || validity;
+        if($scope.getOtherCheckbox().name != value.name) {
+          validity = value.checked || validity;
+        }
       });
       return validity;
   }
 
-  $scope.hasOtherSkills = function(){
-    var otherSkills = false;
-    angular.forEach( $scope.candidate.skills, function(value, key){
-      if( value.name == "Other"){
-        otherSkills = value.checked || false;
-      }
+  $scope.getOtherCheckbox = function(){
+    var otherSkill;
+    angular.forEach($scope.candidate.skills, function(value, key){
+      if(value.name == "Other")
+        otherSkill = value;
     });
-    return otherSkills;
+    return otherSkill;
+  }
+
+  $scope.isSkillFieldsValid = function(){
+    var otherCheckBox = $scope.getOtherCheckbox();
+    if(otherCheckBox.checked == true)
+      return otherCheckBox.detail != undefined;
+    else
+      return $scope.isAtleastOnePredefinedSkillSelected();
   }
 
   $scope.isFormInvalid = function () {
-    return !$scope.isAtleastOneSkillSelected() || $scope.candidateForm.$invalid;
+    var validity = ($scope.isSkillFieldsValid() && !$scope.candidateForm.$invalid);
+    return !validity;
   }
 });

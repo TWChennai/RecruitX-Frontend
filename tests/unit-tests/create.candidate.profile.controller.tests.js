@@ -12,25 +12,62 @@ describe('createCandidateProfileController', function () {
   }));
 
   describe ('methods', function(){
-        describe('hasOtherSkills', function(){
-          it('should return false when candidate has no other skills',function(){
-              expect($scope.hasOtherSkills()).toEqual(false);
+        describe('isAtleastOnePredefinedSkillSelected', function(){
+          it('should return true when candidate has predetermined skills',function(){
+              $scope.candidate.skills[0].checked = true;
+              expect($scope.isAtleastOnePredefinedSkillSelected()).toEqual(true);
           });
 
-          it('should return true when candidate has other skills',function(){
-              $scope.candidate.skills[$scope.candidate.skills.length - 1].checked = true;
-              expect($scope.hasOtherSkills()).toEqual(true);
+          it('should return false when candidate has no skills',function(){
+              expect($scope.isAtleastOnePredefinedSkillSelected()).toEqual(false);
+          });
+
+          it('should return false when candidate has other skills but not predefined skills',function(){
+              $scope.getOtherCheckbox().checked = true;
+              $scope.getOtherCheckbox().detail = "Ionic";
+              expect($scope.isAtleastOnePredefinedSkillSelected()).toEqual(false);
           });
         });
 
-        describe('isAtleastOneSkillSelected', function(){
-          it('should return false when candidate has no other skills',function(){
-              expect($scope.isAtleastOneSkillSelected()).toEqual(false);
+        describe('getOtherCheckbox',function(){
+          it('should return other checkbox',function(){
+            expect($scope.getOtherCheckbox().name).toEqual("Other");
+          });
+        });
+
+        describe('isSkillFieldsValid',function(){
+          it('should return true when candidate has a predefined skill', function(){
+            $scope.candidate.skills[0].checked = true;
+            expect($scope.isSkillFieldsValid()).toEqual(true);
           });
 
-          it('should return true when candidate has  skills',function(){
-              $scope.candidate.skills[0].checked = true;
-              expect($scope.isAtleastOneSkillSelected()).toEqual(true);
+          it('should return true when candidate has other skill but no predefined skill', function(){
+            $scope.getOtherCheckbox().checked = true;
+            $scope.getOtherCheckbox().detail = "Ionic";
+            expect($scope.isSkillFieldsValid()).toEqual(true);
+          });
+
+          it('should return false when candidate has other skill unchecked but detail is entered', function(){
+            $scope.getOtherCheckbox().checked = false;
+            $scope.getOtherCheckbox().detail = "Ionic";
+            expect($scope.isSkillFieldsValid()).toEqual(false);
+          });
+
+          it('should return false when candidate has other skill checked but no detail is entered', function(){
+            $scope.getOtherCheckbox().checked = true;
+            expect($scope.isSkillFieldsValid()).toEqual(false);
+          });
+
+          it('should return true when candidate has other skill and predefined skill', function(){
+            $scope.getOtherCheckbox().checked = true;
+            $scope.getOtherCheckbox().detail = "Ionic";
+            $scope.candidate.skills[0].checked = true;
+
+            expect($scope.isSkillFieldsValid()).toEqual(true);
+          });
+
+          it('should return false when candidate has no predefined or other skills', function(){
+              expect($scope.isSkillFieldsValid()).toEqual(false);
           });
         });
   });
