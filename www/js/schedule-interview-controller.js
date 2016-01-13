@@ -12,10 +12,18 @@ angular.module('starter')
   $scope.dateTime = function(args) {
       var options = {
             date: new Date(),
-            mode: 'datetime'
+            mode: 'datetime',
+            allowOldDates: false,
+            locale: 'en_in'
             };
     $cordovaDatePicker.show(options).then(function(dateTime) {
-    $scope.interviewRounds[args].time = dateTime/8;
+
+     var date = new Date(dateTime);
+     var hours = date.getHours();
+     var ampm = hours >= 12 ? 'pm' : 'am';
+     hours = hours % 12;
+     hours = hours ? hours : 12;
+    $scope.interviewRounds[args].time =  date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + '  ' + hours + ':' + date.getMinutes() + " " + ampm;
   });
   };
   console.log("Hello:"+JSON.stringify($stateParams));

@@ -6,7 +6,12 @@
     <div ng-controller="scheduleInterviewController">
     <ion-list inset>
     <div ng-repeat="interviewRound in interviewRounds">
-    <ion-item class="item" ng-model="candidate.interviewRound.name" ng-click="dateTime($index)">{{interviewRound.name}}<p>{{interviewRound.time}}</p></ion-item>
+    <ion-item class="item" ng-model="candidate.interviewRound.name" ng-click="dateTime($index)">
+        <div class="row">
+            <p class="col col-50">{{interviewRound.name}}</p>
+            <p class="col col-50">{{interviewRound.time}}</p>
+        </div>
+    </ion-item>
     </div>
   </ion-list>
   </div>
