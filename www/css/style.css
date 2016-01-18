@@ -1,25 +1,26 @@
-.item-checkbox{
-  border:none;
+.text-center {
+	text-align: center;
 }
-
-.item-checkbox .checkbox{
-  left:0px;
+.item-checkbox {
+  border: none;
 }
-
-.checkbox{
-  padding-left:0px;
+.item-checkbox .checkbox {
+  left: 0px;
 }
-
-.item-select select{
-  position:relative;
-  padding:0px 0px 0px 0px;
-  direction:ltr;
+.checkbox {
+  padding-left: 0px;
 }
-
+.item-select select {
+  direction: ltr;
+  text-align: left;
+  width: 100%;
+}
 .bar {
-  padding:0px
+  padding: 0px
 }
-
-.new-block{
-  display:block;
+.new-block {
+  display: block;
+  width: 65%;
+  padding-left: 7px;
 }
+textarea { resize: none; min-height: 80px; }

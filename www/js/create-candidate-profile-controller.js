@@ -10,7 +10,7 @@ angular.module('starter')
     {name: "Ruby"},
     {name: "C#"},
     {name: "Python"},
-    {name: "Other"}
+    {name: "Please specify"}
   ];
 
   $scope.roles= ["Dev", "QA", "BA"];
@@ -28,7 +28,7 @@ angular.module('starter')
   $scope.getOtherCheckbox = function(){
     var otherSkill;
     angular.forEach($scope.candidate.skills, function(value, key){
-      if(value.name == "Other")
+      if(value.name == "Please specify")
         otherSkill = value;
     });
     return otherSkill;
