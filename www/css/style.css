@@ -1,3 +1,4 @@
+.col-30 { width: 30%; }
 .text-center {
 	text-align: center;
 }
@@ -5,10 +6,10 @@
   border: none;
 }
 .item-checkbox .checkbox {
-  left: 0px;
+  left: 0;
 }
 .checkbox {
-  padding-left: 0px;
+  padding-left: 0;
 }
 .item-select select {
   direction: ltr;
@@ -16,7 +17,7 @@
   width: 100%;
 }
 .bar {
-  padding: 0px
+  padding: 0;
 }
 .new-block {
   display: block;
@@ -24,3 +25,28 @@
   padding-left: 7px;
 }
 textarea { resize: none; min-height: 80px; }
+
+/* */
+.cust-tab .overflow-scroll { overflow-y: scroll; }
+.cust-tab.has-no-header > .tabs { top: 0; }
+.tab-content-padding { padding: 48px 0 0; }
+.tab-content-padding .row { padding: 0; }
+.pull-right { float: right; }
+.tab-content-padding .padBox { padding-bottom: 10px; }
+
+.cust-tab .tab-title { font-size: 16px; }
+.cust-tab .tab-item { max-width: initial; }
+
+.candidateInfo {
+	padding-left: 8px;
+	padding-right: 8px;
+}
+.candidateInfo h4 {
+	color: #6f6f6f;
+	padding-top: 4px;
+}
+.candidateInfo .col-20 {
+	padding-left: 0;
+	padding-right: 0;
+}
+.hide-header-bar .nav-bar-container { display: none; }
