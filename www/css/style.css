@@ -1,3 +1,4 @@
+body, .ionic-body { position: absolute;}
 .col-30 { width: 30%; }
 .text-center {
 	text-align: center;
@@ -27,15 +28,22 @@
 textarea { resize: none; min-height: 80px; }
 
 /* */
-.cust-tab .overflow-scroll { overflow-y: scroll; }
-.cust-tab.has-no-header > .tabs { top: 0; }
-.tab-content-padding { padding: 48px 0 0; }
+.view-container { top: 0; left: 0; }
+/* .overflow-scroll > .scroll { position: relative; } */
+.tab-content.tab-content-padding { padding: 48px 0 0; }
 .tab-content-padding .row { padding: 0; }
 .pull-right { float: right; }
 .tab-content-padding .padBox { padding-bottom: 10px; }
 
+.cust-tab { position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0; }
+.cust-tab .overflow-scroll { overflow-y: scroll; }
 .cust-tab .tab-title { font-size: 16px; }
 .cust-tab .tab-item { max-width: initial; }
+.cust-tab.tabs-top > .tabs { top: 0; }
 
 .candidateInfo {
 	padding-left: 8px;
@@ -49,4 +57,4 @@ textarea { resize: none; min-height: 80px; }
 	padding-left: 0;
 	padding-right: 0;
 }
-.hide-header-bar .nav-bar-container { display: none; }
+.nav-bar-tabs-top.hide ~ .view-container .cust-tab .tabs { top: 0; }

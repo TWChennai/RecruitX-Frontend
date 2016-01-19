@@ -35,7 +35,7 @@ angular.module('starter', ['ionic','ui.router', 'ngCordova'])
             controller: 'createCandidateProfileController',
 			onEnter: function() {
 				var body = document.querySelector('body');
-				body.className += " hide-header-bar";
+				body.className += ' hide-header-bar';
 			},
 			onExit: function() {
 				document.querySelector('body').classList.remove('hide-header-bar');
@@ -59,16 +59,16 @@ angular.module('starter', ['ionic','ui.router', 'ngCordova'])
 		.state('panelist-signup', {
             url: '/panelist-signup',
             templateUrl: 'templates/panelist-signup.html',
-            controller: 'panelistSignupController',
-			onEnter: function() {
+            controller: 'panelistSignupController' //,
+			/*onEnter: function() {
 				var body = document.querySelector('body');
-				body.className += " hide-header-bar";
+				body.className += ' hide-header-bar';
 			},
 			onExit: function() {
 				document.querySelector('body').classList.remove('hide-header-bar');
-			}
+			}*/
         });
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/panelist-signup');
+    $urlRouterProvider.otherwise('/candidates');
 });
