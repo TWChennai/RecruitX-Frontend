@@ -32,18 +32,7 @@ angular.module('starter', ['ionic','ui.router', 'ngCordova', 'ngResource'])
         .state('candidate-index', {
             url: '/candidates',
             templateUrl: 'templates/candidate-index.html',
-<<<<<<< HEAD
-            controller: 'createCandidateProfileController',
-			onEnter: function() {
-				var body = document.querySelector('body');
-				body.className += ' hide-header-bar';
-			},
-			onExit: function() {
-				document.querySelector('body').classList.remove('hide-header-bar');
-			}
-=======
             controller: 'createCandidateProfileController'
->>>>>>> Panelist device UI fixes
         })
 
         .state('create-candidate-profile', {
@@ -63,17 +52,7 @@ angular.module('starter', ['ionic','ui.router', 'ngCordova', 'ngResource'])
 		.state('panelist-signup', {
             url: '/panelist-signup',
             templateUrl: 'templates/panelist-signup.html',
-<<<<<<< HEAD
-            controller: 'panelistSignupController' //,
-			/*onEnter: function() {
-				var body = document.querySelector('body');
-				body.className += ' hide-header-bar';
-			},
-			onExit: function() {
-				document.querySelector('body').classList.remove('hide-header-bar');
-			}*/
-=======
->>>>>>> Panelist device UI fixes
+            controller: 'panelistSignupController'
         });
 
     // if none of the above states are matched, use this as the fallback
