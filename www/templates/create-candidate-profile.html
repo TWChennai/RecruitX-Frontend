@@ -7,16 +7,15 @@
                     <div class="item item-input" ng-class="{ 'has-error' : candidateForm.firstName.$invalid && !candidateForm.firstName.$pristine }">
                         <label class="input-label">First Name</label>
                         <div class="new-block">
-                            <input type="text" name="firstname" ng-model="candidate.firstName" ng-maxlength="30" placeholder="First Name" required />
+                            <input type="text" name="firstName" ng-model="firstName" ng-maxlength="30" placeholder="First Name" required />
                             <p ng-show="candidateForm.firstName.$error.required && !candidateForm.firstName.$pristine">is required</p>
                             <p ng-show="candidateForm.firstName.$error.maxlength && !candidateForm.firstName.$pristine">exceeded 30 characters</p>
                         </div>
                     </div>
-
                     <div class="item item-input" ng-class="{ 'has-error' : candidateForm.lastName.$invalid && !candidateForm.lastName.$pristine }">
                         <label class="input-label">Last Name</label>
                         <div class="new-block">
-                            <input type="text" name="lastname" ng-model="candidate.lastName" ng-maxlength="30" placeholder="Last Name" required />
+                            <input type="text" name="lastName" ng-model="lastName" ng-maxlength="30" placeholder="Last Name" required />
                             <p ng-show="candidateForm.lastName.$error.required && !candidateForm.lastName.$pristine">is required</p>
                             <p ng-show="candidateForm.lastName.$error.maxlength && !candidateForm.lastName.$pristine">exceeded 30 characters</p>
                         </div>
@@ -24,7 +23,7 @@
 
                     <div class="item item-input item-select" ng-class="{ 'has-error' : candidateForm.role.$invalid && !candidateForm.role.$pristine }">
                         <label class="input-label">Role</label>
-                        <select name="role" ng-options="role for role in roles" ng-model="candidate.role" required class="new-block"></select>
+                        <select name="role" ng-options="role.id as role.name for role in roles" ng-model="candidate.role_id" required class="new-block"></select>
                     </div>
 
                     <div class="item item-input" ng-class="{ 'has-error' : candidateForm.experience.$invalid && !candidateForm.experience.$pristine }">
@@ -40,17 +39,17 @@
                     <div class="item item-input">
                         <span class="input-label">Skills</span>
                         <div class="new-block">
-                            <ion-list>
-                                <ion-checkbox ng-repeat="skill in candidate.skills" ng-model="skill.checked">{{skill.name}}</ion-checkbox>
+                            <ion-list >
+                              <ion-checkbox ng-repeat="skill in skills" ng-model="skill.checked">{{skill.name}}</ion-checkbox>
                             </ion-list>
                             <div ng-if="getOtherCheckbox().checked">
-                                <textarea placeholder="Other Skills" name="otherSkills" ng-model="getOtherCheckbox().detail" placeholder="Eg. HTML, CSS etc.." required></textarea>
+                                <textarea placeholder="Other Skills" name="otherSkills" ng-model="candidate.additional_information" placeholder="Eg. HTML, CSS etc.." required></textarea>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <a class="button button-full icon-right ion-chevron-right button-positive" ng-disabled="isFormInvalid()" ui-sref="schedule-interview({candidateProfile: candidate})">Next</a>
+                <a class="button button-full icon-right ion-chevron-right button-positive" ng-disabled="isFormInvalid()" ui-sref="schedule-interview({candidate: candidate})" ng-click =  "processCandidateData()">Next</a>
             </form>
         </div>
     </ion-content>

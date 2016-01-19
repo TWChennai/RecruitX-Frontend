@@ -1,19 +1,20 @@
 <ion-view view-title="Schedule Interview">
-    <ion-content>
-        <div ng-controller="scheduleInterviewController">
-            <ion-list inset>
-                <div ng-repeat="interviewRound in interviewRounds">
-                    <ion-item class="item" ng-model="candidate.interviewRound.name" ng-click="dateTime($index)">
-                        <div class="row">
-                            <p class="col col-50">{{interviewRound.name}}</p>
-                            <p class="col col-50">{{interviewRound.time}}</p>
-                        </div>
-                    </ion-item>
-                </div>
-            </ion-list>
+  <ion-content>
+    <div ng-controller="scheduleInterviewController">
+    <ion-list inset>
+    <div ng-repeat="interviewRound in interviewRounds">
+    <ion-item class="item" ng-model="candidate.interviewRound.name" ng-click="dateTime($index)">
+        <div class="row">
+            <p class="col col-50">{{interviewRound.name}}</p>
+            <p class="col col-50">{{interviewRound.displayDateTime}}</p>
         </div>
-		<div class="bar bar-footer bar-balanced">
-			<button class="button button-full">Save</button>
-		</div>
-    </ion-content>
+    </ion-item>
+    </div>
+  </ion-list>
+  </div>
+  </ion-content>
+
+  <div class="bar bar-footer bar-positive" ng-controller="scheduleInterviewController">
+  <button class="button button-full" ng-click="postCandidate()">Save</button>
+</div>
 </ion-view>

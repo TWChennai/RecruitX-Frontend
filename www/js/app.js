@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 
-angular.module('starter', ['ionic','ui.router', 'ngCordova'])
+angular.module('starter', ['ionic','ui.router', 'ngCordova', 'ngResource'])
   .run(function ($ionicPlatform) {
     'use strict';
 
@@ -32,6 +32,7 @@ angular.module('starter', ['ionic','ui.router', 'ngCordova'])
         .state('candidate-index', {
             url: '/candidates',
             templateUrl: 'templates/candidate-index.html',
+<<<<<<< HEAD
             controller: 'createCandidateProfileController',
 			onEnter: function() {
 				var body = document.querySelector('body');
@@ -40,6 +41,9 @@ angular.module('starter', ['ionic','ui.router', 'ngCordova'])
 			onExit: function() {
 				document.querySelector('body').classList.remove('hide-header-bar');
 			}
+=======
+            controller: 'createCandidateProfileController'
+>>>>>>> Panelist device UI fixes
         })
 
         .state('create-candidate-profile', {
@@ -53,12 +57,13 @@ angular.module('starter', ['ionic','ui.router', 'ngCordova'])
           templateUrl: 'templates/schedule-interview.html',
           controller: 'scheduleInterviewController',
             params:{
-              candidateProfile: null
+              candidate: null
             }
         })
 		.state('panelist-signup', {
             url: '/panelist-signup',
             templateUrl: 'templates/panelist-signup.html',
+<<<<<<< HEAD
             controller: 'panelistSignupController' //,
 			/*onEnter: function() {
 				var body = document.querySelector('body');
@@ -67,6 +72,8 @@ angular.module('starter', ['ionic','ui.router', 'ngCordova'])
 			onExit: function() {
 				document.querySelector('body').classList.remove('hide-header-bar');
 			}*/
+=======
+>>>>>>> Panelist device UI fixes
         });
 
     // if none of the above states are matched, use this as the fallback
