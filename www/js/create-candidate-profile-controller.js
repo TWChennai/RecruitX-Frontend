@@ -15,7 +15,7 @@ angular.module('starter')
 	});
 
 
-  $scope.candidate.skill_ids = [];
+
 
   $scope.isAtleastOnePredefinedSkillSelected = function(){
     var validity = false;
@@ -57,6 +57,7 @@ angular.module('starter')
   };
 
   $scope.processCandidateData = function(){
+    $scope.candidate.skill_ids = [];
     $scope.candidate.name = $scope.firstName + " " + $scope.lastName;
     for(var skill in $scope.skills){
         if($scope.skills[skill].checked){

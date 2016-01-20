@@ -3,11 +3,6 @@ angular.module('starter')
     // base url
     var baseUrl = 'http://10.16.23.151:4000';
     return {
-      /*getSkills: function(response) {
-        return $http.get(baseUrl+'/skills').then(function(response){
-          return response.data;
-        });
-      }, */
       getRoles: function(success, error) {
         $http.get(baseUrl+'/roles').success(success);
       },
