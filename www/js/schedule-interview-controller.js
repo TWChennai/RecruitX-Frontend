@@ -1,21 +1,12 @@
 angular.module('starter')
-.factory('Candidate', function($resource){
-    'use strict';
-    return $resource('http://10.16.23.151:4000/candidates/:id');
-})
-
-.controller('scheduleInterviewController', function($scope, $stateParams, $cordovaDatePicker, Candidate){
+.controller('scheduleInterviewController', function($scope, $stateParams, $cordovaDatePicker, recruitFactory){
 
   $stateParams.candidate.rounds = [];
   var interviewMap = {};
-  // the below data should be got from server
-  $scope.interviewRounds = [
-               {id: '1', name:'CodePairing'},
-               {id: '2', name:'Technical1'},
-               {id: '3', name:'Technical2'},
-               {id: '4', name:'Leadership'},
-               {id: '5', name:'P3'}
-           ];
+  /* Get Interview Rounds */
+  recruitFactory.getInterviewRounds(function(interviewRounds){
+    $scope.interviewRounds = interviewRounds;
+  });
   $scope.dateTime = function(args) {
       var options = {
             date: new Date(),
@@ -41,14 +32,22 @@ angular.module('starter')
      }
   });
   };
-  
+  //console.log($stateParams);
+  //console.log(recruitFactory);
   $scope.postCandidate = function(){
-      for (var i in interviewMap){
-          $stateParams.candidate.rounds.push({id:i, timei:interviewMap[i]});
-          console.log('Key is: ' + i + '. Value is: ' + interviewMap[i]);
-      }
+    for (var i in interviewMap){
+      $stateParams.candidate.rounds.push({id:i, timei:interviewMap[i]});
+      console.log('Key is: ' + i + '. Value is: ' + interviewMap[i]);
+    }
 
-    var candidate = new Candidate($stateParams);
-    candidate.$save();
+    //var candidate = new Candidate($stateParams);
+    //candidate.$save();
+    //alert('test');
+    //console.log($stateParams);
+    //console.log(recruitFactory);
+    recruitFactory.saveCandidate($stateParams, function (res) {
+      //alert(res);
+      console.log(res);
+    });
   }
 });

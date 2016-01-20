@@ -1,5 +1,10 @@
 body, .ionic-body { position: absolute;}
 .col-30 { width: 30%; }
+.button {
+	padding: 0 16px;
+	min-height: 40px;
+	line-height: 36px;
+}
 .text-center {
 	text-align: center;
 }
@@ -57,4 +62,5 @@ textarea { resize: none; min-height: 80px; }
 	padding-left: 0;
 	padding-right: 0;
 }
+.candidateInfo .icon { font-size: 18px; }
 .nav-bar-tabs-top.hide ~ .view-container .cust-tab .tabs { top: 0; }

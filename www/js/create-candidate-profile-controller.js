@@ -1,65 +1,67 @@
 angular.module('starter')
+.controller('createCandidateProfileController', ['$rootScope', '$scope', '$http', 'recruitFactory', function ($rootScope, $scope, $http, recruitFactory) {
 
-.controller('createCandidateProfileController', function ($scope) {
-  'use strict';
+  $scope.candidate = {}, $scope.skills = [], $scope.roles = [];
+  //console.log(Object.keys($scope.skills).length);
+  recruitFactory.getSkills(function(skills){
+		//console.log(skills);
+    $scope.skills = skills;
+    //console.log(Object.keys($scope.skills).length);
+	});
 
-  $scope.candidate = {};
+  recruitFactory.getRoles(function(roles){
+    //console.log(roles[0].name);
+	  $scope.roles = roles;
+	});
 
-  $scope.skills =[
-    {id: 1, name: "Java"},
-    {id: 2, name: "Ruby"},
-    {id: 3, name: "C#"},
-    {id: 4, name: "Python"},
-    {id: 5, name: "Please specify"}
-  ];
+
   $scope.candidate.skill_ids = [];
 
-  $scope.roles= [
-    {id: 1, name: "Dev"},
-    {id: 2, name: "QA"},
-    {id: 3, name: "BA"},
-    {id: 4, name: "PM"},
-    {id: 5, name: "UI/UX"}
-  ];
-
   $scope.isAtleastOnePredefinedSkillSelected = function(){
-      var validity = false;
-      angular.forEach( $scope.skills, function(value, key){
-        if($scope.getOtherCheckbox().name != value.name) {
-          validity = value.checked || validity;
-        }
-      });
-      return validity;
+    var validity = false;
+    angular.forEach( $scope.skills, function(value, key){
+      if($scope.getOtherCheckbox().name != value.name) {
+        validity = value.checked || validity;
+      }
+    });
+    return validity;
   };
 
   $scope.getOtherCheckbox = function(){
     var otherSkill;
     angular.forEach($scope.skills, function(value, key){
-      if(value.name == "Please specify")
+      if(value.name == "Other")
         otherSkill = value;
     });
     return otherSkill;
  };
 
   $scope.isSkillFieldsValid = function(){
-    var otherCheckBox = $scope.getOtherCheckbox();
-    if(otherCheckBox.checked)
-      return $scope.candidate.additional_information !== undefined;
-    else
-      return $scope.isAtleastOnePredefinedSkillSelected();
+    if( Object.keys($scope.skills).length > 0 ) {
+      var otherCheckBox = $scope.getOtherCheckbox();
+      if(otherCheckBox.checked)
+        return $scope.candidate.additional_information !== undefined;
+      else
+        return $scope.isAtleastOnePredefinedSkillSelected();
+    }
   };
 
   $scope.isFormInvalid = function () {
-    var validity = ($scope.isSkillFieldsValid() && !$scope.candidateForm.$invalid);
-    return !validity;
-};
+    if( Object.keys($scope.skills).length > 0 ) {
+      var validity = ($scope.isSkillFieldsValid() && !$scope.candidateForm.$invalid);
+      return !validity;
+    }
+    else {
+      return !validity;
+    }
+  };
 
   $scope.processCandidateData = function(){
-      $scope.candidate.name = $scope.firstName + " " + $scope.lastName;
-      for(var skill in $scope.skills){
-          if($scope.skills[skill].checked){
-             $scope.candidate.skill_ids.push($scope.skills[skill].id);
-          }
-      }
+    $scope.candidate.name = $scope.firstName + " " + $scope.lastName;
+    for(var skill in $scope.skills){
+        if($scope.skills[skill].checked){
+           $scope.candidate.skill_ids.push($scope.skills[skill].id);
+        }
+    }
   };
-});
+}]);
