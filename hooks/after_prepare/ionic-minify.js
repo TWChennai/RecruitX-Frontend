@@ -10,7 +10,7 @@ var path = require('path'),
     minify = false;
 
 if (cmd.indexOf('--release') > -1) {
-  console.log('WARN: The use of the --release flag is deprecated!! Use --minify instead!');
+  process.stdout.write('WARN: The use of the --release flag is deprecated!! Use --minify instead!');
   minify = true;
 } else {
   minify = config.alwaysRun || (cmd.indexOf('--minify') > -1);
@@ -20,6 +20,6 @@ config.showErrStack = (config.showErrStack || false);
 config.jsOptions.fromString = true;
 if (minify) {
   var ionicMinify = new ionicMinify.Minifier(config, platforms, platformPath);
-  console.log('Starting to minify your files...');
+  process.stdout.write('Starting to minify your files...');
   ionicMinify.run();
 }

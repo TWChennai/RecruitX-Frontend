@@ -13,7 +13,6 @@ module.exports = function(config) {
     frameworks: ['jasmine'],
 
     // list of files / patterns to load in the browser
-    // TODO: Need to correlate this list with the one defined in 'index.html'
     files: [
       '../www/lib/ionic/js/ionic.bundle.js',
       '../www/lib/ngCordova/dist/ng-cordova.js',

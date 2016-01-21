@@ -11,7 +11,7 @@
 var fs = require('fs'),
   path = require('path'),
   rootdir = process.argv[2],
-  findBodyTag = function (html) {
+  findBodyTag = function(html) {
     'use strict';
 
     // get the body tag
@@ -19,7 +19,8 @@ var fs = require('fs'),
       return html.match(/<body(?=[\s>])(.*?)>/gi)[0];
     } catch (e) {}
   },
-  findClassAttr = function (bodyTag) {
+
+  findClassAttr = function(bodyTag) {
     'use strict';
 
     // get the body tag's class attribute
@@ -27,7 +28,8 @@ var fs = require('fs'),
       return bodyTag.match(/ class=["|'](.*?)["|']/gi)[0];
     } catch (e) {}
   },
-  addPlatformBodyTag = function (indexPath, platform) {
+
+  addPlatformBodyTag = function(indexPath, platform) {
     'use strict';
 
     // add the platform class to the body tag
