@@ -1,4 +1,13 @@
 body, .ionic-body { position: absolute;}
+.item .error, .error {
+	color: #C71E1E;
+	display: block;
+	white-space: normal;
+}
+.pane[hide-nav-bar="true"] .fixed-top {
+	top: 0;
+	border-bottom: 2px solid #fff;
+}
 .col-30 { width: 30%; }
 .button {
 	padding: 0 16px;
@@ -30,10 +39,15 @@ body, .ionic-body { position: absolute;}
   width: 65%;
   padding-left: 7px;
 }
-textarea { resize: none; min-height: 80px; }
+textarea {
+	resize: none;
+	min-height: 80px;
+}
 
 /* */
-.view-container { top: 0; left: 0; }
+.view-container { top: 0;
+	left: 0;
+}
 /* .overflow-scroll > .scroll { position: relative; } */
 .tab-content.tab-content-padding { padding: 48px 0 0; }
 .tab-content-padding .row { padding: 0; }

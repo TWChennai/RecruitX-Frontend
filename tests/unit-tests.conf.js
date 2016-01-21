@@ -17,7 +17,10 @@ module.exports = function(config) {
     files: [
       '../www/lib/ionic/js/ionic.bundle.js',
       '../www/lib/ngCordova/dist/ng-cordova.js',
+      '../www/lib/ionic/js/angular-ui/angular-ui-router.js',
       '../www/lib/ionic/js/angular/angular-resource.js',
+      '../www/js/app.js',
+      '../www/js/services.js',
       '../www/js/*.js',
       '../www/lib/angular-mocks/angular-mocks.js',
       'unit-tests/**/*.js',
