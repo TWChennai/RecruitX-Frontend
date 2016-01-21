@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 
 angular.module('starter', ['ionic','ui.router', 'ngCordova', 'ngResource'])
-  .run(function ($ionicPlatform) {
+  .run(function ($rootScope, $ionicPlatform, recruitFactory) {
     'use strict';
 
     $ionicPlatform.ready(function () {
@@ -22,6 +22,16 @@ angular.module('starter', ['ionic','ui.router', 'ngCordova', 'ngResource'])
       if (window.StatusBar) {
         window.StatusBar.styleDefault();
       }
+
+      /* Get roles and Skills */
+      recruitFactory.getSkills(function(skills) {
+        $rootScope.skills = skills;
+      });
+
+      recruitFactory.getRoles(function(roles) {
+        $rootScope.roles = roles;
+      });
+
     });
   })
 

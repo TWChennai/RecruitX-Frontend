@@ -1,0 +1,24 @@
+{
+  "foldersToProcess": [
+    "js",
+    "css",
+    "img"
+  ],
+  "jpgOptions":{
+    "quality": 60
+  },
+  "jsOptions": {
+    "compress": {
+      "sequences": true,
+      "drop_debugger": true,
+      "booleans": true,
+      "drop_console": true
+    }
+  },
+  "cssOptions": {
+    "aggressiveMerging": true,
+    "keepSpecialComments": 0
+  },
+  "alwaysRun": false,
+  "showErrStack": false
+}

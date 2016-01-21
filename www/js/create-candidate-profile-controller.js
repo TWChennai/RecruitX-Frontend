@@ -4,13 +4,9 @@ angular.module('starter')
 
   $scope.candidate = {}, $scope.skills = [], $scope.roles = [];
 
-  recruitFactory.getSkills(function(skills) {
-    $scope.skills = skills;
-  });
-
-  recruitFactory.getRoles(function(roles) {
-    $scope.roles = roles;
-  });
+  // Assigining the skills and roles from the rootScope
+  $scope.skills = $rootScope.skills;
+  $scope.roles = $rootScope.roles;
 
   $scope.isAtleastOnePredefinedSkillSelected = function() {
     var validity = false;

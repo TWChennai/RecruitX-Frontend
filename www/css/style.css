@@ -1,13 +1,6 @@
 body, .ionic-body { position: absolute;}
-.item .error, .error {
-	color: #C71E1E;
-	display: block;
-	white-space: normal;
-}
-.pane[hide-nav-bar="true"] .fixed-top {
-	top: 0;
-	border-bottom: 2px solid #fff;
-}
+
+/* Helper Classes */
 .col-30 { width: 30%; }
 .button {
 	padding: 0 16px;
@@ -17,19 +10,37 @@ body, .ionic-body { position: absolute;}
 .text-center {
 	text-align: center;
 }
+.item .error, .error {
+	color: #C71E1E;
+	display: block;
+	white-space: normal;
+}
+textarea {
+	resize: none;
+	min-height: 80px;
+}
+.pull-right { float: right; }
+
+/* Ionic Overrides */
+
+/* Form Elements */
 .item-checkbox {
-  border: none;
+	border: none;
 }
 .item-checkbox .checkbox {
-  left: 0;
+	left: 0;
 }
 .checkbox {
-  padding-left: 0;
+	padding-left: 0;
 }
 .item-select select {
-  direction: ltr;
-  text-align: left;
-  width: 100%;
+	direction: ltr;
+	text-align: left;
+	width: 100%;
+}
+.pane[hide-nav-bar="true"] .fixed-top {
+	top: 0;
+	border-bottom: 2px solid #fff;
 }
 .bar {
   padding: 0;
@@ -39,31 +50,27 @@ body, .ionic-body { position: absolute;}
   width: 65%;
   padding-left: 7px;
 }
-textarea {
-	resize: none;
-	min-height: 80px;
-}
-
-/* */
-.view-container { top: 0;
+.view-container {
+	top: 0;
 	left: 0;
 }
-/* .overflow-scroll > .scroll { position: relative; } */
 .tab-content.tab-content-padding { padding: 48px 0 0; }
 .tab-content-padding .row { padding: 0; }
-.pull-right { float: right; }
-.tab-content-padding .padBox { padding-bottom: 10px; }
-
-.cust-tab { position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0; }
+.tab-content-padding .pad-box { padding-bottom: 10px; }
+.cust-tab {
+	position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
 .cust-tab .overflow-scroll { overflow-y: scroll; }
 .cust-tab .tab-title { font-size: 16px; }
 .cust-tab .tab-item { max-width: initial; }
 .cust-tab.tabs-top > .tabs { top: 0; }
+.nav-bar-tabs-top.hide ~ .view-container .cust-tab .tabs { top: 0; }
 
+/* Candidate Info - Panelist Signup Page */
 .candidateInfo {
 	padding-left: 8px;
 	padding-right: 8px;
@@ -77,4 +84,3 @@ textarea {
 	padding-right: 0;
 }
 .candidateInfo .icon { font-size: 18px; }
-.nav-bar-tabs-top.hide ~ .view-container .cust-tab .tabs { top: 0; }
