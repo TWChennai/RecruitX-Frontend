@@ -10,7 +10,7 @@ describe('createCandidateProfileController', function() {
     $controller = _$controller_;
     controller = $controller('createCandidateProfileController', { $scope: $scope });
 
-    $scope.skills = [{id: 1, name: 'Java'}, {id: 2, name: 'C#'}, {id: 3, name: 'Python'}, {id: 4, name: 'Ruby'}, {id: 5, name: 'Other'}];
+    $scope.skills = [{ id: 1, name: 'Java' }, { id: 2, name: 'C#' }, { id: 3, name: 'Python' }, { id: 4, name: 'Ruby' }, { id: 5, name: 'Other' }];
   }));
 
   describe('methods', function() {
@@ -59,6 +59,7 @@ describe('createCandidateProfileController', function() {
         $scope.getOtherCheckbox().checked = true;
         expect($scope.isSkillFieldsValid()).toEqual(false);
       });
+
       it('should return true when candidate has other skill and predefined skill', function() {
         $scope.getOtherCheckbox().checked = true;
         $scope.candidate.additional_information = 'Ionic';
@@ -73,9 +74,8 @@ describe('createCandidateProfileController', function() {
     });
   });
 
-  describe('form validations', function () {
-
-    it('should return valid when checkbox is checked and form is valid', function () {
+  describe('form validations', function() {
+    it('should return valid when checkbox is checked and form is valid', function() {
       $scope.candidateForm = {
         $invalid: false,
       };
@@ -83,14 +83,14 @@ describe('createCandidateProfileController', function() {
       expect($scope.isFormInvalid()).toEqual(false);
     });
 
-    it('should be invalid when no skill checkbox is checked and rest of the fields are valid', function () {
+    it('should be invalid when no skill checkbox is checked and rest of the fields are valid', function() {
       $scope.candidateForm = {
          $invalid: false,
        };
       expect($scope.isFormInvalid()).toEqual(true);
     });
 
-    it('should return invalid when any skill checkbox is checked and form is invalid', function () {
+    it('should return invalid when any skill checkbox is checked and form is invalid', function() {
       $scope.candidateForm = {
         $invalid: true,
       };

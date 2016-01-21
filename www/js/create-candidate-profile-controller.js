@@ -41,7 +41,7 @@ angular.module('starter')
     }
   };
 
-  $scope.isFormInvalid = function () {
+  $scope.isFormInvalid = function() {
     if (Object.keys($scope.skills).length > 0) {
       var validity = ($scope.isSkillFieldsValid() && !$scope.candidateForm.$invalid);
       return !validity;
