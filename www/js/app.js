@@ -26,35 +26,36 @@ angular.module('starter', ['ionic','ui.router', 'ngCordova', 'ngResource'])
   })
 
   .config(function ($stateProvider, $urlRouterProvider) {
+    'use strict';
 
     $stateProvider
+      .state('candidate-index', {
+        url: '/candidates',
+        templateUrl: 'templates/candidate-index.html',
+        controller: 'createCandidateProfileController',
+      })
 
-        .state('candidate-index', {
-            url: '/candidates',
-            templateUrl: 'templates/candidate-index.html',
-            controller: 'createCandidateProfileController'
-        })
+      .state('create-candidate-profile', {
+        url: '/candidates/new',
+        templateUrl: 'templates/create-candidate-profile.html',
+        controller: 'createCandidateProfileController',
+      })
 
-        .state('create-candidate-profile', {
-            url: '/candidates/new',
-            templateUrl: 'templates/create-candidate-profile.html',
-            controller: 'createCandidateProfileController'
-        })
+      .state('schedule-interview', {
+        url: '/candidates/interviews/new',
+        templateUrl: 'templates/schedule-interview.html',
+        controller: 'scheduleInterviewController',
+        params: {
+          candidate: null,
+        },
+      })
 
-        .state('schedule-interview',{
-          url: '/candidates/interviews/new',
-          templateUrl: 'templates/schedule-interview.html',
-          controller: 'scheduleInterviewController',
-            params:{
-              candidate: null
-            }
-        })
-		.state('panelist-signup', {
-            url: '/panelist-signup',
-            templateUrl: 'templates/panelist-signup.html',
-            controller: 'panelistSignupController'
-        });
+      .state('panelist-signup', {
+        url: '/panelist-signup',
+        templateUrl: 'templates/panelist-signup.html',
+        controller: 'panelistSignupController',
+      });
 
-    // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/candidates');
+  // if none of the above states are matched, use this as the fallback
+  $urlRouterProvider.otherwise('/candidates');
 });

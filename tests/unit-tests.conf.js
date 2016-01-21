@@ -1,7 +1,7 @@
 // Karma configuration
 // Generated on Mon Jan 04 2016 17:31:56 GMT+0530 (IST)
 
-module.exports = function (config) {
+module.exports = function(config) {
   'use strict';
 
   config.set({
@@ -13,11 +13,14 @@ module.exports = function (config) {
     frameworks: ['jasmine'],
 
     // list of files / patterns to load in the browser
+    // TODO: Need to correlate this list with the one defined in 'index.html'
     files: [
       '../www/lib/ionic/js/ionic.bundle.js',
+      '../www/lib/ngCordova/dist/ng-cordova.js',
+      '../www/lib/ionic/js/angular/angular-resource.js',
       '../www/js/*.js',
       '../www/lib/angular-mocks/angular-mocks.js',
-      'unit-tests/**/*.js'
+      'unit-tests/**/*.js',
     ],
 
     // list of files to exclude
@@ -56,6 +59,6 @@ module.exports = function (config) {
 
     // Concurrency level
     // how many browser should be started simultaneous
-    concurrency: Infinity
+    concurrency: Infinity,
   });
 };

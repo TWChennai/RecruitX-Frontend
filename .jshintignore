@@ -6,3 +6,4 @@ www/lib/angular/**/*.js
 www/lib/ionic/**/*.js
 www/lib/ngCordova/**/*.js
 plugins/**/*.js
+node_modules/**

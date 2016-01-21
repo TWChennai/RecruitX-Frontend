@@ -1,4 +1,5 @@
 angular.module('starter')
-	.controller('panelistSignupController', function ($scope) {
-		
+	.controller('panelistSignupController', function($scope) {
+  'use strict';
+
 	});
