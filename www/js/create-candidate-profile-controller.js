@@ -14,8 +14,8 @@ angular.module('starter')
 
   $scope.isAtleastOnePredefinedSkillSelected = function() {
     var validity = false;
-    angular.forEach($scope.skills, function(value, key) {
-      if ($scope.getOtherCheckbox().name != value.name) {
+    angular.forEach($scope.skills, function(value) {
+      if ($scope.getOtherCheckbox().name !== value.name) {
         validity = value.checked || validity;
       }
     });
@@ -25,7 +25,7 @@ angular.module('starter')
 
   $scope.getOtherCheckbox = function() {
     var otherSkill;
-    angular.forEach($scope.skills, function(value, key) {
+    angular.forEach($scope.skills, function(value) {
       if (value.name === 'Other') {
         otherSkill = value;
       }

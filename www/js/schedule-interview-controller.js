@@ -3,10 +3,8 @@ angular.module('starter')
   'use strict';
 
   $stateParams.candidate.interview_schedule = [];
-  // var interviewMap = {};
   /* Get Interview Rounds */
   recruitFactory.getInterviewRounds(function(interviewRounds){
-    //$scope.interviewRounds = interviewRounds;
     $scope.interviewRounds = $filter('orderBy')(interviewRounds, 'priority');
   });
 
@@ -22,7 +20,7 @@ angular.module('starter')
       var currentPriority = $scope.interviewRounds[index].priority;
       var previousInterviewRound = $filter('filter')($scope.interviewRounds, {priority: currentPriority - 1});
 
-      if (currentPriority > 1 && (previousInterviewRound[0].dateTime == undefined || dateTime.getTime() <= previousInterviewRound[0].dateTime)) {
+      if (currentPriority > 1 && (previousInterviewRound[0].dateTime === undefined || dateTime.getTime() <= previousInterviewRound[0].dateTime)) {
           alert('Please schedule this round after ' + previousInterviewRound[0].name);
       } else {
         $scope.interviewRounds[index].dateTime = dateTime;
@@ -31,7 +29,6 @@ angular.module('starter')
   };
 
   $scope.isFormInvalid = function() {
-    var inValid = true;
     for (var interviewRoundIndex in $scope.interviewRounds) {
       if ($scope.interviewRounds[interviewRoundIndex].dateTime !== undefined) {
         return false;
@@ -53,8 +50,5 @@ angular.module('starter')
         //alert(res);
         console.log(res);
       });
-
-      // var candidate = new Candidate($stateParams)
-      // candidate.$save()
     };
 });
