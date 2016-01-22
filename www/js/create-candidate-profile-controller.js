@@ -5,8 +5,16 @@ angular.module('starter')
   $scope.candidate = {}, $scope.skills = [], $scope.roles = [];
 
   // Assigining the skills and roles from the rootScope
-  $scope.skills = $rootScope.skills;
-  $scope.roles = $rootScope.roles;
+  recruitFactory.getSkills(function(skills) {
+    $scope.skills = skills;
+  });
+  recruitFactory.getRoles(function(roles) {
+    $scope.roles = roles;
+  });
+
+  // Temporarily loaded api within the controller
+  //$scope.skills = $rootScope.skills;
+  //$scope.roles = $rootScope.roles;
 
   $scope.isAtleastOnePredefinedSkillSelected = function() {
     var validity = false;

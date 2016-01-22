@@ -2,7 +2,7 @@ angular.module('starter')
 .controller('scheduleInterviewController', function($scope, $stateParams, $cordovaDatePicker, recruitFactory,  $filter) {
   'use strict';
 
-  $stateParams.candidate.interview_schedule = [];
+  $stateParams.candidate.interview_rounds = [];
   /* Get Interview Rounds */
   recruitFactory.getInterviewRounds(function(interviewRounds) {
     $scope.interviewRounds = $filter('orderBy')(interviewRounds, 'priority');
@@ -42,10 +42,11 @@ angular.module('starter')
     for (var interviewRoundIndex in $scope.interviewRounds) {
       if ($scope.interviewRounds[interviewRoundIndex].dateTime !== undefined) {
         var formattedDateTime = $filter('date')($scope.interviewRounds[interviewRoundIndex].dateTime, 'yyyy-MM-dd HH:mm:ss');
-        $stateParams.candidate.interview_schedule.push({ 'interview_id': $scope.interviewRounds[interviewRoundIndex].id,
-        'candidate_interview_date_time': formattedDateTime, });
+        $stateParams.candidate.interview_rounds.push({ 'interview_id': $scope.interviewRounds[interviewRoundIndex].id,
+        'interview_date_time': formattedDateTime, });
       }
     }
+    $scope.stateParamsObj = $stateParams;
 
     recruitFactory.saveCandidate($stateParams, function(res) {
       console.log(res);

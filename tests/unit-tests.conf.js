@@ -14,10 +14,10 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      '../www/lib/ionic/js/ionic.bundle.js',
-      '../www/lib/ngCordova/dist/ng-cordova.js',
-      '../www/lib/ionic/js/angular-ui/angular-ui-router.js',
-      '../www/lib/ionic/js/angular/angular-resource.js',
+      '../www/lib/ionic/js/ionic.bundle.min.js',
+      '../www/lib/ngCordova/dist/ng-cordova.min.js',
+      '../www/lib/ionic/js/angular-ui/angular-ui-router.min.js',
+      '../www/lib/ionic/js/angular/angular-resource.min.js',
       '../www/js/app.js',
       '../www/js/services.js',
       '../www/js/create-candidate-profile-controller.js',

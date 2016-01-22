@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 
 angular.module('starter', ['ionic','ui.router', 'ngCordova', 'ngResource'])
-  .run(function ($rootScope, $ionicPlatform, recruitFactory) {
+  .run(function ($cordovaSplashscreen, $rootScope, $ionicPlatform, recruitFactory) {
     'use strict';
 
     $ionicPlatform.ready(function () {
@@ -24,14 +24,23 @@ angular.module('starter', ['ionic','ui.router', 'ngCordova', 'ngResource'])
       }
 
       /* Get roles and Skills */
+      /* var request = 0;
       recruitFactory.getSkills(function(skills) {
         $rootScope.skills = skills;
+        request++;
+        hideSplashScreen();
       });
 
       recruitFactory.getRoles(function(roles) {
         $rootScope.roles = roles;
+        request++;
+        hideSplashScreen();
       });
-
+      function hideSplashScreen() {
+        if(request >= 2) {
+          $cordovaSplashscreen.hide();
+        }
+      } */
     });
   })
 
@@ -64,6 +73,11 @@ angular.module('starter', ['ionic','ui.router', 'ngCordova', 'ngResource'])
         url: '/panelist-signup',
         templateUrl: 'templates/panelist-signup.html',
         controller: 'panelistSignupController',
+      })
+      .state('interview-details', {
+        url: '/interview-details',
+        templateUrl: 'templates/interview-details.html',
+        controller: 'interviewDetailsController',
       });
 
   // if none of the above states are matched, use this as the fallback
