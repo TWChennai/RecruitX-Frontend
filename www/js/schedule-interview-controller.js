@@ -1,7 +1,6 @@
 angular.module('starter')
-.controller('scheduleInterviewController', function($scope, $stateParams, $cordovaDatePicker, recruitFactory,  $filter) {
+.controller('scheduleInterviewController', function($scope, $stateParams, $cordovaDatePicker, recruitFactory,  $filter, $ionicPopup) {
   'use strict';
-
   $stateParams.candidate.interview_rounds = [];
   /* Get Interview Rounds */
   recruitFactory.getInterviewRounds(function(interviewRounds) {
@@ -26,7 +25,7 @@ angular.module('starter')
       if ($scope.isInterviewScheduleValid(dateTime , currentInterviewRound, previousInterviewRound)) {
         $scope.interviewRounds[index].dateTime = dateTime;
       } else {
-        alert('Please schedule this round after ' + previousInterviewRound.name);
+        $scope.showAlert('Invalid Selection', 'Please schedule this round after  ' + previousInterviewRound.name);
       }
     });
   };
@@ -59,10 +58,19 @@ angular.module('starter')
         'interview_date_time': formattedDateTime, });
       }
     }
-    $scope.stateParamsObj = $stateParams;
 
     recruitFactory.saveCandidate($stateParams, function(res) {
       console.log(res);
+      $scope.showAlert('Success', 'Candidate data has been successfully submitted!!');
     });
   };
+
+  $scope.showAlert = function(alertTitle, alertText) {
+   $ionicPopup.alert({
+     title: alertTitle,
+     template: alertText
+   });
+ };
+
+
 });

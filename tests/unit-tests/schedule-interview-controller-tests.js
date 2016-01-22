@@ -3,7 +3,7 @@ describe('scheduleInterviewController', function() {
 
 beforeEach(module('starter'));
 
-var $controller, $scope = {}, controller, $stateParams;
+var $controller, $scope = {}, controller;
 
 
 
@@ -11,7 +11,7 @@ beforeEach(inject(function(_$controller_, $stateParams) {
   // The injector unwraps the underscores (_) from around the parameter names when matching
 
   $stateParams = $stateParams;
-  $stateParams.candidate = {}
+  $stateParams.candidate = {};
   $stateParams.candidate.interview_schedule = [];
   $controller = _$controller_;
   controller = $controller('scheduleInterviewController', { $scope: $scope });

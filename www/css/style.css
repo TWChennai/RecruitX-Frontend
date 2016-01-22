@@ -71,6 +71,9 @@ textarea {
 .nav-bar-tabs-top.hide ~ .view-container .cust-tab .tabs { top: 0; }
 .candidateDetails .item-radio input:checked+.radio-content .radio-icon { display: none; }
 .candidateDetails .item-radio .item-content { padding: 10px 18%; }
+.popup-title { font-weight: bold; }
+.popup-body {text-align: center;}
+.backBtn .button.button-clear { padding: 0 8px; }
 
 /* Candidate Info - Panelist Signup Page */
 .candidateInfo {
