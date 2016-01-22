@@ -17,15 +17,28 @@ angular.module('starter')
     };
 
     $cordovaDatePicker.show(options).then(function(dateTime) {
-      var currentPriority = $scope.interviewRounds[index].priority;
-      var previousInterviewRound = $filter('filter')($scope.interviewRounds, { priority: currentPriority - 1 });
+      var currentInterviewRound = $scope.interviewRounds[index];
+      var currentPriority = currentInterviewRound.priority;
 
-      if (currentPriority > 1 && (previousInterviewRound[0].dateTime === undefined || dateTime.getTime() <= previousInterviewRound[0].dateTime)) {
-        window.alert('Please schedule this round after ' + previousInterviewRound[0].name);
-      } else {
+      var nextLowerPriorityInterviewRounds = ($filter('filter')($scope.interviewRounds, {priority: currentPriority - 1}));
+      var previousInterviewRound = nextLowerPriorityInterviewRounds[0];
+
+      if ($scope.isInterviewScheduleValid(dateTime , currentInterviewRound, previousInterviewRound)) {
         $scope.interviewRounds[index].dateTime = dateTime;
+      } else {
+        alert('Please schedule this round after ' + previousInterviewRound.name);
       }
     });
+  };
+
+  $scope.isInterviewScheduleValid = function(scheduleDateTime, currentInterviewRound, previousInterviewRound){
+    var currentPriority = currentInterviewRound.priority;
+
+    if (currentPriority > 1 && (previousInterviewRound.dateTime === undefined || scheduleDateTime <= previousInterviewRound.dateTime)) {
+        return false;
+    } else {
+      return true;
+    }
   };
 
   $scope.isFormInvalid = function() {
