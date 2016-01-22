@@ -51,13 +51,13 @@ angular.module('starter', ['ionic','ui.router', 'ngCordova', 'ngResource'])
       .state('candidate-index', {
         url: '/candidates',
         templateUrl: 'templates/candidate-index.html',
-        controller: 'createCandidateProfileController',
+        controller: 'createCandidateProfileController'
       })
 
       .state('create-candidate-profile', {
         url: '/candidates/new',
         templateUrl: 'templates/create-candidate-profile.html',
-        controller: 'createCandidateProfileController',
+        controller: 'createCandidateProfileController'
       })
 
       .state('schedule-interview', {
@@ -72,12 +72,12 @@ angular.module('starter', ['ionic','ui.router', 'ngCordova', 'ngResource'])
       .state('panelist-signup', {
         url: '/panelist-signup',
         templateUrl: 'templates/panelist-signup.html',
-        controller: 'panelistSignupController',
+        controller: 'panelistSignupController'
       })
-      .state('interview-details', {
-        url: '/interview-details',
-        templateUrl: 'templates/interview-details.html',
-        controller: 'interviewDetailsController',
+      .state('candidate-details', {
+        url: '/candidate-details',
+        templateUrl: 'templates/candidate-details.html',
+        controller: ''
       });
 
   // if none of the above states are matched, use this as the fallback

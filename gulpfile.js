@@ -55,7 +55,7 @@ gulp.task('git-check', function(done) {
       '\n  Once git is installed, run \'' + gutil.colors.cyan('gulp install') + '\' again.'
     );
 
-    process.exit(1);
+    // process.exit(1);
   }
 
   done();

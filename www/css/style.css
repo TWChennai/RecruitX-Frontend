@@ -107,9 +107,29 @@ textarea {
 	padding: 6px 12px;
 	text-align: center;
 }
-.customRadio label.check
 .customRadio label:first-child { border-left: 1px solid #dbdbdb; }
 .candidateDetails .customRadio input[type="radio"] {
 	opacity: 0;
 	position: absolute;
+}
+.imgUploadBtn {
+	background-size: 100% auto;
+	border-radius: 50%;
+	display: block;
+	margin: 20px auto;
+	height: 64px;
+	position: relative;
+	width: 64px;
+}
+.imgUploadBtn:after {
+	content: '';
+	display: block;
+	width: 76%;
+	height: 76%;
+	background: url('../img/image_upload_icon.png') center center no-repeat;;
+	-webkit-background-size: 100% auto;
+	-ms-background-size: 100% auto;
+	position: absolute;
+	top: 12%;
+	left: 12%;
 }
