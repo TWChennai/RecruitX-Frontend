@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 
 angular.module('starter', ['ionic','ui.router', 'ngCordova', 'ngResource'])
-  .run(function ($cordovaSplashscreen, $rootScope, $ionicPlatform, recruitFactory) {
+  .run(function ($cordovaSplashscreen, $rootScope, $ionicPlatform ) {
     'use strict';
 
     $ionicPlatform.ready(function () {

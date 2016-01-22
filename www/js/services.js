@@ -5,15 +5,15 @@ angular.module('starter')
     // base url
     var baseUrl = 'http://10.16.23.187:4000';
     return {
-      getRoles: function(success, error) {
+      getRoles: function(success) {
         $http.get(baseUrl + '/roles').success(success);
       },
 
-      getSkills: function(success, error) {
+      getSkills: function(success) {
         $http.get(baseUrl + '/skills').success(success);
       },
 
-      getInterviewRounds: function(success, error) {
+      getInterviewRounds: function(success) {
         $http.get(baseUrl + '/interviews').success(success);
       },
 
