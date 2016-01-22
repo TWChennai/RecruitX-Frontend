@@ -8,3 +8,4 @@ www/lib/ngCordova/**/*.js
 plugins/**/*.js
 platforms/**/*.js
 node_modules/**
+hooks/after_prepare/ionic-minify.js
