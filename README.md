@@ -8,7 +8,7 @@ For the default ionic readme, please see [here](/DEFAULT_IONIC_README.md)
 After cloning the git repo, please install the following:
 
 ```bash
-$ npm install -g ionic
+$ npm install -g ionic cordova
 ```
 
 ## To install all the test pre-requisites:
@@ -21,6 +21,7 @@ Note:
   1. Always make sure you install the version of `angular-mocks` that is the same version as the `angular` library included in Ionic.
   2. Use the `-g` switch since we need this in the PATH env variable
   3. If you want to use another browser, you'll have to install a launcher for it, so that Karma can call it. Chrome and PhantomJS launchers are included with the default installation.
+  4. You will have to follow instructions to install the 'android-22' SDK and tools as a separate pre-requisite.
 
 ## Contributing to this codebase:
 
