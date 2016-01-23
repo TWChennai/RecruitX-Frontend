@@ -14,7 +14,7 @@ $ npm install -g ionic
 ## To install all the test pre-requisites:
 
 ```bash
-$ npm install -g karma phantomjs karma-phantomjs-launcher karma-cli bower jasmine-core karma-jasmine karma-chrome-launcher --save-dev
+$ npm install -g karma phantomjs karma-phantomjs-launcher karma-cli bower jasmine karma-jasmine karma-chrome-launcher --save-dev
 $ bower install angular-mocks#1.3.13 --save-dev
 ```
 Note:
