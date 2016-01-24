@@ -19,10 +19,10 @@ angular.module('starter')
       var currentInterviewRound = $scope.interviewRounds[index];
       var currentPriority = currentInterviewRound.priority;
 
-      var nextLowerPriorityInterviewRounds = ($filter('filter')($scope.interviewRounds, {priority: currentPriority - 1}));
+      var nextLowerPriorityInterviewRounds = ($filter('filter')($scope.interviewRounds, { priority: currentPriority - 1 }));
       var previousInterviewRound = nextLowerPriorityInterviewRounds[0];
 
-      if ($scope.isInterviewScheduleValid(dateTime , currentInterviewRound, previousInterviewRound)) {
+      if ($scope.isInterviewScheduleValid(dateTime, currentInterviewRound, previousInterviewRound)) {
         $scope.interviewRounds[index].dateTime = dateTime;
       } else {
         $scope.showAlert('Invalid Selection', 'Please schedule this round after  ' + previousInterviewRound.name);
@@ -30,11 +30,11 @@ angular.module('starter')
     });
   };
 
-  $scope.isInterviewScheduleValid = function(scheduleDateTime, currentInterviewRound, previousInterviewRound){
+  $scope.isInterviewScheduleValid = function(scheduleDateTime, currentInterviewRound, previousInterviewRound) {
     var currentPriority = currentInterviewRound.priority;
 
     if (currentPriority > 1 && (previousInterviewRound.dateTime === undefined || scheduleDateTime <= previousInterviewRound.dateTime)) {
-        return false;
+      return false;
     } else {
       return true;
     }
@@ -66,11 +66,9 @@ angular.module('starter')
   };
 
   $scope.showAlert = function(alertTitle, alertText) {
-   $ionicPopup.alert({
-     title: alertTitle,
-     template: alertText
-   });
- };
-
-
+    $ionicPopup.alert({
+      title: alertTitle,
+      template: alertText,
+    });
+  };
 });

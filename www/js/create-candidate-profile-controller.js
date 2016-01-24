@@ -1,15 +1,16 @@
 angular.module('starter')
-.controller('createCandidateProfileController', ['$rootScope', '$scope', '$http', 'recruitFactory', function ($rootScope, $scope, $http, recruitFactory) {
+  .controller('createCandidateProfileController', ['$rootScope', '$scope', '$http', 'recruitFactory', function($rootScope, $scope, $http, recruitFactory) {
   'use strict';
 
-$scope.candidate = {};
-$scope.skills = [];
-$scope.roles = [];
+  $scope.candidate = {};
+  $scope.skills = [];
+  $scope.roles = [];
 
   // Assigining the skills and roles from the rootScope
   recruitFactory.getSkills(function(skills) {
     $scope.skills = skills;
   });
+
   recruitFactory.getRoles(function(roles) {
     $scope.roles = roles;
   });
