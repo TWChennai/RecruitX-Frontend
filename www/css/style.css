@@ -57,12 +57,16 @@ textarea {
 .tab-content.tab-content-padding { padding: 48px 0 0; }
 .tab-content-padding .row { padding: 0; }
 .tab-content-padding .pad-box { padding-bottom: 10px; }
+.cust-header {
+  height: 50px
+}
 .cust-tab {
-	position: absolute;
+  position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
+  margin-top: 50px;
 }
 .cust-tab .overflow-scroll { overflow-y: scroll; }
 .cust-tab .tab-title { font-size: 16px; }

@@ -81,5 +81,5 @@ angular.module('starter', ['ionic','ui.router', 'ngCordova', 'ngResource'])
       });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/candidates');
+  $urlRouterProvider.otherwise('/panelist-signup');
 });

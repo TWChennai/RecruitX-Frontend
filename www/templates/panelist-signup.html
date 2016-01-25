@@ -1,139 +1,52 @@
 <ion-view hide-nav-bar="true">
-  <ion-header-bar class="bar-positive fixed-top">
-      <h1 class="title">Mohamed Ismail</h1>
+  <ion-header-bar class="bar-positive cust-header fixed-top">
+      <h1 class="title">RecruitX</h1>
       <a class="button icon ion-plus-round" href="#/candidates/new"></a>
   </ion-header-bar>
-  <ion-content ng-controller="panelistSignupController">
+
     <ion-tabs class="cust-tab tabs-striped tabs-positive tabs-top">
       <ion-tab title="Interviews">
-        <div class="tab-content-padding overflow-scroll">
-          <div class="list">
-            <div class="item item-divider candidateInfo">
-              <div class="row">
-                <div class="col col-50">
-                  <h2>Dinesh</h2>
-                  <h4>4+ Years</h4>
-                </div>
-                <div class="col col-30">
-                  <h3>22-2-2016</h3>
-                </div>
-                <div class="col col-20">
-                  <h3>12:30pm</h3>
-                </div>
-              </div>
-              <div class="row pad-box">
-                <div class="col">
-                  <h4><strong>Skills: </strong>HTML5, CSS3, JavaScript</h4>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col col-67">
-                  <h2><strong>Tech Interview</strong></h2>
-                  <i class="icon ion-checkmark calm"></i>
-                  <i class="icon ion-checkmark calm"></i>
-                </div>
-                <div class="col col-33">
-                  <div class="pull-right">
-                    <a href="#/panel-signup" class="button button-positive">Signup</a>
+        <ion-content>
+            <ion-refresher on-refresh="doRefresh()">
+            </ion-refresher>
+
+          <ion-list>
+              <ion-item collection-repeat="item in items">
+                <div class="item item-divider candidateInfo">
+                  <div class="row">
+                    <div class="col col-50">
+                      <h2>Name: {{item.name}}</h2>
+                      <h4>{{item.experience}} Years</h4>
+                    </div>
+                    <div class="col col-30">
+                      <h3>22-10-2015</h3>
+                    </div>
+                    <div class="col col-20">
+                      <h3>2:30pm</h3>
+                    </div>
+                  </div>
+                  <div class="row pad-box">
+                    <div class="col">
+                      <h4><strong>Skills: </strong>HTML5, CSS3, JavaScript</h4>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col col-67">
+                      <h2><strong>Tech Interview</strong></h2>
+                      <i class="icon ion-checkmark calm"></i>
+                      <i class="icon ion-checkmark calm"></i>
+                    </div>
+                    <div class="col col-33">
+                      <div class="pull-right">
+                        <a href="#/panel-signup" class="button button-positive">Signup</a>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div class="item item-divider candidateInfo">
-              <div class="row">
-                <div class="col col-50">
-                  <h2>Mohamed Ismail</h2>
-                  <h4>4+ Years</h4>
-                </div>
-                <div class="col col-30">
-                  <h3>22-10-2015</h3>
-                </div>
-                <div class="col col-20">
-                  <h3>2:30pm</h3>
-                </div>
-              </div>
-              <div class="row pad-box">
-                <div class="col">
-                  <h4><strong>Skills: </strong>HTML5, CSS3, JavaScript</h4>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col col-67">
-                  <h2><strong>Tech Interview</strong></h2>
-                  <i class="icon ion-checkmark calm"></i>
-                  <i class="icon ion-checkmark calm"></i>
-                </div>
-                <div class="col col-33">
-                  <div class="pull-right">
-                    <a href="#/panel-signup" class="button button-positive">Signup</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="item item-divider candidateInfo">
-              <div class="row">
-                <div class="col col-50">
-                  <h2>Maha</h2>
-                  <h4>4+ Years</h4>
-                </div>
-                <div class="col col-30">
-                  <h3>22-10-2015</h3>
-                </div>
-                <div class="col col-20">
-                  <h3>2:30pm</h3>
-                </div>
-              </div>
-              <div class="row pad-box">
-                <div class="col">
-                  <h4><strong>Skills: </strong>HTML5, CSS3, JavaScript</h4>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col col-67">
-                  <h2><strong>Tech Interview</strong></h2>
-                  <i class="icon ion-checkmark calm"></i>
-                  <i class="icon ion-checkmark calm"></i>
-                </div>
-                <div class="col col-33">
-                  <div class="pull-right">
-                    <a href="#/panel-signup" class="button button-positive">Signup</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="item item-divider candidateInfo">
-              <div class="row">
-                <div class="col col-50">
-                  <h2>Maha</h2>
-                  <h4>4+ Years</h4>
-                </div>
-                <div class="col col-30">
-                  <h3>22-10-2015</h3>
-                </div>
-                <div class="col col-20">
-                  <h3>2:30pm</h3>
-                </div>
-              </div>
-              <div class="row pad-box">
-                <div class="col">
-                  <h4><strong>Skills: </strong>HTML5, CSS3, JavaScript</h4>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col col-67">
-                  <h2><strong>Tech Interview</strong></h2>
-                  <i class="icon ion-checkmark calm"></i>
-                  <i class="icon ion-checkmark calm"></i>
-                </div>
-                <div class="col col-33">
-                  <div class="pull-right">
-                    <a href="#/panel-signup" class="button button-positive">Signup</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+              </ion-item>
+            </ion-list>
+
+        </ion-content>
       </ion-tab>
 
       <ion-tab title="My Interviews">
@@ -197,5 +110,4 @@
         </div>
       </ion-tab>
     </ion-tabs>
-  </ion-content>
 </ion-view>
