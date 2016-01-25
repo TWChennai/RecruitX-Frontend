@@ -31,7 +31,7 @@
             <span class="input-label">Experience (in yrs)</span>
             <div class="new-block">
               <input type="number" name="experience" ng-model="candidate.experience" min="0" max="50" ng-minlength="1" ng-maxlength="5" placeholder="Experience in years" required />
-              <p class="error" ng-show="candidateForm.experience.$error.maxlength && !candidateForm.experience.$pristine">Value cannot exceed more than 5 Chars</p>
+              <p class="error" ng-show="candidateForm.experience.$error.maxlength && !candidateForm.experience.$pristine">Value cannot exceed more than 5 chars</p>
               <p class="error" ng-show="candidateForm.experience.$error.max && !candidateForm.experience.$pristine">Experience not more than 50</p>
               <p class="error" ng-show="candidateForm.experience.$error.min">should be positive</p>
               <p class="error" ng-show="candidateForm.experience.$error.required && !candidateForm.experience.$pristine">
@@ -46,7 +46,7 @@
                 <ion-checkbox ng-repeat="skill in skills" ng-model="skill.checked">{{skill.name}}</ion-checkbox>
               </ion-list>
               <div ng-if="getOtherCheckbox().checked">
-                  <textarea placeholder="Other Skills" name="additionalInformation" ng-model="candidate.additional_information" ng-maxlength="130" placeholder="Eg. HTML, CSS etc.." required></textarea>
+                  <textarea placeholder="Please specify"  name="additionalInformation" ng-model="candidate.additional_information" ng-maxlength="130" required></textarea>
                   <p class="error" ng-show="candidateForm.additionalInformation.$error.maxlength && !candidateForm.additionalInformation.$pristine">Other Skills cannot exceed more than 130 Chars</p>
                   <p class="error" ng-show="candidateForm.additional_information.$error.required && !candidateForm.additional_information.$pristine">
                     is required</p>

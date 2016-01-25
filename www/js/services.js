@@ -3,7 +3,7 @@ angular.module('starter')
     'use strict';
 
     // base url
-    var baseUrl = 'http://10.16.23.151:4000';
+    var baseUrl = 'http://10.134.125.194:4001';
     return {
       getRoles: function(success) {
         $http.get(baseUrl + '/roles').success(success);
