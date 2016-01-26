@@ -4,11 +4,11 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 
-angular.module('starter', ['ionic','ui.router', 'ngCordova', 'ngResource'])
-  .run(function ($cordovaSplashscreen, $rootScope, $ionicPlatform ) {
+angular.module('starter', ['ionic', 'ui.router', 'ngCordova', 'ngResource'])
+  .run(function($cordovaSplashscreen, $rootScope, $ionicPlatform) {
     'use strict';
 
-    $ionicPlatform.ready(function () {
+    $ionicPlatform.ready(function() {
       if (window.cordova && window.cordova.plugins.Keyboard) {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -19,6 +19,7 @@ angular.module('starter', ['ionic','ui.router', 'ngCordova', 'ngResource'])
         // a much nicer keyboard experience.
         cordova.plugins.Keyboard.disableScroll(true);
       }
+
       if (window.StatusBar) {
         window.StatusBar.styleDefault();
       }
@@ -44,20 +45,20 @@ angular.module('starter', ['ionic','ui.router', 'ngCordova', 'ngResource'])
     });
   })
 
-  .config(function ($stateProvider, $urlRouterProvider) {
+  .config(function($stateProvider, $urlRouterProvider) {
     'use strict';
 
     $stateProvider
       .state('candidate-index', {
         url: '/candidates',
         templateUrl: 'templates/candidate-index.html',
-        controller: 'createCandidateProfileController'
+        controller: 'createCandidateProfileController',
       })
 
       .state('create-candidate-profile', {
         url: '/candidates/new',
         templateUrl: 'templates/create-candidate-profile.html',
-        controller: 'createCandidateProfileController'
+        controller: 'createCandidateProfileController',
       })
 
       .state('schedule-interview', {
@@ -72,14 +73,14 @@ angular.module('starter', ['ionic','ui.router', 'ngCordova', 'ngResource'])
       .state('panelist-signup', {
         url: '/panelist-signup',
         templateUrl: 'templates/panelist-signup.html',
-        controller: 'panelistSignupController'
+        controller: 'panelistSignupController',
       })
       .state('candidate-details', {
         url: '/candidate-details',
         templateUrl: 'templates/candidate-details.html',
-        controller: ''
+        controller: '',
       });
 
-  // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/panelist-signup');
-});
+    // if none of the above states are matched, use this as the fallback
+    $urlRouterProvider.otherwise('/panelist-signup');
+  });

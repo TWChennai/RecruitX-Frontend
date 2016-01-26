@@ -3,6 +3,7 @@ angular.module('starter')
     'use strict';
 
     // base url
+    // TODO: Move this into a properties/json file that is read in when the app starts
     var baseUrl = 'http://10.134.125.194:4001';
     return {
       getRoles: function(success) {

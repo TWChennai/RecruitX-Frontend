@@ -33,11 +33,7 @@ angular.module('starter')
   $scope.isInterviewScheduleValid = function(scheduleDateTime, currentInterviewRound, previousInterviewRound) {
     var currentPriority = currentInterviewRound.priority;
 
-    if (currentPriority > 1 && (previousInterviewRound.dateTime === undefined || scheduleDateTime <= previousInterviewRound.dateTime)) {
-      return false;
-    } else {
-      return true;
-    }
+    return !(currentPriority > 1 && (previousInterviewRound.dateTime === undefined || scheduleDateTime <= previousInterviewRound.dateTime));
   };
 
   $scope.isFormInvalid = function() {
