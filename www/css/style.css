@@ -137,3 +137,8 @@ textarea {
 	top: 12%;
 	left: 12%;
 }
+.cust-spinner-position {
+  text-align: center;
+  display: block;
+  padding: 10px
+}

@@ -1,25 +1,29 @@
 angular.module('starter')
-  .controller('panelistSignupController', function($scope, $http) {
+  .controller('panelistSignupController', function($scope, recruitFactory) {
     'use strict';
 
-    $scope.items = [1, 2, 3, 4, 5, 6];
+    $scope.items = [];
+
+    $scope.isRefreshing = true;
+
+    $scope.finishRefreshing = function() {
+      $scope.isRefreshing = false;
+      $scope.$broadcast('scroll.refreshComplete');
+    };
 
     $scope.doRefresh = function() {
       console.log('AM refreshing');
-
-      // TODO: Remove hardcoded services url
-      $http.get('http://192.168.1.106:4000/candidates')
-        .success(function(newItems) {
-          $scope.items = newItems;
-          console.log('AM success');
-        })
-        .error(function(error) {
-          console.log('AM error' + error);
-        })
-        .finally(function() {
-          $scope.$broadcast('scroll.refreshComplete');
-        });
+      recruitFactory.getCandidates(function(newItems) {
+        $scope.items = newItems;
+        $scope.finishRefreshing();
+        console.log('AM success');
+      }, function(error) {
+        $scope.finishRefreshing();
+        console.log('AM error' + error);
+      });
     };
+
+    $scope.doRefresh();
   })
 
   .controller('interviewDetailsController', function() {
