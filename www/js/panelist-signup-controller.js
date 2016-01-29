@@ -18,12 +18,16 @@ angular.module('starter')
         $scope.finishRefreshing();
         console.log('AM success');
       }, function(error) {
+        console.log('AM custom error' + error);
         $scope.finishRefreshing();
-        console.log('AM error' + error);
       });
     };
 
-    $scope.doRefresh();
+    document.addEventListener('deviceready', function onDeviceReady() {
+      console.log('View loaded!');
+      $scope.doRefresh();
+    }, false);
+
   })
 
   .controller('interviewDetailsController', function() {

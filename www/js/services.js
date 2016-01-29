@@ -1,33 +1,46 @@
 angular.module('starter')
-  .factory('recruitFactory', ['$rootScope', '$http', function($rootScope, $http) {
-    'use strict';
+.factory('recruitFactory', ['$cordovaToast', '$http', function($cordovaToast, $http) {
+  'use strict';
 
-    // base url
-    // TODO: Move this into a properties/json file that is read in when the app starts
-    var baseUrl = 'http://192.168.1.106:4000';
-    return {
-      getRoles: function(success) {
-        $http.get(baseUrl + '/roles').success(success);
-      },
+  // base url
+  // TODO: Move this into a properties/json file that is read in when the app starts
+  var baseUrl = 'http://192.168.1.106:4000';
 
-      getSkills: function(success) {
-        $http.get(baseUrl + '/skills').success(success);
-      },
+  var getErrorMessage = function(status) {
+    switch(status){
+      default:
+        return 'Something went wrong while processing your request.Please try again soon';
+    }
+  };
 
-      getCandidates: function(success, error) {
-        $http.get(baseUrl + '/candidates').success(success).error(function(err, status){
-          console.log('Hey error status is ' + status);
-          error();
-        });
-      },
+  var defaultErrorHandler = function(err, status, customError){
+    $cordovaToast.showShortBottom(getErrorMessage(status));
+    console.log(getErrorMessage(status));
+    customError();
+  };
 
-      getInterviewRounds: function(success) {
-        $http.get(baseUrl + '/interviews').success(success);
-      },
+  return {
+    getRoles: function(success) {
+      $http.get(baseUrl + '/roles').success(success).error(defaultErrorHandler);
+    },
 
-      saveCandidate: function(data, success, error) {
-        $http.post(baseUrl + '/candidates', data).success(success).error(error);
-      },
-    };
-  },
-]);
+    getSkills: function(success) {
+      $http.get(baseUrl + '/skills').success(success).error(defaultErrorHandler);
+    },
+
+    getCandidates: function(success, customError) {
+      $http.get(baseUrl + '/candidates').success(success).error(function(err, status){
+        defaultErrorHandler(err, status, customError);
+      });
+    },
+
+    getInterviewRounds: function(success) {
+      $http.get(baseUrl + '/interviews').success(success).error(defaultErrorHandler);
+    },
+
+    saveCandidate: function(data, success) {
+      $http.post(baseUrl + '/candidates', data).success(success).error(defaultErrorHandler);
+    },
+  };
+}]
+);
