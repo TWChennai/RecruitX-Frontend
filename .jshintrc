@@ -94,6 +94,7 @@
     "prototypejs"   : false,    // Enable globals exposed by Prototype JavaScript framework.
     "rhino"         : false,    // Enable globals available when your code is running inside of the Rhino runtime environment.
     "wsh"           : false,    // Enable globals available when your code is running as a script for the Windows Script Host.
+    "jasmine"       : true,    // Enable globals exposed by Jasmine.
 
     // == JSLint Legacy ===================================================
     //
@@ -118,12 +119,8 @@
         "module",
         "require",
         "cordova",
-        "describe",
         "inject",
-        "beforeEach",
-        "angular",
-        "it",
-        "expect"
+        "angular"
     ],
     "indent"        : 4         // Specify indentation spacing
 }

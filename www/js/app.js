@@ -4,7 +4,12 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 
+  // base url
+  // TODO: Move this into a properties/json file that is read in when the app starts
+
 angular.module('starter', ['ionic', 'ui.router', 'ngCordova', 'ngResource'])
+  .constant('apiUrl', '192.168.1.106:4000')
+
   .run(function($cordovaSplashscreen, $rootScope, $ionicPlatform) {
     'use strict';
 

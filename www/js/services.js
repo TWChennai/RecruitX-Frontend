@@ -1,10 +1,8 @@
 angular.module('starter')
-.factory('recruitFactory', ['$cordovaToast', '$http', function($cordovaToast, $http) {
+.factory('recruitFactory', ['$cordovaToast', '$http', 'apiUrl', function($cordovaToast, $http, apiUrl) {
   'use strict';
 
-  // base url
-  // TODO: Move this into a properties/json file that is read in when the app starts
-  var baseUrl = 'http://192.168.1.106:4000';
+  var baseUrl = 'http://' + apiUrl;
 
   var getErrorMessage = function(status) {
     switch(status){
@@ -15,7 +13,7 @@ angular.module('starter')
 
   var defaultErrorHandler = function(err, status, customError){
     $cordovaToast.showShortBottom(getErrorMessage(status));
-    console.log(getErrorMessage(status));
+//    console.log(getErrorMessage(status));
     customError();
   };
 
