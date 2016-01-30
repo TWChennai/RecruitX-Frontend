@@ -50,7 +50,7 @@ angular.module('starter')
     for (var interviewRoundIndex in $scope.interviewRounds) {
       if ($scope.interviewRounds[interviewRoundIndex].dateTime !== undefined) {
         var formattedDateTime = $filter('date')($scope.interviewRounds[interviewRoundIndex].dateTime, 'yyyy-MM-dd HH:mm:ss');
-        $stateParams.candidate.interview_rounds.push({ 'interview_id': $scope.interviewRounds[interviewRoundIndex].id,
+        $stateParams.candidate.interview_rounds.push({ 'interview_type_id': $scope.interviewRounds[interviewRoundIndex].id,
         'interview_date_time': formattedDateTime, });
       }
     }

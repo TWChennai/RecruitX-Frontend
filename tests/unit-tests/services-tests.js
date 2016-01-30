@@ -62,7 +62,7 @@ describe('recruitFactory', function () {
 
   describe('getInterviewRounds', function(){
     it('getInterviewRounds should return interviews when successful', function () {
-      httpBackend.expectGET(baseUrl + '/interviews').respond(['round1', 'round2']);
+      httpBackend.expectGET(baseUrl + '/interview_types').respond(['round1', 'round2']);
       recruitFactory.getInterviewRounds(function(interviews) {
         expect(interviews).toEqual(['round1', 'round2']);
       });
@@ -70,7 +70,7 @@ describe('recruitFactory', function () {
     });
 
     it('getSkills should display toast error message when error and should not call the success method', function () {
-      httpBackend.expectGET(baseUrl + '/interviews').respond(422, 'error');
+      httpBackend.expectGET(baseUrl + '/interview_types').respond(422, 'error');
       spyOn(cordovaToast, 'showShortBottom');
 
       recruitFactory.getInterviewRounds(function(success) {

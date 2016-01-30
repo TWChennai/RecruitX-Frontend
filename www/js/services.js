@@ -33,7 +33,7 @@ angular.module('starter')
     },
 
     getInterviewRounds: function(success) {
-      $http.get(baseUrl + '/interviews').success(success).error(defaultErrorHandler);
+      $http.get(baseUrl + '/interview_types').success(success).error(defaultErrorHandler);
     },
 
     saveCandidate: function(data, success) {
