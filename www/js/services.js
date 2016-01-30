@@ -43,6 +43,10 @@ angular.module('starter')
     getCandidateInterviewSchedule: function(success) {
       $http.get(baseUrl + '/candidate_interview_schedules').success(success).error(defaultErrorHandler);
     },
+
+    signUp: function(data, success) {
+      $http.put(baseUrl + '/panelist_signup_table/' + data.id, data.user).success(success).error(defaultErrorHandler);
+    }
   };
 }]
 );
