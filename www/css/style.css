@@ -142,3 +142,7 @@ textarea {
   display: block;
   padding: 10px
 }
+
+.inherit_display {
+  display: inherit;
+}

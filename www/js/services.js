@@ -39,6 +39,10 @@ angular.module('starter')
     saveCandidate: function(data, success) {
       $http.post(baseUrl + '/candidates', data).success(success).error(defaultErrorHandler);
     },
+
+    getCandidateInterviewSchedule: function(success) {
+      $http.get(baseUrl + '/candidate_interview_schedules').success(success).error(defaultErrorHandler);
+    },
   };
 }]
 );

@@ -19,24 +19,29 @@
                 <div class="item item-divider candidateInfo">
                   <div class="row">
                     <div class="col col-50">
-                      <h2>Name: {{item.name}}</h2>
-                      <h4>{{item.experience}} Years</h4>
+                      <h2>Name: {{item.candidate.name}}</h2>
+                      <h4>{{item.candidate.experience}} Years</h4>
                     </div>
                     <div class="col col-30">
-                      <h3>22-10-2015</h3>
+                      <h3 ng-bind="item.candidate_interview_date_time | date:'MM/dd/yyyy'"></h3>
                     </div>
-                    <div class="col col-20">
-                      <h3>2:30pm</h3>
+                    <div class="col col-20 inherit_display">
+                      <h3>Start Time:</h3>
+                      <h3 ng-bind="item.candidate_interview_date_time | date:'HH:mm'"></h3>
+                    </div>
+                    <div class="col col-20 inherit_display">
+                      <h3>End Time:</h3>
+                      <h3 ng-bind="item.candidate_interview_date_time_end | date:'HH:mm'"></h3>
                     </div>
                   </div>
                   <div class="row pad-box">
                     <div class="col">
-                      <h4><strong>Skills: </strong>HTML5, CSS3, JavaScript</h4>
+                      <h4><strong>Skills: </strong>{{item.candidate.skills}}</h4>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col col-67">
-                      <h2><strong>Tech Interview</strong></h2>
+                      <h2><strong>{{item.interview.name}}</strong></h2>
                       <i class="icon ion-checkmark calm"></i>
                       <i class="icon ion-checkmark calm"></i>
                     </div>
