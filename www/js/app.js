@@ -85,6 +85,12 @@ angular.module('starter', ['ionic', 'ui.router', 'ngCordova', 'ngResource'])
     url: '/candidate-details',
     templateUrl: 'templates/candidate-details.html',
     controller: ''
+  })
+
+  .state('candidate-profile', {
+    url: '/candidate-profile/:candidate_id',
+    templateUrl: 'templates/candidate-profile.html',
+    controller: 'candidateProfileController'
   });
 
   // if none of the above states are matched, use this as the fallback

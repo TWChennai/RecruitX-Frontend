@@ -32,6 +32,10 @@ angular.module('starter')
         });
       },
 
+      getCandidate: function(candidate_id, successCallback, failureCallback) {
+        $http.get(baseUrl + '/candidates/' + candidate_id).then(successCallback, failureCallback);
+      },
+
       getInterviewRounds: function (success) {
         $http.get(baseUrl + '/interview_types').success(success).error(defaultErrorHandler);
       },

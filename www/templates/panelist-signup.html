@@ -19,7 +19,7 @@
                 <div class="item item-divider candidateInfo">
                   <div class="row">
                     <div class="col col-50">
-                      <h2>Name: {{item.candidate.name}}</h2>
+                      <a ui-sref="candidate-profile({candidate_id: item.candidate.id})">Name: {{item.candidate.name}}</a>
                       <h4>{{item.candidate.experience}} Years</h4>
                     </div>
                     <div class="col col-30">

@@ -1,0 +1,50 @@
+<ion-view view-title="Candidate Profile">
+  <ion-content>
+    <div ng-controller="candidateProfileController">
+      <div class="list padding">
+        <div class="list-item candidateDetails">
+          <div class="row">
+            <div class="col col-50">
+              <h5>Name</h5>
+            </div>
+            <div class="col col-50">
+              <h5>{{candidate.name}}</h5>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-50">
+              <h5>Role</h5>
+            </div>
+            <div class="col col-50">
+              <h5>{{candidate.role.name}}</h5>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-50">
+              <h5>Experience</h5>
+            </div>
+            <div class="col col-50">
+              <h5>{{candidate.experience}}</h5>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-50">
+              <h5>Skills</h5>
+            </div>
+            <div class="col col-50" ng-repeat="skill in candidate.skills">
+              <h5>{{skill.name}}</h5>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-50">
+              <h5>Other skills</h5>
+            </div>
+            <div class="col col-50">
+              <h5>{{candidate.additional_information}}</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
