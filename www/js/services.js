@@ -33,6 +33,8 @@ angular.module('starter')
       },
 
       getCandidate: function(candidate_id, successCallback, failureCallback) {
+        // TODO: Not sure if appending to the endpoint URL is okay
+
         $http.get(baseUrl + '/candidates/' + candidate_id).then(successCallback, failureCallback);
       },
 
