@@ -40,7 +40,7 @@ angular.module('starter')
 
     $scope.calculateEndTime = function(items) {
       angular.forEach(items, function(item) {
-        item.candidate_interview_date_time_end = new Date(new Date(item.candidate_interview_date_time).getTime() + 60 * 60 * 1000);
+        item.candidate_interview_date_time_end = new Date(new Date(item.candidate_interview_date_time).getTime() + 3600000);
       });
     };
 

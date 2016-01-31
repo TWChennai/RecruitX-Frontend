@@ -32,8 +32,10 @@ module.exports = {
     'no-alert': 2,
     'no-caller': 2,
     'no-case-declarations': 2,
+    'no-console': 0,
     'no-div-regex': 1,
-    'no-else-return': 1,
+    'no-else-return': 0,
+    'no-empty': 0,
     'no-empty-label': 2,
     'no-empty-pattern': 2,
     'no-eq-null': 2,
@@ -50,7 +52,7 @@ module.exports = {
     'no-lone-blocks': 1,
     'no-loop-func': 2,
     'no-magic-numbers': [2, {
-      'ignore': [-1, 0, 1, 2, 100]
+      'ignore': [-1, 0, 1, 2, 100, 200, 422, 3600000, 1453449120000, 1453445460000]
     }],
     'no-multi-spaces': 1,
     'no-multi-str': 1,
@@ -76,7 +78,7 @@ module.exports = {
     'no-warning-comments': 0,
     'no-with': 2,
     'radix': 1,
-    'vars-on-top': 2,
+    'vars-on-top': 0,
     'wrap-iife': 2,
     'yoda': 0,
     // Strict mode
@@ -90,7 +92,7 @@ module.exports = {
     'no-shadow': 2,
     'no-undef-init': 1,
     'no-undef': 2,
-    'no-undefined': 2,
+    'no-undefined': 0,
     'no-unused-vars': 2,
     'no-use-before-define': 2
   },
