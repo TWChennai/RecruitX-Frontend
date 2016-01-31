@@ -1,74 +1,74 @@
 angular.module('starter')
   .controller('createCandidateProfileController', ['$rootScope', '$scope', '$http', 'recruitFactory', function($rootScope, $scope, $http, recruitFactory) {
-  'use strict';
+    'use strict';
 
-  $scope.candidate = {};
-  $scope.skills = [];
-  $scope.roles = [];
+    $scope.candidate = {};
+    $scope.skills = [];
+    $scope.roles = [];
 
-  // Assigining the skills and roles from the rootScope
-  recruitFactory.getSkills(function(skills) {
-    $scope.skills = skills;
-  });
-
-  recruitFactory.getRoles(function(roles) {
-    $scope.roles = roles;
-  });
-
-  // Temporarily loaded api within the controller
-  //$scope.skills = $rootScope.skills;
-  //$scope.roles = $rootScope.roles;
-
-  $scope.isAtleastOnePredefinedSkillSelected = function() {
-    var validity = false;
-    angular.forEach($scope.skills, function(value) {
-      if ($scope.getOtherCheckbox().name !== value.name) {
-        validity = value.checked || validity;
-      }
+    // Assigining the skills and roles from the rootScope
+    recruitFactory.getSkills(function(skills) {
+      $scope.skills = skills;
     });
 
-    return validity;
-  };
-
-  $scope.getOtherCheckbox = function() {
-    var otherSkill;
-    angular.forEach($scope.skills, function(value) {
-      if (value.name === 'Other') {
-        otherSkill = value;
-      }
+    recruitFactory.getRoles(function(roles) {
+      $scope.roles = roles;
     });
 
-    return otherSkill;
-  };
+    // Temporarily loaded api within the controller
+    // $scope.skills = $rootScope.skills;
+    // $scope.roles = $rootScope.roles;
 
-  $scope.isSkillFieldsValid = function() {
-    if (Object.keys($scope.skills).length > 0) {
-      var otherCheckBox = $scope.getOtherCheckbox();
-      if (otherCheckBox.checked) {
-        return $scope.candidate.additional_information !== undefined;
+    $scope.isAtleastOnePredefinedSkillSelected = function() {
+      var validity = false;
+      angular.forEach($scope.skills, function(value) {
+        if ($scope.getOtherCheckbox().name !== value.name) {
+          validity = value.checked || validity;
+        }
+      });
+
+      return validity;
+    };
+
+    $scope.getOtherCheckbox = function() {
+      var otherSkill;
+      angular.forEach($scope.skills, function(value) {
+        if (value.name === 'Other') {
+          otherSkill = value;
+        }
+      });
+
+      return otherSkill;
+    };
+
+    $scope.isSkillFieldsValid = function() {
+      if (Object.keys($scope.skills).length > 0) {
+        var otherCheckBox = $scope.getOtherCheckbox();
+        if (otherCheckBox.checked) {
+          return $scope.candidate.additional_information !== undefined;
+        } else {
+          return $scope.isAtleastOnePredefinedSkillSelected();
+        }
+      }
+    };
+
+    $scope.isFormInvalid = function() {
+      if (Object.keys($scope.skills).length > 0) {
+        var validity = ($scope.isSkillFieldsValid() && !$scope.candidateForm.$invalid);
+        return !validity;
       } else {
-        return $scope.isAtleastOnePredefinedSkillSelected();
+        return false;
       }
-    }
-  };
+    };
 
-  $scope.isFormInvalid = function() {
-    if (Object.keys($scope.skills).length > 0) {
-      var validity = ($scope.isSkillFieldsValid() && !$scope.candidateForm.$invalid);
-      return !validity;
-    } else {
-      return false;
-    }
-  };
-
-  $scope.processCandidateData = function() {
-    $scope.candidate.skill_ids = [];
-    $scope.candidate.name = $scope.firstName + ' ' + $scope.lastName;
-    for (var skill in $scope.skills) {
-      if ($scope.skills[skill].checked) {
-        $scope.candidate.skill_ids.push($scope.skills[skill].id);
+    $scope.processCandidateData = function() {
+      $scope.candidate.skill_ids = [];
+      $scope.candidate.name = $scope.firstName + ' ' + $scope.lastName;
+      for (var skill in $scope.skills) {
+        if ($scope.skills[skill].checked) {
+          $scope.candidate.skill_ids.push($scope.skills[skill].id);
+        }
       }
-    }
-  };
-},
+    };
+  },
 ]);

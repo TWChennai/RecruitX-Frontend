@@ -5,15 +5,15 @@ angular.module('starter')
   var baseUrl = 'http://' + apiUrl;
 
   var getErrorMessage = function(status) {
-    switch(status){
-      default:
-        return 'Something went wrong while processing your request.Please try again soon';
+    switch (status) {
+      default: return 'Something went wrong while processing your request.Please try again soon';
     }
   };
 
-  var defaultErrorHandler = function(err, status, customError){
+  var defaultErrorHandler = function(err, status, customError) {
     $cordovaToast.showShortBottom(getErrorMessage(status));
-//    console.log(getErrorMessage(status));
+
+    // console.log(getErrorMessage(status));
     customError();
   };
 
@@ -27,7 +27,7 @@ angular.module('starter')
     },
 
     getCandidates: function(success, customError) {
-      $http.get(baseUrl + '/candidates').success(success).error(function(err, status){
+      $http.get(baseUrl + '/candidates').success(success).error(function(err, status) {
         defaultErrorHandler(err, status, customError);
       });
     },
@@ -45,8 +45,9 @@ angular.module('starter')
     },
 
     signUp: function(data, success) {
+      // TODO: Need a better RESTful url
+
       $http.put(baseUrl + '/panelist_signup_table/' + data.id, data.user).success(success).error(defaultErrorHandler);
-    }
+    },
   };
-}]
-);
+}]);
