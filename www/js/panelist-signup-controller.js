@@ -56,7 +56,7 @@ angular.module('starter')
     $scope.showAlert = function(alertTitle, alertText) {
       $ionicPopup.alert({
         title: alertTitle,
-        template: alertText,
+        template: alertText
       });
     };
 

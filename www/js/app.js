@@ -4,88 +4,89 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 
-  // base url
-  // TODO: Move this into a properties/json file that is read in when the app starts
+// base url
+// TODO: Move this into a properties/json file that is read in when the app starts
 
 angular.module('starter', ['ionic', 'ui.router', 'ngCordova', 'ngResource'])
   .constant('apiUrl', '192.168.1.106:4000')
 
-  .run(function($cordovaSplashscreen, $rootScope, $ionicPlatform) {
-    'use strict';
+.run(function ($cordovaSplashscreen, $rootScope, $ionicPlatform) {
+  'use strict';
 
-    $ionicPlatform.ready(function() {
-      if (window.cordova && window.cordova.plugins.Keyboard) {
-        // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-        // for form inputs)
-        cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+  $ionicPlatform.ready(function () {
+    if (window.cordova && window.cordova.plugins.Keyboard) {
+      // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+      // for form inputs)
+      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
 
-        // Don't remove this line unless you know what you are doing. It stops the viewport
-        // from snapping when text inputs are focused. Ionic handles this internally for
-        // a much nicer keyboard experience.
-        cordova.plugins.Keyboard.disableScroll(true);
-      }
+      // Don't remove this line unless you know what you are doing. It stops the viewport
+      // from snapping when text inputs are focused. Ionic handles this internally for
+      // a much nicer keyboard experience.
+      cordova.plugins.Keyboard.disableScroll(true);
+    }
 
-      if (window.StatusBar) {
-        window.StatusBar.styleDefault();
-      }
+    if (window.StatusBar) {
+      window.StatusBar.styleDefault();
+    }
 
-      /* Get roles and Skills */
-      /* var request = 0;
-      recruitFactory.getSkills(function(skills) {
-        $rootScope.skills = skills;
-        request++;
-        hideSplashScreen();
-      });
-
-      recruitFactory.getRoles(function(roles) {
-        $rootScope.roles = roles;
-        request++;
-        hideSplashScreen();
-      });
-      function hideSplashScreen() {
-        if(request >= 2) {
-          $cordovaSplashscreen.hide();
-        }
-      } */
+    /* Get roles and Skills */
+    /* var request = 0;
+    recruitFactory.getSkills(function(skills) {
+      $rootScope.skills = skills;
+      request++;
+      hideSplashScreen();
     });
+
+    recruitFactory.getRoles(function(roles) {
+      $rootScope.roles = roles;
+      request++;
+      hideSplashScreen();
+    });
+    function hideSplashScreen() {
+      if(request >= 2) {
+        $cordovaSplashscreen.hide();
+      }
+    } */
+  });
+})
+
+.config(function ($stateProvider, $urlRouterProvider) {
+  'use strict';
+
+  $stateProvider
+    .state('candidate-index', {
+      url: '/candidates',
+      templateUrl: 'templates/candidate-index.html',
+      controller: 'createCandidateProfileController'
+    })
+
+  .state('create-candidate-profile', {
+    url: '/candidates/new',
+    templateUrl: 'templates/create-candidate-profile.html',
+    controller: 'createCandidateProfileController'
   })
 
-  .config(function($stateProvider, $urlRouterProvider) {
-    'use strict';
+  .state('schedule-interview', {
+    url: '/candidates/interviews/new',
+    templateUrl: 'templates/schedule-interview.html',
+    controller: 'scheduleInterviewController',
+    params: {
+      candidate: null
+    }
+  })
 
-    $stateProvider
-      .state('candidate-index', {
-        url: '/candidates',
-        templateUrl: 'templates/candidate-index.html',
-        controller: 'createCandidateProfileController',
-      })
+  .state('panelist-signup', {
+    url: '/panelist-signup',
+    templateUrl: 'templates/panelist-signup.html',
+    controller: 'panelistSignupController'
+  })
 
-      .state('create-candidate-profile', {
-        url: '/candidates/new',
-        templateUrl: 'templates/create-candidate-profile.html',
-        controller: 'createCandidateProfileController',
-      })
-
-      .state('schedule-interview', {
-        url: '/candidates/interviews/new',
-        templateUrl: 'templates/schedule-interview.html',
-        controller: 'scheduleInterviewController',
-        params: {
-          candidate: null,
-        },
-      })
-
-      .state('panelist-signup', {
-        url: '/panelist-signup',
-        templateUrl: 'templates/panelist-signup.html',
-        controller: 'panelistSignupController',
-      })
-      .state('candidate-details', {
-        url: '/candidate-details',
-        templateUrl: 'templates/candidate-details.html',
-        controller: '',
-      });
-
-    // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/panelist-signup');
+  .state('candidate-details', {
+    url: '/candidate-details',
+    templateUrl: 'templates/candidate-details.html',
+    controller: ''
   });
+
+  // if none of the above states are matched, use this as the fallback
+  $urlRouterProvider.otherwise('/panelist-signup');
+});

@@ -1,5 +1,5 @@
 angular.module('starter')
-  .controller('createCandidateProfileController', ['$rootScope', '$scope', '$http', 'recruitFactory', function($rootScope, $scope, $http, recruitFactory) {
+  .controller('createCandidateProfileController', ['$rootScope', '$scope', '$http', 'recruitFactory', function ($rootScope, $scope, $http, recruitFactory) {
     'use strict';
 
     $scope.candidate = {};
@@ -7,11 +7,11 @@ angular.module('starter')
     $scope.roles = [];
 
     // Assigining the skills and roles from the rootScope
-    recruitFactory.getSkills(function(skills) {
+    recruitFactory.getSkills(function (skills) {
       $scope.skills = skills;
     });
 
-    recruitFactory.getRoles(function(roles) {
+    recruitFactory.getRoles(function (roles) {
       $scope.roles = roles;
     });
 
@@ -19,9 +19,9 @@ angular.module('starter')
     // $scope.skills = $rootScope.skills;
     // $scope.roles = $rootScope.roles;
 
-    $scope.isAtleastOnePredefinedSkillSelected = function() {
+    $scope.isAtleastOnePredefinedSkillSelected = function () {
       var validity = false;
-      angular.forEach($scope.skills, function(value) {
+      angular.forEach($scope.skills, function (value) {
         if ($scope.getOtherCheckbox().name !== value.name) {
           validity = value.checked || validity;
         }
@@ -30,9 +30,9 @@ angular.module('starter')
       return validity;
     };
 
-    $scope.getOtherCheckbox = function() {
+    $scope.getOtherCheckbox = function () {
       var otherSkill;
-      angular.forEach($scope.skills, function(value) {
+      angular.forEach($scope.skills, function (value) {
         if (value.name === 'Other') {
           otherSkill = value;
         }
@@ -41,7 +41,7 @@ angular.module('starter')
       return otherSkill;
     };
 
-    $scope.isSkillFieldsValid = function() {
+    $scope.isSkillFieldsValid = function () {
       if (Object.keys($scope.skills).length > 0) {
         var otherCheckBox = $scope.getOtherCheckbox();
         if (otherCheckBox.checked) {
@@ -52,7 +52,7 @@ angular.module('starter')
       }
     };
 
-    $scope.isFormInvalid = function() {
+    $scope.isFormInvalid = function () {
       if (Object.keys($scope.skills).length > 0) {
         var validity = ($scope.isSkillFieldsValid() && !$scope.candidateForm.$invalid);
         return !validity;
@@ -61,14 +61,15 @@ angular.module('starter')
       }
     };
 
-    $scope.processCandidateData = function() {
+    $scope.processCandidateData = function () {
       $scope.candidate.skill_ids = [];
       $scope.candidate.name = $scope.firstName + ' ' + $scope.lastName;
+      // TODO: There should be a better way in underscore to extract with a certain parameter
       for (var skill in $scope.skills) {
         if ($scope.skills[skill].checked) {
           $scope.candidate.skill_ids.push($scope.skills[skill].id);
         }
       }
     };
-  },
+  }
 ]);

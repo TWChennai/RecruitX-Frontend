@@ -8,7 +8,7 @@ For the default ionic readme, please see [here](/DEFAULT_IONIC_README.md)
 After cloning the git repo, please install the following:
 
 ```bash
-$ npm install -g ionic cordova
+$ npm install -g ionic cordova eslint eslint-config-defaults eslint-config-google eslint-plugin-backbone eslint-plugin-html --save-dev
 ```
 
 ## To install all the test pre-requisites:

@@ -1,7 +1,7 @@
 // Karma configuration
 // Generated on Mon Jan 04 2016 17:31:56 GMT+0530 (IST)
 
-module.exports = function(config) {
+module.exports = function (config) {
   'use strict';
 
   config.set({
@@ -23,7 +23,7 @@ module.exports = function(config) {
       '../www/js/create-candidate-profile-controller.js',
       '../www/js/schedule-interview-controller.js',
       '../www/lib/angular-mocks/angular-mocks.js',
-      'unit-tests/**/*.js',
+      'unit-tests/**/*.js'
     ],
 
     // list of files to exclude
@@ -35,7 +35,7 @@ module.exports = function(config) {
       // source files, that you wanna generate coverage for
       // do not include tests or libraries
       // (these files will be instrumented by Istanbul)
-      '../www/js/**/*.js': ['coverage'],
+      '../www/js/**/*.js': ['coverage']
     },
 
     // test results reporter to use
@@ -77,7 +77,7 @@ module.exports = function(config) {
         {
           type: 'html',
           subdir: '.'
-        },
+        }
 
         // { type: 'lcov', subdir: 'report-lcov' },
 
@@ -88,7 +88,7 @@ module.exports = function(config) {
         // { type: 'teamcity', subdir: '.', file: 'teamcity.txt' },
         // { type: 'text', subdir: '.', file: 'text.txt' },
         // { type: 'text-summary', subdir: '.', file: 'text-summary.txt' },
-      ],
-    },
+      ]
+    }
   });
 };
