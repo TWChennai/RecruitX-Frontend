@@ -46,8 +46,8 @@ angular.module('starter')
         $http.post(baseUrl + '/candidates', data).success(success).error(defaultErrorHandler);
       },
 
-      getCandidateInterviewSchedule: function (success) {
-        $http.get(baseUrl + '/candidate_interview_schedules').success(success).error(defaultErrorHandler);
+      getInterviews: function (success) {
+        $http.get(baseUrl + '/interviews').success(success).error(defaultErrorHandler);
       },
 
       signUp: function (data, success) {

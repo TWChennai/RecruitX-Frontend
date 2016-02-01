@@ -13,7 +13,7 @@ angular.module('starter')
 
     $scope.doRefresh = function() {
       console.log('AM refreshing');
-      recruitFactory.getCandidateInterviewSchedule(function(newItems) {
+      recruitFactory.getInterviews(function(newItems) {
         $scope.items = newItems;
         $scope.parseSkillsFromSkillObject($scope.items);
         $scope.calculateEndTime($scope.items);
