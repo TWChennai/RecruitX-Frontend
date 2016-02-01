@@ -71,7 +71,7 @@ module.exports = {
     'no-self-compare': 1,
     'no-sequences': 1,
     'no-throw-literal': 2,
-    'no-unused-expressions': 1,
+    'no-unused-expressions': [1, { allowTernary: true } ],
     'no-useless-call': 2,
     'no-useless-concat': 1,
     'no-void': 2,
