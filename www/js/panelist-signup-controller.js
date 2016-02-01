@@ -28,7 +28,6 @@ angular.module('starter')
     $scope.parseSkillsFromSkillObject = function(items) {
       angular.forEach(items, function(item) {
 
-      // TODO: Isn't there a better way to join an array of elements with a delimiter?
         item.candidate.all_skills = skillHelperService.getAllSkills(item.candidate.skills, item.candidate.additional_information);
       });
     };
