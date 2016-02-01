@@ -74,11 +74,16 @@ gen-external-apklibs
 *.ipr
 *.iws
 
-## Plugin-specific files:
-plugins/*
-
-# Except date-picker plugin:
-!plugins/cordova-plugin-datepicker
+## Native Plugin-specific files:
+android.json
+cordova-plugin-splashscreen
+cordova-plugin-whitelist
+fetch.json
+ios.json
+cordova-plugin-console
+cordova-plugin-device
+cordova-plugin-statusbar
+ionic-plugin-keyboard
 
 # IntelliJ
 /out/
