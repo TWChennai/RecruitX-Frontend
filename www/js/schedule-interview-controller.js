@@ -52,7 +52,8 @@ angular.module('starter')
     $scope.postCandidate = function () {
       for (var interviewRoundIndex in $scope.interviewRounds) {
         if ($scope.interviewRounds[interviewRoundIndex].dateTime !== undefined) {
-          var formattedDateTime = $filter('date')($scope.interviewRounds[interviewRoundIndex].dateTime, 'yyyy-MM-dd HH:mm:ss');
+          var dateTime = $scope.interviewRounds[interviewRoundIndex].dateTime;
+          var formattedDateTime = $filter('date')(dateTime.getTime() + dateTime.getTimezoneOffset() * 60000, 'yyyy-MM-dd HH:mm:ss');
           $stateParams.candidate.interview_rounds.push({
             'interview_type_id': $scope.interviewRounds[interviewRoundIndex].id,
             'interview_date_time': formattedDateTime
