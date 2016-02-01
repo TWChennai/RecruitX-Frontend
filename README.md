@@ -11,6 +11,8 @@ After cloning the git repo, please install the following:
 $ npm install -g ionic cordova eslint eslint-config-defaults eslint-config-google eslint-plugin-backbone eslint-plugin-html --save-dev
 ```
 
+Run `$ ionic state restore` from the app's root directory to set up platforms and plugins.
+
 ## To install all the test pre-requisites:
 
 ```bash
