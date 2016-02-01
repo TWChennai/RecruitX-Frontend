@@ -1,5 +1,5 @@
 angular.module('starter')
-  .controller('panelistSignupController', function($scope, recruitFactory, $ionicPopup) {
+  .controller('panelistSignupController', function($scope, recruitFactory, skillHelperService, $ionicPopup) {
     'use strict';
 
     $scope.items = [];
@@ -27,14 +27,7 @@ angular.module('starter')
 
     $scope.parseSkillsFromSkillObject = function(items) {
       angular.forEach(items, function(item) {
-        var skill_array = [];
-
-        // TODO: Isn't there a better way to join an array of elements with a delimiter?
-        angular.forEach(item.candidate.skills, function(skill) {
-          skill_array.push(skill.name);
-        });
-
-        item.candidate.skills = String(skill_array);
+        item.candidate.all_skills = skillHelperService.getAllSkills(item.candidate.skills, item.candidate.additional_information);
       });
     };
 
