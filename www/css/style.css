@@ -142,5 +142,7 @@ textarea {
 .inherit_display {
   display: inherit;
 }
-.candidatePanelList .item { padding: 8px; }
+.candidatePanelList .item { padding: 6px; }
 .candidatePanelList .candidateInfo { padding: 0 3px; }
+.candidateInfo h4{ padding: 0 }
+.item h5 {display: inline-block; font-style:italic}
