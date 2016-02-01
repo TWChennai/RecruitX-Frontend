@@ -80,10 +80,6 @@ textarea {
 .backBtn .button.button-clear { padding: 0 8px; }
 
 /* Candidate Info - Panelist Signup Page */
-.candidateInfo {
-	padding-left: 8px;
-	padding-right: 8px;
-}
 .candidateInfo h4 {
 	color: #6f6f6f;
 	padding-top: 4px;
@@ -146,3 +142,5 @@ textarea {
 .inherit_display {
   display: inherit;
 }
+.candidatePanelList .item { padding: 8px; }
+.candidatePanelList .candidateInfo { padding: 0 3px; }

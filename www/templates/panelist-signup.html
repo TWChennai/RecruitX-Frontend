@@ -14,22 +14,21 @@
           <ion-refresher on-refresh="doRefresh()">
           </ion-refresher>
 
-          <ion-list>
+          <ion-list class="candidatePanelList">
               <ion-item collection-repeat="item in items">
                 <div class="item item-divider candidateInfo">
                   <div class="row">
                     <div class="col col-50">
-                      <a ui-sref="candidate-profile({candidate_id: item.candidate.id})">{{item.candidate.name}}</a>
+                      <a ui-sref="candidate-profile({candidate_id: item.candidate.id})"><strong>{{item.candidate.name}}</strong></a>
                       <i class="icon ion-checkmark calm"></i>
                       <i class="icon ion-checkmark calm"></i>
                       <h4>{{item.candidate.experience}} Years</h4>
                     </div>
                     <div class="col col-30">
-                      <h3 ng-bind="item.candidate_interview_date_time | date:'dd/MM/yyyy'"></h3>
+                      <h3><strong ng-bind = "item.candidate_interview_date_time | date:'dd/MM/yyyy'"></strong></h3>
                     </div>
                     <div class="col col-20 inherit_display">
-                      <h3></h3>
-                      <h3 ng-bind="item.candidate_interview_date_time | date:'h:mma'"></h3>
+                      <h3><strong ng-bind = "item.candidate_interview_date_time | date:'h:mma'"></strong></h3>
                     </div>
                   </div>
                   <div class="row pad-box">
@@ -39,11 +38,11 @@
                   </div>
                   <div class="row">
                     <div class="col col-67">
-                      <h2><strong>{{item.interview_type.name}}</strong></h2>
+                      <h3><strong>{{item.interview_type.name}}</strong></h3>
                     </div>
                     <div class="col col-33">
                       <div class="pull-right">
-                        <button class="button button-positive" ng-click="signingUp(item)">Signup</button>
+                        <button class="button button-small button-positive" ng-click="signingUp(item)">Signup</button>
                       </div>
                     </div>
                   </div>
