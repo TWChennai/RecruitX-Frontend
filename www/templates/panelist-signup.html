@@ -19,19 +19,17 @@
                 <div class="item item-divider candidateInfo">
                   <div class="row">
                     <div class="col col-50">
-                      <a ui-sref="candidate-profile({candidate_id: item.candidate.id})">Name: {{item.candidate.name}}</a>
+                      <a ui-sref="candidate-profile({candidate_id: item.candidate.id})">{{item.candidate.name}}</a>
+                      <i class="icon ion-checkmark calm"></i>
+                      <i class="icon ion-checkmark calm"></i>
                       <h4>{{item.candidate.experience}} Years</h4>
                     </div>
                     <div class="col col-30">
-                      <h3 ng-bind="item.candidate_interview_date_time | date:'MM/dd/yyyy'"></h3>
+                      <h3 ng-bind="item.candidate_interview_date_time | date:'dd/MM/yyyy'"></h3>
                     </div>
                     <div class="col col-20 inherit_display">
-                      <h3>Start Time:</h3>
-                      <h3 ng-bind="item.candidate_interview_date_time | date:'HH:mm'"></h3>
-                    </div>
-                    <div class="col col-20 inherit_display">
-                      <h3>End Time:</h3>
-                      <h3 ng-bind="item.candidate_interview_date_time_end | date:'HH:mm'"></h3>
+                      <h3></h3>
+                      <h3 ng-bind="item.candidate_interview_date_time | date:'h:mma'"></h3>
                     </div>
                   </div>
                   <div class="row pad-box">
@@ -41,9 +39,7 @@
                   </div>
                   <div class="row">
                     <div class="col col-67">
-                      <h2><strong>{{item.interview.name}}</strong></h2>
-                      <i class="icon ion-checkmark calm"></i>
-                      <i class="icon ion-checkmark calm"></i>
+                      <h2><strong>{{item.interview_type.name}}</strong></h2>
                     </div>
                     <div class="col col-33">
                       <div class="pull-right">
