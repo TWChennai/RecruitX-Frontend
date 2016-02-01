@@ -16,7 +16,7 @@ angular.module('starter')
       recruitFactory.getInterviews(function(newItems) {
         $scope.items = newItems;
         $scope.parseSkillsFromSkillObject($scope.items);
-        $scope.calculateEndTime($scope.items);
+        // $scope.calculateEndTime($scope.items);
         $scope.finishRefreshing();
         console.log('AM success' + $scope.items);
       }, function(error) {
@@ -27,15 +27,17 @@ angular.module('starter')
 
     $scope.parseSkillsFromSkillObject = function(items) {
       angular.forEach(items, function(item) {
+
+      // TODO: Isn't there a better way to join an array of elements with a delimiter?
         item.candidate.all_skills = skillHelperService.getAllSkills(item.candidate.skills, item.candidate.additional_information);
       });
     };
 
-    $scope.calculateEndTime = function(items) {
-      angular.forEach(items, function(item) {
-        item.candidate_interview_date_time_end = new Date(new Date(item.candidate_interview_date_time).getTime() + 3600000);
-      });
-    };
+    // $scope.calculateEndTime = function(items) {
+    //   angular.forEach(items, function(item) {
+    //     item.candidate_interview_date_time_end = new Date(new Date(item.start_time).getTime() + 3600000);
+    //   });
+    // };
 
     $scope.signingUp = function(item) {
       $scope.logged_in_user = 'recruitx'; // TODO: need to do get from okta

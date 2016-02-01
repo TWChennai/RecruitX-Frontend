@@ -19,29 +19,28 @@
                 <div class="item item-divider candidateInfo">
                   <div class="row">
                     <div class="col col-50">
-                      <a ui-sref="candidate-profile({candidate_id: item.candidate.id})"><strong>{{item.candidate.name}}</strong></a> <h5> ({{item.candidate.experience}} Yrs) </h5>
+                      <a ui-sref="candidate-profile({candidate_id: item.candidate.id})"><strong>{{item.candidate.name | limitTo: 10}}</strong></a> <h5> ({{item.candidate.experience}} Yrs) </h5>
                     </div>
                     <div class="col col-30">
-                      <h3><strong ng-bind = "item.candidate_interview_date_time | date:'dd/MM/yyyy'"></strong></h3>
+                      <h3><strong ng-bind = "item.start_time | date:'dd/MM/yyyy'"></strong></h3>
                     </div>
                     <div class="col col-20 inherit_display">
-                      <h3><strong ng-bind = "item.candidate_interview_date_time | date:'h:mma'"></strong></h3>
+                      <h3><strong ng-bind = "item.start_time | date:'h:mma'"></strong></h3>
                     </div>
                   </div>
                   <div class="row pad-box">
-                    <div class="col">
+                    <div class="col col-30">
                       <h4><strong>Skills: </strong>{{item.candidate.all_skills}}</h4>
                     </div>
-                  </div>
-                  <div class="row">
-                    <div class="col col-67">
+
+                    <!-- <div class="col col-67">
                       <h3><strong>{{item.interview_type.name}}</strong></h3>
-                    </div>
-                    <div class="col col-33">
+                    </div> -->
+                    <div class="col col-70">
                       <div class="pull-right">
                         <i class="icon ion-checkmark calm"></i>
                         <i class="icon ion-checkmark calm"></i>
-                        <button class="button button-small button-positive" ng-click="signingUp(item)">Signup</button>
+                        <button class="button button-small button-positive" ng-click="signingUp(item)">Signup: {{item.interview_type.name}}</button>
                       </div>
                     </div>
                   </div>

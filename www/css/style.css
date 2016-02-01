@@ -144,5 +144,6 @@ textarea {
 }
 .candidatePanelList .item { padding: 6px; }
 .candidatePanelList .candidateInfo { padding: 0 3px; }
-.candidateInfo h4{ padding: 0 }
+.candidateInfo h4{ padding: 0; text-overflow: initial; word-wrap: break-word; white-space: normal;}
 .item h5 {display: inline-block; font-style:italic}
+.pull-right .button{ vertical-align: middle;}

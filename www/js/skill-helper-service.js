@@ -10,6 +10,6 @@ angular.module('starter')
 
              all_skills.push(other_skills);
              console.log("skills" + String(all_skills));
-             return String(all_skills);
-         }
+             return all_skills.join(', ');
+         };
        });
