@@ -18,6 +18,12 @@ angular.module('recruitX')
         window.StatusBar.styleDefault();
       }
 
+      function hideSplashScreen() {
+        if (request >= 3) {
+          // $cordovaSplashscreen.hide();     // TODO: Fix later
+          console.log('TODO: Need to fix hiding of splash screen.');
+        }
+      }
       /* Get roles and Skills */
       var request = 0;
       recruitFactory.getSkills(function (skills) {
@@ -37,12 +43,5 @@ angular.module('recruitX')
         request++;
         hideSplashScreen();
       });
-
-      function hideSplashScreen() {
-        if (request >= 3) {
-          // $cordovaSplashscreen.hide();     // TODO: Fix later
-          console.log('TODO: Need to fix hiding of splash screen.');
-        }
-      }
     });
   });
