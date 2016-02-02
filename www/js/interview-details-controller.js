@@ -1,4 +1,4 @@
-angular.module('starter')
+angular.module('recruitX')
   .controller('interviewDetailsController', ['$scope', '$stateParams', 'recruitFactory', function ($scope, $stateParams, recruitFactory) {
     'use strict';
 
