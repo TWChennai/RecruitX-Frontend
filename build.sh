@@ -4,6 +4,6 @@ npm install
 
 karma start tests/unit-tests.conf.js
 
-eslint .
+eslint --fix .
 
 echo "TODO: Need to fix errors reported by eslint and then remove this dummy echo line!!!"
