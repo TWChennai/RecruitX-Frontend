@@ -39,8 +39,8 @@ angular.module('recruitX')
 
     $scope.signingUp = function(item) {
       $scope.logged_in_user = 'recruitx'; // TODO: need to do get from okta
-      var data = { 'user' : $scope.logged_in_user, 'id': item.id };
-      recruitFactory.signUp(data, function(res) {
+      $scope.interview_panelist = { interview_panelist: {'panelist_login_name' : $scope.logged_in_user, 'interview_id': item.id }};
+      recruitFactory.signUp($scope.interview_panelist, function(res) {
         console.log(res);
         $scope.showAlert('Success', 'Signed Up!!');
       });

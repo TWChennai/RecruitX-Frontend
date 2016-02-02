@@ -59,7 +59,7 @@ angular.module('recruitX')
       signUp: function (data, success) {
         // TODO: Need a better RESTful url
 
-        $http.put(baseUrl + '/panelist_signup_table/' + data.id, data.user).success(success).error(defaultErrorHandler);
+        $http.post(baseUrl + '/interview_panelists', data).success(success).error(defaultErrorHandler);
       }
     };
   }]);
