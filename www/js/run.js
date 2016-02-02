@@ -1,5 +1,4 @@
-angular.module('starter')
-
+angular.module('recruitX')
 .run(function ($cordovaSplashscreen, $rootScope, $ionicPlatform, recruitFactory) {
   'use strict';
 

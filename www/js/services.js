@@ -1,4 +1,4 @@
-angular.module('starter')
+angular.module('recruitX')
   .factory('recruitFactory', ['$cordovaToast', '$http', 'apiUrl', function ($cordovaToast, $http, apiUrl) {
     'use strict';
 

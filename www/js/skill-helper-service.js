@@ -1,4 +1,4 @@
-angular.module('starter')
+angular.module('recruitX')
   .service('skillHelperService', function () {
     this.getAllSkills = function (skills, other_skills) {
       var all_skills = [];

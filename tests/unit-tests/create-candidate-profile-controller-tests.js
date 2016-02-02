@@ -1,7 +1,7 @@
 describe('createCandidateProfileController', function () {
   'use strict';
 
-  beforeEach(module('starter'));
+  beforeEach(module('recruitX'));
 
   var $controller, $scope = {},
     controller;

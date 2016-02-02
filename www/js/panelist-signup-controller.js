@@ -1,4 +1,4 @@
-angular.module('starter')
+angular.module('recruitX')
   .controller('panelistSignupController', function($scope, recruitFactory, skillHelperService, $ionicPopup) {
     'use strict';
 

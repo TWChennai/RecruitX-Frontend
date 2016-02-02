@@ -3,7 +3,7 @@ describe('recruitFactory', function () {
 
   var recruitFactory, httpBackend, cordovaToast, baseUrl;
 
-  beforeEach(module('starter'));
+  beforeEach(module('recruitX'));
 
   beforeEach(inject(function ($cordovaToast, $httpBackend, _apiUrl_, _recruitFactory_) {
     recruitFactory = _recruitFactory_;

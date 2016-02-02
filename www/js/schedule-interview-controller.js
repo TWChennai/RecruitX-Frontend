@@ -1,4 +1,4 @@
-angular.module('starter')
+angular.module('recruitX')
   .controller('scheduleInterviewController', function ($rootScope, $scope, $stateParams, $cordovaDatePicker, recruitFactory, $filter, $ionicPopup) {
     'use strict';
 
