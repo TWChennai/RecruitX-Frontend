@@ -1,0 +1,75 @@
+<ion-view>
+	<ion-nav-title>Interview Details - {{ interview.interview_type.name }}</ion-nav-title>
+	<ion-content>
+		<div ng-controller="interviewDetailsController">
+			<div class="list padding">
+				<div class="list-item candidateDetails">
+					<div class="row">
+						<div class="col col-50">
+							<h5>Candidate</h5>
+						</div>
+						<div class="col col-50">
+							<h5>{{interview.candidate.name}}</h5>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col col-50">
+							<h5>Role</h5>
+						</div>
+						<div class="col col-50">
+							<h5>{{interview.candidate.role.name}}</h5>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col col-50">
+							<h5>Work Experience</h5>
+						</div>
+						<div class="col col-50">
+							<h5>{{interview.candidate.experience}}</h5>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col col-50">
+							<h5>Date</h5>
+						</div>
+						<div class="col col-50">
+							<h5 ng-bind="interview.start_time | date:'dd/MM/yyyy'"></h5>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col col-50">
+							<h5>Time</h5>
+						</div>
+						<div class="col col-50">
+							<h5 ng-bind="(interview.start_time | date:'h:mma') + (' - ') + (endTime(interview.start_time) | date: 'h:mma')"></h5>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col col-50">
+							<h5>Panel</h5>
+						</div>
+						<div class="col col-50">
+							<h5></h5>
+						</div>
+					</div>
+					<form name="feedackForm">
+						<div class="row">
+							<div class="col">
+								<h4>Feedback</h4></div>
+						</div>
+						<div class="row customRadio">
+							<label for="pass">
+								<input type="radio" name="feedback" />Pass</label>
+							<label for="pursue">
+								<input type="radio" name="feedback" />Pursue</label>
+							<label for="strongPursue">
+								<input type="radio" name="feedback" />Strong Pursue</label>
+						</div>
+						<a href="#" class="button button-calm imgUploadBtn"></a>
+						<button class="button button-block button-positive">Submit</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</ion-content>
+</ion-view>

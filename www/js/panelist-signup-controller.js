@@ -13,7 +13,7 @@ angular.module('recruitX')
 
     $scope.doRefresh = function() {
       console.log('AM refreshing');
-      recruitFactory.getInterviews(function(newItems) {
+      recruitFactory.getInterviews({}, function(newItems) {
         $scope.items = newItems;
         $scope.parseSkillsFromSkillObject($scope.items);
         // $scope.calculateEndTime($scope.items);
@@ -57,6 +57,4 @@ angular.module('recruitX')
       console.log('View loaded!');
       $scope.doRefresh();
     }, false);
-  })
-  .controller('interviewDetailsController', function() {
   });

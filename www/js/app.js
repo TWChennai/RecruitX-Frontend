@@ -39,10 +39,10 @@ angular.module('recruitX', ['ionic', 'ui.router', 'ngCordova', 'ngResource'])
     controller: 'panelistSignupController'
   })
 
-  .state('candidate-details', {
-    url: '/candidate-details',
-    templateUrl: 'templates/candidate-details.html',
-    controller: ''
+  .state('interview-details', {
+    url: '/interview-details/:id',
+    templateUrl: 'templates/interview-details.html',
+    controller: 'interviewDetailsController'
   })
 
   .state('candidate-profile', {

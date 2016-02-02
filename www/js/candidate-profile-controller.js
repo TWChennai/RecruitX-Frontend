@@ -3,12 +3,17 @@ angular.module('recruitX')
     'use strict';
 
     $scope.candidate = {};
+    var candidate_id = $stateParams.candidate_id;
 
-    recruitFactory.getCandidate($stateParams.candidate_id, function (response) {
+    recruitFactory.getCandidate(candidate_id, function (response) {
       $scope.candidate = response['data'];
       $scope.candidate.all_skills = skillHelperService.getAllSkills($scope.candidate.skills, $scope.candidate.other_skills);
     }, function(response) {
       console.log('failed with response: ' + response);
+    });
+
+    recruitFactory.getInterviews({candidate_id: candidate_id}, function(interviews) {
+      $scope.interviews = interviews;
     });
   }
 ]);

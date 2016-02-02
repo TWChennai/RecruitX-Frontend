@@ -48,8 +48,12 @@ angular.module('recruitX')
         $http.post(baseUrl + '/candidates', data).success(success).error(defaultErrorHandler);
       },
 
-      getInterviews: function (success) {
-        $http.get(baseUrl + '/interviews').success(success).error(defaultErrorHandler);
+      getInterviews: function (data, success) {
+        $http.get(baseUrl + '/interviews', {params: data}).success(success).error(defaultErrorHandler);
+      },
+
+      getInterview: function (id, success) {
+        $http.get(baseUrl + '/interviews/' + id).success(success).error(defaultErrorHandler);
       },
 
       signUp: function (data, success) {
