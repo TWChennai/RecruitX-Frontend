@@ -123,3 +123,6 @@ hs_err_pid*
 
 #node packages
 node_modules/
+
+
+.DS_Store
