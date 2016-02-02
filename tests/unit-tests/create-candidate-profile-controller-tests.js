@@ -6,14 +6,10 @@ describe('createCandidateProfileController', function () {
   var $controller, $scope = {},
     controller;
 
-  beforeEach(inject(function (_$controller_) {
-    // The injector unwraps the underscores (_) from around the parameter names when matching
-    $controller = _$controller_;
-    controller = $controller('createCandidateProfileController', {
-      $scope: $scope
-    });
-
-    $scope.skills = [{
+  var $rootScope;
+  beforeEach(inject(function(_$rootScope_) {
+    $rootScope = _$rootScope_;
+    $rootScope.skills = [{
       id: 1,
       name: 'Java'
     }, {
@@ -31,10 +27,18 @@ describe('createCandidateProfileController', function () {
     }];
   }));
 
+  beforeEach(inject(function (_$controller_) {
+    // The injector unwraps the underscores (_) from around the parameter names when matching
+    $controller = _$controller_;
+    controller = $controller('createCandidateProfileController', {
+      $scope: $scope
+    });
+  }));
+
   describe('methods', function () {
     describe('isAtleastOnePredefinedSkillSelected', function () {
       it('should return true when candidate has predetermined skills', function () {
-        $scope.skills[0].checked = true;
+        $rootScope.skills[0].checked = true;
         expect($scope.isAtleastOnePredefinedSkillSelected()).toEqual(true);
       });
 
@@ -57,7 +61,7 @@ describe('createCandidateProfileController', function () {
 
     describe('isSkillFieldsValid', function () {
       it('should return true when candidate has a predefined skill', function () {
-        $scope.skills[0].checked = true;
+        $rootScope.skills[0].checked = true;
         expect($scope.isSkillFieldsValid()).toEqual(true);
       });
 
@@ -81,8 +85,7 @@ describe('createCandidateProfileController', function () {
       it('should return true when candidate has other skill and predefined skill', function () {
         $scope.getOtherCheckbox().checked = true;
         $scope.candidate.other_skills = 'Ionic';
-        $scope.skills[0].checked = true;
-
+        $scope.candidate.additional_information = 'Ionic';
         expect($scope.isSkillFieldsValid()).toEqual(true);
       });
 
@@ -97,7 +100,7 @@ describe('createCandidateProfileController', function () {
       $scope.candidateForm = {
         $invalid: false
       };
-      $scope.skills[0].checked = true;
+      $rootScope.skills[0].checked = true;
       expect($scope.isFormInvalid()).toEqual(false);
     });
 
@@ -112,7 +115,7 @@ describe('createCandidateProfileController', function () {
       $scope.candidateForm = {
         $invalid: true
       };
-      $scope.skills[0].checked = true;
+      $rootScope.skills[0].checked = true;
       expect($scope.isFormInvalid()).toEqual(true);
     });
   });
