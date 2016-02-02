@@ -46,9 +46,9 @@
                 <ion-checkbox ng-repeat="skill in skills" ng-model="skill.checked">{{skill.name}}</ion-checkbox>
               </ion-list>
               <div ng-if="getOtherCheckbox().checked">
-                  <textarea placeholder="Please specify"  name="additionalInformation" ng-model="candidate.additional_information" ng-maxlength="130" required></textarea>
-                  <p class="error" ng-show="candidateForm.additionalInformation.$error.maxlength && !candidateForm.additionalInformation.$pristine">Other Skills cannot exceed more than 130 Chars</p>
-                  <p class="error" ng-show="candidateForm.additional_information.$error.required && !candidateForm.additional_information.$pristine">
+                  <textarea placeholder="Please specify"  name="otherSkills" ng-model="candidate.other_skills" ng-maxlength="130" required></textarea>
+                  <p class="error" ng-show="candidateForm.otherSkills.$error.maxlength && !candidateForm.otherSkills.$pristine">Other Skills cannot exceed more than 130 Chars</p>
+                  <p class="error" ng-show="candidateForm.other_skills.$error.required && !candidateForm.other_skills.$pristine">
                     is required</p>
               </div>
             </div>

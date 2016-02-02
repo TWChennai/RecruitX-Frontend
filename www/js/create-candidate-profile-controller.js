@@ -45,7 +45,7 @@ angular.module('starter')
       if (Object.keys($scope.skills).length > 0) {
         var otherCheckBox = $scope.getOtherCheckbox();
         if (otherCheckBox.checked) {
-          return $scope.candidate.additional_information !== undefined;
+          return $scope.candidate.other_skills !== undefined;
         } else {
           return $scope.isAtleastOnePredefinedSkillSelected();
         }

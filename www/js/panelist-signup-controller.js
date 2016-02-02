@@ -27,8 +27,7 @@ angular.module('starter')
 
     $scope.parseSkillsFromSkillObject = function(items) {
       angular.forEach(items, function(item) {
-
-        item.candidate.all_skills = skillHelperService.getAllSkills(item.candidate.skills, item.candidate.additional_information);
+        item.candidate.all_skills = skillHelperService.getAllSkills(item.candidate.skills, item.candidate.other_skills);
       });
     };
 

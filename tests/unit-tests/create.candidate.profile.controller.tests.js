@@ -63,13 +63,13 @@ describe('createCandidateProfileController', function () {
 
       it('should return true when candidate has other skill but no predefined skill', function () {
         $scope.getOtherCheckbox().checked = true;
-        $scope.candidate.additional_information = 'Ionic';
+        $scope.candidate.other_skills = 'Ionic';
         expect($scope.isSkillFieldsValid()).toEqual(true);
       });
 
       it('should return false when candidate has other skill unchecked but detail is entered', function () {
         $scope.getOtherCheckbox().checked = false;
-        $scope.candidate.additional_information = 'Ionic';
+        $scope.candidate.other_skills = 'Ionic';
         expect($scope.isSkillFieldsValid()).toEqual(false);
       });
 
@@ -80,7 +80,7 @@ describe('createCandidateProfileController', function () {
 
       it('should return true when candidate has other skill and predefined skill', function () {
         $scope.getOtherCheckbox().checked = true;
-        $scope.candidate.additional_information = 'Ionic';
+        $scope.candidate.other_skills = 'Ionic';
         $scope.skills[0].checked = true;
 
         expect($scope.isSkillFieldsValid()).toEqual(true);

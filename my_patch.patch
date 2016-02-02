@@ -1,0 +1,148 @@
+diff --git a/www/index.html b/www/index.html
+index c651642..cee16ac 100644
+--- a/www/index.html
++++ b/www/index.html
+@@ -17,6 +17,7 @@
+     <script src="js/app.js"></script>
+ 	  <script src="js/services.js"></script>
+     <script src="js/create-candidate-profile-controller.js"></script>
++    <script src="js/candidate-profile-controller.js"></script>
+     <script src="js/schedule-interview-controller.js"></script>
+     <script src="js/panelist-signup-controller.js"></script>
+ </head>
+diff --git a/www/js/app.js b/www/js/app.js
+index f0c7b14..9745841 100644
+--- a/www/js/app.js
++++ b/www/js/app.js
+@@ -84,6 +84,14 @@ angular.module('starter', ['ionic', 'ui.router', 'ngCordova', 'ngResource'])
+         url: '/candidate-details',
+         templateUrl: 'templates/candidate-details.html',
+         controller: '',
++      })
++      .state('candidate-profile', {
++          url: '/candidate-profile',
++          templateUrl: 'templates/candidate-profile.html',
++          controller: 'candidateProfileController',
++          params: {
++              candidate: null,
++          }
+       });
+ 
+     // if none of the above states are matched, use this as the fallback
+diff --git a/www/js/candidate-profile-controller.js b/www/js/candidate-profile-controller.js
+new file mode 100644
+index 0000000..0b387a2
+--- /dev/null
++++ b/www/js/candidate-profile-controller.js
+@@ -0,0 +1,13 @@
++angular.module('starter')
++  .controller('candidateProfileController', ['$scope', '$stateParams', function($scope, $stateParams) {
++  'use strict';
++
++  $scope.candidate = {};
++  $scope.candidate = $stateParams.candidate;
++  
++  // recruitFactory.getCandidateById($stateParams, function(candidate) {
++  //   $scope.candidate = candidate;
++  // });
++
++},
++]);
+diff --git a/www/js/services.js b/www/js/services.js
+index 3802e27..7cb6b83 100644
+--- a/www/js/services.js
++++ b/www/js/services.js
+@@ -2,7 +2,13 @@ angular.module('starter')
+ .factory('recruitFactory', ['$cordovaToast', '$http', 'apiUrl', function($cordovaToast, $http, apiUrl) {
+   'use strict';
+ 
+-  var baseUrl = 'http://' + apiUrl;
++
++  // var baseUrl = 'http://' + apiUrl;
++
++  // base url
++  // TODO: Move this into a properties/json file that is read in when the app starts
++  // var baseUrl = 'http://10.134.125.194:4001';
++  var baseUrl = 'http://localhost:4000';
+ 
+   var getErrorMessage = function(status) {
+     switch (status) {
+@@ -49,5 +55,9 @@ angular.module('starter')
+ 
+       $http.put(baseUrl + '/panelist_signup_table/' + data.id, data.user).success(success).error(defaultErrorHandler);
+     },
++
++    getCandidateById: function(data, success) {
++        $http.get(baseUrl + '/candidates/' + data.candidate_id).success(success).error(defaultErrorHandler);
++    }
+   };
+ }]);
+diff --git a/www/templates/candidate-profile.html b/www/templates/candidate-profile.html
+new file mode 100644
+index 0000000..66411dc
+--- /dev/null
++++ b/www/templates/candidate-profile.html
+@@ -0,0 +1,50 @@
++<ion-view view-title="Candidate Profile">
++	<ion-content>
++        <div ng-controller="candidateProfileController">
++        <div class="list padding">
++      <div class="list-item candidateDetails">
++        <div class="row">
++            <div class="col col-50">
++              <h5>Name</h5>
++            </div>
++            <div class="col col-50">
++              <h5>{{candidate.name}}</h5>
++            </div>
++        </div>
++        <div class="row">
++            <div class="col col-50">
++              <h5>Role</h5>
++            </div>
++            <div class="col col-50">
++              <h5>{{candidate.role.name}}</h5>
++            </div>
++        </div>
++        <div class="row">
++            <div class="col col-50">
++              <h5>Experience</h5>
++            </div>
++            <div class="col col-50">
++              <h5>{{candidate.experience}}</h5>
++            </div>
++        </div>
++        <div class="row">
++            <div class="col col-50">
++              <h5>Skills</h5>
++            </div>
++            <div class="col col-50" ng-repeat="skill in candidate.skills">
++              <h5>{{skill.name}}</h5>
++            </div>
++        </div>
++        <div class="row">
++            <div class="col col-50">
++              <h5>Other skills</h5>
++            </div>
++            <div class="col col-50">
++              <h5>{{candidate.other_skills}}</h5>
++            </div>
++        </div>
++      </div>
++    </div>
++</div>
++  </ion-content>
++</ion-view>
+diff --git a/www/templates/panelist-signup.html b/www/templates/panelist-signup.html
+index 40a1a12..28e9dbf 100644
+--- a/www/templates/panelist-signup.html
++++ b/www/templates/panelist-signup.html
+@@ -19,7 +19,7 @@
+                 <div class="item item-divider candidateInfo">
+                   <div class="row">
+                     <div class="col col-50">
+-                      <h2>Name: {{item.candidate.name}}</h2>
++                      <a ui-sref="candidate-profile({candidate: item.candidate})"><h2>Name: {{item.candidate.name}}</h2></a>
+                       <h4>{{item.candidate.experience}} Years</h4>
+                     </div>
+                     <div class="col col-30">
