@@ -62,10 +62,10 @@ describe('recruitFactory', function () {
     });
   });
 
-  describe('getInterviewRounds', function () {
-    it('getInterviewRounds should return interviews when successful', function () {
+  describe('getInterviewTypes', function () {
+    it('getInterviewTypes should return interviews when successful', function () {
       httpBackend.expectGET(baseUrl + '/interview_types').respond(['round1', 'round2']);
-      recruitFactory.getInterviewRounds(function (interviews) {
+      recruitFactory.getInterviewTypes(function (interviews) {
         expect(interviews).toEqual(['round1', 'round2']);
       });
 
@@ -76,7 +76,7 @@ describe('recruitFactory', function () {
       httpBackend.expectGET(baseUrl + '/interview_types').respond(422, 'error');
       spyOn(cordovaToast, 'showShortBottom');
 
-      recruitFactory.getInterviewRounds(function (success) {
+      recruitFactory.getInterviewTypes(function (success) {
         expect(false).toEqual(success);
       });
 

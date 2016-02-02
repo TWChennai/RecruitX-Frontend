@@ -18,6 +18,7 @@ angular.module('starter')
     };
 
     return {
+      // Master data calls
       getRoles: function (success) {
         $http.get(baseUrl + '/roles').success(success).error(defaultErrorHandler);
       },
@@ -26,6 +27,11 @@ angular.module('starter')
         $http.get(baseUrl + '/skills').success(success).error(defaultErrorHandler);
       },
 
+      getInterviewTypes: function (success) {
+        $http.get(baseUrl + '/interview_types').success(success).error(defaultErrorHandler);
+      },
+
+      // Transactional data calls
       getCandidates: function (success, customError) {
         $http.get(baseUrl + '/candidates').success(success).error(function (err, status) {
           defaultErrorHandler(err, status, customError);
@@ -36,10 +42,6 @@ angular.module('starter')
         // TODO: Not sure if appending to the endpoint URL is okay
 
         $http.get(baseUrl + '/candidates/' + candidate_id).then(successCallback, failureCallback);
-      },
-
-      getInterviewRounds: function (success) {
-        $http.get(baseUrl + '/interview_types').success(success).error(defaultErrorHandler);
       },
 
       saveCandidate: function (data, success) {

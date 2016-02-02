@@ -4,13 +4,11 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 
-// base url
-// TODO: Move this into a properties/json file that is read in when the app starts
-
 angular.module('starter', ['ionic', 'ui.router', 'ngCordova', 'ngResource'])
+// TODO: Move this into a properties/json file that is read in when the app starts
   .constant('apiUrl', '192.168.1.106:4000')
 
-.run(function ($cordovaSplashscreen, $rootScope, $ionicPlatform) {
+.run(function ($cordovaSplashscreen, $rootScope, $ionicPlatform, recruitFactory) {
   'use strict';
 
   $ionicPlatform.ready(function () {
@@ -30,7 +28,7 @@ angular.module('starter', ['ionic', 'ui.router', 'ngCordova', 'ngResource'])
     }
 
     /* Get roles and Skills */
-    /* var request = 0;
+    var request = 0;
     recruitFactory.getSkills(function(skills) {
       $rootScope.skills = skills;
       request++;
@@ -42,11 +40,18 @@ angular.module('starter', ['ionic', 'ui.router', 'ngCordova', 'ngResource'])
       request++;
       hideSplashScreen();
     });
+
+    recruitFactory.getInterviewTypes(function(interview_types) {
+      $rootScope.interview_types = interview_types;
+      request++;
+      hideSplashScreen();
+    });
+
     function hideSplashScreen() {
-      if(request >= 2) {
-        $cordovaSplashscreen.hide();
+      if(request >= 3) {
+        // $cordovaSplashscreen.hide();     // TODO: Fix later
       }
-    } */
+    }
   });
 })
 

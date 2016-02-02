@@ -1,12 +1,10 @@
 angular.module('starter')
-  .controller('scheduleInterviewController', function ($scope, $stateParams, $cordovaDatePicker, recruitFactory, $filter, $ionicPopup) {
+  .controller('scheduleInterviewController', function ($rootScope, $scope, $stateParams, $cordovaDatePicker, recruitFactory, $filter, $ionicPopup) {
     'use strict';
 
     $stateParams.candidate.interview_rounds = [];
-    /* Get Interview Rounds */
-    recruitFactory.getInterviewRounds(function (interviewRounds) {
-      $scope.interviewRounds = $filter('orderBy')(interviewRounds, 'priority');
-    });
+    // TODO: Inline later - currently not working - need to figure out why so.
+    $scope.interviewRounds = $rootScope.interview_types;
 
     $scope.dateTime = function (index) {
       var options = {
@@ -40,6 +38,7 @@ angular.module('starter')
     };
 
     $scope.isFormInvalid = function () {
+      // TODO: Use some built-in functionality from angular for this
       for (var interviewRoundIndex in $scope.interviewRounds) {
         if ($scope.interviewRounds[interviewRoundIndex].dateTime !== undefined) {
           return false;

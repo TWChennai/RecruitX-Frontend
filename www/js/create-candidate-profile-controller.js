@@ -1,27 +1,13 @@
 angular.module('starter')
+  // TODO: If we need to preload, please implement the same for the other controllers as well. If not, then remove from here
   .controller('createCandidateProfileController', ['$rootScope', '$scope', '$http', 'recruitFactory', function ($rootScope, $scope, $http, recruitFactory) {
     'use strict';
 
     $scope.candidate = {};
-    $scope.skills = [];
-    $scope.roles = [];
-
-    // Assigining the skills and roles from the rootScope
-    recruitFactory.getSkills(function (skills) {
-      $scope.skills = skills;
-    });
-
-    recruitFactory.getRoles(function (roles) {
-      $scope.roles = roles;
-    });
-
-    // Temporarily loaded api within the controller
-    // $scope.skills = $rootScope.skills;
-    // $scope.roles = $rootScope.roles;
 
     $scope.isAtleastOnePredefinedSkillSelected = function () {
       var validity = false;
-      angular.forEach($scope.skills, function (value) {
+      angular.forEach($rootScope.skills, function (value) {
         if ($scope.getOtherCheckbox().name !== value.name) {
           validity = value.checked || validity;
         }
@@ -32,7 +18,7 @@ angular.module('starter')
 
     $scope.getOtherCheckbox = function () {
       var otherSkill;
-      angular.forEach($scope.skills, function (value) {
+      angular.forEach($rootScope.skills, function (value) {
         if (value.name === 'Other') {
           otherSkill = value;
         }
@@ -42,7 +28,7 @@ angular.module('starter')
     };
 
     $scope.isSkillFieldsValid = function () {
-      if (Object.keys($scope.skills).length > 0) {
+      if (Object.keys($rootScope.skills).length > 0) {
         var otherCheckBox = $scope.getOtherCheckbox();
         if (otherCheckBox.checked) {
           return $scope.candidate.other_skills !== undefined;
@@ -53,7 +39,7 @@ angular.module('starter')
     };
 
     $scope.isFormInvalid = function () {
-      if (Object.keys($scope.skills).length > 0) {
+      if (Object.keys($rootScope.skills).length > 0) {
         var validity = ($scope.isSkillFieldsValid() && !$scope.candidateForm.$invalid);
         return !validity;
       } else {
@@ -65,9 +51,9 @@ angular.module('starter')
       $scope.candidate.skill_ids = [];
       $scope.candidate.name = $scope.firstName + ' ' + $scope.lastName;
       // TODO: There should be a better way in underscore to extract with a certain parameter
-      for (var skill in $scope.skills) {
-        if ($scope.skills[skill].checked) {
-          $scope.candidate.skill_ids.push($scope.skills[skill].id);
+      for (var skill in $rootScope.skills) {
+        if ($rootScope.skills[skill].checked) {
+          $scope.candidate.skill_ids.push($rootScope.skills[skill].id);
         }
       }
     };
