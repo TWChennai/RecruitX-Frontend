@@ -23,7 +23,6 @@ angular.module('recruitX')
         interviewStartTime = $scope.notScheduled;
         interviewID = '';
         interviewRoundName = $rootScope.interview_types[interviewsIndex].name;
-
         // console.log('interview rounds root scope ', $rootScope.interview_types[interviewsIndex].name);
         var scheduledInterview = ($filter('filter')($scope.interviews, {
           interview_type: {

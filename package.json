@@ -21,12 +21,15 @@
     "shelljs": "^0.3.0"
   },
   "cordovaPlugins": [
-    "cordova-plugin-datepicker",
-    "cordova-plugin-whitelist",
-    "cordova-plugin-x-toast"
+    "cordova-plugin-whitelist@1.2.1",
+    "cordova-plugin-datepicker@0.9.3",
+    "cordova-plugin-x-toast@2.4.0"
   ],
   "cordovaPlatforms": [
     "android",
     "ios"
-  ]
+  ],
+  "scripts": {
+    "postinstall": "ionic state restore"
+  }
 }
