@@ -46,7 +46,7 @@ angular.module('recruitX', ['ionic', 'ui.router', 'ngCordova', 'ngResource'])
   })
 
   .state('candidate-profile', {
-    url: '/candidate-profile/:candidate_id',
+    url: '/candidate-profile/:id',
     templateUrl: 'templates/candidate-profile.html',
     controller: 'candidateProfileController'
   });

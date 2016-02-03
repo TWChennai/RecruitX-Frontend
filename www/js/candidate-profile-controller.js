@@ -3,7 +3,7 @@ angular.module('recruitX')
     'use strict';
 
     $scope.candidate = {};
-    var candidate_id = $stateParams.candidate_id;
+    var candidate_id = $stateParams.id;
 
     recruitFactory.getCandidate(candidate_id, function (response) {
       $scope.candidate = response['data'];
