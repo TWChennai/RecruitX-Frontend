@@ -2,7 +2,6 @@
   "name": "ionic-project",
   "version": "1.1.1",
   "description": "An Ionic project",
-  "engine": "node 5.5.0",
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-concat": "^2.2.0",
