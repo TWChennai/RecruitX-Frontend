@@ -19,6 +19,7 @@ angular.module('recruitX')
       }
 
       var request = 0;
+
       function hideSplashScreen() {
         if (request >= 3) {
           // $cordovaSplashscreen.hide();     // TODO: Fix later

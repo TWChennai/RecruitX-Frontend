@@ -49,8 +49,7 @@ angular.module('recruitX', ['ionic', 'ui.router', 'ngCordova', 'ngResource'])
     url: '/candidate/:id',
     parent: 'candidate-tab-view',
     views: {
-      'candidate-profile-tab':
-      {
+      'candidate-profile-tab': {
         templateUrl: 'templates/candidate-profile.html',
         controller: 'candidateProfileController'
       }
@@ -61,8 +60,7 @@ angular.module('recruitX', ['ionic', 'ui.router', 'ngCordova', 'ngResource'])
     url: '/candidate/:id/interviews',
     parent: 'candidate-tab-view',
     views: {
-      'candidate-interviews-tab':
-      {
+      'candidate-interviews-tab': {
         templateUrl: 'templates/candidate-interviews.html',
         controller: 'candidateInterviewsController'
       }

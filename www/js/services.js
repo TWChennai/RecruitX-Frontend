@@ -38,7 +38,7 @@ angular.module('recruitX')
         });
       },
 
-      getCandidate: function(candidate_id, successCallback, failureCallback) {
+      getCandidate: function (candidate_id, successCallback, failureCallback) {
         // TODO: Not sure if appending to the endpoint URL is okay
 
         $http.get(baseUrl + '/candidates/' + candidate_id).then(successCallback, failureCallback);
@@ -49,7 +49,9 @@ angular.module('recruitX')
       },
 
       getInterviews: function (data, success) {
-        $http.get(baseUrl + '/interviews?panelist_login_name=dinesh', {params: data}).success(success).error(defaultErrorHandler);
+        $http.get(baseUrl + '/interviews?panelist_login_name=dinesh', {
+          params: data
+        }).success(success).error(defaultErrorHandler);
       },
 
       getInterview: function (id, success) {
