@@ -110,7 +110,7 @@ describe('recruitFactory', function () {
     });
   });
 
-  describe('saveCandidate', function() {
+  describe('saveCandidate', function () {
     it('saveCandidate should post data when successful', function () {
       httpBackend.expectPOST(baseUrl + '/candidates', 'data').respond('success');
       recruitFactory.saveCandidate('data', function (response) {
@@ -133,21 +133,21 @@ describe('recruitFactory', function () {
     });
   });
 
-  describe('signUp', function () {
-    it('signup should post data when successful', function () {
+  describe('saveSignup', function () {
+    it('saveSignup should post data when successful', function () {
       httpBackend.expectPOST(baseUrl + '/interview_panelists').respond('success');
-      recruitFactory.signUp('data', function (response) {
+      recruitFactory.saveSignup('data', function (response) {
         expect(response).toEqual('success');
       });
 
       httpBackend.flush();
     });
 
-    it('signup should display toast error message when error and should not call the success method', function () {
+    it('saveSignup should display toast error message when error and should not call the success method', function () {
       httpBackend.expectPOST(baseUrl + '/interview_panelists', 'data').respond(422, 'error');
       spyOn(cordovaToast, 'showShortBottom');
 
-      recruitFactory.signUp('data', function (success) {
+      recruitFactory.saveSignup('data', function (success) {
         expect(false).toEqual(success);
       });
 
@@ -155,6 +155,4 @@ describe('recruitFactory', function () {
       expect(cordovaToast.showShortBottom).toHaveBeenCalledWith('Something went wrong while processing your request.Please try again soon');
     });
   });
-
-
 });

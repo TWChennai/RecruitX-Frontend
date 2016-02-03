@@ -7,7 +7,7 @@ describe('createCandidateProfileController', function () {
     controller;
 
   var $rootScope;
-  beforeEach(inject(function(_$rootScope_) {
+  beforeEach(inject(function (_$rootScope_) {
     $rootScope = _$rootScope_;
     $rootScope.skills = [{
       id: 1,

@@ -58,7 +58,7 @@ angular.module('recruitX')
         $http.get(baseUrl + '/interviews/' + id).success(success).error(defaultErrorHandler);
       },
 
-      signUp: function (data, success) {
+      saveSignup: function (data, success) {
         // TODO: Need a better RESTful url
 
         $http.post(baseUrl + '/interview_panelists', data).success(success).error(defaultErrorHandler);

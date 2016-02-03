@@ -44,7 +44,7 @@ angular.module('recruitX')
           'interview_id': item.id
         }
       };
-      recruitFactory.signUp($scope.interview_panelist, function (res) {
+      recruitFactory.saveSignup($scope.interview_panelist, function (res) {
         console.log(res);
         $scope.showAlert('Success', 'Signed Up!!');
       });
