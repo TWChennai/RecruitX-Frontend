@@ -1,60 +1,42 @@
-<ion-view  hide-nav-bar="true" view-title="Candidate">
-  <ion-tabs class="cust-tab tabs-striped tabs-positive tabs-top">
-    <ion-tab title="Profile">
-      <ion-content>
-        <div class="list padding">
-          <div class="list-item interviewDetails">
+<ion-view view-title="Candidate">
+<ion-content>
+  <div class="list padding">
+    <div class="list-item interviewDetails">
 
-            <div class="row">
-              <div class="col col-50">
-                <h5>Name</h5>
-              </div>
-              <div class="col col-50">
-                <h5>{{candidate.name}}</h5>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col col-50">
-                <h5>Role</h5>
-              </div>
-              <div class="col col-50">
-                <h5>{{candidate.role.name}}</h5>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col col-50">
-                <h5>Experience</h5>
-              </div>
-              <div class="col col-50">
-                <h5>{{candidate.experience}}</h5>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col col-50">
-                <h5>Skills</h5>
-              </div>
-              <div class="col col-50">
-                <h5>{{candidate.all_skills}}</h5>
-              </div>
-            </div>
-          </div>
+      <div class="row">
+        <div class="col col-50">
+          <h5>Name</h5>
         </div>
+        <div class="col col-50">
+          <h5>{{candidate.name}}</h5>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col-50">
+          <h5>Role</h5>
+        </div>
+        <div class="col col-50">
+          <h5>{{candidate.role.name}}</h5>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col-50">
+          <h5>Experience</h5>
+        </div>
+        <div class="col col-50">
+          <h5>{{candidate.experience}}</h5>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col-50">
+          <h5>Skills</h5>
+        </div>
+        <div class="col col-50">
+          <h5>{{candidate.all_skills}}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
 
-      </ion-content>
-    </ion-tab>
-    <ion-tab title="Interviews">
-      <ion-content>
-        <ion-list inset>
-          <div ng-repeat="interviewRound in interviewSet">
-            <ion-item class="item" ui-sref = {{viewInterviewDetails(interviewRound)}}>
-                <div class="row">
-                    <p class="col col-50">{{interviewRound.name}}</p>
-                    <p class="col col-50">{{interviewRound.start_time | date: 'dd/MM/yyyy h:mma'}}</p>
-                </div>
-            </ion-item>
-          </div>
-        </ion-list>
-      </ion-content>
-    </ion-tab>
-  </ion-tabs>
+</ion-content>
 </ion-view>

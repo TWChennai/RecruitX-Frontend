@@ -1,0 +1,14 @@
+<ion-view view-title="Candidate">
+  <ion-content>
+    <ion-list inset ng-controller="candidateInterviewsController">
+      <div ng-repeat="interviewRound in interviewSet">
+        <ion-item class="item" ui-sref = {{viewInterviewDetails(interviewRound)}}>
+            <div class="row">
+                <p class="col col-50">{{interviewRound.name}}</p>
+                <p class="col col-50">{{interviewRound.start_time | date: 'dd/MM/yyyy h:mma'}}</p>
+            </div>
+        </ion-item>
+      </div>
+    </ion-list>
+  </ion-content>
+</ion-view>

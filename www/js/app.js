@@ -7,16 +7,15 @@
 angular.module('recruitX', ['ionic', 'ui.router', 'ngCordova', 'ngResource'])
 // TODO: Move this into a properties/json file that is read in when the app starts
 .constant('apiUrl', '10.134.125.194:4001')
-
 .config(function ($stateProvider, $urlRouterProvider) {
   'use strict';
 
   $stateProvider
-    .state('candidate-index', {
-      url: '/candidates',
-      templateUrl: 'templates/candidate-index.html',
-      controller: 'createCandidateProfileController'
-    })
+    // .state('candidate-index', {
+    //   url: '/candidates',
+    //   templateUrl: 'templates/candidate-index.html',
+    //   controller: 'createCandidateProfileController'
+    // })
 
   .state('create-candidate-profile', {
     url: '/candidates/new',
@@ -45,10 +44,35 @@ angular.module('recruitX', ['ionic', 'ui.router', 'ngCordova', 'ngResource'])
     controller: 'interviewDetailsController'
   })
 
+  .state('candidate-tab-view', {
+    url: '/candidate-tabs',
+    abstract: true,
+    templateUrl: 'templates/candidate-tabs.html',
+    controller: 'candidateTabController'
+  })
+
   .state('candidate-profile', {
-    url: '/candidate-profile/:id',
-    templateUrl: 'templates/candidate-profile.html',
-    controller: 'candidateProfileController'
+    url: '/candidate/:id',
+    parent: 'candidate-tab-view',
+    views: {
+      'candidate-profile-tab':
+      {
+        templateUrl: 'templates/candidate-profile.html',
+        controller: 'candidateProfileController'
+      }
+    }
+  })
+
+  .state('candidate-interviews', {
+    url: '/candidate/:id/interviews',
+    parent: 'candidate-tab-view',
+    views: {
+      'candidate-interviews-tab':
+      {
+        templateUrl: 'templates/candidate-interviews.html',
+        controller: 'candidateInterviewsController'
+      }
+    }
   });
 
   // if none of the above states are matched, use this as the fallback

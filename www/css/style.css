@@ -57,8 +57,11 @@ textarea {
 .tab-content.tab-content-padding { padding: 48px 0 0; }
 .tab-content-padding .row { padding: 0; }
 .tab-content-padding .pad-box { padding-bottom: 10px; }
-.cust-header {
-  height: 50px
+.cust-header, .bar-header.has-tabs-top {
+  height: 50px;
+}
+.bar-header.has-tabs-top {
+	border-bottom: 2px solid #fff;
 }
 .cust-tab {
   position: absolute;
@@ -69,8 +72,8 @@ textarea {
   margin-top: 50px;
 }
 .cust-tab .overflow-scroll { overflow-y: scroll; }
-.cust-tab .tab-title { font-size: 16px; }
-.cust-tab .tab-item { max-width: initial; }
+.cust-tab .tab-title, .candidate-tab .tab-title { font-size: 16px; }
+.cust-tab .tab-item, .candidate-tab .tab-item { max-width: initial; }
 .cust-tab.tabs-top > .tabs { top: 0; }
 .nav-bar-tabs-top.hide ~ .view-container .cust-tab .tabs { top: 0; }
 .candidateDetails .item-radio input:checked+.radio-content .radio-icon { display: none; }
