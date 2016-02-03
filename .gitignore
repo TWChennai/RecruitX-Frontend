@@ -124,5 +124,9 @@ hs_err_pid*
 #node packages
 node_modules/
 
+# Cordova Plugins
+plugins/
 
 .DS_Store
+
+
