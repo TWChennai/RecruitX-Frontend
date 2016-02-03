@@ -11,12 +11,6 @@ angular.module('recruitX', ['ionic', 'ui.router', 'ngCordova', 'ngResource'])
   'use strict';
 
   $stateProvider
-    // .state('candidate-index', {
-    //   url: '/candidates',
-    //   templateUrl: 'templates/candidate-index.html',
-    //   controller: 'createCandidateProfileController'
-    // })
-
   .state('create-candidate-profile', {
     url: '/candidates/new',
     templateUrl: 'templates/create-candidate-profile.html',

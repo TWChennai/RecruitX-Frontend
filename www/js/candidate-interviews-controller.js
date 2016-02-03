@@ -6,12 +6,12 @@ angular.module('recruitX')
     $scope.notScheduled = 'Not Scheduled';
 
     recruitFactory.getInterviews({candidate_id: $stateParams.id}, function(interviews) {
-    $scope.interviews = interviews;
-    var interviewStartTime = $scope.notScheduled;
-    var interviewID = '';
-    var interviewRoundName = '';
+      $scope.interviews = interviews;
+      var interviewStartTime = $scope.notScheduled;
+      var interviewID = '';
+      var interviewRoundName = '';
 
-    for (var interviewsIndex in $rootScope.interview_types) {
+      for (var interviewsIndex in $rootScope.interview_types) {
       // console.log('HIHIHIHIHI', $scope.interviews, '    ', $scope.interviews[interviewsIndex].interview_type.name);
       interviewStartTime = $scope.notScheduled;
       interviewID = '';
@@ -33,15 +33,15 @@ angular.module('recruitX')
       console.log(JSON.stringify($scope.interviewSet));
 
     }
-  });
+    });
 
-  $scope.isNotScheduled = function(interviewData){
+    $scope.isNotScheduled = function(interviewData){
     console.log(interviewData.start_time === $scope.notScheduled);
     return interviewData.start_time === $scope.notScheduled;
   };
 
-  $scope.viewInterviewDetails = function(interviewRound){
+    $scope.viewInterviewDetails = function(interviewRound){
     return $scope.isNotScheduled(interviewRound)?'#':'interview-details({id:interviewRound.id})';
   };
- }
+  }
 ]);
