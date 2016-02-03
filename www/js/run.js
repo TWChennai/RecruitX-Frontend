@@ -18,6 +18,7 @@ angular.module('recruitX')
         window.StatusBar.styleDefault();
       }
 
+      var request = 0;
       function hideSplashScreen() {
         if (request >= 3) {
           // $cordovaSplashscreen.hide();     // TODO: Fix later
@@ -25,7 +26,6 @@ angular.module('recruitX')
         }
       }
       /* Get roles and Skills */
-      var request = 0;
       recruitFactory.getSkills(function (skills) {
         $rootScope.skills = skills;
         request++;

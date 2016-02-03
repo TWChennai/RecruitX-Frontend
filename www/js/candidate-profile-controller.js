@@ -6,7 +6,7 @@ angular.module('recruitX')
     var candidate_id = $stateParams.id;
 
     recruitFactory.getCandidate(candidate_id, function (response) {
-      $scope.candidate = response['data'];
+      $scope.candidate = response.data;
       $scope.candidate.all_skills = skillHelperService.getAllSkills($scope.candidate.skills, $scope.candidate.other_skills);
     }, function(response) {
       console.log('failed with response: ' + response);

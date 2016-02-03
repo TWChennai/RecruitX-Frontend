@@ -6,7 +6,7 @@
 
 angular.module('recruitX', ['ionic', 'ui.router', 'ngCordova', 'ngResource'])
 // TODO: Move this into a properties/json file that is read in when the app starts
-.constant('apiUrl', '192.168.1.106:4000')
+.constant('apiUrl', '10.134.125.194:4001')
 
 .config(function ($stateProvider, $urlRouterProvider) {
   'use strict';

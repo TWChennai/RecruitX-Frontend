@@ -49,7 +49,7 @@ angular.module('recruitX')
       },
 
       getInterviews: function (data, success) {
-        $http.get(baseUrl + '/interviews', {params: data}).success(success).error(defaultErrorHandler);
+        $http.get(baseUrl + '/interviews?panelist_login_name=dinesh', {params: data}).success(success).error(defaultErrorHandler);
       },
 
       getInterview: function (id, success) {
