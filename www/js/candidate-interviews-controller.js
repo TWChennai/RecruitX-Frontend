@@ -6,9 +6,7 @@ angular.module('recruitX')
     $scope.interviewSet = [];
     $scope.notScheduled = 'Not Scheduled';
 
-    recruitFactory.getInterviews({
-      candidate_id: $stateParams.id
-    }, function (interviews) {
+    recruitFactory.getCandidateInterviews($stateParams.id, function (interviews) {
       $scope.interviews = interviews;
       $scope.buildInterviewScheduleList();
     });
@@ -17,11 +15,12 @@ angular.module('recruitX')
       var interviewStartTime = $scope.notScheduled;
       var interviewID = '';
       var interviewRoundName = '';
-
+      
       for (var interviewsIndex in $rootScope.interview_types) {
         interviewStartTime = $scope.notScheduled;
         interviewID = '';
         interviewRoundName = $rootScope.interview_types[interviewsIndex].name;
+
         var scheduledInterview = ($filter('filter')($scope.interviews, {
           interview_type: {
             name: interviewRoundName
@@ -31,7 +30,6 @@ angular.module('recruitX')
           interviewStartTime = scheduledInterview[0].start_time;
           interviewID = scheduledInterview[0].id;
         }
-
         $scope.interviewSet.push({
           id: interviewID,
           name: interviewRoundName,

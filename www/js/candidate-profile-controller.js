@@ -11,7 +11,9 @@ angular.module('recruitX')
 
     recruitFactory.getCandidate($scope.candidate_id, function (response) {
       $scope.candidate = response.data;
-      $scope.candidate.role = $rootScope.roles[response.data.role_id];
+      $scope.candidate.role = ($filter('filter')($rootScope.roles, {
+        id: response.data.role_id
+      }))[0];
       $scope.candidate.all_skills = skillHelperService.getAllSkills($scope.candidate.skills, $scope.candidate.other_skills);
     }, function(response) {
       console.log('failed with response: ' + response);

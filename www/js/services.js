@@ -54,6 +54,10 @@ angular.module('recruitX')
         }).success(success).error(defaultErrorHandler);
       },
 
+      getCandidateInterviews: function (id, success) {
+        $http.get(baseUrl + '/candidates/' + id +'/interviews').success(success).error(defaultErrorHandler);
+      },
+
       getInterview: function (id, success) {
         $http.get(baseUrl + '/interviews/' + id).success(success).error(defaultErrorHandler);
       },

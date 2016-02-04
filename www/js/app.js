@@ -47,7 +47,7 @@ angular.module('recruitX', ['ionic', 'ui.router', 'ngCordova', 'ngResource'])
   })
 
   .state('candidate-profile', {
-    url: '/candidate/:id',
+    url: '/candidates/:id',
     parent: 'candidate-tab-view',
     views: {
       'candidate-profile-tab': {
@@ -58,7 +58,7 @@ angular.module('recruitX', ['ionic', 'ui.router', 'ngCordova', 'ngResource'])
   })
 
   .state('candidate-interviews', {
-    url: '/candidate/:id/interviews',
+    url: '/candidates/:id/interviews',
     parent: 'candidate-tab-view',
     views: {
       'candidate-interviews-tab': {
