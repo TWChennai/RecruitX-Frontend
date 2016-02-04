@@ -64,4 +64,36 @@ angular.module('recruitX')
         $http.post(baseUrl + '/panelists', data).success(success).error(defaultErrorHandler);
       }
     };
+  }])
+
+  .factory('MasterData', [function() {
+    var interviewTypes;
+    var skills;
+    var roles;
+
+    return {
+      setInterviewTypes: function(i) {
+        interviewTypes = i;
+      },
+
+      getInterviewTypes: function() {
+        return interviewTypes;
+      },
+
+      setRoles: function(r) {
+        roles = r;
+      },
+
+      getRoles: function() {
+        return roles;
+      },
+
+      setSkills: function(s) {
+        skills = s;
+      },
+
+      getSkills: function() {
+        return skills;
+      }
+    };
   }]);

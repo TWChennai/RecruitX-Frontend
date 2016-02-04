@@ -1,5 +1,5 @@
 angular.module('recruitX')
-  .run(function ($cordovaSplashscreen, $rootScope, $ionicPlatform, recruitFactory) {
+  .run(function ($ionicPlatform, recruitFactory, MasterData) {
     'use strict';
 
     $ionicPlatform.ready(function () {
@@ -19,30 +19,31 @@ angular.module('recruitX')
       }
 
       var request = 0;
+      var maxRequests = 3;
 
       function hideSplashScreen() {
-        if (request >= 3) {
-          // $cordovaSplashscreen.hide();     // TODO: Fix later
-          console.log('TODO: Need to fix hiding of splash screen.');
+        if (request >= maxRequests) {
+          navigator.splashscreen.hide();
         }
       }
-      /* Get roles and Skills */
-      recruitFactory.getSkills(function (skills) {
-        $rootScope.skills = skills;
+
+      recruitFactory.getInterviewTypes(function(interviewTypes) {
+        MasterData.setInterviewTypes(interviewTypes);
         request++;
         hideSplashScreen();
       });
 
-      recruitFactory.getRoles(function (roles) {
-        $rootScope.roles = roles;
+      recruitFactory.getRoles(function(roles) {
+        MasterData.setRoles(roles);
         request++;
         hideSplashScreen();
       });
 
-      recruitFactory.getInterviewTypes(function (interview_types) {
-        $rootScope.interview_types = interview_types;
+      recruitFactory.getSkills(function(skills) {
+        MasterData.setSkills(skills);
         request++;
         hideSplashScreen();
       });
+
     });
   });

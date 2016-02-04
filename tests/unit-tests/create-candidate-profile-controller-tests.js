@@ -6,10 +6,14 @@ describe('createCandidateProfileController', function () {
   var $controller, $scope = {},
     controller;
 
-  var $rootScope;
-  beforeEach(inject(function (_$rootScope_) {
-    $rootScope = _$rootScope_;
-    $rootScope.skills = [{
+  beforeEach(inject(function (_$controller_) {
+    // The injector unwraps the underscores (_) from around the parameter names when matching
+    $controller = _$controller_;
+    controller = $controller('createCandidateProfileController', {
+      $scope: $scope
+    });
+
+    $scope.skills = [{
       id: 1,
       name: 'Java'
     }, {
@@ -27,18 +31,10 @@ describe('createCandidateProfileController', function () {
     }];
   }));
 
-  beforeEach(inject(function (_$controller_) {
-    // The injector unwraps the underscores (_) from around the parameter names when matching
-    $controller = _$controller_;
-    controller = $controller('createCandidateProfileController', {
-      $scope: $scope
-    });
-  }));
-
   describe('methods', function () {
     describe('isAtleastOnePredefinedSkillSelected', function () {
       it('should return true when candidate has predetermined skills', function () {
-        $rootScope.skills[0].checked = true;
+        $scope.skills[0].checked = true;
         expect($scope.isAtleastOnePredefinedSkillSelected()).toEqual(true);
       });
 
@@ -61,7 +57,7 @@ describe('createCandidateProfileController', function () {
 
     describe('isSkillFieldsValid', function () {
       it('should return true when candidate has a predefined skill', function () {
-        $rootScope.skills[0].checked = true;
+        $scope.skills[0].checked = true;
         expect($scope.isSkillFieldsValid()).toEqual(true);
       });
 
@@ -100,7 +96,7 @@ describe('createCandidateProfileController', function () {
       $scope.candidateForm = {
         $invalid: false
       };
-      $rootScope.skills[0].checked = true;
+      $scope.skills[0].checked = true;
       expect($scope.isFormInvalid()).toEqual(false);
     });
 
@@ -115,7 +111,7 @@ describe('createCandidateProfileController', function () {
       $scope.candidateForm = {
         $invalid: true
       };
-      $rootScope.skills[0].checked = true;
+      $scope.skills[0].checked = true;
       expect($scope.isFormInvalid()).toEqual(true);
     });
   });
