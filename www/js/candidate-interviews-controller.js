@@ -19,22 +19,17 @@ angular.module('recruitX')
       var interviewRoundName = '';
 
       for (var interviewsIndex in $rootScope.interview_types) {
-        // console.log('HIHIHIHIHI', $scope.interviews, '    ', $scope.interviews[interviewsIndex].interview_type.name);
         interviewStartTime = $scope.notScheduled;
         interviewID = '';
         interviewRoundName = $rootScope.interview_types[interviewsIndex].name;
-        // console.log('interview rounds root scope ', $rootScope.interview_types[interviewsIndex].name);
         var scheduledInterview = ($filter('filter')($scope.interviews, {
           interview_type: {
             name: interviewRoundName
           }
         }));
-        // console.log(JSON.stringify(scheduledInterview));
         if (scheduledInterview[0] !== undefined) {
           interviewStartTime = scheduledInterview[0].start_time;
           interviewID = scheduledInterview[0].id;
-          //  console.log('Interview Start time', interviewStartTime);
-          //  console.log('Interview ID: ', interviewID);
         }
 
         $scope.interviewSet.push({
@@ -42,7 +37,6 @@ angular.module('recruitX')
           name: interviewRoundName,
           start_time: interviewStartTime
         });
-        console.log(JSON.stringify($scope.interviewSet));
       }
     };
 

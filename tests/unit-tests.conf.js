@@ -21,6 +21,7 @@ module.exports = function (config) {
       '../www/js/app.js',
       '../www/js/services.js',
       '../www/js/create-candidate-profile-controller.js',
+      '../www/js/candidate-interviews-controller.js',
       '../www/js/schedule-interview-controller.js',
       '../www/lib/angular-mocks/angular-mocks.js',
       'unit-tests/**/*.js'
