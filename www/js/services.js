@@ -61,7 +61,7 @@ angular.module('recruitX')
       saveSignup: function (data, success) {
         // TODO: Need a better RESTful url
 
-        $http.post(baseUrl + '/interview_panelists', data).success(success).error(defaultErrorHandler);
+        $http.post(baseUrl + '/panelists', data).success(success).error(defaultErrorHandler);
       }
     };
   }]);

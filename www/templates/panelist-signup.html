@@ -40,7 +40,7 @@
                       <div class="pull-right">
                         <i class="icon ion-checkmark calm"></i>
                         <i class="icon ion-checkmark calm"></i>
-                        <button class="button button-small button-positive" ng-click="signingUp(item)">Signup: {{item.interview_type.name}}</button>
+                        <button class="button button-small button-positive" ng-disabled="!item.signup" ng-click="signingUp(item)">Signup: {{item.interview_type.name}}</button>
                       </div>
                     </div>
                   </div>

@@ -133,18 +133,19 @@ describe('recruitFactory', function () {
     });
   });
 
-  describe('saveSignup', function () {
-    it('saveSignup should post data when successful', function () {
-      httpBackend.expectPOST(baseUrl + '/interview_panelists').respond('success');
-      recruitFactory.saveSignup('data', function (response) {
+
+  describe('signUp', function () {
+    it('signup should post data when successful', function () {
+      httpBackend.expectPOST(baseUrl + '/panelists').respond('success');
+      recruitFactory.signUp('data', function (response) {
         expect(response).toEqual('success');
       });
 
       httpBackend.flush();
     });
 
-    it('saveSignup should display toast error message when error and should not call the success method', function () {
-      httpBackend.expectPOST(baseUrl + '/interview_panelists', 'data').respond(422, 'error');
+    it('signup should display toast error message when error and should not call the success method', function () {
+      httpBackend.expectPOST(baseUrl + '/panelists', 'data').respond(422, 'error');
       spyOn(cordovaToast, 'showShortBottom');
 
       recruitFactory.saveSignup('data', function (success) {
