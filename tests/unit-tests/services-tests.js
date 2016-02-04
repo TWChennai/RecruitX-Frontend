@@ -137,7 +137,7 @@ describe('recruitFactory', function () {
   describe('signUp', function () {
     it('signup should post data when successful', function () {
       httpBackend.expectPOST(baseUrl + '/panelists').respond('success');
-      recruitFactory.signUp('data', function (response) {
+      recruitFactory.saveSignup('data', function (response) {
         expect(response).toEqual('success');
       });
 
