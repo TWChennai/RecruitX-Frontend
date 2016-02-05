@@ -35,10 +35,10 @@ angular.module('recruitX')
 
     $scope.getPhoto = function() {
       Camera.getPicture().then(function(imageURI) {
-         $scope.imageURI = imageURI;
-         $scope.previewDisabled = false;
+        $scope.imageURI = imageURI;
+        $scope.previewDisabled = false;
       }, function(err) {
-        $cordovaToast.showShortBottom('Something went wrong while accessing the camera.')
+        $cordovaToast.showShortBottom('Something went wrong while accessing the camera.');
       });
     };
 

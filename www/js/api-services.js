@@ -18,10 +18,20 @@ angular.module('recruitX')
       customError();
     };
 
-    var parseSkillsFromSkillObject = function (items) {
+    var populateAllSkillsOnCandidate = function (candidate) {
+      candidate.all_skills = skillHelperService.formatAllSkills(candidate.skills, candidate.other_skills);
+    };
+
+    var populateRoleOnCandidate = function (candidate) {
+      candidate.role = ($filter('filter')(MasterData.getRoles(), {
+        id: candidate.role_id
+      }))[0];
+    };
+
+    var populateCandidateOnInterviews = function (items) {
       // TODO: Please use a consistent for construct
       angular.forEach(items, function (item) {
-        item.candidate.all_skills = skillHelperService.formatAllSkills(item.candidate.skills, item.candidate.other_skills);
+        populateAllSkillsOnCandidate(item.candidate);
       });
     };
 
@@ -42,6 +52,11 @@ angular.module('recruitX')
       // Transactional data calls
       getCandidates: function (success, customError) {
         $http.get(baseUrl + '/candidates').success(function (response) {
+          // TODO: Please use a consistent for construct
+          angular.forEach(response.data, function (item) {
+            populateAllSkillsOnCandidate(item);
+            populateRoleOnCandidate(item);
+          });
           success(response);
         }).error(function (err, status) {
           defaultErrorHandler(err, status, customError);
@@ -49,9 +64,11 @@ angular.module('recruitX')
       },
 
       getCandidate: function (candidate_id, success, failureCallback) {
-        // TODO: Not sure if appending to the endpoint URL is okay
-
-        $http.get(baseUrl + '/candidates/' + candidate_id).then(success, failureCallback);
+        $http.get(baseUrl + '/candidates/' + candidate_id).success(function (response) {
+          populateAllSkillsOnCandidate(response.data);
+          populateRoleOnCandidate(response.data);
+          success(response);
+        }).error(failureCallback);
       },
 
       saveCandidate: function (data, success) {
@@ -64,7 +81,7 @@ angular.module('recruitX')
         $http.get(baseUrl + '/interviews?panelist_login_name=recruitx', {
           params: data
         }).success(function (response) {
-          parseSkillsFromSkillObject(response);
+          populateCandidateOnInterviews(response);
           success(response);
         }).error(defaultErrorHandler);
       },
@@ -74,7 +91,7 @@ angular.module('recruitX')
         $http.get(baseUrl + '/panelists/recruitx/interviews', {
           params: data
         }).success(function (response) {
-          parseSkillsFromSkillObject(response);
+          populateCandidateOnInterviews(response);
           success(response);
         }).error(defaultErrorHandler);
       },
