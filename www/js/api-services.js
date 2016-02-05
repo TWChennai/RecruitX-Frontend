@@ -1,8 +1,8 @@
 angular.module('recruitX')
-  .factory('recruitFactory', ['$cordovaToast', '$http', 'apiUrl', function ($cordovaToast, $http, apiUrl) {
+  .factory('recruitFactory', ['$cordovaToast', '$http', 'endpoints', function ($cordovaToast, $http, endpoints) {
     'use strict';
 
-    var baseUrl = 'http://' + apiUrl;
+    var baseUrl = 'http://' + endpoints.apiUrl;
 
     var getErrorMessage = function (status) {
       switch (status) {

@@ -5,12 +5,12 @@ describe('recruitFactory', function () {
 
   beforeEach(module('recruitX'));
 
-  beforeEach(inject(function ($cordovaToast, $httpBackend, _apiUrl_, _recruitFactory_) {
+  beforeEach(inject(function ($cordovaToast, $httpBackend, _endpoints_, _recruitFactory_) {
     recruitFactory = _recruitFactory_;
     $httpBackend.whenGET(/templates.*/).respond(200, '');
     httpBackend = $httpBackend;
     cordovaToast = $cordovaToast;
-    baseUrl = 'http://' + _apiUrl_;
+    baseUrl = 'http://' + _endpoints_.apiUrl;
   }));
 
   afterEach(function () {

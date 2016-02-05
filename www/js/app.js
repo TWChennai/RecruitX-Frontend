@@ -6,8 +6,10 @@
 
 angular.module('recruitX', ['ionic', 'ui.router', 'ngCordova', 'ngResource'])
 // TODO: Move this into a properties/json file that is read in when the app starts
-.constant('apiUrl', '10.134.125.194:4001')
-
+.constant('endpoints', {
+  apiUrl : '192.168.1.106:4000',
+  oktaUrl: 'https://thoughtworks.okta.com'
+})
 .config(function ($stateProvider, $urlRouterProvider) {
   'use strict';
 
@@ -66,8 +68,17 @@ angular.module('recruitX', ['ionic', 'ui.router', 'ngCordova', 'ngResource'])
         controller: 'candidateInterviewsController'
       }
     }
+  })
+
+  .state('login', {
+     url: '/login',
+     templateUrl: 'templates/login.html',
+     controller: 'loginController'
   });
 
-  // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/panelist-signup');
+   if (window.localStorage['LOGGEDIN_USER']) {
+    $urlRouterProvider.otherwise('/panelist-signup');
+    } else {
+    $urlRouterProvider.otherwise('/login');
+    }
 });
