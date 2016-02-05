@@ -1,5 +1,5 @@
 angular.module('recruitX')
-  .factory('recruitFactory', ['$cordovaToast', '$http', 'endpoints', function ($cordovaToast, $http, endpoints) {
+  .factory('recruitFactory', ['$cordovaToast', '$http', 'endpoints', 'skillHelperService', function ($cordovaToast, $http, endpoints, skillHelperService) {
     'use strict';
 
     var baseUrl = 'http://' + endpoints.apiUrl;
@@ -18,6 +18,13 @@ angular.module('recruitX')
       customError();
     };
 
+    var parseSkillsFromSkillObject = function (items) {
+      // TODO: Please use a consistent for construct
+      angular.forEach(items, function (item) {
+        item.candidate.all_skills = skillHelperService.formatAllSkills(item.candidate.skills, item.candidate.other_skills);
+      });
+    };
+
     return {
       // Master data calls
       getRoles: function (success) {
@@ -34,15 +41,17 @@ angular.module('recruitX')
 
       // Transactional data calls
       getCandidates: function (success, customError) {
-        $http.get(baseUrl + '/candidates').success(success).error(function (err, status) {
+        $http.get(baseUrl + '/candidates').success(function (response) {
+          success(response);
+        }).error(function (err, status) {
           defaultErrorHandler(err, status, customError);
         });
       },
 
-      getCandidate: function (candidate_id, successCallback, failureCallback) {
+      getCandidate: function (candidate_id, success, failureCallback) {
         // TODO: Not sure if appending to the endpoint URL is okay
 
-        $http.get(baseUrl + '/candidates/' + candidate_id).then(successCallback, failureCallback);
+        $http.get(baseUrl + '/candidates/' + candidate_id).then(success, failureCallback);
       },
 
       saveCandidate: function (data, success) {
@@ -54,18 +63,24 @@ angular.module('recruitX')
         // TODO: the 'data' argument is sent along as query string params, so why repeat the same?
         $http.get(baseUrl + '/interviews?panelist_login_name=recruitx', {
           params: data
-        }).success(success).error(defaultErrorHandler);
+        }).success(function (response) {
+          parseSkillsFromSkillObject(response);
+          success(response);
+        }).error(defaultErrorHandler);
       },
 
       // TODO: This should be merged with the above method
       getMyInterviews: function (data, success) {
         $http.get(baseUrl + '/panelists/recruitx/interviews', {
           params: data
-        }).success(success).error(defaultErrorHandler);
+        }).success(function (response) {
+          parseSkillsFromSkillObject(response);
+          success(response);
+        }).error(defaultErrorHandler);
       },
 
       getCandidateInterviews: function (id, success) {
-        $http.get(baseUrl + '/candidates/' + id +'/interviews').success(success).error(defaultErrorHandler);
+        $http.get(baseUrl + '/candidates/' + id + '/interviews').success(success).error(defaultErrorHandler);
       },
 
       getInterview: function (id, success) {
@@ -74,10 +89,10 @@ angular.module('recruitX')
 
       signUp: function (data, success, unProcessableEntityErrorHandler, customErrorHandler) {
         $http.post(baseUrl + '/panelists', data).success(success).error(
-          function(error, status){
-            if(status === UNPROCESSABLE_ENTITY_STATUS){
+          function (error, status) {
+            if (status === UNPROCESSABLE_ENTITY_STATUS) {
               unProcessableEntityErrorHandler(error, status);
-            } else{
+            } else {
               defaultErrorHandler(error, status, customErrorHandler);
             }
           });
@@ -85,34 +100,34 @@ angular.module('recruitX')
     };
   }])
 
-  .factory('MasterData', [function() {
-    var interviewTypes;
-    var skills;
-    var roles;
+.factory('MasterData', [function () {
+  var interviewTypes;
+  var skills;
+  var roles;
 
-    return {
-      setInterviewTypes: function(i) {
-        interviewTypes = i;
-      },
+  return {
+    setInterviewTypes: function (i) {
+      interviewTypes = i;
+    },
 
-      getInterviewTypes: function() {
-        return interviewTypes;
-      },
+    getInterviewTypes: function () {
+      return interviewTypes;
+    },
 
-      setRoles: function(r) {
-        roles = r;
-      },
+    setRoles: function (r) {
+      roles = r;
+    },
 
-      getRoles: function() {
-        return roles;
-      },
+    getRoles: function () {
+      return roles;
+    },
 
-      setSkills: function(s) {
-        skills = s;
-      },
+    setSkills: function (s) {
+      skills = s;
+    },
 
-      getSkills: function() {
-        return skills;
-      }
-    };
-  }]);
+    getSkills: function () {
+      return skills;
+    }
+  };
+}]);

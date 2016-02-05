@@ -15,9 +15,6 @@ angular.module('recruitX')
       console.log('AM refreshing');
       recruitFactory.getInterviews({}, function (newItems) {
         $scope.items = newItems;
-        // TODO: Since we seem to be replicating the same intent (of matching the object from the MasterData and associating into the object),
-        // can we move this into the point where the remote call is made to fetch data?
-        $scope.parseSkillsFromSkillObject($scope.items);
         // $scope.calculateEndTime($scope.items);
         $scope.finishRefreshing();
         console.log('AM success' + $scope.items);
@@ -27,19 +24,11 @@ angular.module('recruitX')
       });
       recruitFactory.getMyInterviews({}, function (newItems) {
         $scope.myinterviews = newItems;
-        $scope.parseSkillsFromSkillObject($scope.myinterviews);
         $scope.finishRefreshing();
         console.log('AM custom error' + error);
       }, function (error) {
-             console.log('AM custom error' + error);
-             $scope.finishRefreshing();
-           });
-    };
-
-    $scope.parseSkillsFromSkillObject = function (items) {
-      // TODO: Please use a consistent for construct
-      angular.forEach(items, function (item) {
-        item.candidate.all_skills = skillHelperService.formatAllSkills(item.candidate.skills, item.candidate.other_skills);
+        console.log('AM custom error' + error);
+        $scope.finishRefreshing();
       });
     };
 
@@ -62,10 +51,9 @@ angular.module('recruitX')
         $scope.showAlert('Sign up', 'Thanks for signing up for this interview!');
         recruitFactory.getMyInterviews({}, function (newItems) {
           $scope.myinterviews = newItems;
-          $scope.parseSkillsFromSkillObject($scope.myinterviews);
         });
-      }, function(error){
-        $scope.showAlert('Sign up',error.errors[0].reason);
+      }, function (error) {
+        $scope.showAlert('Sign up', error.errors[0].reason);
       });
     };
 
