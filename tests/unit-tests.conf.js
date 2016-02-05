@@ -23,6 +23,7 @@ module.exports = function (config) {
       '../www/js/create-candidate-profile-controller.js',
       '../www/js/candidate-interviews-controller.js',
       '../www/js/schedule-interview-controller.js',
+      '../www/js/interview-details-controller.js',
       '../www/lib/angular-mocks/angular-mocks.js',
       'unit-tests/**/*.js'
     ],

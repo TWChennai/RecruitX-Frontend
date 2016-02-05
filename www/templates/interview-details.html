@@ -55,15 +55,21 @@
 					<form name="feedackForm">
 						<div class="row">
 							<div class="col">
-								<h4>Feedback</h4></div>
-						</div>
-						<div class="row customRadio">
+								<h5><strong>Feedback</strong></h5></div>
+							</div>
+							<!-- <div class="row customRadio">
 							<label for="pass">
-								<input type="radio" name="feedback" />Pass</label>
+							<input type="radio" name="feedback" />Pass</label>
 							<label for="pursue">
-								<input type="radio" name="feedback" />Pursue</label>
+							<input type="radio" name="feedback" />Pursue</label>
 							<label for="strongPursue">
-								<input type="radio" name="feedback" />Strong Pursue</label>
+							<input type="radio" name="feedback" />Strong Pursue</label>
+							</div> -->
+							<!--TODO: Need to implement this in a cleaner way using mutually exclusive radio buttons -->
+						<div class="button-bar feedBack">
+							 <a name = "feedback" ng-class = "(feedBackResult === 'Pass' && 'button-positive')" class="button button-block button-small button-stable" ng-disabled = "canNotEnterFeedBack()" ng-click = "extractFeedback('Pass')"><h6>Pass</h6></a>
+							 <a name = "feedback" ng-class = "(feedBackResult === 'Pursue' && 'button-positive')" class="button button-block button-small button-stable" ng-disabled = "canNotEnterFeedBack()" ng-click = "extractFeedback('Pursue')"><h6>Pursue</h6></a>
+							 <a name = "feedback" ng-class = "(feedBackResult === 'Strong Pursue' && 'button-positive')" class="button button-block button-small button-stable" ng-disabled = "canNotEnterFeedBack()" ng-click = "extractFeedback('Strong Pursue')"><h6>Strong Pursue</h6></a>
 						</div>
 						<a href="#" class="button button-calm imgUploadBtn"></a>
 						<button class="button button-block button-positive">Submit</button>

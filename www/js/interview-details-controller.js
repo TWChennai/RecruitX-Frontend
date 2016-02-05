@@ -15,5 +15,16 @@ angular.module('recruitX')
       endTime.setHours(endTime.getHours() + 1);
       return endTime;
     };
+
+    $scope.extractFeedback = function(feedBack){
+      $scope.feedBackResult = feedBack;
+    };
+
+    $scope.canNotEnterFeedBack = function(){
+      var currentTime = new Date();
+      var interviewStartTime = new Date($scope.interview.start_time);
+
+      return interviewStartTime > currentTime;
+    };
   }
 ]);

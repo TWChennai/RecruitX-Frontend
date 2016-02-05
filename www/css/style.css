@@ -151,4 +151,4 @@ textarea {
 .item h5 {display: inline-block; font-style:italic}
 .pull-right .button{ vertical-align: middle;}
 .candidateInfo a {color: #387ef5; text-decoration: underline;}
-.candidateInfo strong {font-weight: 700;}
+.feedBack .button.button-stable {border-color: black;}
