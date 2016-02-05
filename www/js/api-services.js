@@ -1,5 +1,5 @@
 angular.module('recruitX')
-  .factory('recruitFactory', ['$cordovaToast', '$http', 'endpoints', 'skillHelperService', function ($cordovaToast, $http, endpoints, skillHelperService) {
+  .factory('recruitFactory', ['$cordovaToast', '$http', 'endpoints', 'skillHelperService', '$filter', 'MasterData', function ($cordovaToast, $http, endpoints, skillHelperService, $filter, MasterData) {
     'use strict';
 
     var baseUrl = 'http://' + endpoints.apiUrl;
@@ -32,6 +32,7 @@ angular.module('recruitX')
       // TODO: Please use a consistent for construct
       angular.forEach(items, function (item) {
         populateAllSkillsOnCandidate(item.candidate);
+        populateRoleOnCandidate(item.candidate);
       });
     };
 
@@ -101,7 +102,12 @@ angular.module('recruitX')
       },
 
       getInterview: function (id, success) {
-        $http.get(baseUrl + '/interviews/' + id).success(success).error(defaultErrorHandler);
+        $http.get(baseUrl + '/interviews/' + id)
+        .success(function (response) {
+          populateAllSkillsOnCandidate(response.candidate);
+          populateRoleOnCandidate(response.candidate);
+          success(response);
+        }).error(defaultErrorHandler);
       },
 
       signUp: function (data, success, unProcessableEntityErrorHandler, customErrorHandler) {

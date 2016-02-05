@@ -27,6 +27,7 @@ angular.module('recruitX')
           return value;
         }
       }
+      return undefined;
     };
 
     $scope.isSkillFieldsValid = function () {
