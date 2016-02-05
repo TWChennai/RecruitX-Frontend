@@ -1,10 +1,10 @@
 angular.module('recruitX')
-  .controller('scheduleInterviewController', function ($rootScope, $scope, $stateParams, $cordovaDatePicker, recruitFactory, $filter, $ionicPopup) {
+  .controller('scheduleInterviewController', function (MasterData, $scope, $stateParams, $cordovaDatePicker, recruitFactory, $filter, $ionicPopup) {
     'use strict';
 
     $stateParams.candidate.interview_rounds = [];
     // TODO: Inline later - currently not working - need to figure out why so.
-    $scope.interviewRounds = $rootScope.interview_types;
+    $scope.interviewRounds = MasterData.getInterviewTypes();
 
     $scope.dateTime = function (index) {
       var options = {

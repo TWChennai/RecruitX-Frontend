@@ -6,12 +6,6 @@ describe('candidateInterviewsController', function () {
   var $controller, $scope = {},
     controller;
 
-  var $rootScope;
-  beforeEach(inject(function(_$rootScope_) {
-    $rootScope = _$rootScope_;
-
-  }));
-
   beforeEach(inject(function (_$controller_) {
     // The injector unwraps the underscores (_) from around the parameter names when matching
     $controller = _$controller_;
@@ -23,7 +17,7 @@ describe('candidateInterviewsController', function () {
     $scope.notScheduled = 'Not Scheduled';
     $scope.interviews = {};
 
-    $rootScope.interview_types = [{
+    $scope.interviewTypes = [{
       id: 1,
       name: 'Code Pairing',
       priority: 1
