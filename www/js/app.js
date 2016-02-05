@@ -7,7 +7,7 @@
 angular.module('recruitX', ['ionic', 'ui.router', 'ngCordova', 'ngResource'])
 // TODO: Move this into a properties/json file that is read in when the app starts
 .constant('endpoints', {
-  apiUrl : '10.134.125.194:4001',
+  apiUrl: '10.134.125.194:4001',
   oktaUrl: 'https://thoughtworks.okta.com'
 })
 .config(function ($stateProvider, $urlRouterProvider) {
@@ -71,14 +71,14 @@ angular.module('recruitX', ['ionic', 'ui.router', 'ngCordova', 'ngResource'])
   })
 
   .state('login', {
-     url: '/login',
-     templateUrl: 'templates/login.html',
-     controller: 'loginController'
+    url: '/login',
+    templateUrl: 'templates/login.html',
+    controller: 'loginController'
   });
 
-   if (window.localStorage['LOGGEDIN_USER']) {
+  if (window.localStorage['LOGGEDIN_USER']) {
     $urlRouterProvider.otherwise('/panelist-signup');
-    } else {
+  } else {
     $urlRouterProvider.otherwise('/login');
-    }
+  }
 });

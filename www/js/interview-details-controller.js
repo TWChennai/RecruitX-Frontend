@@ -9,6 +9,7 @@ angular.module('recruitX')
       $scope.interview.candidate.role = $rootScope.roles[interview.candidate.role_id];
     });
 
+    // TODO: This should come from the backend
     $scope.endTime = function (startTime) {
       var endTime = new Date(startTime);
       endTime.setHours(endTime.getHours() + 1);

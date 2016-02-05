@@ -1,8 +1,9 @@
 angular.module('recruitX')
   .service('skillHelperService', function () {
-    this.getAllSkills = function (skills, other_skills) {
+    this.formatAllSkills = function (skills, other_skills) {
       var all_skills = [];
 
+      // TODO: Please use a consistent for construct
       angular.forEach(skills, function (skill) {
         if (skill.name !== 'Other') {
           all_skills.push(skill.name);
