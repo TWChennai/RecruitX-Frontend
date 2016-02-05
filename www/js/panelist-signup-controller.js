@@ -1,9 +1,10 @@
 angular.module('recruitX')
-  .controller('panelistSignupController', function ($scope, recruitFactory, skillHelperService, $ionicPopup) {
+  .controller('panelistSignupController', function ($scope, recruitFactory, skillHelperService, $ionicPopup, loggedinUserStore) {
     'use strict';
 
     $scope.items = [];
     $scope.isRefreshing = true;
+    $scope.loggedinUserName = loggedinUserStore.userFirstName();
 
     $scope.finishRefreshing = function () {
       $scope.isRefreshing = false;

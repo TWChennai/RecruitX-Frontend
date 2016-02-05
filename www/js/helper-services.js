@@ -29,14 +29,20 @@ angular.module('recruitX')
   var loggedinUserStore = {};
 
   loggedinUserStore.storeUser = function(loggedinUser) {
+    var userDetails = {
+      firstName : loggedinUser.profile.firstName,
+      id : loggedinUser.profile.login.split('@')[0]
+    }
 
-    var id = loggedinUser.profile.login.split('@')[0];
-
-    window.localStorage[storageKey] = id;
+    window.localStorage[storageKey] = JSON.stringify(userDetails);
   };
 
-  loggedinUserStore.user = function() {
-    return window.localStorage[storageKey];
+  loggedinUserStore.userId = function() {
+     return (JSON.parse(window.localStorage[storageKey])).id;
+  };
+
+  loggedinUserStore.userFirstName = function() {
+     return (JSON.parse(window.localStorage[storageKey])).firstName;
   };
 
   return loggedinUserStore;
