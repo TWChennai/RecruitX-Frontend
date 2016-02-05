@@ -10,51 +10,51 @@ angular.module('recruitX')
     console.log($scope.skills);
 
     $scope.isAtleastOnePredefinedSkillSelected = function () {
-      var validity = false;
+      var otherCheckBox = $scope.getOtherCheckbox();
+      // TODO: There should be a better way in angular to extract with a certain parameter
       angular.forEach($scope.skills, function (value) {
-        if ($scope.getOtherCheckbox().name !== value.name) {
-          validity = value.checked || validity;
+        if (otherCheckBox !== undefined && otherCheckBox.name !== value.name && value.checked) {
+          return true;
         }
       });
 
-      return validity;
+      return false;
     };
 
     $scope.getOtherCheckbox = function () {
-      var otherSkill;
+      // TODO: There should be a better way in angular to extract with a certain parameter
       angular.forEach($scope.skills, function (value) {
         if (value.name === 'Other') {
-          otherSkill = value;
+          return value;
         }
       });
-
-      return otherSkill;
+      return undefined;
     };
 
     $scope.isSkillFieldsValid = function () {
       if (Object.keys($scope.skills).length > 0) {
         var otherCheckBox = $scope.getOtherCheckbox();
-        if (otherCheckBox.checked) {
+        if (otherCheckBox !== undefined && otherCheckBox.checked) {
           return $scope.candidate.other_skills !== undefined;
         } else {
           return $scope.isAtleastOnePredefinedSkillSelected();
         }
       }
+      return false;
     };
 
     $scope.isFormInvalid = function () {
-      if (Object.keys($scope.skills).length > 0) {
-        var validity = ($scope.isSkillFieldsValid() && !$scope.candidateForm.$invalid);
-        return !validity;
-      } else {
+      if (Object.keys($scope.skills).length === 0) {
         return false;
       }
+      return !($scope.isSkillFieldsValid() && !$scope.candidateForm.$invalid);
     };
 
     $scope.processCandidateData = function () {
       $scope.candidate.skill_ids = [];
       $scope.candidate.name = $scope.firstName + ' ' + $scope.lastName;
-      // TODO: There should be a better way in underscore to extract with a certain parameter
+      // TODO: There should be a better way in angular to extract with a certain parameter
+      // TODO: Please use a consistent for construct
       for (var skill in $scope.skills) {
         if ($scope.skills[skill].checked) {
           $scope.candidate.skill_ids.push($scope.skills[skill].id);
