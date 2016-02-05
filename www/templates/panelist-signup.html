@@ -7,10 +7,6 @@
     <ion-tabs class="cust-tab tabs-striped tabs-positive tabs-top">
       <ion-tab title="Interviews">
         <ion-content>
-          <div>
-            <ion-spinner ng-if="isRefreshing" class="cust-spinner-position"></ion-spinner>
-          </div>
-
           <ion-refresher on-refresh="doRefresh()">
           </ion-refresher>
 

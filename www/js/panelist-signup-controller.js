@@ -7,8 +7,19 @@ angular.module('recruitX')
     $scope.loggedinUserName = loggedinUserStore.userFirstName();
 
     $scope.finishRefreshing = function () {
-      $scope.isRefreshing = false;
+      $ionicLoading.hide();
       $scope.$broadcast('scroll.refreshComplete');
+    };
+
+    $scope.doManualRefresh = function () {
+      $ionicLoading.show({
+        content: 'Loading',
+        animation: 'fade-in',
+        showBackdrop: true,
+        maxWidth: 200,
+        showDelay: 0
+      });
+      $scope.doRefresh();
     };
 
     $scope.doRefresh = function () {
@@ -51,6 +62,6 @@ angular.module('recruitX')
 
     document.addEventListener('deviceready', function onDeviceReady() {
       console.log('View loaded!');
-      $scope.doRefresh();
+      $scope.doManualRefresh();
     }, false);
   });
