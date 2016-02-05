@@ -19,6 +19,7 @@ module.exports = function (config) {
       '../www/lib/ionic/js/angular-ui/angular-ui-router.min.js',
       '../www/lib/ionic/js/angular/angular-resource.min.js',
       '../www/js/app.js',
+      '../www/js/helper-services.js',
       '../www/js/api-services.js',
       '../www/js/create-candidate-profile-controller.js',
       '../www/js/candidate-interviews-controller.js',
