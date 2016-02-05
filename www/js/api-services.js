@@ -18,11 +18,8 @@ angular.module('recruitX')
       customError();
     };
 
-    var populateAllSkillsOnCandidate = function (candidate) {
+    var fleshOutCandidate = function (candidate) {
       candidate.all_skills = skillHelperService.formatAllSkills(candidate.skills, candidate.other_skills);
-    };
-
-    var populateRoleOnCandidate = function (candidate) {
       candidate.role = ($filter('filter')(MasterData.getRoles(), {
         id: candidate.role_id
       }))[0];
@@ -31,8 +28,20 @@ angular.module('recruitX')
     var populateCandidateOnInterviews = function (items) {
       // TODO: Please use a consistent for construct
       angular.forEach(items, function (item) {
-        populateAllSkillsOnCandidate(item.candidate);
-        populateRoleOnCandidate(item.candidate);
+        fleshOutCandidate(item.candidate);
+      });
+    };
+
+    var fleshOutInterview = function (interview) {
+      interview.interview_type = ($filter('filter')(MasterData.getInterviewTypes(), {
+        id: interview.interview_type_id
+      }))[0];
+    };
+
+    var populateInterviewTypeOnInterviews = function (items) {
+      // TODO: Please use a consistent for construct
+      angular.forEach(items, function (item) {
+        fleshOutInterview(item);
       });
     };
 
@@ -55,8 +64,7 @@ angular.module('recruitX')
         $http.get(baseUrl + '/candidates').success(function (response) {
           // TODO: Please use a consistent for construct
           angular.forEach(response.data, function (item) {
-            populateAllSkillsOnCandidate(item);
-            populateRoleOnCandidate(item);
+            fleshOutCandidate(item);
           });
           success(response);
         }).error(function (err, status) {
@@ -66,8 +74,7 @@ angular.module('recruitX')
 
       getCandidate: function (candidate_id, success, failureCallback) {
         $http.get(baseUrl + '/candidates/' + candidate_id).success(function (response) {
-          populateAllSkillsOnCandidate(response.data);
-          populateRoleOnCandidate(response.data);
+          fleshOutCandidate(response.data);
           success(response);
         }).error(failureCallback);
       },
@@ -83,6 +90,7 @@ angular.module('recruitX')
           params: data
         }).success(function (response) {
           populateCandidateOnInterviews(response);
+          populateInterviewTypeOnInterviews(response);
           success(response);
         }).error(defaultErrorHandler);
       },
@@ -93,6 +101,7 @@ angular.module('recruitX')
           params: data
         }).success(function (response) {
           populateCandidateOnInterviews(response);
+          populateInterviewTypeOnInterviews(response);
           success(response);
         }).error(defaultErrorHandler);
       },
@@ -104,8 +113,7 @@ angular.module('recruitX')
       getInterview: function (id, success) {
         $http.get(baseUrl + '/interviews/' + id)
         .success(function (response) {
-          populateAllSkillsOnCandidate(response.candidate);
-          populateRoleOnCandidate(response.candidate);
+          fleshOutCandidate(response.candidate);
           success(response);
         }).error(defaultErrorHandler);
       },
