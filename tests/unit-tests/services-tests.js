@@ -137,7 +137,7 @@ describe('recruitFactory', function () {
   describe('signUp', function () {
     it('signup should post data when successful', function () {
       httpBackend.expectPOST(baseUrl + '/panelists').respond('success');
-      recruitFactory.saveSignup('data', function (response) {
+      recruitFactory.signUp('data', function (response) {
         expect(response).toEqual('success');
       });
 
@@ -145,15 +145,37 @@ describe('recruitFactory', function () {
     });
 
     it('signup should display toast error message when error and should not call the success method', function () {
-      httpBackend.expectPOST(baseUrl + '/panelists', 'data').respond(422, 'error');
+      var errorStatus = 400;
+      httpBackend.expectPOST(baseUrl + '/panelists', 'data').respond(errorStatus, 'error');
       spyOn(cordovaToast, 'showShortBottom');
+      var unProcessableEntityErrorHandler = jasmine.createSpy('unProcessableEntityErrorHandler');
+      var customErrorHandler = jasmine.createSpy('customErrorHandler');
 
-      recruitFactory.saveSignup('data', function (success) {
+      recruitFactory.signUp('data', function (success) {
         expect(false).toEqual(success);
-      });
+      }, unProcessableEntityErrorHandler, customErrorHandler);
 
       httpBackend.flush();
       expect(cordovaToast.showShortBottom).toHaveBeenCalledWith('Something went wrong while processing your request.Please try again soon');
+      expect(customErrorHandler).toHaveBeenCalled();
+      expect(unProcessableEntityErrorHandler).not.toHaveBeenCalled();
+    });
+
+    it('signup should not display toast error message when 422 and should not call the success method', function () {
+      var unProcessableEntityStatus = 422;
+      httpBackend.expectPOST(baseUrl + '/panelists', 'data').respond(unProcessableEntityStatus, 'error');
+      spyOn(cordovaToast, 'showShortBottom');
+      var unProcessableEntityErrorHandler = jasmine.createSpy('unProcessableEntityErrorHandler');
+      var customErrorHandler = jasmine.createSpy('customErrorHandler');
+
+      recruitFactory.signUp('data', function (success) {
+        expect(false).toEqual(success);
+      }, unProcessableEntityErrorHandler, customErrorHandler);
+
+      httpBackend.flush();
+      expect(cordovaToast.showShortBottom).not.toHaveBeenCalled();
+      expect(unProcessableEntityErrorHandler).toHaveBeenCalled();
+      expect(customErrorHandler).not.toHaveBeenCalled();
     });
   });
 });

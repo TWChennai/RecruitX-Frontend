@@ -3,6 +3,7 @@ angular.module('recruitX')
     'use strict';
 
     var baseUrl = 'http://' + endpoints.apiUrl;
+    var UNPROCESSABLE_ENTITY_STATUS = 422;
 
     var getErrorMessage = function (status) {
       switch (status) {
@@ -49,7 +50,7 @@ angular.module('recruitX')
       },
 
       getInterviews: function (data, success) {
-        $http.get(baseUrl + '/interviews?panelist_login_name=dinesh', {
+        $http.get(baseUrl + '/interviews?panelist_login_name=recruitx', {
           params: data
         }).success(success).error(defaultErrorHandler);
       },
@@ -62,10 +63,15 @@ angular.module('recruitX')
         $http.get(baseUrl + '/interviews/' + id).success(success).error(defaultErrorHandler);
       },
 
-      saveSignup: function (data, success) {
-        // TODO: Need a better RESTful url
-
-        $http.post(baseUrl + '/panelists', data).success(success).error(defaultErrorHandler);
+      signUp: function (data, success, unProcessableEntityErrorHandler, customErrorHandler) {
+        $http.post(baseUrl + '/panelists', data).success(success).error(
+          function(error, status){
+            if(status === UNPROCESSABLE_ENTITY_STATUS){
+              unProcessableEntityErrorHandler(error, status);
+            } else{
+              defaultErrorHandler(error, status, customErrorHandler);
+            }
+          });
       }
     };
   }])
