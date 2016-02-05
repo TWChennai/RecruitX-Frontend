@@ -7,28 +7,31 @@ angular.module('recruitX')
     $scope.skills = MasterData.getSkills();
     $scope.roles = MasterData.getRoles();
 
-    console.log($scope.skills);
-
     $scope.isAtleastOnePredefinedSkillSelected = function () {
       var otherCheckBox = $scope.getOtherCheckbox();
+      var value;
       // TODO: There should be a better way in angular to extract with a certain parameter
-      angular.forEach($scope.skills, function (value) {
+      for(var skillIndex in $scope.skills){
+        value = $scope.skills[skillIndex];
+        if (otherCheckBox === undefined && value.checked) {
+          return true;
+        }
         if (otherCheckBox !== undefined && otherCheckBox.name !== value.name && value.checked) {
           return true;
         }
-      });
-
+      }
       return false;
     };
 
     $scope.getOtherCheckbox = function () {
+      var value;
       // TODO: There should be a better way in angular to extract with a certain parameter
-      angular.forEach($scope.skills, function (value) {
+      for(var skillIndex in $scope.skills){
+        value = $scope.skills[skillIndex];
         if (value.name === 'Other') {
           return value;
         }
-      });
-      return undefined;
+      }
     };
 
     $scope.isSkillFieldsValid = function () {
