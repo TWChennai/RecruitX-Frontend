@@ -52,64 +52,45 @@
       </ion-tab>
 
       <ion-tab title="My Interviews">
-        <div class="pane tab-content tab-content-padding">
-          <div class="list">
-            <div class="item item-divider candidateInfo">
-              <div class="row">
-                <div class="col col-50">
-                  <h2>Maha</h2>
-                  <h4>4+ Years</h4>
-                </div>
-                <div class="col col-30">
-                  <h3>22-10-2015</h3>
-                </div>
-                <div class="col col-20">
-                  <h3>2:30pm</h3>
-                </div>
-              </div>
-              <div class="row pad-box">
-                <div class="col">
-                  <h4><strong>Skills: </strong>HTML5, CSS3, JavaScript</h4>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col">
-                  <div class="pull-right">
-                    <a href="#/candidate-details" class="button button-calm">Details</a>
-                    <a href="#/signup-decline" class="button button-assertive">Decline</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="item item-divider candidateInfo">
-              <div class="row">
-                <div class="col col-50">
-                  <h2>Subha</h2>
-                  <h4>4+ Years</h4>
-                </div>
-                <div class="col col-30">
-                  <h3>22-10-2015</h3>
-                </div>
-                <div class="col col-20">
-                  <h3>2:30pm</h3>
-                </div>
-              </div>
-              <div class="row pad-box">
-                <div class="col">
-                  <h4><strong>Skills: </strong>HTML5, CSS3, JavaScript</h4>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col">
-                  <div class="pull-right">
-                    <a href="#/candidate-details" class="button button-calm">Details</a>
-                    <a href="#/signup-decline" class="button button-assertive">Decline</a>
-                  </div>
-                </div>
-              </div>
-            </div>
+        <ion-content>
+          <div>
+            <ion-spinner ng-if="isRefreshing" class="cust-spinner-position"></ion-spinner>
           </div>
-        </div>
+
+          <ion-refresher on-refresh="doRefresh()">
+          </ion-refresher>
+
+          <ion-list class="candidatePanelList">
+              <ion-item collection-repeat="myinterview in myinterviews">
+                <div class="item item-divider candidateInfo">
+                  <div class="row">
+                    <div class="col col-50">
+                      <a ui-sref="candidate-profile({id: myinterview.candidate.id})"><strong>{{myinterview.candidate.name | limitTo: 10}}</strong></a> <h5> ({{myinterview.candidate.experience}} Yrs) </h5>
+                    </div>
+                    <div class="col col-30">
+                      <h3><strong ng-bind = "myinterview.start_time | date:'dd/MM/yyyy'"></strong></h3>
+                    </div>
+                    <div class="col col-20 inherit_display">
+                      <h3><strong ng-bind = "myinterview.start_time | date:'h:mma'"></strong></h3>
+                    </div>
+                  </div>
+                  <div class="row pad-box">
+                    <div class="col col-30">
+                      <h4><strong>Skills: </strong>{{myinterview.candidate.all_skills}}</h4>
+                    </div>
+                    <div class="col col-70">
+                      <div class="pull-right">
+                        <i class="icon ion-checkmark calm"></i>
+                        <i class="icon ion-checkmark calm"></i>
+                        <a class="button button-small button-positive" ui-sref = "interview-details({id:myinterview.id})" >Details: {{myinterview.interview_type.name}}</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ion-item>
+            </ion-list>
+
+        </ion-content>
       </ion-tab>
     </ion-tabs>
 </ion-view>

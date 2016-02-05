@@ -25,6 +25,15 @@ angular.module('recruitX')
         console.log('AM custom error' + error);
         $scope.finishRefreshing();
       });
+      recruitFactory.getMyInterviews({}, function (newItems) {
+        $scope.myinterviews = newItems;
+        $scope.parseSkillsFromSkillObject($scope.myinterviews);
+        $scope.finishRefreshing();
+        console.log('AM custom error' + error);
+      }, function (error) {
+             console.log('AM custom error' + error);
+             $scope.finishRefreshing();
+           });
     };
 
     $scope.parseSkillsFromSkillObject = function (items) {
@@ -51,6 +60,10 @@ angular.module('recruitX')
       recruitFactory.signUp($scope.interview_panelist, function (res) {
         console.log(res);
         $scope.showAlert('Sign up', 'Thanks for signing up for this interview!');
+        recruitFactory.getMyInterviews({}, function (newItems) {
+          $scope.myinterviews = newItems;
+          $scope.parseSkillsFromSkillObject($scope.myinterviews);
+        });
       }, function(error){
         $scope.showAlert('Sign up',error.errors[0].reason);
       });

@@ -55,6 +55,12 @@ angular.module('recruitX')
         }).success(success).error(defaultErrorHandler);
       },
 
+      getMyInterviews: function (data, success) {
+            $http.get(baseUrl + '/panelists/recruitx/interviews', {
+              params: data
+            }).success(success).error(defaultErrorHandler);
+          },
+
       getCandidateInterviews: function (id, success) {
         $http.get(baseUrl + '/candidates/' + id +'/interviews').success(success).error(defaultErrorHandler);
       },
