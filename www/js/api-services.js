@@ -84,7 +84,7 @@ angular.module('recruitX')
       },
 
       // TODO: Rename this method to convey the full intent
-      getInterviews: function (data, success) {
+      getInterviews: function (data, success, customError) {
         // TODO: the 'data' argument is sent along as query string params, so why repeat the same?
         $http.get(baseUrl + '/interviews?panelist_login_name=recruitx', {
           params: data
@@ -92,7 +92,9 @@ angular.module('recruitX')
           populateCandidateOnInterviews(response);
           populateInterviewTypeOnInterviews(response);
           success(response);
-        }).error(defaultErrorHandler);
+        }).error(function (err, status) {
+          defaultErrorHandler(err, status, customError);
+        });
       },
 
       // TODO: This should be merged with the above method

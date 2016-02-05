@@ -1,5 +1,5 @@
 angular.module('recruitX')
-  .controller('scheduleInterviewController', function (MasterData, $scope, $stateParams, $cordovaDatePicker, recruitFactory, $filter, utiityHelperService) {
+  .controller('scheduleInterviewController', function (MasterData, $scope, $stateParams, $cordovaDatePicker, recruitFactory, $filter, alertService) {
     'use strict';
 
     $stateParams.candidate.interview_rounds = [];
@@ -26,7 +26,7 @@ angular.module('recruitX')
         if ($scope.isInterviewScheduleValid(dateTime, currentInterviewRound, previousInterviewRound)) {
           $scope.interviewRounds[index].dateTime = dateTime;
         } else {
-          utiityHelperService.showAlert('Invalid Selection', 'Please schedule this round after  ' + previousInterviewRound.name);
+          alertService.showAlert('Invalid Selection', 'Please schedule this round after  ' + previousInterviewRound.name);
         }
       });
     };
@@ -62,7 +62,7 @@ angular.module('recruitX')
 
       recruitFactory.saveCandidate($stateParams, function (res) {
         console.log(res);
-        utiityHelperService.showAlert('Success', 'Candidate data has been successfully submitted!!');
+        alertService.showAlert('Success', 'Candidate data has been successfully submitted!!');
       });
     };
   });
