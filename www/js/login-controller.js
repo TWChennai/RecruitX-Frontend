@@ -7,8 +7,8 @@ angular.module('recruitX')
         if (res.status === 'SUCCESS') {
           loggedinUserStore.storeUser(res.user);
           $ionicHistory.nextViewOptions({
-              disableBack: true
-            });
+            disableBack: true
+          });
           $state.go('panelist-signup');
         }
       }
