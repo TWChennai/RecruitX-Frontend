@@ -1,12 +1,18 @@
 angular.module('recruitX')
-  .controller('interviewDetailsController', ['$scope', '$stateParams', 'recruitFactory', '$rootScope', function ($scope, $stateParams, recruitFactory, $rootScope) {
+  .controller('interviewDetailsController', ['$scope', '$stateParams', 'recruitFactory', '$rootScope', '$cordovaToast', '$filter', 'MasterData', 'Camera', function ($scope, $stateParams, recruitFactory, $rootScope, $cordovaToast, $filter, MasterData, Camera) {
     'use strict';
 
     $scope.interview = {};
+    $scope.imageURI = 'img/image_upload_icon.png';
+    $scope.previewDisabled = true;
 
     recruitFactory.getInterview($stateParams.id, function (interview) {
       $scope.interview = interview;
-      $scope.interview.candidate.role = $rootScope.roles[interview.candidate.role_id];
+
+      var roles = MasterData.getRoles();
+      $scope.interview.candidate.role = ($filter('filter')(roles, {
+        id: interview.candidate.role_id
+      }))[0];
     });
 
     // TODO: This should come from the backend
@@ -25,6 +31,22 @@ angular.module('recruitX')
       var interviewStartTime = new Date($scope.interview.start_time);
 
       return interviewStartTime > currentTime;
+    };
+
+    $scope.getPhoto = function() {
+      Camera.getPicture().then(function(imageURI) {
+         $scope.imageURI = imageURI;
+         $scope.previewDisabled = false;
+      }, function(err) {
+        $cordovaToast.showShortBottom('Something went wrong while accessing the camera.')
+      });
+    };
+
+    $scope.previewImage = function() {
+      cordova.plugins.disusered.open($scope.imageURI, function() {
+      }, function(err) {
+        $cordovaToast.showShortBottom('Something went wrong while opening the image.');
+      });
     };
   }
 ]);

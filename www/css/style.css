@@ -1,46 +1,55 @@
-body, .ionic-body { position: absolute;}
+body, .ionic-body {
+  position: absolute;
+}
 
 /* Helper Classes */
-.col-30 { width: 30%; }
+
+.col-30 {
+  width: 30%;
+}
 .button {
-	padding: 0 16px;
-	min-height: 40px;
-	line-height: 36px;
+  padding: 0 16px;
+  min-height: 40px;
+  line-height: 36px;
 }
 .text-center {
-	text-align: center;
+  text-align: center;
 }
 .item .error, .error {
-	color: #C71E1E;
-	display: block;
-	white-space: normal;
+  color: #C71E1E;
+  display: block;
+  white-space: normal;
 }
 textarea {
-	resize: none;
-	min-height: 80px;
+  resize: none;
+  min-height: 80px;
 }
-.pull-right { float: right; }
+.pull-right {
+  float: right;
+}
 
 /* Ionic Overrides */
 
+
 /* Form Elements */
+
 .item-checkbox {
-	border: none;
+  border: none;
 }
 .item-checkbox .checkbox {
-	left: 0;
+  left: 0;
 }
 .checkbox {
-	padding-left: 0;
+  padding-left: 0;
 }
 .item-select select {
-	direction: ltr;
-	text-align: left;
-	width: 100%;
+  direction: ltr;
+  text-align: left;
+  width: 100%;
 }
 .pane[hide-nav-bar="true"] .fixed-top {
-	top: 0;
-	border-bottom: 2px solid #fff;
+  top: 0;
+  border-bottom: 2px solid #fff;
 }
 .bar {
   padding: 0;
@@ -51,17 +60,23 @@ textarea {
   padding-left: 7px;
 }
 .view-container {
-	top: 0;
-	left: 0;
+  top: 0;
+  left: 0;
 }
-.tab-content.tab-content-padding { padding: 48px 0 0; }
-.tab-content-padding .row { padding: 0; }
-.tab-content-padding .pad-box { padding-bottom: 10px; }
+.tab-content.tab-content-padding {
+  padding: 48px 0 0;
+}
+.tab-content-padding .row {
+  padding: 0;
+}
+.tab-content-padding .pad-box {
+  padding-bottom: 10px;
+}
 .cust-header, .bar-header.has-tabs-top {
   height: 50px;
 }
 .bar-header.has-tabs-top {
-	border-bottom: 2px solid #fff;
+  border-bottom: 2px solid #fff;
 }
 .cust-tab {
   position: absolute;
@@ -71,84 +86,134 @@ textarea {
   right: 0;
   margin-top: 50px;
 }
-.cust-tab .overflow-scroll { overflow-y: scroll; }
-.cust-tab .tab-title, .candidate-tab .tab-title { font-size: 16px; }
-.cust-tab .tab-item, .candidate-tab .tab-item { max-width: initial; }
-.cust-tab.tabs-top > .tabs { top: 0; }
-.nav-bar-tabs-top.hide ~ .view-container .cust-tab .tabs { top: 0; }
-.candidateDetails .item-radio input:checked+.radio-content .radio-icon { display: none; }
-.candidateDetails .item-radio .item-content { padding: 10px 18%; }
-.popup-title { font-weight: bold; }
-.popup-body {text-align: center;}
-.backBtn .button.button-clear { padding: 0 8px; }
+.cust-tab .overflow-scroll {
+  overflow-y: scroll;
+}
+.cust-tab .tab-title, .candidate-tab .tab-title {
+  font-size: 16px;
+}
+.cust-tab .tab-item, .candidate-tab .tab-item {
+  max-width: initial;
+}
+.cust-tab.tabs-top > .tabs {
+  top: 0;
+}
+.nav-bar-tabs-top.hide ~ .view-container .cust-tab .tabs {
+  top: 0;
+}
+.candidateDetails .item-radio input:checked+.radio-content .radio-icon {
+  display: none;
+}
+.candidateDetails .item-radio .item-content {
+  padding: 10px 18%;
+}
+.popup-title {
+  font-weight: bold;
+}
+.popup-body {
+  text-align: center;
+}
+.backBtn .button.button-clear {
+  padding: 0 8px;
+}
 
 /* Candidate Info - Panelist Signup Page */
+
 .candidateInfo h4 {
-	color: #6f6f6f;
-	padding-top: 4px;
+  color: #6f6f6f;
+  padding-top: 4px;
 }
 .candidateInfo .col-20 {
-	padding-left: 0;
-	padding-right: 0;
+  padding-left: 0;
+  padding-right: 0;
 }
-.candidateInfo .icon { font-size: 18px; }
+.candidateInfo .icon {
+  font-size: 18px;
+}
 
 /* Candidate Details */
+
 .candidateDetails h5 {
-	margin: 3px 0;
+  margin: 3px 0;
 }
 .candidateDetails .customRadio {
-	display: table;
+  display: table;
 }
 .customRadio label {
-	border: 1px solid #dbdbdb;
-	border-left: none;
-	color: #333;
-	display: table-cell;
-	vertical-align: middle;
-	width: 33.3%;
-	padding: 6px 12px;
-	text-align: center;
+  border: 1px solid #dbdbdb;
+  border-left: none;
+  color: #333;
+  display: table-cell;
+  vertical-align: middle;
+  width: 33.3%;
+  padding: 6px 12px;
+  text-align: center;
 }
-.customRadio label:first-child { border-left: 1px solid #dbdbdb; }
+.customRadio label:first-child {
+  border-left: 1px solid #dbdbdb;
+}
 .candidateDetails .customRadio input[type="radio"] {
-	opacity: 0;
-	position: absolute;
+  opacity: 0;
+  position: absolute;
 }
 .imgUploadBtn {
-	background-size: 100% auto;
-	border-radius: 50%;
-	display: block;
-	margin: 20px auto;
-	height: 64px;
-	position: relative;
-	width: 64px;
+  background-size: 100% auto;
+  border-radius: 50%;
+  display: block;
+  margin: 20px auto;
+  height: 64px;
+  position: relative;
+  width: 64px;
 }
 .imgUploadBtn:after {
-	content: '';
-	display: block;
-	width: 76%;
-	height: 76%;
-	background: url('../img/image_upload_icon.png') center center no-repeat;;
-	-webkit-background-size: 100% auto;
-	-ms-background-size: 100% auto;
-	position: absolute;
-	top: 12%;
-	left: 12%;
+  content: '';
+  display: block;
+  width: 76%;
+  height: 76%;
+  background: url('../img/image_upload_icon.png') center center no-repeat;
+  ;
+  -webkit-background-size: 100% auto;
+  -ms-background-size: 100% auto;
+  position: absolute;
+  top: 12%;
+  left: 12%;
 }
 .cust-spinner-position {
   text-align: center;
   display: block;
   padding: 10px
 }
-
 .inherit_display {
   display: inherit;
 }
-.candidatePanelList .item { padding: 6px; }
-.candidatePanelList .candidateInfo { padding: 0 3px; }
-.candidateInfo h4{ padding: 0; text-overflow: initial; word-wrap: break-word; white-space: normal;}
-.item h5 {display: inline-block; font-style:italic}
-.pull-right .button{ vertical-align: middle;}
-.candidateInfo a {color: #387ef5; text-decoration: underline;}
-.feedBack .button.button-stable {border-color: black;}
+.candidatePanelList .item {
+  padding: 6px;
+}
+.candidatePanelList .candidateInfo {
+  padding: 0 3px;
+}
+.candidateInfo h4 {
+  padding: 0;
+  text-overflow: initial;
+  word-wrap: break-word;
+  white-space: normal;
+}
+.item h5 {
+  display: inline-block;
+  font-style: italic
+}
+.pull-right .button {
+  vertical-align: middle;
+}
+.candidateInfo a {
+  color: #387ef5;
+  text-decoration: underline;
+}
+.feedBack .button.button-stable {
+  border-color: black;
+}
+#feedbackImage {
+  height: 180px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
