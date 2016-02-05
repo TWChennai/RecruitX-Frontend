@@ -49,17 +49,20 @@ angular.module('recruitX')
         $http.post(baseUrl + '/candidates', data).success(success).error(defaultErrorHandler);
       },
 
+      // TODO: Rename this method to convey the full intent
       getInterviews: function (data, success) {
+        // TODO: the 'data' argument is sent along as query string params, so why repeat the same?
         $http.get(baseUrl + '/interviews?panelist_login_name=recruitx', {
           params: data
         }).success(success).error(defaultErrorHandler);
       },
 
+      // TODO: This should be merged with the above method
       getMyInterviews: function (data, success) {
-            $http.get(baseUrl + '/panelists/recruitx/interviews', {
-              params: data
-            }).success(success).error(defaultErrorHandler);
-          },
+        $http.get(baseUrl + '/panelists/recruitx/interviews', {
+          params: data
+        }).success(success).error(defaultErrorHandler);
+      },
 
       getCandidateInterviews: function (id, success) {
         $http.get(baseUrl + '/candidates/' + id +'/interviews').success(success).error(defaultErrorHandler);
