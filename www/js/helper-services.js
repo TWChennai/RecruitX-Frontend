@@ -21,7 +21,12 @@ angular.module('recruitX')
      };
    })
   .service('oktaSigninWidget', function(endpoints){
-      return new OktaSignIn({baseUrl: endpoints.oktaUrl})
+      return new OktaSignIn({baseUrl: endpoints.oktaUrl,
+      labels: {
+      'primaryauth.title': 'RecruitX',
+      'primaryauth.username.tooltip': 'Enter your Okta username or email id',
+      'primaryauth.password.tooltip': 'Enter your Okta password'
+  }})
   })
   .factory('loggedinUserStore', function() {
 
