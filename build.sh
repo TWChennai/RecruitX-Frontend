@@ -3,7 +3,12 @@
 npm install
 bower install
 
+set -e
+
 karma start tests/unit-tests.conf.js
+
+# TODO: Not reporting exit code for eslint till the errors get fixed.
+set +e
 
 eslint --fix .
 
