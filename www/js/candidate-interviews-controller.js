@@ -15,17 +15,15 @@ angular.module('recruitX')
     $scope.buildInterviewScheduleList = function () {
       var interviewStartTime = $scope.notScheduled;
       var interviewID = '';
-      var interviewRoundName = '';
+      var interviewRound = undefined;
 
       for (var interviewsIndex in $scope.interviewTypes) {
         interviewStartTime = $scope.notScheduled;
         interviewID = '';
-        interviewRoundName = $scope.interviewTypes[interviewsIndex].name;
+        interviewRound = $scope.interviewTypes[interviewsIndex];
 
         var scheduledInterview = ($filter('filter')($scope.interviews, {
-          interview_type: {
-            name: interviewRoundName
-          }
+          interview_type_id: interviewRound.id
         }));
 
         if (scheduledInterview[0] !== undefined) {
@@ -34,7 +32,7 @@ angular.module('recruitX')
         }
         $scope.interviewSet.push({
           id: interviewID,
-          name: interviewRoundName,
+          name: interviewRound.name,
           start_time: interviewStartTime
         });
       }
