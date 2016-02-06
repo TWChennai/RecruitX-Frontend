@@ -6,7 +6,7 @@ angular.module('recruitX')
     $rootScope.candidate_id = $stateParams.id;    // TODO: Should we even be storing anything on rootScope?
 
     recruitFactory.getCandidate($rootScope.candidate_id, function (response) {
-      $scope.candidate = response.data;
+      $scope.candidate = response;
     }, function (response) {
       console.log('failed with response: ' + response);
     });

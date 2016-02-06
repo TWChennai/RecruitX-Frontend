@@ -74,7 +74,7 @@ angular.module('recruitX')
 
       getCandidate: function (candidate_id, success, failureCallback) {
         $http.get(baseUrl + '/candidates/' + candidate_id).success(function (response) {
-          fleshOutCandidate(response.data);
+          fleshOutCandidate(response);
           success(response);
         }).error(failureCallback);
       },
