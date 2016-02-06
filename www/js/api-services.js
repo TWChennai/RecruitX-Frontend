@@ -60,18 +60,6 @@ angular.module('recruitX')
       },
 
       // Transactional data calls
-      getCandidates: function (success, customError) {
-        $http.get(baseUrl + '/candidates').success(function (response) {
-          // TODO: Please use a consistent for construct
-          angular.forEach(response.data, function (item) {
-            fleshOutCandidate(item);
-          });
-          success(response);
-        }).error(function (err, status) {
-          defaultErrorHandler(err, status, customError);
-        });
-      },
-
       getCandidate: function (candidate_id, success, failureCallback) {
         $http.get(baseUrl + '/candidates/' + candidate_id).success(function (response) {
           fleshOutCandidate(response);

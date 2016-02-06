@@ -85,31 +85,6 @@ describe('recruitFactory', function () {
     });
   });
 
-  describe('getCandidates', function () {
-    it('getCandidates should return candidates when successful', function () {
-      httpBackend.expectGET(baseUrl + '/candidates').respond('candidate1');
-      recruitFactory.getCandidates(function (candidates) {
-        expect(candidates).toEqual('candidate1');
-      });
-
-      httpBackend.flush();
-    });
-
-    it('getCandidates should display toast error message, call custom error handler when error and should not call the success method', function () {
-      var customErrorHandler = jasmine.createSpy();
-      httpBackend.expectGET(baseUrl + '/candidates').respond(422, 'error');
-      spyOn(cordovaToast, 'showShortBottom');
-
-      recruitFactory.getCandidates(function (success) {
-        expect(false).toEqual(success);
-      }, customErrorHandler);
-
-      httpBackend.flush();
-      expect(cordovaToast.showShortBottom).toHaveBeenCalledWith('Something went wrong while processing your request.Please try again soon');
-      expect(customErrorHandler).toHaveBeenCalled();
-    });
-  });
-
   describe('saveCandidate', function () {
     it('saveCandidate should post data when successful', function () {
       httpBackend.expectPOST(baseUrl + '/candidates', 'data').respond('success');

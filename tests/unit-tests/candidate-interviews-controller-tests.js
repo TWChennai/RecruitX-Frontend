@@ -41,17 +41,15 @@ describe('candidateInterviewsController', function () {
 
     $scope.interviews = [{
       start_time: '2016-04-03T13:27:00Z',
-      interview_type: {
-        name: 'Technical1'
-      },
+      interview_type_id: 2,
       id: 39,
       candidate: {
         skills: [
           {
-            name: 'Java'
+            id: 1
           },
           {
-            name: 'Ruby'
+            id: 2
           }
         ],
         role_id: 2,
@@ -62,17 +60,15 @@ describe('candidateInterviewsController', function () {
     },
     {
       start_time: '2016-03-03T12:27:00Z',
-      interview_type: {
-        name: 'Code Pairing'
-      },
+      interview_type_id: 1,
       id: 38,
       candidate: {
         skills: [
           {
-            name: 'Java'
+            id: 1
           },
           {
-            name: 'Ruby'
+            id: 2
           }
         ],
         role_id: 2,
