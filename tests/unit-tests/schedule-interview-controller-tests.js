@@ -51,18 +51,26 @@ describe('scheduleInterviewController', function () {
     describe('isInterviewScheduleValid', function () {
       it('should return true when date selected is greater than previous priority interview schedule', function () {
         var previousInterviewRound = $scope.interviewRounds[0];
-        previousInterviewRound.dateTime = 1453445460000;
+        previousInterviewRound.dateTime = new Date();
         var currentInterviewRound = $scope.interviewRounds[1];
+        var scheduleDateTime = new Date();
+        var minutes = 61;
 
-        expect($scope.isInterviewScheduleValid(1453449120000, currentInterviewRound, previousInterviewRound)).toEqual(true);
+        scheduleDateTime.setMinutes(scheduleDateTime.getMinutes() + minutes);
+
+        expect($scope.isInterviewScheduleValid(scheduleDateTime, currentInterviewRound, previousInterviewRound)).toEqual(true);
       });
 
       it('should return false when date selected is not greater than previous priority interview schedule', function () {
         var previousInterviewRound = $scope.interviewRounds[1];
-        previousInterviewRound.dateTime = 1453445460000;
+        previousInterviewRound.dateTime = new Date();
         var currentInterviewRound = $scope.interviewRounds[2];
+        var scheduleDateTime = new Date();
+        var minutes = 20;
 
-        expect($scope.isInterviewScheduleValid(1453445460000, currentInterviewRound, previousInterviewRound)).toEqual(false);
+        scheduleDateTime.setMinutes(scheduleDateTime.getMinutes() + minutes);
+
+        expect($scope.isInterviewScheduleValid(scheduleDateTime, currentInterviewRound, previousInterviewRound)).toEqual(false);
       });
 
       it('should return false when date is selected for a round before the previous round is scheduled', function () {

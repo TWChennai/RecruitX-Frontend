@@ -26,14 +26,20 @@ angular.module('recruitX')
         if ($scope.isInterviewScheduleValid(dateTime, currentInterviewRound, previousInterviewRound)) {
           $scope.interviewRounds[index].dateTime = dateTime;
         } else {
-          alertService.showAlert('Invalid Selection', 'Please schedule this round after  ' + previousInterviewRound.name);
+          alertService.showAlert('Invalid Selection', 'Please schedule this round atleast 1hr after  ' + previousInterviewRound.name);
         }
       });
     };
 
     $scope.isInterviewScheduleValid = function (scheduleDateTime, currentInterviewRound, previousInterviewRound) {
       var currentPriority = currentInterviewRound.priority;
-      return !(currentPriority > 1 && (previousInterviewRound.dateTime === undefined || scheduleDateTime <= previousInterviewRound.dateTime));
+      var previousInterviewTime = {};
+      if (currentPriority > 1) {
+        previousInterviewTime = previousInterviewRound.dateTime === undefined? undefined:new Date(previousInterviewRound.dateTime.getTime());
+        return !(previousInterviewTime === undefined || scheduleDateTime <= previousInterviewTime.setHours(previousInterviewTime.getHours() + 1));
+      }
+
+      return true;
     };
 
     $scope.isFormInvalid = function () {
