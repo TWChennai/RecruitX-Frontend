@@ -13,6 +13,7 @@ angular.module('recruitX')
     $scope.manuallyRefreshInterviews = function () {
       ionicLoadingService.showLoading();
       $scope.refreshInterviews();
+      $scope.refreshMyInterviews();
     };
 
     $scope.refreshInterviews = function () {
@@ -25,6 +26,9 @@ angular.module('recruitX')
         console.log('AM custom error' + error);
         $scope.finishRefreshing();
       });
+    };
+
+    $scope.refreshMyInterviews = function() {
       recruitFactory.getMyInterviews({}, function (newItems) {
         $scope.myinterviews = newItems;
         $scope.finishRefreshing();
@@ -51,9 +55,6 @@ angular.module('recruitX')
       $scope.finishRefreshing();
       alertService.showAlertWithDismissHandler('Sign up', 'Thanks for signing up for this interview!', function() {
         $scope.manuallyRefreshInterviews();
-        recruitFactory.getMyInterviews({}, function (newItems) {
-          $scope.myinterviews = newItems;
-        });
       });
     };
 

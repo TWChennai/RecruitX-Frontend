@@ -49,13 +49,8 @@
 
       <ion-tab title="My Interviews">
         <ion-content>
-          <div>
-            <ion-spinner ng-if="isRefreshing" class="cust-spinner-position"></ion-spinner>
-          </div>
-
-          <ion-refresher on-refresh="doRefresh()">
+          <ion-refresher on-refresh="refreshMyInterviews()">
           </ion-refresher>
-
           <ion-list class="candidatePanelList">
               <ion-item collection-repeat="myinterview in myinterviews">
                 <div class="item item-divider candidateInfo">
