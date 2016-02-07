@@ -3,13 +3,10 @@ describe('interviewDetailsController', function () {
 
   beforeEach(module('recruitX'));
 
-  var $controller, $scope = {},
-    controller;
+  var $scope = {};
 
-  beforeEach(inject(function (_$controller_) {
-    // The injector unwraps the underscores (_) from around the parameter names when matching
-    $controller = _$controller_;
-    controller = $controller('interviewDetailsController', {
+  beforeEach(inject(function ($controller) {
+    $controller('interviewDetailsController', {
       $scope: $scope
     });
   }));
@@ -33,7 +30,7 @@ describe('interviewDetailsController', function () {
         // $scope.interview.start_time = '2016-02-05T09:17:00Z';
         currentDate = new Date();
         minutes = 30;
-        futureDate = new Date(currentDate.setMinutes (currentDate.getMinutes() + minutes ));
+        futureDate = new Date(currentDate.setMinutes(currentDate.getMinutes() + minutes));
         $scope.interview.start_time = futureDate;
 
         expect($scope.canNotEnterFeedBack()).toEqual(true);
@@ -42,7 +39,7 @@ describe('interviewDetailsController', function () {
       it('should return false if the interview start time is in the past', function () {
         currentDate = new Date();
         minutes = 1;
-        futureDate = new Date(currentDate.setMinutes(currentDate.getMinutes() - minutes ));
+        futureDate = new Date(currentDate.setMinutes(currentDate.getMinutes() - minutes));
         $scope.interview.start_time = futureDate;
 
         expect($scope.canNotEnterFeedBack()).toEqual(false);

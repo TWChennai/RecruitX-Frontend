@@ -3,13 +3,10 @@ describe('candidateInterviewsController', function () {
 
   beforeEach(module('recruitX'));
 
-  var $controller, $scope = {},
-    controller;
+  var $scope = {};
 
-  beforeEach(inject(function (_$controller_) {
-    // The injector unwraps the underscores (_) from around the parameter names when matching
-    $controller = _$controller_;
-    controller = $controller('candidateInterviewsController', {
+  beforeEach(inject(function ($controller) {
+    $controller('candidateInterviewsController', {
       $scope: $scope
     });
 
@@ -80,25 +77,25 @@ describe('candidateInterviewsController', function () {
     ];
 
     $scope.expectedInterviewScheduleList = [{
-      id:38,
-      name:'Code Pairing',
-      start_time:'2016-03-03T12:27:00Z'
-    },{
-      id:39,
-      name:'Technical1',
-      start_time:'2016-04-03T13:27:00Z'
-    },{
-      id:'',
-      name:'Technical2',
-      start_time:'Not Scheduled'
-    },{
-      id:'',
-      name:'Leadership',
-      start_time:'Not Scheduled'
-    },{
-      id:'',
-      name:'P3',
-      start_time:'Not Scheduled'
+      id: 38,
+      name: 'Code Pairing',
+      start_time: '2016-03-03T12:27:00Z'
+    }, {
+      id: 39,
+      name: 'Technical1',
+      start_time: '2016-04-03T13:27:00Z'
+    }, {
+      id: '',
+      name: 'Technical2',
+      start_time: 'Not Scheduled'
+    }, {
+      id: '',
+      name: 'Leadership',
+      start_time: 'Not Scheduled'
+    }, {
+      id: '',
+      name: 'P3',
+      start_time: 'Not Scheduled'
     }];
   }));
 
@@ -125,13 +122,13 @@ describe('candidateInterviewsController', function () {
     describe('viewInterviewDetails', function () {
       it('should return interview details state for a scheduled interview', function () {
         interviewRound = $scope.expectedInterviewScheduleList[0];
-        expect(angular.equals($scope.viewInterviewDetails(interviewRound),'interview-details({id:interviewRound.id})')).toBe(true);
+        expect(angular.equals($scope.viewInterviewDetails(interviewRound), 'interview-details({id:interviewRound.id})')).toBe(true);
       });
     });
     describe('viewInterviewDetails', function () {
       it('should return invalid state # for a scheduled interview', function () {
         interviewRound = $scope.expectedInterviewScheduleList[2];
-        expect(angular.equals($scope.viewInterviewDetails(interviewRound),'#')).toBe(true);
+        expect(angular.equals($scope.viewInterviewDetails(interviewRound), '#')).toBe(true);
       });
     });
   });

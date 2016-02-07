@@ -6,6 +6,8 @@ var isRelease = /--release/.test(process.env.CORDOVA_CMDLINE),
   console = require('console'),
 
   runShell = function (command) {
+    'use strict';
+
     var exec = require('child_process').exec;
 
     function puts(error, stdout, stderr) {
@@ -19,6 +21,8 @@ var isRelease = /--release/.test(process.env.CORDOVA_CMDLINE),
   platformsPath = path.join(rootDir, 'platforms');
 
 glob(path.join(platformsPath, '**', 'index.html'), function (er, files) {
+  'use strict';
+
   var outputFile = path.join(path.dirname(files[0]), 'ip_address.txt');
   if (isRelease === true) {
     // TODO: Public domain name or IP address for production needs to be inserted here

@@ -22,86 +22,98 @@ angular.module('recruitX')
     };
   })
 
-  .service('oktaSigninWidget', function (endpoints) {
-    return new OktaSignIn({
-      baseUrl: endpoints.oktaUrl,
-      labels: {
-        'primaryauth.title': 'RecruitX',
-        'primaryauth.username.tooltip': 'Enter your Okta username or email id',
-        'primaryauth.password.tooltip': 'Enter your Okta password'
-      }
-    });
-  })
+.service('oktaSigninWidget', function (endpoints) {
+  'use strict';
 
-  .factory('loggedinUserStore', function () {
-    const storageKey = 'LOGGEDIN_USER';
-    var loggedinUserStore = {};
-
-    loggedinUserStore.storeUser = function (loggedinUser) {
-      var userDetails = {
-        firstName: loggedinUser.profile.firstName,
-        id: loggedinUser.profile.login.split('@')[0]
-      }
-
-      window.localStorage[storageKey] = JSON.stringify(userDetails);
-    };
-
-    loggedinUserStore.userId = function () {
-      return (JSON.parse(window.localStorage[storageKey])).id;
-    };
-
-    loggedinUserStore.userFirstName = function () {
-      return (JSON.parse(window.localStorage[storageKey])).firstName;
-    };
-
-    return loggedinUserStore;
-  })
-
-  .factory('Camera', ['$q', function ($q) {
-    return {
-      getPicture: function (options) {
-        var q = $q.defer();
-        navigator.camera.getPicture(function (result) {
-          q.resolve(result);
-        }, function (err) {
-          q.reject(err);
-        }, options);
-
-        return q.promise;
-      }
-    }
-  }])
-
-  .factory('ionicLoadingService', function ($ionicLoading){
-    return {
-      showLoading: function () {
-        $ionicLoading.show({
-          content: 'Loading',
-          animation: 'fade-in',
-          showBackdrop: true,
-          maxWidth: 200,
-          showDelay: 0
-        });
-      }, stopLoading: function (){
-        $ionicLoading.hide();
-      }
-    }
-  })
-
-  .factory('alertService', function($ionicPopup){
-    return {
-      showAlert: function(alertTitle, alertText){
-        $ionicPopup.alert({
-          title: alertTitle,
-          template: alertText
-        });
-      }, showAlertWithDismissHandler: function(alertTitle, alertText, onAlertDismiss){
-        $ionicPopup.alert({
-          title: alertTitle,
-          template: alertText
-        }).then(function(res) {
-          onAlertDismiss();
-        });;
-      }
+  return new OktaSignIn({
+    baseUrl: endpoints.oktaUrl,
+    labels: {
+      'primaryauth.title': 'RecruitX',
+      'primaryauth.username.tooltip': 'Enter your Okta username or email id',
+      'primaryauth.password.tooltip': 'Enter your Okta password'
     }
   });
+})
+
+.factory('loggedinUserStore', function () {
+  'use strict';
+
+  var STORAGE_KEY = 'LOGGEDIN_USER';
+  var loggedinUserStore = {};
+
+  loggedinUserStore.storeUser = function (loggedinUser) {
+    var userDetails = {
+      firstName: loggedinUser.profile.firstName,
+      id: loggedinUser.profile.login.split('@')[0]
+    };
+
+    window.localStorage[STORAGE_KEY] = JSON.stringify(userDetails);
+  };
+
+  loggedinUserStore.userId = function () {
+    return (JSON.parse(window.localStorage[STORAGE_KEY])).id;
+  };
+
+  loggedinUserStore.userFirstName = function () {
+    return (JSON.parse(window.localStorage[STORAGE_KEY])).firstName;
+  };
+
+  return loggedinUserStore;
+})
+
+.factory('Camera', ['$q', function ($q) {
+  'use strict';
+
+  return {
+    getPicture: function (options) {
+      var q = $q.defer();
+      navigator.camera.getPicture(function (result) {
+        q.resolve(result);
+      }, function (err) {
+        q.reject(err);
+      }, options);
+
+      return q.promise;
+    }
+  };
+}])
+
+.factory('ionicLoadingService', function ($ionicLoading) {
+  'use strict';
+
+  return {
+    showLoading: function () {
+      $ionicLoading.show({
+        content: 'Loading',
+        animation: 'fade-in',
+        showBackdrop: true,
+        maxWidth: 200,
+        showDelay: 0
+      });
+    },
+    stopLoading: function () {
+      $ionicLoading.hide();
+    }
+  };
+})
+
+.factory('alertService', function ($ionicPopup) {
+  'use strict';
+
+  return {
+    showAlert: function (alertTitle, alertText) {
+      $ionicPopup.alert({
+        title: alertTitle,
+        template: alertText
+      });
+    },
+    showAlertWithDismissHandler: function (alertTitle, alertText, onAlertDismiss) {
+      $ionicPopup.alert({
+        title: alertTitle,
+        template: alertText
+      }).then(function (res) {
+        onAlertDismiss();
+      });
+    }
+  };
+});

@@ -3,17 +3,12 @@ describe('scheduleInterviewController', function () {
 
   beforeEach(module('recruitX'));
 
-  var $controller, $scope = {},
-    controller;
+  var $scope = {};
 
-  beforeEach(inject(function (_$controller_, $stateParams) {
-    // The injector unwraps the underscores (_) from around the parameter names when matching
-
-    $stateParams = $stateParams;
+  beforeEach(inject(function ($controller, $stateParams) {
     $stateParams.candidate = {};
     $stateParams.candidate.interview_schedule = [];
-    $controller = _$controller_;
-    controller = $controller('scheduleInterviewController', {
+    $controller('scheduleInterviewController', {
       $scope: $scope
     });
 

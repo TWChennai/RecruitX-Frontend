@@ -122,6 +122,8 @@ angular.module('recruitX')
   }])
 
 .factory('MasterData', [function () {
+  'use strict';
+
   var interviewTypes;
   var skills;
   var roles;

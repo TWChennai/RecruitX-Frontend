@@ -124,7 +124,8 @@ module.exports = {
     'process': false,
     'require': false,
     'Routes': false,
-    'spyOn': false
+    'spyOn': false,
+    'OktaSignIn': false
   },
   'plugins': [
     'eslint-plugin-backbone',

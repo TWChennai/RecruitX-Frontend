@@ -15,7 +15,7 @@ angular.module('recruitX')
     $scope.buildInterviewScheduleList = function () {
       var interviewStartTime = $scope.notScheduled;
       var interviewID = '';
-      var interviewRound = undefined;
+      var interviewRound;
 
       for (var interviewsIndex in $scope.interviewTypes) {
         interviewStartTime = $scope.notScheduled;
