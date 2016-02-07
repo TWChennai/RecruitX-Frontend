@@ -39,10 +39,9 @@ angular.module('recruitX')
     };
 
     $scope.signingUp = function (item) {
-      $scope.logged_in_user = 'recruitx'; // TODO: need to retrieve from okta
       $scope.interview_panelist = {
         interview_panelist: {
-          'panelist_login_name': $scope.logged_in_user,
+          'panelist_login_name': loggedinUserStore.userId(),
           'interview_id': item.id
         }
       };

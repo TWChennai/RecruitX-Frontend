@@ -1,5 +1,5 @@
 angular.module('recruitX')
-  .factory('recruitFactory', ['$cordovaToast', '$http', 'endpoints', 'skillHelperService', '$filter', 'MasterData', function ($cordovaToast, $http, endpoints, skillHelperService, $filter, MasterData) {
+  .factory('recruitFactory', ['$cordovaToast', '$http', 'endpoints', 'skillHelperService', '$filter', 'MasterData', 'loggedinUserStore', function ($cordovaToast, $http, endpoints, skillHelperService, $filter, MasterData, loggedinUserStore) {
     'use strict';
 
     var baseUrl = 'http://' + endpoints.apiUrl;
@@ -74,7 +74,7 @@ angular.module('recruitX')
       // TODO: Rename this method to convey the full intent
       getInterviews: function (data, success, customError) {
         // TODO: the 'data' argument is sent along as query string params, so why repeat the same?
-        $http.get(baseUrl + '/interviews?panelist_login_name=recruitx', {
+        $http.get(baseUrl + '/interviews?panelist_login_name=' + loggedinUserStore.userId(), {
           params: data
         }).success(function (response) {
           populateCandidateOnInterviews(response);
@@ -87,7 +87,7 @@ angular.module('recruitX')
 
       // TODO: This should be merged with the above method
       getMyInterviews: function (data, success) {
-        $http.get(baseUrl + '/panelists/recruitx/interviews', {
+        $http.get(baseUrl + '/panelists/' + loggedinUserStore.userId() + '/interviews', {
           params: data
         }).success(function (response) {
           populateCandidateOnInterviews(response);

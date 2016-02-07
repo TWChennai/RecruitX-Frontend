@@ -17,9 +17,11 @@ angular.module('recruitX')
           all_skills.push(role.name);
         }
       });
+
       if (other_skills.trim().length > 0) {
         all_skills.push(other_skills);
       }
+      
       return all_skills.join(', ');
     };
   })

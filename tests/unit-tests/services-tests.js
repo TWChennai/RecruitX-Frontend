@@ -5,8 +5,9 @@ describe('recruitFactory', function () {
 
   beforeEach(module('recruitX'));
 
-  beforeEach(inject(function ($cordovaToast, $httpBackend, _endpoints_, _recruitFactory_) {
+  beforeEach(inject(function ($cordovaToast, $httpBackend, _endpoints_, _recruitFactory_, loggedinUserStore) {
     recruitFactory = _recruitFactory_;
+    spyOn(loggedinUserStore, 'userId').and.returnValue('userId');
     $httpBackend.whenGET(/templates.*/).respond(200, '');
     httpBackend = $httpBackend;
     cordovaToast = $cordovaToast;
