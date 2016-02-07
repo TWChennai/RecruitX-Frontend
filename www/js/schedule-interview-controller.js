@@ -55,7 +55,7 @@ angular.module('recruitX')
           var formattedDateTime = $filter('date')(dateTime.getTime() + dateTime.getTimezoneOffset() * minuteToMilliSecond, 'yyyy-MM-dd HH:mm:ss');
           $stateParams.candidate.interview_rounds.push({
             'interview_type_id': $scope.interviewRounds[interviewRoundIndex].id,
-            'interview_date_time': formattedDateTime
+            'start_time': formattedDateTime
           });
         }
       }
