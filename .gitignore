@@ -15,8 +15,24 @@
 # Generated files
 bin/
 gen/
-platforms/
 /coverage/
+/platforms/android
+/platforms/ios
+/platforms/platforms.json
+/plugins/android.json
+/plugins/cordova-open
+/plugins/cordova-plugin-camera
+/plugins/cordova-plugin-datepicker
+/plugins/cordova-plugin-file
+/plugins/cordova-plugin-file-transfer
+/plugins/cordova-plugin-splashscreen
+/plugins/cordova-plugin-whitelist
+/plugins/cordova-plugin-x-toast
+/plugins/fetch.json
+/plugins/ionic-plugin-keyboard
+/plugins/ios.json
+/resources/android
+/resources/ios
 
 # Gradle files
 .gradle/
@@ -74,17 +90,6 @@ gen-external-apklibs
 *.ipr
 *.iws
 
-## Native Plugin-specific files:
-android.json
-cordova-plugin-splashscreen
-cordova-plugin-whitelist
-fetch.json
-ios.json
-cordova-plugin-console
-cordova-plugin-device
-cordova-plugin-statusbar
-ionic-plugin-keyboard
-
 # IntelliJ
 /out/
 
@@ -124,9 +129,4 @@ hs_err_pid*
 #node packages
 node_modules/
 
-# Cordova Plugins
-plugins/
-
 .DS_Store
-
-

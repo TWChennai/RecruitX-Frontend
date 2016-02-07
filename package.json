@@ -21,19 +21,19 @@
     "shelljs": "^0.3.0"
   },
   "cordovaPlugins": [
-    "cordova-plugin-whitelist@1.2.1",
-    "cordova-plugin-datepicker@0.9.3",
-    "cordova-plugin-x-toast@2.4.0",
-    "cordova-plugin-splashscreen@3.1.0",
-    "ionic-plugin-keyboard@1.0.8",
+    "cordova-open@1.0.9",
     "cordova-plugin-camera@2.1.0",
-    "cordova-open@1.0.9"
+    "cordova-plugin-datepicker@0.9.3",
+    "cordova-plugin-splashscreen@3.1.0",
+    "cordova-plugin-whitelist@1.2.1",
+    "cordova-plugin-x-toast@2.4.0",
+    "ionic-plugin-keyboard@1.0.8"
   ],
   "cordovaPlatforms": [
     "android",
     "ios"
   ],
   "scripts": {
-    "postinstall": "ionic state restore"
+    "postinstall": "ionic state restore && ionic resources"
   }
 }
