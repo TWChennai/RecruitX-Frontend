@@ -36,6 +36,7 @@ angular.module('recruitX')
           start_time: interviewStartTime
         });
       }
+      $scope.interviewSet = $filter('orderBy')($scope.interviewSet, 'start_time');
     };
 
     $scope.isNotScheduled = function (interviewData) {
