@@ -21,7 +21,7 @@ angular.module('recruitX')
       if (other_skills.trim().length > 0) {
         all_skills.push(other_skills);
       }
-      
+
       return all_skills.join(', ');
     };
   })
@@ -115,7 +115,7 @@ angular.module('recruitX')
       $ionicPopup.alert({
         title: alertTitle,
         template: alertText
-      }).then(function (res) {
+      }).then(function () {
         onAlertDismiss();
       });
     }

@@ -22,10 +22,13 @@ gen/
 /plugins/android.json
 /plugins/cordova-open
 /plugins/cordova-plugin-camera
+/plugins/cordova-plugin-console
 /plugins/cordova-plugin-datepicker
+/plugins/cordova-plugin-device
 /plugins/cordova-plugin-file
 /plugins/cordova-plugin-file-transfer
 /plugins/cordova-plugin-splashscreen
+/plugins/cordova-plugin-statusbar
 /plugins/cordova-plugin-whitelist
 /plugins/cordova-plugin-x-toast
 /plugins/fetch.json
