@@ -1,5 +1,5 @@
 angular.module('recruitX')
-  .controller('interviewDetailsController', ['$scope', '$stateParams', 'recruitFactory', '$rootScope', '$cordovaToast', 'Camera', function ($scope, $stateParams, recruitFactory, $rootScope, $cordovaToast, Camera) {
+  .controller('interviewDetailsController', ['$scope', '$stateParams', 'recruitFactory', '$rootScope', '$cordovaToast', 'Camera', 'loggedinUserStore', function ($scope, $stateParams, recruitFactory, $rootScope, $cordovaToast, Camera, loggedinUserStore) {
     'use strict';
 
     $scope.interview = {};
@@ -21,11 +21,21 @@ angular.module('recruitX')
       $scope.feedBackResult = feedBack;
     };
 
+    $scope.isValidPanelist = function() {
+      var panelists = $scope.interview.panelists;
+      var isPanelist = false;
+      angular.forEach(panelists, function(panelist) {
+        if (panelist === loggedinUserStore.userId()) {
+          isPanelist = true;
+        }
+      });
+      return isPanelist;
+    };
+
     $scope.canNotEnterFeedBack = function () {
       var currentTime = new Date();
       var interviewStartTime = new Date($scope.interview.start_time);
-
-      return interviewStartTime > currentTime;
+      return !((interviewStartTime <= currentTime) && $scope.isValidPanelist());
     };
 
     $scope.getPhoto = function () {
