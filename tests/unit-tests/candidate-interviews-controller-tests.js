@@ -79,11 +79,11 @@ describe('candidateInterviewsController', function () {
     $scope.expectedInterviewScheduleList = [{
       id: 38,
       name: 'Code Pairing',
-      start_time: '2016-03-03T12:27:00Z'
+      start_time: '2016-04-03T12:27:00Z'
     }, {
       id: 39,
       name: 'Technical1',
-      start_time: '2016-04-03T13:27:00Z'
+      start_time: '2016-03-03T13:27:00Z'
     }, {
       id: '',
       name: 'Technical2',
@@ -104,7 +104,10 @@ describe('candidateInterviewsController', function () {
     describe('buildInterviewScheduleList', function () {
       it('should build interview schedule list', function () {
         $scope.buildInterviewScheduleList();
-        expect(angular.equals($scope.interviewSet, $scope.expectedInterviewScheduleList)).toBe(true);
+        for(var i = 0; i < $scope.interviewSet.length; i++) {
+          expect(angular.equals($scope.interviewSet[i].id, $scope.expectedInterviewScheduleList[i].id)).toBe(true);
+          expect(angular.equals($scope.interviewSet[i].name, $scope.expectedInterviewScheduleList[i].name)).toBe(true);
+        }
       });
     });
     describe('isNotScheduled', function () {
