@@ -18,7 +18,7 @@ angular.module('recruitX')
 
     $scope.refreshInterviews = function () {
       console.log('AM refreshing');
-      recruitFactory.getInterviews({}, function (newItems) {
+      recruitFactory.getInterviews({panelist_login_name: loggedinUserStore.userId()}, function (newItems) {
         $scope.items = newItems;
         $scope.finishRefreshing();
         console.log('AM success' + $scope.items);

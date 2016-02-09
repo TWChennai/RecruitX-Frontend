@@ -25,23 +25,17 @@ angular.module('recruitX')
       }))[0];
     };
 
-    var populateCandidateOnInterviews = function (items) {
-      // TODO: Please use a consistent for construct
-      angular.forEach(items, function (item) {
-        fleshOutCandidate(item.candidate);
-      });
-    };
-
     var fleshOutInterview = function (interview) {
       interview.interview_type = ($filter('filter')(MasterData.getInterviewTypes(), {
         id: interview.interview_type_id
       }))[0];
+      fleshOutCandidate(interview.candidate);
     };
 
-    var populateInterviewTypeOnInterviews = function (items) {
+    var fleshOutInterviews = function (interviews) {
       // TODO: Please use a consistent for construct
-      angular.forEach(items, function (item) {
-        fleshOutInterview(item);
+      angular.forEach(interviews, function (interview) {
+        fleshOutInterview(interview);
       });
     };
 
@@ -74,11 +68,10 @@ angular.module('recruitX')
       // TODO: Rename this method to convey the full intent
       getInterviews: function (data, success, customError) {
         // TODO: the 'data' argument is sent along as query string params, so why repeat the same?
-        $http.get(baseUrl + '/interviews?panelist_login_name=' + loggedinUserStore.userId(), {
+        $http.get(baseUrl + '/interviews', {
           params: data
         }).success(function (response) {
-          populateCandidateOnInterviews(response);
-          populateInterviewTypeOnInterviews(response);
+          fleshOutInterviews(response);
           success(response);
         }).error(function (err, status) {
           defaultErrorHandler(err, status, customError);
@@ -90,20 +83,24 @@ angular.module('recruitX')
         $http.get(baseUrl + '/panelists/' + loggedinUserStore.userId() + '/interviews', {
           params: data
         }).success(function (response) {
-          populateCandidateOnInterviews(response);
-          populateInterviewTypeOnInterviews(response);
+          fleshOutInterviews(response);
           success(response);
         }).error(defaultErrorHandler);
       },
 
+      // TODO: This should be merged with the above method
       getCandidateInterviews: function (id, success) {
-        $http.get(baseUrl + '/candidates/' + id + '/interviews').success(success).error(defaultErrorHandler);
+        $http.get(baseUrl + '/candidates/' + id + '/interviews')
+        .success(function (response) {
+          fleshOutInterviews(response);
+          success(response);
+        }).error(defaultErrorHandler);
       },
 
       getInterview: function (id, success) {
         $http.get(baseUrl + '/interviews/' + id)
         .success(function (response) {
-          fleshOutCandidate(response.candidate);
+          fleshOutInterview(response);
           success(response);
         }).error(defaultErrorHandler);
       },
