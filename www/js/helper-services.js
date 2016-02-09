@@ -18,7 +18,8 @@ angular.module('recruitX')
         }
       });
 
-      if (other_skills.trim().length > 0) {
+
+      if (other_skills !== undefined && other_skills !== null && other_skills.trim().length > 0) {
         all_skills.push(other_skills);
       }
 
