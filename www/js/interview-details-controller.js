@@ -6,8 +6,17 @@ angular.module('recruitX')
     $scope.imageURI = 'img/image_upload_icon.png';
     $scope.previewDisabled = true;
 
+    $scope.formatPanelists = function (panelists) {
+      var all_panelists = [];
+      angular.forEach(panelists, function (panelist) {
+        all_panelists.push(panelist);
+      });
+      return all_panelists.join(', ');
+    };
+
     recruitFactory.getInterview($stateParams.id, function (interview) {
       $scope.interview = interview;
+      $scope.interview.formattedPanelists = $scope.formatPanelists($scope.interview.panelists);
     });
 
     // TODO: This should come from the backend

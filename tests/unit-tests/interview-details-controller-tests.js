@@ -23,6 +23,26 @@ describe('interviewDetailsController', function () {
       });
     });
 
+    describe('formatPanelists', function () {
+      it('should return empty string when there is no panelists', function () {
+        $scope.interview.panelists = [];
+        var actualValue = $scope.formatPanelists($scope.interview.panelists);
+        expect(actualValue).toEqual('');
+      });
+
+      it('should return one panelist when there is a panelist', function () {
+        $scope.interview.panelists = ['recruitx'];
+        var actualValue = $scope.formatPanelists($scope.interview.panelists);
+        expect(actualValue).toEqual('recruitx');
+      });
+
+      it('should return concatinated string when there are panelists', function () {
+        $scope.interview.panelists = ['recruitx', 'test'];
+        var actualValue = $scope.formatPanelists($scope.interview.panelists);
+        expect(actualValue).toEqual('recruitx, test');
+      });
+    });
+
     describe('canNotEnterFeedBack', function () {
       var currentDate = {};
       var futureDate = {};
