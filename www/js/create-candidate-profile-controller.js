@@ -57,6 +57,20 @@ angular.module('recruitX')
           $scope.candidate.skill_ids.push($scope.skills[skill].id);
         }
       }
+      var otherCheckBox = $scope.getOtherCheckbox();
+      if(!otherCheckBox.checked){
+        $scope.candidate.other_skills = undefined;
+      }
     };
+
+    $rootScope.$on('clearFormData', function(){
+      $scope.candidateForm.$setPristine();
+      $scope.candidate = {};
+      angular.forEach($scope.skills, function(skill) {
+        skill.checked = false;
+      });
+      $scope.firstName = {};
+      $scope.lastName = {};
+    });
   }
 ]);

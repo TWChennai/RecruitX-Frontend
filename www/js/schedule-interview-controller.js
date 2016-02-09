@@ -1,5 +1,5 @@
 angular.module('recruitX')
-  .controller('scheduleInterviewController', function (MasterData, $scope, $stateParams, $cordovaDatePicker, recruitFactory, $filter, alertService) {
+  .controller('scheduleInterviewController', function ($timeout, $rootScope, $state, MasterData, $scope, $stateParams, $cordovaDatePicker, recruitFactory, $filter, alertService) {
     'use strict';
 
     $stateParams.candidate.interview_rounds = [];
@@ -66,9 +66,20 @@ angular.module('recruitX')
         }
       }
 
+      var redirectToHomePage = function(){
+        $timeout(function(){
+          angular.forEach($scope.interviewRounds, function(interview) {
+            interview.dateTime = undefined;
+          });
+          $rootScope.$broadcast('clearFormData');
+        });
+        $state.go('panelist-signup');
+      };
+
       recruitFactory.saveCandidate($stateParams, function (res) {
         console.log(res);
-        alertService.showAlert('Success', 'Candidate data has been successfully submitted!!');
+        alertService.showAlertWithDismissHandler('Success', 'Candidate data has been successfully submitted!!', redirectToHomePage);
+
       });
     };
   });

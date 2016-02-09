@@ -1,7 +1,7 @@
 <ion-view view-title="Add Candidate">
   <ion-content>
     <div ng-controller="createCandidateProfileController">
-      <form name="candidateForm" novalidate>
+      <form name="candidateForm" id="candidateForm" novalidate>
         <div class="list">
           <div class="item item-input" ng-class="{ 'has-error' : candidateForm.firstName.$invalid && !candidateForm.firstName.$pristine }">
             <label class="input-label">First Name</label>
