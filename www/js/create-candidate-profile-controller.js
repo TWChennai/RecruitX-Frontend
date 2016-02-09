@@ -1,5 +1,4 @@
 angular.module('recruitX')
-  // TODO: If we need to preload, please implement the same for the other controllers as well. If not, then remove from here
   .controller('createCandidateProfileController', ['$rootScope', '$scope', 'MasterData', function ($rootScope, $scope, MasterData) {
     'use strict';
 

@@ -1,5 +1,5 @@
 angular.module('recruitX')
-  .controller('loginController', function ($scope, $state, $ionicHistory, oktaSigninWidget, loggedinUserStore) {
+  .controller('loginController', ['$scope', '$state', '$ionicHistory', 'oktaSigninWidget', 'loggedinUserStore', function ($scope, $state, $ionicHistory, oktaSigninWidget, loggedinUserStore) {
     'use strict';
 
     oktaSigninWidget.renderEl({
@@ -14,4 +14,5 @@ angular.module('recruitX')
         });
       }
     });
-  });
+  }
+]);

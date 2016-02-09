@@ -1,5 +1,5 @@
 angular.module('recruitX')
-  .service('skillHelperService', function ($filter, MasterData) {
+  .service('skillHelperService', ['$filter', 'MasterData', function ($filter, MasterData) {
     'use strict';
 
     this.formatAllSkills = function (candidate_skills, other_skills) {
@@ -25,7 +25,8 @@ angular.module('recruitX')
 
       return all_skills.join(', ');
     };
-  })
+  }
+])
 
 .service('oktaSigninWidget', function (endpoints) {
   'use strict';

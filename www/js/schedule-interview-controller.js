@@ -1,5 +1,5 @@
 angular.module('recruitX')
-  .controller('scheduleInterviewController', function ($timeout, $rootScope, $state, MasterData, $scope, $stateParams, $cordovaDatePicker, recruitFactory, $filter, alertService) {
+  .controller('scheduleInterviewController', ['$timeout', '$rootScope', '$state', 'MasterData', '$scope', '$stateParams', '$cordovaDatePicker', 'recruitFactory', '$filter', 'alertService', function ($timeout, $rootScope, $state, MasterData, $scope, $stateParams, $cordovaDatePicker, recruitFactory, $filter, alertService) {
     'use strict';
 
     $stateParams.candidate.interview_rounds = [];
@@ -81,4 +81,5 @@ angular.module('recruitX')
         alertService.showAlertWithDismissHandler('Success', 'Candidate data has been successfully submitted!!', redirectToHomePage);
       });
     };
-  });
+  }
+]);

@@ -1,5 +1,5 @@
 angular.module('recruitX')
-  .controller('panelistSignupController', function ($scope, recruitFactory, skillHelperService, ionicLoadingService, loggedinUserStore, alertService, $ionicHistory, $state) {
+  .controller('panelistSignupController', ['$scope', 'recruitFactory', 'skillHelperService', 'ionicLoadingService', 'loggedinUserStore', 'alertService', '$ionicHistory', '$state', function ($scope, recruitFactory, skillHelperService, ionicLoadingService, loggedinUserStore, alertService, $ionicHistory, $state) {
     'use strict';
 
     $scope.items = [];
@@ -81,4 +81,5 @@ angular.module('recruitX')
       console.log('View loaded!');
       $scope.manuallyRefreshInterviews();
     }, false);
-  });
+  }
+]);
