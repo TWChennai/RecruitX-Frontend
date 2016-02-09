@@ -6,8 +6,9 @@ angular.module('recruitX')
     var UNPROCESSABLE_ENTITY_STATUS = 422;
 
     var getErrorMessage = function (status) {
+      // TODO: Need to add more statuses to the switch
       switch (status) {
-        default: return 'Something went wrong while processing your request.Please try again soon';
+        default: return 'Something went wrong while processing your request. Please try again soon.';
       }
     };
 
@@ -15,7 +16,9 @@ angular.module('recruitX')
       $cordovaToast.showShortBottom(getErrorMessage(status));
 
       // console.log(getErrorMessage(status));
-      customError();
+      if (customError !== undefined) {
+        customError();
+      }
     };
 
     var fleshOutCandidate = function (candidate) {
@@ -41,16 +44,25 @@ angular.module('recruitX')
 
     return {
       // Master data calls
-      getRoles: function (success) {
-        $http.get(baseUrl + '/roles').success(success).error(defaultErrorHandler);
+      getRoles: function (success, customError) {
+        $http.get(baseUrl + '/roles').success(success)
+        .error(function (err, status) {
+          defaultErrorHandler(err, status, customError);
+        });
       },
 
-      getSkills: function (success) {
-        $http.get(baseUrl + '/skills').success(success).error(defaultErrorHandler);
+      getSkills: function (success, customError) {
+        $http.get(baseUrl + '/skills').success(success)
+        .error(function (err, status) {
+          defaultErrorHandler(err, status, customError);
+        });
       },
 
-      getInterviewTypes: function (success) {
-        $http.get(baseUrl + '/interview_types').success(success).error(defaultErrorHandler);
+      getInterviewTypes: function (success, customError) {
+        $http.get(baseUrl + '/interview_types').success(success)
+        .error(function (err, status) {
+          defaultErrorHandler(err, status, customError);
+        });
       },
 
       // Transactional data calls
@@ -61,8 +73,12 @@ angular.module('recruitX')
         }).error(failureCallback);
       },
 
-      saveCandidate: function (data, success) {
-        $http.post(baseUrl + '/candidates', data).success(success).error(defaultErrorHandler);
+      saveCandidate: function (data, success, customError) {
+        $http.post(baseUrl + '/candidates', data)
+        .success(success)
+        .error(function (err, status) {
+          defaultErrorHandler(err, status, customError);
+        });
       },
 
       // TODO: Rename this method to convey the full intent
@@ -79,30 +95,36 @@ angular.module('recruitX')
       },
 
       // TODO: This should be merged with the above method
-      getMyInterviews: function (data, success) {
+      getMyInterviews: function (data, success, customError) {
         $http.get(baseUrl + '/panelists/' + loggedinUserStore.userId() + '/interviews', {
           params: data
         }).success(function (response) {
           fleshOutInterviews(response);
           success(response);
-        }).error(defaultErrorHandler);
+        }).error(function (err, status) {
+          defaultErrorHandler(err, status, customError);
+        });
       },
 
       // TODO: This should be merged with the above method
-      getCandidateInterviews: function (id, success) {
+      getCandidateInterviews: function (id, success, customError) {
         $http.get(baseUrl + '/candidates/' + id + '/interviews')
         .success(function (response) {
           fleshOutInterviews(response);
           success(response);
-        }).error(defaultErrorHandler);
+        }).error(function (err, status) {
+          defaultErrorHandler(err, status, customError);
+        });
       },
 
-      getInterview: function (id, success) {
+      getInterview: function (id, success, customError) {
         $http.get(baseUrl + '/interviews/' + id)
         .success(function (response) {
           fleshOutInterview(response);
           success(response);
-        }).error(defaultErrorHandler);
+        }).error(function (err, status) {
+          defaultErrorHandler(err, status, customError);
+        });
       },
 
       signUp: function (data, success, unProcessableEntityErrorHandler, customErrorHandler) {

@@ -59,7 +59,7 @@ angular.module('recruitX')
 
     $scope.signUpUnprocessableEntityHandler = function (error) {
       $scope.finishRefreshing();
-      alertService.showAlert('Sign up',error.errors[0].reason);
+      alertService.showAlert('Sign up', error.errors[0].reason);
     };
 
     $scope.defaultErrorHandler = function () {

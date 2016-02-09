@@ -36,7 +36,7 @@ describe('recruitFactory', function () {
         expect(false).toEqual(success);
       });
       httpBackend.flush();
-      expect(cordovaToast.showShortBottom).toHaveBeenCalledWith('Something went wrong while processing your request.Please try again soon');
+      expect(cordovaToast.showShortBottom).toHaveBeenCalledWith('Something went wrong while processing your request. Please try again soon.');
     });
   });
 
@@ -59,7 +59,7 @@ describe('recruitFactory', function () {
       });
 
       httpBackend.flush();
-      expect(cordovaToast.showShortBottom).toHaveBeenCalledWith('Something went wrong while processing your request.Please try again soon');
+      expect(cordovaToast.showShortBottom).toHaveBeenCalledWith('Something went wrong while processing your request. Please try again soon.');
     });
   });
 
@@ -82,7 +82,7 @@ describe('recruitFactory', function () {
       });
 
       httpBackend.flush();
-      expect(cordovaToast.showShortBottom).toHaveBeenCalledWith('Something went wrong while processing your request.Please try again soon');
+      expect(cordovaToast.showShortBottom).toHaveBeenCalledWith('Something went wrong while processing your request. Please try again soon.');
     });
   });
 
@@ -105,7 +105,7 @@ describe('recruitFactory', function () {
       });
 
       httpBackend.flush();
-      expect(cordovaToast.showShortBottom).toHaveBeenCalledWith('Something went wrong while processing your request.Please try again soon');
+      expect(cordovaToast.showShortBottom).toHaveBeenCalledWith('Something went wrong while processing your request. Please try again soon.');
     });
   });
 
@@ -132,7 +132,7 @@ describe('recruitFactory', function () {
       }, unProcessableEntityErrorHandler, customErrorHandler);
 
       httpBackend.flush();
-      expect(cordovaToast.showShortBottom).toHaveBeenCalledWith('Something went wrong while processing your request.Please try again soon');
+      expect(cordovaToast.showShortBottom).toHaveBeenCalledWith('Something went wrong while processing your request. Please try again soon.');
       expect(customErrorHandler).toHaveBeenCalled();
       expect(unProcessableEntityErrorHandler).not.toHaveBeenCalled();
     });
