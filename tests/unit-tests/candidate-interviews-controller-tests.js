@@ -104,7 +104,7 @@ describe('candidateInterviewsController', function () {
     describe('buildInterviewScheduleList', function () {
       it('should build interview schedule list', function () {
         $scope.buildInterviewScheduleList();
-        for(var i = 0; i < $scope.interviewSet.length; i++) {
+        for (var i = 0; i < $scope.interviewSet.length; i++) {
           expect(angular.equals($scope.interviewSet[i].id, $scope.expectedInterviewScheduleList[i].id)).toBe(true);
           expect(angular.equals($scope.interviewSet[i].name, $scope.expectedInterviewScheduleList[i].name)).toBe(true);
         }

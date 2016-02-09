@@ -18,7 +18,9 @@ angular.module('recruitX')
 
     $scope.refreshInterviews = function () {
       console.log('AM refreshing');
-      recruitFactory.getInterviews({panelist_login_name: loggedinUserStore.userId()}, function (newItems) {
+      recruitFactory.getInterviews({
+        panelist_login_name: loggedinUserStore.userId()
+      }, function (newItems) {
         $scope.items = newItems;
         $scope.finishRefreshing();
         console.log('AM success' + $scope.items);
@@ -28,7 +30,7 @@ angular.module('recruitX')
       });
     };
 
-    $scope.refreshMyInterviews = function() {
+    $scope.refreshMyInterviews = function () {
       recruitFactory.getMyInterviews({}, function (newItems) {
         $scope.myinterviews = newItems;
         $scope.finishRefreshing();
@@ -52,7 +54,7 @@ angular.module('recruitX')
     $scope.signUpSuccessHandler = function (res) {
       console.log(res);
       $scope.finishRefreshing();
-      alertService.showAlertWithDismissHandler('Sign up', 'Thanks for signing up for this interview!', function() {
+      alertService.showAlertWithDismissHandler('Sign up', 'Thanks for signing up for this interview!', function () {
         $scope.manuallyRefreshInterviews();
       });
     };
@@ -66,14 +68,14 @@ angular.module('recruitX')
       $scope.finishRefreshing();
     };
 
-    $scope.logout = function() {
-    loggedinUserStore.clearDb();
-    $state.go('login');
-    $ionicHistory.nextViewOptions({
+    $scope.logout = function () {
+      loggedinUserStore.clearDb();
+      $state.go('login');
+      $ionicHistory.nextViewOptions({
         disableBack: true,
         disableAnimate: true
-    });
-  };
+      });
+    };
 
     document.addEventListener('deviceready', function onDeviceReady() {
       console.log('View loaded!');

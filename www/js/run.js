@@ -27,19 +27,19 @@ angular.module('recruitX')
         }
       }
 
-      recruitFactory.getInterviewTypes(function(interviewTypes) {
+      recruitFactory.getInterviewTypes(function (interviewTypes) {
         MasterData.setInterviewTypes(interviewTypes);
         request++;
         hideSplashScreen();
       });
 
-      recruitFactory.getRoles(function(roles) {
+      recruitFactory.getRoles(function (roles) {
         MasterData.setRoles(roles);
         request++;
         hideSplashScreen();
       });
 
-      recruitFactory.getSkills(function(skills) {
+      recruitFactory.getSkills(function (skills) {
         MasterData.setSkills(skills);
         request++;
         hideSplashScreen();

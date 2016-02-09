@@ -30,10 +30,10 @@ angular.module('recruitX')
       $scope.feedBackResult = feedBack;
     };
 
-    $scope.isValidPanelist = function() {
+    $scope.isValidPanelist = function () {
       var panelists = $scope.interview.panelists;
       var isPanelist = false;
-      angular.forEach(panelists, function(panelist) {
+      angular.forEach(panelists, function (panelist) {
         if (panelist === loggedinUserStore.userId()) {
           isPanelist = true;
         }

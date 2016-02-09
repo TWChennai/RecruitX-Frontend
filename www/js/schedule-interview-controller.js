@@ -35,7 +35,7 @@ angular.module('recruitX')
       var currentPriority = currentInterviewRound.priority;
       var previousInterviewTime = {};
       if (currentPriority > 1) {
-        previousInterviewTime = previousInterviewRound.dateTime === undefined? undefined:new Date(previousInterviewRound.dateTime.getTime());
+        previousInterviewTime = previousInterviewRound.dateTime === undefined ? undefined : new Date(previousInterviewRound.dateTime.getTime());
         return !(previousInterviewTime === undefined || scheduleDateTime <= previousInterviewTime.setHours(previousInterviewTime.getHours() + 1));
       }
 
@@ -66,9 +66,9 @@ angular.module('recruitX')
         }
       }
 
-      var redirectToHomePage = function(){
-        $timeout(function(){
-          angular.forEach($scope.interviewRounds, function(interview) {
+      var redirectToHomePage = function () {
+        $timeout(function () {
+          angular.forEach($scope.interviewRounds, function (interview) {
             interview.dateTime = undefined;
           });
           $rootScope.$broadcast('clearFormData');
@@ -77,9 +77,8 @@ angular.module('recruitX')
       };
 
       recruitFactory.saveCandidate($stateParams, function (res) {
-        console.log(res);
+        // console.log(res);
         alertService.showAlertWithDismissHandler('Success', 'Candidate data has been successfully submitted!!', redirectToHomePage);
-
       });
     };
   });

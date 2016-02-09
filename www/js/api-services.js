@@ -46,23 +46,23 @@ angular.module('recruitX')
       // Master data calls
       getRoles: function (success, customError) {
         $http.get(baseUrl + '/roles').success(success)
-        .error(function (err, status) {
-          defaultErrorHandler(err, status, customError);
-        });
+          .error(function (err, status) {
+            defaultErrorHandler(err, status, customError);
+          });
       },
 
       getSkills: function (success, customError) {
         $http.get(baseUrl + '/skills').success(success)
-        .error(function (err, status) {
-          defaultErrorHandler(err, status, customError);
-        });
+          .error(function (err, status) {
+            defaultErrorHandler(err, status, customError);
+          });
       },
 
       getInterviewTypes: function (success, customError) {
         $http.get(baseUrl + '/interview_types').success(success)
-        .error(function (err, status) {
-          defaultErrorHandler(err, status, customError);
-        });
+          .error(function (err, status) {
+            defaultErrorHandler(err, status, customError);
+          });
       },
 
       // Transactional data calls
@@ -75,10 +75,10 @@ angular.module('recruitX')
 
       saveCandidate: function (data, success, customError) {
         $http.post(baseUrl + '/candidates', data)
-        .success(success)
-        .error(function (err, status) {
-          defaultErrorHandler(err, status, customError);
-        });
+          .success(success)
+          .error(function (err, status) {
+            defaultErrorHandler(err, status, customError);
+          });
       },
 
       // TODO: Rename this method to convey the full intent
@@ -109,22 +109,22 @@ angular.module('recruitX')
       // TODO: This should be merged with the above method
       getCandidateInterviews: function (id, success, customError) {
         $http.get(baseUrl + '/candidates/' + id + '/interviews')
-        .success(function (response) {
-          fleshOutInterviews(response);
-          success(response);
-        }).error(function (err, status) {
-          defaultErrorHandler(err, status, customError);
-        });
+          .success(function (response) {
+            fleshOutInterviews(response);
+            success(response);
+          }).error(function (err, status) {
+            defaultErrorHandler(err, status, customError);
+          });
       },
 
       getInterview: function (id, success, customError) {
         $http.get(baseUrl + '/interviews/' + id)
-        .success(function (response) {
-          fleshOutInterview(response);
-          success(response);
-        }).error(function (err, status) {
-          defaultErrorHandler(err, status, customError);
-        });
+          .success(function (response) {
+            fleshOutInterview(response);
+            success(response);
+          }).error(function (err, status) {
+            defaultErrorHandler(err, status, customError);
+          });
       },
 
       signUp: function (data, success, unProcessableEntityErrorHandler, customErrorHandler) {

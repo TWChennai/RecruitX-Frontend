@@ -80,7 +80,7 @@ describe('interviewDetailsController', function () {
       it('should return false if the interview start time is in the past and panelist is logged in user', function () {
         currentDate = new Date();
         minutes = 1;
-        $scope.interview.start_time = new Date(currentDate.getYear(),currentDate.getMonth(),currentDate.getDay() - 1);
+        $scope.interview.start_time = new Date(currentDate.getYear(), currentDate.getMonth(), currentDate.getDay() - 1);
         $scope.interview.panelists = ['userId'];
 
         expect($scope.canNotEnterFeedBack()).toEqual(false);

@@ -1,5 +1,5 @@
 angular.module('recruitX')
-  .controller('candidateInterviewsController', ['MasterData','$state', '$filter', '$rootScope', '$scope', '$stateParams', 'recruitFactory', function (MasterData, $state, $filter, $rootScope, $scope, $stateParams, recruitFactory) {
+  .controller('candidateInterviewsController', ['MasterData', '$state', '$filter', '$rootScope', '$scope', '$stateParams', 'recruitFactory', function (MasterData, $state, $filter, $rootScope, $scope, $stateParams, recruitFactory) {
     'use strict';
 
     $scope.interviews = [];
