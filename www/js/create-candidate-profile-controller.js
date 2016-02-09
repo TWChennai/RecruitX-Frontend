@@ -7,6 +7,12 @@ angular.module('recruitX')
     $scope.skills = MasterData.getSkills();
     $scope.roles = MasterData.getRoles();
 
+//    $scope.candidate.role_id = $scope.roles[0].id;
+
+    $scope.blurElem = function() {
+      document.querySelector('#experience').blur();
+    };
+
     $scope.isAtleastOnePredefinedSkillSelected = function () {
       var otherCheckBox = $scope.getOtherCheckbox();
       // TODO: There should be a better way in angular to extract with a certain parameter

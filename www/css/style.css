@@ -217,3 +217,11 @@ textarea {
   background-position: center;
   background-repeat: no-repeat;
 }
+.item-select select option:focus {
+ background: #dbdbdb;
+ color: #000;
+}
+.item-select select option:active {
+ background: #387ef5;
+ color: #fff;
+}
