@@ -7,11 +7,7 @@ angular.module('recruitX')
     $scope.previewDisabled = true;
 
     $scope.formatPanelists = function (panelists) {
-      var all_panelists = [];
-      angular.forEach(panelists, function (panelist) {
-        all_panelists.push(panelist);
-      });
-      return all_panelists.join(', ');
+      return panelists.join(', ');
     };
 
     recruitFactory.getInterview($stateParams.id, function (interview) {
