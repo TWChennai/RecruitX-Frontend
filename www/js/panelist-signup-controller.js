@@ -1,5 +1,5 @@
 angular.module('recruitX')
-  .controller('panelistSignupController', function ($scope, recruitFactory, skillHelperService, ionicLoadingService, loggedinUserStore, alertService) {
+  .controller('panelistSignupController', function ($scope, recruitFactory, skillHelperService, ionicLoadingService, loggedinUserStore, alertService, $ionicHistory, $state) {
     'use strict';
 
     $scope.items = [];
@@ -65,6 +65,15 @@ angular.module('recruitX')
     $scope.defaultErrorHandler = function () {
       $scope.finishRefreshing();
     };
+
+    $scope.logout = function() {
+    loggedinUserStore.clearDb();
+    $state.go('login');
+    $ionicHistory.nextViewOptions({
+        disableBack: true,
+        disableAnimate: true
+    });
+  };
 
     document.addEventListener('deviceready', function onDeviceReady() {
       console.log('View loaded!');

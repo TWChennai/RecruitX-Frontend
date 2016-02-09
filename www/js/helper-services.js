@@ -63,6 +63,10 @@ angular.module('recruitX')
     return (JSON.parse(window.localStorage[STORAGE_KEY])).firstName;
   };
 
+  loggedinUserStore.clearDb = function() {
+    window.localStorage.removeItem(STORAGE_KEY);
+  };
+
   return loggedinUserStore;
 })
 

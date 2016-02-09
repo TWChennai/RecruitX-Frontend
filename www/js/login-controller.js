@@ -9,10 +9,10 @@ angular.module('recruitX')
   function (res) {
     if (res.status === 'SUCCESS') {
       loggedinUserStore.storeUser(res.user);
+      $state.go('panelist-signup');
       $ionicHistory.nextViewOptions({
         disableBack: true
       });
-      $state.go('panelist-signup');
     }
   });
 });
