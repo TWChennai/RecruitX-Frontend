@@ -8,13 +8,13 @@ angular.module('recruitX')
   function (res) {
     if (res.status === 'SUCCESS') {
       recruitFactory.isRecruiter(res.user.profile.login.split('@')[0], function(response){
-      loggedinUserStore.storeUser(res.user, response.is_recruiter);
+        loggedinUserStore.storeUser(res.user, response.is_recruiter);
 
-      $ionicHistory.nextViewOptions({
-        disableBack: true
+        $ionicHistory.nextViewOptions({
+          disableBack: true
+        });
+        $state.go('panelist-signup');
       });
-      $state.go('panelist-signup');
-    });
     }
   });
 });
