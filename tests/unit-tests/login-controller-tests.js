@@ -26,9 +26,8 @@ describe('loginController', function() {
       };
     }));
 
-    it('should store a user and navigate to the list when a user is authorised', function() {
+    it('should store a user and navigate to signup page when a user is authorised', function() {
       recruiter = { is_recruiter : true };
-
       oktaWidget.renderEl = function(targetElementConfig, responseCallback) {
         expect(targetElementConfig.el).toEqual('#okta-login-container');
         responseCallback({status : 'SUCCESS', user: validUser});
@@ -53,10 +52,10 @@ describe('loginController', function() {
       expect(history.nextViewOptions).toHaveBeenCalledWith({disableBack : recruiter.is_recruiter});
     });
 
-    it('should not do that if login is unsuccessful', function() {
+    it('should not store or navigate to sign up page if login is unsuccessful', function() {
       oktaWidget.renderEl = function(targetElementConfig, responseCallback) {
-        expect(targetElementConfig.el).toEqual('#okta-login-container');
-        responseCallback({status : 'FAIL', user: validUser});
+      expect(targetElementConfig.el).toEqual('#okta-login-container');
+          responseCallback({status : 'FAIL', user: validUser});
       };
 
       spyOn(userStore, 'storeUser');
