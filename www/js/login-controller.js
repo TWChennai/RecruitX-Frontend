@@ -1,18 +1,20 @@
 angular.module('recruitX')
-  .controller('loginController', ['$scope', '$state', '$ionicHistory', 'oktaSigninWidget', 'loggedinUserStore', function ($scope, $state, $ionicHistory, oktaSigninWidget, loggedinUserStore) {
-    'use strict';
+.controller('loginController', function ($scope, $state, $ionicHistory, oktaSigninWidget, loggedinUserStore, recruitFactory) {
+  'use strict';
 
-    oktaSigninWidget.renderEl({
-      el: '#okta-login-container'
-    },
-    function (res) {
-      if (res.status === 'SUCCESS') {
-        loggedinUserStore.storeUser(res.user);
-        $state.go('panelist-signup');
-        $ionicHistory.nextViewOptions({
-          disableBack: true
-        });
-      }
+  oktaSigninWidget.renderEl({
+    el: '#okta-login-container'
+  },
+  function (res) {
+    if (res.status === 'SUCCESS') {
+      recruitFactory.isRecruiter(res.user.profile.login.split('@')[0], function(response){
+      loggedinUserStore.storeUser(res.user, response.is_recruiter);
+
+      $ionicHistory.nextViewOptions({
+        disableBack: true
+      });
+      $state.go('panelist-signup');
     });
-  }
-]);
+    }
+  });
+});

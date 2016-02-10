@@ -66,6 +66,13 @@ angular.module('recruitX')
       },
 
       // Transactional data calls
+      isRecruiter: function (employee_id, success, customError) {
+        $http.get(baseUrl + '/is_recruiter/' + employee_id).success(success)
+        .error(function (err, status) {
+          defaultErrorHandler(err, status, customError);
+        });
+      },
+
       getCandidate: function (candidate_id, success, failureCallback) {
         $http.get(baseUrl + '/candidates/' + candidate_id).success(function (response) {
           fleshOutCandidate(response);

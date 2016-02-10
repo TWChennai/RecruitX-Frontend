@@ -47,10 +47,11 @@ angular.module('recruitX')
   var STORAGE_KEY = 'LOGGEDIN_USER';
   var loggedinUserStore = {};
 
-  loggedinUserStore.storeUser = function (loggedinUser) {
+  loggedinUserStore.storeUser = function (loggedinUser, is_recruiter) {
     var userDetails = {
       firstName: loggedinUser.profile.firstName,
-      id: loggedinUser.profile.login.split('@')[0]
+      id: loggedinUser.profile.login.split('@')[0],
+      is_recruiter: is_recruiter
     };
 
     window.localStorage[STORAGE_KEY] = JSON.stringify(userDetails);
@@ -58,6 +59,10 @@ angular.module('recruitX')
 
   loggedinUserStore.userId = function () {
     return (JSON.parse(window.localStorage[STORAGE_KEY])).id;
+  };
+
+  loggedinUserStore.isRecruiter = function () {
+    return (JSON.parse(window.localStorage[STORAGE_KEY])).is_recruiter;
   };
 
   loggedinUserStore.userFirstName = function () {

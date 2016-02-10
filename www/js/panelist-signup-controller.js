@@ -4,6 +4,7 @@ angular.module('recruitX')
 
     $scope.items = [];
     $scope.loggedinUserName = loggedinUserStore.userFirstName();
+    $scope.isLoggedinUserRecruiter = loggedinUserStore.isRecruiter();
 
     $scope.finishRefreshing = function () {
       ionicLoadingService.stopLoading();
