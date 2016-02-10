@@ -32,6 +32,7 @@ angular.module('recruitX')
       interview.interview_type = ($filter('filter')(MasterData.getInterviewTypes(), {
         id: interview.interview_type_id
       }))[0];
+      interview.panelist_count = interview.panelists.length;
       fleshOutCandidate(interview.candidate);
     };
 
