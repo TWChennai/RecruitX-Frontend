@@ -1,5 +1,5 @@
 angular.module('recruitX')
-  .controller('interviewDetailsController', ['$cordovaFileTransfer', '$scope', '$stateParams', 'recruitFactory', '$rootScope', '$cordovaToast', 'Camera', 'loggedinUserStore', function ($cordovaFileTransfer, $scope, $stateParams, recruitFactory, $rootScope, $cordovaToast, Camera, loggedinUserStore) {
+  .controller('interviewDetailsController', ['alertService', 'endpoints', '$cordovaFileTransfer', '$scope', '$stateParams', 'recruitFactory', '$rootScope', '$cordovaToast', 'Camera', 'loggedinUserStore', function (alertService, endpoints, $cordovaFileTransfer, $scope, $stateParams, recruitFactory, $rootScope, $cordovaToast, Camera, loggedinUserStore) {
     'use strict';
 
     $scope.interview = {};
@@ -15,10 +15,23 @@ angular.module('recruitX')
         previewDisabled: true
       }
     ];
+    // $scope.imageURI = 'img/image_upload_icon.png';
+    $scope.previewDisabled = true;
+    var imageFileOptions = {
+      fileKey: 'avatar',
+      fileName: 'image.png',
+      chunkedMode: false,
+      mimeType: 'image/png'
+    };
+    var baseUrl = 'http://' + endpoints.apiUrl;
+    var fileServerURL = baseUrl + '/interviews/' + $stateParams.id +'/feedbacks';
 
-    recruitFactory.getInterview($stateParams.id, function (interview) {
-      $scope.interview = interview;
-    });
+    var loadInterviewDetails = function () {
+      recruitFactory.getInterview($stateParams.id, function (interview) {
+        $scope.interview = interview;
+      });
+    };
+    loadInterviewDetails();
 
     // TODO: This should come from the backend
     $scope.endTime = function (startTime) {
@@ -61,44 +74,41 @@ angular.module('recruitX')
     $scope.previewImage = function (index) {
       var feedbackImage = $scope.feedbackImages[index];
       cordova.plugins.disusered.open(feedbackImage.URI, function () {}, function (err) {
-        console.log(err);
-        $cordovaToast.showShortBottom('Something went wrong while opening the image.');
+      console.log(err);
+      $cordovaToast.showShortBottom('Something went wrong while opening the image.');
       });
     };
 
     $scope.saveFeedback = function () {
-      upload($scope.imageURI);
+      console.log('IN SAVE');
+      alertService.askConfirmation('Confirm', 'Are you sure you want to submit?', $scope.uploadFile);
+      loadInterviewDetails();
+
     };
 
-    function upload(nativeURL) {
-      var options = {
-        fileKey: 'avatar',
-        fileName: 'image.png',
-        chunkedMode: false,
-        mimeType: 'image/png'
-      };
-      $cordovaFileTransfer.upload('http://10.16.20.138:4000/feedbacks', nativeURL, options).then(function(result) {
+    $scope.uploadFile = function() {
+      $cordovaFileTransfer.upload(fileServerURL, $scope.imageURI, imageFileOptions).then(function(result) {
         console.log('SUCCESS upload: ' + JSON.stringify(result));
       }, function(err) {
         console.log('ERROR: ' + JSON.stringify(err));
       }, function (progress) {
         // constant progress updates
-        console.log('IN PROGRESS');
+        console.log('IN PROGRESS', progress);
       });
-    }
+    };
 
     $scope.downloadPhoto = function () {
-      var url = 'http://10.16.20.138:4000/feedbacks';
-      var filename = 'feedback.png';
+      var filename = $stateParams.id + (new Date()).getTime();
       var targetPath = cordova.file.externalRootDirectory + filename;
-      $cordovaFileTransfer.download(url, targetPath, {}, true).then(function (result) {
+      $cordovaFileTransfer.download(fileServerURL, targetPath, {}, true).then(function (result) {
         console.log('Success' + JSON.stringify(result));
         $scope.imageURI = result.nativeURL;
         $scope.previewDisabled = false;
       }, function (error) {
-        console.log('Error');
+        console.log('Error', error);
       }, function (progress) {
         // PROGRESS HANDLING GOES HERE
+        console.log(progress);
       });
     };
   }]);
