@@ -71,15 +71,15 @@
 							 <a name = "feedback" ng-class = "(feedBackResult === 'Pursue' && 'button-positive')" class="button button-block button-small button-stable" ng-disabled = "canNotEnterFeedBack()" ng-click = "extractFeedback('Pursue')"><h6>Pursue</h6></a>
 							 <a name = "feedback" ng-class = "(feedBackResult === 'Strong Pursue' && 'button-positive')" class="button button-block button-small button-stable" ng-disabled = "canNotEnterFeedBack()" ng-click = "extractFeedback('Strong Pursue')"><h6>Strong Pursue</h6></a>
 						</div>
+
 						<div class="row">
-							<div class="col col-100">
-								<div id="feedbackImage" ng-click="previewDisabled || previewImage()" ng-disabled="previewDisabled" ng-style="{'background-image': 'url(' + imageURI + ')'}">
+							<div class="col col-50" ng-repeat="feedbackImage in feedbackImages track by $index">
+								<label>{{feedbackImage.label}}</label>
+								<div class="feedback-image" ng-style="{'background-image': 'url(' + feedbackImage.URI + ')'}" ng-click="feedbackImage.previewDisabled || previewImage({{$index}})" ng-disabled="feedbackImage.previewDisabled">
 								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col col-50 text-center">
-								<button class="button icon ion-camera" ng-click="getPhoto()"></button>
+								<div class="text-center">
+										<button class="button icon ion-camera" ng-click="getPhoto({{$index}})"></button>
+								</div>
 							</div>
 						</div>
 						<button class="button button-full button-positive" ng-click="saveFeedback()">Submit</button>

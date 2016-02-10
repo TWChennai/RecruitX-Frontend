@@ -212,9 +212,11 @@ textarea {
 .feedBack .button.button-stable {
   border-color: black;
 }
-#feedbackImage {
-  height: 180px;
+.feedback-image {
+  height: 150px;
+  width: 150px;
   background-position: center;
+  background-size: contain;
   background-repeat: no-repeat;
 }
 .item-select select option:focus {

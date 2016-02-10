@@ -3,8 +3,18 @@ angular.module('recruitX')
     'use strict';
 
     $scope.interview = {};
-    $scope.imageURI = 'img/image_upload_icon.png';
-    $scope.previewDisabled = true;
+    $scope.feedbackImages = [
+      {
+        label: 'Areas of Strength',
+        URI: 'img/image_upload_icon.png',
+        previewDisabled: true
+      },
+      {
+        label: 'Areas of Improvement',
+        URI: 'img/image_upload_icon.png',
+        previewDisabled: true
+      }
+    ];
 
     $scope.formatPanelists = function (panelists) {
       return panelists.join(', ');
@@ -43,17 +53,20 @@ angular.module('recruitX')
       return !((interviewStartTime <= currentTime) && $scope.isValidPanelist());
     };
 
-    $scope.getPhoto = function () {
+    $scope.getPhoto = function (index) {
       Camera.getPicture().then(function (imageURI) {
-        $scope.imageURI = imageURI;
-        $scope.previewDisabled = false;
+        var feedbackImage = $scope.feedbackImages[index];
+        feedbackImage.URI = imageURI;
+        feedbackImage.previewDisabled = false;
       }, function (err) {
-        $cordovaToast.showShortBottom('Something went wrong while accessing the camera.');
+        $cordovaToast.showShortBottom(err);
       });
     };
 
-    $scope.previewImage = function () {
-      cordova.plugins.disusered.open($scope.imageURI, function () {}, function (err) {
+    $scope.previewImage = function (index) {
+      var feedbackImage = $scope.feedbackImages[index];
+      cordova.plugins.disusered.open(feedbackImage.URI, function () {}, function (err) {
+        console.log(err);
         $cordovaToast.showShortBottom('Something went wrong while opening the image.');
       });
     };
