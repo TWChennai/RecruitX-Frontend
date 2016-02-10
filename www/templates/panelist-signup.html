@@ -1,7 +1,7 @@
 <ion-view hide-nav-bar="true">
   <ion-header-bar class="bar-positive cust-header fixedTop">
       <h1 class="title">Hi {{loggedinUserName}}!!!</h1>
-      <a class="button icon ion-plus-round bgTransparent" href="#/candidates/new"></a>
+      <a class="button icon ion-plus-round bgTransparent" href="#/candidates/new" ng-if="isLoggedinUserRecruiter"></a>
       <a class="button icon ion-log-out" ng-click="logout()"></a>
   </ion-header-bar>
 
@@ -35,9 +35,9 @@
                     </div> -->
                     <div class="col col-70">
                       <div class="pull-right">
-                        <i class="icon ion-checkmark calm"></i>
-                        <i class="icon ion-checkmark calm"></i>
-                        <button class="button button-small button-positive" ng-disabled="!item.signup" ng-click="signingUp(item)">Signup: {{item.interview_type.name}}</button>
+                        <i ng-if="isLoggedinUserRecruiter" class="icon ion-checkmark calm"></i>
+                        <i ng-if="isLoggedinUserRecruiter" class="icon ion-checkmark calm"></i>
+                        <button ng-hide="isLoggedinUserRecruiter" class="button button-small button-positive" ng-disabled="!item.signup" ng-click="signingUp(item)">Signup: {{item.interview_type.name}}</button>
                       </div>
                     </div>
                   </div>

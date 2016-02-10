@@ -78,7 +78,7 @@
 								<div class="feedback-image" ng-style="{'background-image': 'url(' + feedbackImage.URI + ')'}" ng-click="feedbackImage.previewDisabled || previewImage({{$index}})" ng-disabled="feedbackImage.previewDisabled">
 								</div>
 								<div class="text-center">
-										<button class="button icon ion-camera" ng-click="getPhoto({{$index}})"></button>
+										<button class="button icon ion-camera" ng-hide="canNotEnterFeedBack()"  ng-click="getPhoto({{$index}})"></button>
 								</div>
 							</div>
 						</div>
