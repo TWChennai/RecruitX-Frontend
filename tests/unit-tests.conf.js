@@ -26,6 +26,7 @@ module.exports = function (config) {
       '../www/js/schedule-interview-controller.js',
       '../www/js/interview-details-controller.js',
       '../www/js/login-controller.js',
+      '../www/js/panelist-signup-controller.js',
       '../www/lib/angular-mocks/angular-mocks.js',
       'unit-tests/**/*.js'
     ],
