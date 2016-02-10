@@ -1,5 +1,5 @@
 angular.module('recruitX')
-  .controller('interviewDetailsController', ['$scope', '$stateParams', 'recruitFactory', '$rootScope', '$cordovaToast', 'Camera', 'loggedinUserStore', function ($scope, $stateParams, recruitFactory, $rootScope, $cordovaToast, Camera, loggedinUserStore) {
+  .controller('interviewDetailsController', ['$cordovaFileTransfer', '$scope', '$stateParams', 'recruitFactory', '$rootScope', '$cordovaToast', 'Camera', 'loggedinUserStore', function ($cordovaFileTransfer, $scope, $stateParams, recruitFactory, $rootScope, $cordovaToast, Camera, loggedinUserStore) {
     'use strict';
 
     $scope.interview = {};
@@ -57,5 +57,40 @@ angular.module('recruitX')
         $cordovaToast.showShortBottom('Something went wrong while opening the image.');
       });
     };
-  }
-]);
+
+    $scope.saveFeedback = function () {
+      upload($scope.imageURI);
+    };
+
+    function upload(nativeURL) {
+      var options = {
+        fileKey: "avatar",
+        fileName: "image.png",
+        chunkedMode: false,
+        mimeType: "image/png"
+      };
+      $cordovaFileTransfer.upload("http://10.16.20.138:4000/feedbacks", nativeURL, options).then(function(result) {
+        console.log("SUCCESS upload: " + JSON.stringify(result));
+      }, function(err) {
+        console.log("ERROR: " + JSON.stringify(err));
+      }, function (progress) {
+        // constant progress updates
+        console.log('IN PROGRESS');
+      });
+    }
+
+    $scope.downloadPhoto = function () {
+      var url = "http://10.16.20.138:4000/feedbacks";
+      var filename = "feedback.png";
+      var targetPath = cordova.file.externalRootDirectory + filename;
+      $cordovaFileTransfer.download(url, targetPath, {}, true).then(function (result) {
+        console.log('Success' + JSON.stringify(result));
+        $scope.imageURI = result.nativeURL;
+        $scope.previewDisabled = false;
+      }, function (error) {
+        console.log('Error');
+      }, function (progress) {
+        // PROGRESS HANDLING GOES HERE
+      });
+    };
+}]);
