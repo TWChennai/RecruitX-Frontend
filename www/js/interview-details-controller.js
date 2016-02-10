@@ -77,15 +77,15 @@ angular.module('recruitX')
 
     function upload(nativeURL) {
       var options = {
-        fileKey: "avatar",
-        fileName: "image.png",
+        fileKey: 'avatar',
+        fileName: 'image.png',
         chunkedMode: false,
-        mimeType: "image/png"
+        mimeType: 'image/png'
       };
-      $cordovaFileTransfer.upload("http://10.16.20.138:4000/feedbacks", nativeURL, options).then(function(result) {
-        console.log("SUCCESS upload: " + JSON.stringify(result));
+      $cordovaFileTransfer.upload('http://10.16.20.138:4000/feedbacks', nativeURL, options).then(function(result) {
+        console.log('SUCCESS upload: ' + JSON.stringify(result));
       }, function(err) {
-        console.log("ERROR: " + JSON.stringify(err));
+        console.log('ERROR: ' + JSON.stringify(err));
       }, function (progress) {
         // constant progress updates
         console.log('IN PROGRESS');
@@ -93,8 +93,8 @@ angular.module('recruitX')
     }
 
     $scope.downloadPhoto = function () {
-      var url = "http://10.16.20.138:4000/feedbacks";
-      var filename = "feedback.png";
+      var url = 'http://10.16.20.138:4000/feedbacks';
+      var filename = 'feedback.png';
       var targetPath = cordova.file.externalRootDirectory + filename;
       $cordovaFileTransfer.download(url, targetPath, {}, true).then(function (result) {
         console.log('Success' + JSON.stringify(result));
@@ -106,4 +106,4 @@ angular.module('recruitX')
         // PROGRESS HANDLING GOES HERE
       });
     };
-}]);
+  }]);
