@@ -27,6 +27,7 @@ textarea {
 .pull-right {
   float: right;
 }
+.bgTransparent, .bar-positive .bgTransparent { background-color: transparent; }
 
 /* Ionic Overrides */
 
@@ -47,7 +48,7 @@ textarea {
   text-align: left;
   width: 100%;
 }
-.pane[hide-nav-bar="true"] .fixed-top {
+.pane[hide-nav-bar="true"] .fixedTop {
   top: 0;
   border-bottom: 2px solid #fff;
 }
@@ -116,6 +117,11 @@ textarea {
 .backBtn .button.button-clear {
   padding: 0 8px;
 }
+/* .candidateForm { padding-bottom: 45px; } */
+.button.fixedBottom { position: absolute; bottom: -2px; left: 0; width: 100%; z-index: 9999; }
+.button.fixedBottom, .candidateForm .button.button-full { margin-bottom: 0; }
+.candidateForm .list .item.item-input:last-child { border-bottom: none; }
+.newCandidateBlk { margin-bottom: -5px;}
 
 /* Candidate Info - Panelist Signup Page */
 
@@ -188,9 +194,11 @@ textarea {
 }
 .candidatePanelList .item {
   padding: 6px;
+  border-width: 0;
 }
 .candidatePanelList .candidateInfo {
   padding: 0 3px;
+  border-width: 1px;
 }
 .candidateInfo h4 {
   padding: 0;

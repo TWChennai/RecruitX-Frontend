@@ -1,7 +1,6 @@
 <ion-view view-title="Add Candidate">
-  <ion-content>
-    <div ng-controller="createCandidateProfileController">
-      <form name="candidateForm" id="candidateForm" novalidate>
+  <ion-content ng-controller="createCandidateProfileController" class="newCandidateBlk">
+      <form name="candidateForm" id="candidateForm" class="candidateForm" novalidate>
         <div class="list">
           <div class="item item-input" ng-class="{ 'has-error' : candidateForm.firstName.$invalid && !candidateForm.firstName.$pristine }">
             <label class="input-label">First Name</label>
@@ -56,6 +55,5 @@
         </div>
         <a class="button button-full icon-right ion-chevron-right button-positive" ng-disabled="isFormInvalid()" ui-sref="schedule-interview({candidate: candidate})" ng-click =  "processCandidateData()">Next</a>
       </form>
-    </div>
   </ion-content>
 </ion-view>

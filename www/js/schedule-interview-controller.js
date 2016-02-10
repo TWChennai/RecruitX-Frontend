@@ -78,7 +78,7 @@ angular.module('recruitX')
 
       recruitFactory.saveCandidate($stateParams, function (res) {
         // console.log(res);
-        alertService.showAlertWithDismissHandler('Success', 'Candidate data has been successfully submitted!!', redirectToHomePage);
+        alertService.showAlertWithDismissHandler('Success', 'Candidate Interview successfully added!!', redirectToHomePage);
       });
     };
   }
