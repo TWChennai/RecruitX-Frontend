@@ -1,8 +1,10 @@
 <ion-view hide-nav-bar="true">
   <ion-header-bar class="bar-positive cust-header fixedTop">
       <h1 class="title">Hi {{loggedinUserName}}!!!</h1>
-      <a class="button icon ion-plus-round bgTransparent" href="#/candidates/new" ng-if="isLoggedinUserRecruiter"></a>
-      <a class="button icon ion-log-out bgTransparent" ng-click="logout()"></a>
+      <div class="buttons">
+        <a class="button icon ion-plus-round bgTransparent" href="#/candidates/new" ng-if="isLoggedinUserRecruiter"></a>
+        <a class="button icon ion-log-out" ng-click="logout()"></a>
+      </div>
   </ion-header-bar>
 
     <ion-tabs class="cust-tab tabs-striped tabs-positive tabs-top">
