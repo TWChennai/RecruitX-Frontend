@@ -112,9 +112,8 @@ angular.module('recruitX')
   };
 })
 
-.factory('alertService', function ($ionicPopup) {
+.factory('dialogService', function ($ionicPopup) {
   'use strict';
-
   return {
     showAlert: function (alertTitle, alertText) {
       $ionicPopup.alert({
@@ -129,6 +128,17 @@ angular.module('recruitX')
       }).then(function () {
         onAlertDismiss();
       });
+    },
+    askConfirmation: function(confirmTitle, confirmText, onOkPress){
+        $ionicPopup.confirm({
+         title: confirmTitle,
+         template: confirmText
+       })
+       .then(function(res) {
+         if(res) {
+           onOkPress();
+         }
+       });
     }
   };
 });

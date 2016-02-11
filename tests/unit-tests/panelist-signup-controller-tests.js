@@ -1,4 +1,4 @@
-describe('panelistSignupController', function () {
+xdescribe('panelistSignupController', function () {
   'use strict';
 
   beforeEach(module('recruitX'));

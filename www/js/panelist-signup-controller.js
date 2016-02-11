@@ -1,5 +1,5 @@
 angular.module('recruitX')
-  .controller('panelistSignupController', ['$scope', 'recruitFactory', 'skillHelperService', 'ionicLoadingService', 'loggedinUserStore', 'alertService', '$ionicHistory', '$state', function ($scope, recruitFactory, skillHelperService, ionicLoadingService, loggedinUserStore, alertService, $ionicHistory, $state) {
+  .controller('panelistSignupController', ['$scope', 'recruitFactory', 'skillHelperService', 'ionicLoadingService', 'loggedinUserStore', 'dialogService', '$ionicHistory', '$state', function ($scope, recruitFactory, skillHelperService, ionicLoadingService, loggedinUserStore, dialogService, $ionicHistory, $state) {
     'use strict';
 
     $scope.items = [];
@@ -55,14 +55,14 @@ angular.module('recruitX')
     $scope.signUpSuccessHandler = function (res) {
       console.log(res);
       $scope.finishRefreshing();
-      alertService.showAlertWithDismissHandler('Sign up', 'Thanks for signing up for this interview!', function () {
+      dialogService.showAlertWithDismissHandler('Sign up', 'Thanks for signing up for this interview!', function () {
         $scope.manuallyRefreshInterviews();
       });
     };
 
     $scope.signUpUnprocessableEntityHandler = function (error) {
       $scope.finishRefreshing();
-      alertService.showAlert('Sign up', error.errors[0].reason);
+      dialogService.showAlert('Sign up', error.errors[0].reason);
     };
 
     $scope.defaultErrorHandler = function () {
@@ -70,12 +70,14 @@ angular.module('recruitX')
     };
 
     $scope.logout = function () {
-      loggedinUserStore.clearDb();
-      $state.go('login');
-      $ionicHistory.nextViewOptions({
-        disableBack: true,
-        disableAnimate: true
-      });
+       dialogService.askConfirmation('Logout', 'Are you sure you want to logout?', function(){
+           loggedinUserStore.clearDb();
+           $state.go('login');
+           $ionicHistory.nextViewOptions({
+             disableBack: true,
+             disableAnimate: true
+           });
+       });
     };
 
     document.addEventListener('deviceready', function onDeviceReady() {
