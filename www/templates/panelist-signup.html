@@ -31,15 +31,9 @@
                     <div class="col col-30">
                       <h4><strong>Skills: </strong>{{item.candidate.all_skills}}</h4>
                     </div>
-
-                    <!-- <div class="col col-67">
-                      <h3><strong>{{item.interview_type.name}}</strong></h3>
-                    </div> -->
                     <div class="col col-70">
                       <div class="pull-right">
-                        <!-- TODO: Convert into a loop and pull the boolean check mark outside the loop -->
-                        <i ng-if="isLoggedinUserRecruiter && item.panelist_count > 0" class="icon ion-checkmark calm"></i>
-                        <i ng-if="isLoggedinUserRecruiter && item.panelist_count > 1" class="icon ion-checkmark calm"></i>
+                        <h4 ng-if="isLoggedinUserRecruiter">{{item.formattedPanelists}}</h4>
                         <button ng-hide="isLoggedinUserRecruiter" class="button button-small button-positive" ng-disabled="!item.signup" ng-click="signingUp(item)">Signup: {{item.interview_type.name}}</button>
                       </div>
                     </div>

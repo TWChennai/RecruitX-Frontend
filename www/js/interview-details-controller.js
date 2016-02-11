@@ -16,13 +16,8 @@ angular.module('recruitX')
       }
     ];
 
-    $scope.formatPanelists = function (panelists) {
-      return panelists.join(', ');
-    };
-
     recruitFactory.getInterview($stateParams.id, function (interview) {
       $scope.interview = interview;
-      $scope.interview.formattedPanelists = $scope.formatPanelists($scope.interview.panelists);
     });
 
     // TODO: This should come from the backend
