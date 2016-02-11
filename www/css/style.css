@@ -30,7 +30,7 @@ textarea {
 .bgTransparent, .bar-positive .bgTransparent { background-color: transparent; }
 
 /* Ionic Overrides */
-
+.nav-bar-tabs-top .bar { border-bottom: 2px solid #fff; }
 
 /* Form Elements */
 
@@ -192,13 +192,21 @@ textarea {
 .inherit_display {
   display: inherit;
 }
+.disable-user-behavior {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select:text;
+  -webkit-touch-callout: default;
+  touch-callout: default;
+}
 .candidatePanelList .item {
   padding: 6px;
-  border-width: 0;
+  border: none;
 }
 .candidatePanelList .candidateInfo {
   padding: 0 3px;
-  border-width: 1px;
+  border: 1px solid #ddd;
 }
 .candidateInfo h4 {
   padding: 0;

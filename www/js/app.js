@@ -10,9 +10,10 @@ angular.module('recruitX', ['ionic', 'ui.router', 'ngCordova', 'ngResource'])
     apiUrl: '10.134.125.194:4001',
     oktaUrl: 'https://thoughtworks.okta.com'
   })
-  .config(function ($stateProvider, $urlRouterProvider, $compileProvider) {
+  .config(function ($stateProvider, $urlRouterProvider, $compileProvider, $ionicConfigProvider) {
     'use strict';
 
+    $ionicConfigProvider.backButton.previousTitleText(false);
     $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|file):/);
 
     $stateProvider
