@@ -1,22 +1,19 @@
-xdescribe('panelistSignupController', function () {
+describe('panelistSignupController', function () {
   'use strict';
 
   beforeEach(module('recruitX'));
-  var loggedinUserStore, state, ionicHistory, createController, scope;
+  var dialogService, scope, createController;
 
-  beforeEach(inject(function ($controller, _loggedinUserStore_, $state, $ionicHistory, $rootScope) {
+  beforeEach(inject(function ($controller, _loggedinUserStore_, _dialogService_, $rootScope){
      spyOn(_loggedinUserStore_, 'userFirstName').and.returnValue('recruitx');
      spyOn(_loggedinUserStore_, 'isRecruiter').and.returnValue(true);
      scope = $rootScope.$new();
-     loggedinUserStore = _loggedinUserStore_;
-     state = $state;
-     ionicHistory = $ionicHistory;
+     dialogService = _dialogService_;
      createController = function(){
        $controller('panelistSignupController', {
        $scope: scope,
        loggedinUserStore: _loggedinUserStore_,
-       state: $state,
-       ionicHistory: $ionicHistory
+       dialogService: _dialogService_
      });
     }
    }));
@@ -24,16 +21,11 @@ xdescribe('panelistSignupController', function () {
   describe('methods', function () {
       it('should be able to logout', function () {
         var panelistSignupController = createController();
-
-        spyOn(loggedinUserStore, 'clearDb');
-        spyOn(state, 'go');
-        spyOn(ionicHistory, 'nextViewOptions');
+        spyOn(dialogService, 'askConfirmation');
 
         scope.logout();
 
-        expect(loggedinUserStore.clearDb).toHaveBeenCalled();
-        expect(state.go).toHaveBeenCalledWith('login');
-        expect(ionicHistory.nextViewOptions).toHaveBeenCalledWith({disableBack : true, disableAnimate: true});
+        expect(dialogService.askConfirmation).toHaveBeenCalledWith('Logout', 'Are you sure you want to logout?', jasmine.any(Function));
       });
     });
 });
