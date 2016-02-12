@@ -23,13 +23,6 @@ angular.module('recruitX')
       }
     ];
 
-    var imageFileOptions = {
-      fileKey: 'avatar',
-      fileName: 'image.png',
-      chunkedMode: false,
-      mimeType: 'image/png'
-    };
-
     var baseUrl = 'http://' + endpoints.apiUrl;
     var fileServerURL = baseUrl + '/interviews/' + $stateParams.id + '/feedback_images';
 
@@ -49,7 +42,8 @@ angular.module('recruitX')
       var feedbackUploaded = ($filter('filter')($scope.feedbackImages, {
         previewDisabled: false
       }));
-      return $scope.feedBackResult !== undefined && feedbackUploaded !== undefined;
+
+      return ($scope.feedBackResult !== undefined && feedbackUploaded !== undefined && feedbackUploaded.length !== 0);
     };
 
     $scope.refreshInterviewFeedback = function () {
@@ -120,7 +114,7 @@ angular.module('recruitX')
 
     $scope.saveFeedback = function () {
       console.log('IN SAVE');
-      dialogService.askConfirmation('Confirm', 'Are you sure you want to submit?', $scope.uploadFile);
+      dialogService.askConfirmation('Confirm', 'Are you sure you want to submit?', $scope.uploadFeedback);
     };
 
     $scope.uploadFeedback = function () {
@@ -154,9 +148,9 @@ angular.module('recruitX')
         dialogService.showAlertWithDismissHandler('Success!!', 'Upload was successful', $scope.refreshInterviewFeedback);
       }, function (error, status) {
         if (status === UNPROCESSABLE_ENTITY_STATUS) {
-          unProcessableEntityErrorHandler(error, status);
+          dialogService.showAlert('Sign up', error.errors[0].reason);
         } else {
-          defaultErrorHandler(error, status, customErrorHandler);
+          $cordovaToast.showShortBottom('Something went wrong while processing your request. Please try again soon.');
         }
       });
     };
@@ -169,8 +163,10 @@ angular.module('recruitX')
         $scope.feedbackImages[index].isDownloaded = true;
       }, function (error) {
         console.log('Error', error);
+        $cordovaToast.showShortBottom(error);
       }, function (progress) {
         // PROGRESS HANDLING GOES HERE
+        $cordovaToast.showShortBottom(progress);
         console.log(progress);
       });
     };
