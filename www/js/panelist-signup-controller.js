@@ -41,6 +41,13 @@ angular.module('recruitX')
       });
     };
 
+    $scope.refreshCandidates = function(){
+        recruitFactory.getAllCandidates(function(candidates){
+          $scope.all_candidates = candidates;
+          $scope.finishRefreshing();
+      });
+    }
+
     $scope.signingUp = function (item) {
       $scope.interview_panelist = {
         interview_panelist: {

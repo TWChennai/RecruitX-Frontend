@@ -42,6 +42,14 @@ angular.module('recruitX')
       fleshOutCandidate(interview.candidate);
     };
 
+    var fleshOutCandidates = function(candidates){
+      angular.forEach(candidates, function(candidate){
+         candidate.role = (($filter('filter')(MasterData.getRoles(), {
+           id: candidate.role_id
+       }))[0]).name;
+      });
+    };
+
     var fleshOutInterviews = function (interviews) {
       // TODO: Please use a consistent for construct
       angular.forEach(interviews, function (interview) {
@@ -118,6 +126,17 @@ angular.module('recruitX')
         }).error(function (err, status) {
           defaultErrorHandler(err, status, customError);
         });
+      },
+
+      getAllCandidates: function(success){
+          $http.get(baseUrl + '/candidates')
+          .success(function(response){
+             fleshOutCandidates(response);
+             success(response);
+          })
+          .error(function(err, status){
+
+          });
       },
 
       // TODO: This should be merged with the above method

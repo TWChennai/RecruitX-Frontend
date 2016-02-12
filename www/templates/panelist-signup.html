@@ -82,7 +82,21 @@
 
       <ion-tab title="Candidates" ng-if="isLoggedinUserRecruiter">
           <ion-content>
-              <h4>hi recruiter!!! here are your candidates</h4>
+              <ion-refresher on-refresh="refreshCandidates()">
+              </ion-refresher>
+              <ion-list class="candidatePanelList">
+                  <ion-item collection-repeat="candidate in all_candidates">
+                    <div class="item item-divider candidateInfo">
+                      <div class="row">
+                        <div class="col col-50">
+                          <a ui-sref="candidate-profile({id:candidate.id})"><strong>{{candidate.name | limitTo: 10}}</strong></a> <h5> ({{candidate.experience}} Yrs) </h5>
+                      </div>
+                      <div class="col col-25">
+                      <h4>{{candidate.role}}</h4>
+                  </div>
+                    </div>
+                  </ion-item>
+                </ion-list>
           </ion-content>
       </ion-tab>
     </ion-tabs>
