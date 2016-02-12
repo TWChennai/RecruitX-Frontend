@@ -121,7 +121,6 @@ angular.module('recruitX')
     $scope.saveFeedback = function () {
       console.log('IN SAVE');
       dialogService.askConfirmation('Confirm', 'Are you sure you want to submit?', $scope.uploadFile);
-      loadInterviewDetails();
     };
 
     $scope.uploadFeedback = function () {
