@@ -6,6 +6,7 @@ angular.module('recruitX')
     $scope.interview = {};
     $scope.imageURIs = [];
     $scope.BLOBs = [];
+    var UNPROCESSABLE_ENTITY_STATUS = 422;
 
     $scope.feedbackImages = [
       {
@@ -119,7 +120,7 @@ angular.module('recruitX')
 
     $scope.saveFeedback = function () {
       console.log('IN SAVE');
-      alertService.askConfirmation('Confirm', 'Are you sure you want to submit?', $scope.uploadFile);
+      dialogService.askConfirmation('Confirm', 'Are you sure you want to submit?', $scope.uploadFile);
       loadInterviewDetails();
     };
 
@@ -151,7 +152,13 @@ angular.module('recruitX')
               status_id: $scope.feedBackResult.id
           }
       }).then(function (response) {
-          alertService.showAlertWithDismissHandler('Success!!', 'Upload was successful', $scope.refreshInterviewFeedback);
+          dialogService.showAlertWithDismissHandler('Success!!', 'Upload was successful', $scope.refreshInterviewFeedback);
+      }, function (error, status) {
+        if (status === UNPROCESSABLE_ENTITY_STATUS) {
+          unProcessableEntityErrorHandler(error, status);
+        } else {
+          defaultErrorHandler(error, status, customErrorHandler);
+        }
       });
     };
 

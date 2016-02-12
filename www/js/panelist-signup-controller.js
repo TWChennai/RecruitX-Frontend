@@ -46,7 +46,7 @@ angular.module('recruitX')
           $scope.all_candidates = candidates;
           $scope.finishRefreshing();
       });
-    }
+    };
 
     $scope.signingUp = function (item) {
       $scope.interview_panelist = {

@@ -60,7 +60,7 @@ describe('interviewDetailsController', function () {
         expect($scope.canNotEnterFeedBack()).toEqual(true);
       });
 
-      it('should return false if the interview start time is in the past and panelist is logged in user', function () {
+      it('should return false if the interview start time is in the past and panelist is logged in user and interview feedback is not available', function () {
         currentDate = new Date();
         minutes = 1;
         $scope.interview.start_time = new Date(currentDate.getYear(), currentDate.getMonth(), currentDate.getDay() - 1);
@@ -69,7 +69,28 @@ describe('interviewDetailsController', function () {
         expect($scope.canNotEnterFeedBack()).toEqual(false);
       });
 
-      it('should return true if the interview start time is in the past and panelist is not logged in user', function () {
+      it('should return true if the interview start time is in the past and panelist is logged in user and interview feedback is available', function () {
+        currentDate = new Date();
+        minutes = 1;
+        $scope.interview.start_time = new Date(currentDate.getYear(), currentDate.getMonth(), currentDate.getDay() - 1);
+        $scope.interview.panelistsArray = ['userId'];
+        $scope.interview.status = "feedback";
+
+        expect($scope.canNotEnterFeedBack()).toEqual(true);
+      });
+
+      it('should return true if the interview start time is in the past and panelist is not logged in user and feedback is available', function () {
+        currentDate = new Date();
+        minutes = 1;
+        futureDate = new Date(currentDate.setMinutes(currentDate.getMinutes() - minutes));
+        $scope.interview.start_time = futureDate;
+        $scope.interview.panelists = ['test'];
+        $scope.interview.status = "feedback";
+
+        expect($scope.canNotEnterFeedBack()).toEqual(true);
+      });
+
+      it('should return true if the interview start time is in the past and panelist is not logged in user and feedback is not available', function () {
         currentDate = new Date();
         minutes = 1;
         futureDate = new Date(currentDate.setMinutes(currentDate.getMinutes() - minutes));
