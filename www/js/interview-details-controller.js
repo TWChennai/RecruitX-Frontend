@@ -32,7 +32,7 @@ angular.module('recruitX')
     };
 
     $scope.isValidPanelist = function () {
-      var panelists = $scope.interview.panelists;
+      var panelists = $scope.interview.panelistsArray;
       var isPanelist = false;
       angular.forEach(panelists, function (panelist) {
         if (panelist === loggedinUserStore.userId()) {

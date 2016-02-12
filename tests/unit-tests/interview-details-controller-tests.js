@@ -23,26 +23,6 @@ describe('interviewDetailsController', function () {
       });
     });
 
-    describe('formatPanelists', function () {
-      it('should return empty string when there is no panelists', function () {
-        $scope.interview.panelists = [];
-        var actualValue = $scope.formatPanelists($scope.interview.panelists);
-        expect(actualValue).toEqual('');
-      });
-
-      it('should return one panelist when there is a panelist', function () {
-        $scope.interview.panelists = ['recruitx'];
-        var actualValue = $scope.formatPanelists($scope.interview.panelists);
-        expect(actualValue).toEqual('recruitx');
-      });
-
-      it('should return concatinated string when there are panelists', function () {
-        $scope.interview.panelists = ['recruitx', 'test'];
-        var actualValue = $scope.formatPanelists($scope.interview.panelists);
-        expect(actualValue).toEqual('recruitx, test');
-      });
-    });
-
     describe('canNotEnterFeedBack', function () {
       var currentDate = {};
       var futureDate = {};
@@ -61,7 +41,7 @@ describe('interviewDetailsController', function () {
 
       it('should return false if the interview start time is now and panelist is logged in user', function () {
         $scope.interview.start_time = new Date();
-        $scope.interview.panelists = ['userId'];
+        $scope.interview.panelistsArray = ['userId'];
 
         expect($scope.canNotEnterFeedBack()).toEqual(false);
       });
@@ -72,7 +52,7 @@ describe('interviewDetailsController', function () {
         minutes = 30;
         futureDate = new Date(currentDate.setMinutes(currentDate.getMinutes() + minutes));
         $scope.interview.start_time = futureDate;
-        $scope.interview.panelists = ['test'];
+        $scope.interview.panelistsArray = ['test'];
 
         expect($scope.canNotEnterFeedBack()).toEqual(true);
       });
@@ -81,7 +61,7 @@ describe('interviewDetailsController', function () {
         currentDate = new Date();
         minutes = 1;
         $scope.interview.start_time = new Date(currentDate.getYear(), currentDate.getMonth(), currentDate.getDay() - 1);
-        $scope.interview.panelists = ['userId'];
+        $scope.interview.panelistsArray = ['userId'];
 
         expect($scope.canNotEnterFeedBack()).toEqual(false);
       });

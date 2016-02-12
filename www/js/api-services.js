@@ -33,7 +33,11 @@ angular.module('recruitX')
         id: interview.interview_type_id
       }))[0];
       if (interview.panelists !== undefined) {
-        interview.formattedPanelists = interview.panelists.join(', ');
+        interview.panelistsArray = [];
+        angular.forEach(interview.panelists, function(interview_panelist) {
+          interview.panelistsArray.push(interview_panelist.name);
+        });
+        interview.formattedPanelists = interview.panelistsArray.join(', ');
       }
       fleshOutCandidate(interview.candidate);
     };
