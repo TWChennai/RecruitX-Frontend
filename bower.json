@@ -6,7 +6,8 @@
     "angular-mocks": "1.4.3"
   },
   "dependencies": {
-    "ngCordova": "~0.1.23-alpha"
+    "ngCordova": "~0.1.23-alpha",
+    "ng-file-upload": "^11.2.3"
   },
   "resolutions": {
     "angular": "1.4.3"

@@ -44,5 +44,11 @@ angular.module('recruitX')
         request++;
         hideSplashScreen();
       });
+
+      recruitFactory.getInterviewStatus(function (interviewStatus) {
+        MasterData.setInterviewStatus(interviewStatus);
+        request++;
+        hideSplashScreen();
+      });
     });
   });

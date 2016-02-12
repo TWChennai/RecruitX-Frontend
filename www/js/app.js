@@ -4,7 +4,7 @@
 // 'recruitX' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 
-angular.module('recruitX', ['ionic', 'ui.router', 'ngCordova', 'ngResource'])
+angular.module('recruitX', ['ngFileUpload', 'ionic', 'ui.router', 'ngCordova', 'ngResource'])
   // TODO: Move this into a properties/json file that is read in when the app starts
   .constant('endpoints', {
     apiUrl: '10.134.125.194:4001',
@@ -48,7 +48,8 @@ angular.module('recruitX', ['ionic', 'ui.router', 'ngCordova', 'ngResource'])
       url: '/candidate-tabs',
       abstract: true,
       templateUrl: 'templates/candidate-tabs.html',
-      controller: 'candidateTabController'
+      controller: 'candidateTabController',
+      cache: false
     })
 
     .state('candidate-profile', {
@@ -57,7 +58,8 @@ angular.module('recruitX', ['ionic', 'ui.router', 'ngCordova', 'ngResource'])
       views: {
         'candidate-profile-tab': {
           templateUrl: 'templates/candidate-profile.html',
-          controller: 'candidateProfileController'
+          controller: 'candidateProfileController',
+          cache: false
         }
       }
     })
@@ -68,7 +70,8 @@ angular.module('recruitX', ['ionic', 'ui.router', 'ngCordova', 'ngResource'])
       views: {
         'candidate-interviews-tab': {
           templateUrl: 'templates/candidate-interviews.html',
-          controller: 'candidateInterviewsController'
+          controller: 'candidateInterviewsController',
+          cache: false
         }
       }
     })

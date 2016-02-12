@@ -1,37 +1,70 @@
 angular.module('recruitX')
-  .controller('interviewDetailsController', ['alertService', 'endpoints', '$cordovaFileTransfer', '$scope', '$stateParams', 'recruitFactory', '$rootScope', '$cordovaToast', 'Camera', 'loggedinUserStore', function (alertService, endpoints, $cordovaFileTransfer, $scope, $stateParams, recruitFactory, $rootScope, $cordovaToast, Camera, loggedinUserStore) {
+  .controller('interviewDetailsController', ['$filter', 'ionicLoadingService', 'MasterData', '$q', 'Upload', 'dialogService', 'endpoints', '$cordovaFileTransfer', '$scope', '$stateParams', 'recruitFactory', '$rootScope', '$cordovaToast', 'Camera', 'loggedinUserStore', function ($filter, ionicLoadingService, MasterData, $q, Upload, dialogService, endpoints, $cordovaFileTransfer, $scope, $stateParams, recruitFactory, $rootScope, $cordovaToast, Camera, loggedinUserStore) {
     'use strict';
 
+    $scope.interviewStatus = MasterData.getInterviewStatus();
     $scope.interview = {};
+    $scope.imageURIs = [];
+    $scope.BLOBs = [];
+
     $scope.feedbackImages = [
       {
-        label: 'Areas of Strength',
+        label: 'Areas of strength',
         URI: 'img/image_upload_icon.png',
-        previewDisabled: true
+        previewDisabled: true,
+        isDownloaded: false
       },
       {
-        label: 'Areas of Improvement',
+        label: 'Areas to improve',
         URI: 'img/image_upload_icon.png',
-        previewDisabled: true
+        previewDisabled: true,
+        isDownloaded: false
       }
     ];
-    // $scope.imageURI = 'img/image_upload_icon.png';
-    $scope.previewDisabled = true;
+
     var imageFileOptions = {
       fileKey: 'avatar',
       fileName: 'image.png',
       chunkedMode: false,
       mimeType: 'image/png'
     };
-    var baseUrl = 'http://' + endpoints.apiUrl;
-    var fileServerURL = baseUrl + '/interviews/' + $stateParams.id +'/feedbacks';
 
-    var loadInterviewDetails = function () {
+    var baseUrl = 'http://' + endpoints.apiUrl;
+    var fileServerURL = baseUrl + '/interviews/' + $stateParams.id +'/feedback_images';
+
+    $scope.finishRefreshing = function () {
+      ionicLoadingService.stopLoading();
+      $scope.$broadcast('scroll.refreshComplete');
+    };
+
+    $scope.manuallyRefreshInterviews = function () {
+      ionicLoadingService.showLoading();
+      $scope.refreshInterviewFeedback();
+    };
+
+    // $scope.imageURI = 'img/image_upload_icon.png';
+
+    $scope.canSubmit = function () {
+      var feedbackUploaded = ($filter('filter')($scope.feedbackImages, {
+        previewDisabled: false
+      }));
+      return $scope.feedBackResult !== undefined && feedbackUploaded !== undefined;
+    };
+
+    $scope.refreshInterviewFeedback = function () {
       recruitFactory.getInterview($stateParams.id, function (interview) {
         $scope.interview = interview;
+        if(interview.feedback_images.length !== 0 ){
+          $scope.feedbackImages = interview.feedback_images;
+        }
+        $scope.finishRefreshing();
       });
     };
-    loadInterviewDetails();
+
+    document.addEventListener('deviceready', function onDeviceReady() {
+      $scope.refreshInterviewFeedback();
+    }, false);
+
 
     // TODO: This should come from the backend
     $scope.endTime = function (startTime) {
@@ -58,7 +91,11 @@ angular.module('recruitX')
     $scope.canNotEnterFeedBack = function () {
       var currentTime = new Date();
       var interviewStartTime = new Date($scope.interview.start_time);
-      return !((interviewStartTime <= currentTime) && $scope.isValidPanelist());
+      return !((interviewStartTime <= currentTime) && $scope.isValidPanelist()) || $scope.isFeedbackAvailable();
+    };
+
+    $scope.isFeedbackAvailable = function () {
+      return $scope.interview.status !== undefined;
     };
 
     $scope.getPhoto = function (index) {
@@ -66,6 +103,7 @@ angular.module('recruitX')
         var feedbackImage = $scope.feedbackImages[index];
         feedbackImage.URI = imageURI;
         feedbackImage.previewDisabled = false;
+        $scope.imageURIs.push(imageURI);
       }, function (err) {
         $cordovaToast.showShortBottom(err);
       });
@@ -74,8 +112,8 @@ angular.module('recruitX')
     $scope.previewImage = function (index) {
       var feedbackImage = $scope.feedbackImages[index];
       cordova.plugins.disusered.open(feedbackImage.URI, function () {}, function (err) {
-      console.log(err);
-      $cordovaToast.showShortBottom('Something went wrong while opening the image.');
+        console.log(err);
+        $cordovaToast.showShortBottom('Something went wrong while opening the image.');
       });
     };
 
@@ -83,27 +121,46 @@ angular.module('recruitX')
       console.log('IN SAVE');
       alertService.askConfirmation('Confirm', 'Are you sure you want to submit?', $scope.uploadFile);
       loadInterviewDetails();
-
     };
 
-    $scope.uploadFile = function() {
-      $cordovaFileTransfer.upload(fileServerURL, $scope.imageURI, imageFileOptions).then(function(result) {
-        console.log('SUCCESS upload: ' + JSON.stringify(result));
-      }, function(err) {
-        console.log('ERROR: ' + JSON.stringify(err));
-      }, function (progress) {
-        // constant progress updates
-        console.log('IN PROGRESS', progress);
+    $scope.uploadFeedback = function () {
+      $scope.promises = [];
+      $scope.isUploadComplete = false;
+      if ($scope.imageURIs && $scope.imageURIs.length) {
+        $scope.fileIndex = {};
+        for($scope.fileIndex in $scope.imageURIs){
+          $scope.promises.push(Upload.urlToBlob($scope.imageURIs[$scope.fileIndex]));
+        }
+        $q.all($scope.promises).then(function (data) {
+          for (var index in data){
+            $scope.BLOBs.push(data[index]);
+          }
+          $scope.uploadFiles();
+        });
+      }
+    };
+
+  $scope.uploadFiles = function(){
+     Upload.upload({
+          url: fileServerURL,
+          headers : {
+            'Content-Type': 'image/jpeg'
+          },
+          data: {
+              feedback_images: $scope.BLOBs,
+              status_id: $scope.feedBackResult.id
+          }
+      }).then(function (response) {
+          alertService.showAlertWithDismissHandler('Success!!', 'Upload was successful', $scope.refreshInterviewFeedback);
       });
     };
 
-    $scope.downloadPhoto = function () {
-      var filename = $stateParams.id + (new Date()).getTime();
+    $scope.downloadPhoto = function (index) {
+      var filename = $scope.feedbackImages[index].file_name;
       var targetPath = cordova.file.externalRootDirectory + filename;
-      $cordovaFileTransfer.download(fileServerURL, targetPath, {}, true).then(function (result) {
-        console.log('Success' + JSON.stringify(result));
-        $scope.imageURI = result.nativeURL;
-        $scope.previewDisabled = false;
+      $cordovaFileTransfer.download(fileServerURL + "/" + filename, targetPath, {}, true).then(function (result) {
+        $scope.feedbackImages[index].URI = result.nativeURL;
+        $scope.feedbackImages[index].isDownloaded = true;
       }, function (error) {
         console.log('Error', error);
       }, function (progress) {

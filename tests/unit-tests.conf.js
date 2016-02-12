@@ -18,6 +18,8 @@ module.exports = function (config) {
       '../www/lib/ngCordova/dist/ng-cordova.min.js',
       '../www/lib/ionic/js/angular-ui/angular-ui-router.min.js',
       '../www/lib/ionic/js/angular/angular-resource.min.js',
+      '../www/lib/ng-file-upload/ng-file-upload-shim.min.js',
+      '../www/lib/ng-file-upload/ng-file-upload.min.js',
       '../www/js/app.js',
       '../www/js/helper-services.js',
       '../www/js/api-services.js',

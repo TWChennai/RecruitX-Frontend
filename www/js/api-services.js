@@ -39,6 +39,10 @@ angular.module('recruitX')
         });
         interview.formattedPanelists = interview.panelistsArray.join(', ');
       }
+      var interviewStatusId = interview.status_id;
+      interview.status = ($filter('filter')(MasterData.getInterviewStatus(), {
+        id: interviewStatusId
+      }))[0];
       fleshOutCandidate(interview.candidate);
     };
 
@@ -169,6 +173,13 @@ angular.module('recruitX')
               defaultErrorHandler(error, status, customErrorHandler);
             }
           });
+      },
+
+      getInterviewStatus: function (success, customError) {
+        $http.get(baseUrl + '/interview_status').success(success)
+          .error(function (err, status) {
+            defaultErrorHandler(err, status, customError);
+          });
       }
     };
   }])
@@ -179,6 +190,7 @@ angular.module('recruitX')
   var interviewTypes;
   var skills;
   var roles;
+  var interviewStatus;
 
   return {
     setInterviewTypes: function (i) {
@@ -203,6 +215,14 @@ angular.module('recruitX')
 
     getSkills: function () {
       return skills;
+    },
+
+    setInterviewStatus: function (is) {
+      interviewStatus = is;
+    },
+
+    getInterviewStatus: function () {
+      return interviewStatus;
     }
   };
 }]);

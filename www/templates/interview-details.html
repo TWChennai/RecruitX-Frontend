@@ -59,22 +59,20 @@
 							</div>
 							<!--TODO: Need to implement this in a cleaner way using mutually exclusive radio buttons -->
 						<div class="button-bar feedBack">
-							 <a name = "feedback" ng-class = "(feedBackResult === 'Pass' && 'button-positive')" class="button button-block button-small button-stable" ng-disabled = "canNotEnterFeedBack()" ng-click = "extractFeedback('Pass')"><h6>Pass</h6></a>
-							 <a name = "feedback" ng-class = "(feedBackResult === 'Pursue' && 'button-positive')" class="button button-block button-small button-stable" ng-disabled = "canNotEnterFeedBack()" ng-click = "extractFeedback('Pursue')"><h6>Pursue</h6></a>
-							 <a name = "feedback" ng-class = "(feedBackResult === 'Strong Pursue' && 'button-positive')" class="button button-block button-small button-stable" ng-disabled = "canNotEnterFeedBack()" ng-click = "extractFeedback('Strong Pursue')"><h6>Strong Pursue</h6></a>
+							<a name = "feedback" id = "feedback" ng-repeat="status in interviewStatus" ng-class = "(feedBackResult.name === '{{status.name}}' && 'button-positive') || (interview.status.name === '{{status.name}}' && 'button-positive')" class="button button-block button-small button-stable" ng-disabled = "canNotEnterFeedBack()" ng-click = "extractFeedback(status)"><h6>{{status.name}}</h6></a>
 						</div>
-
 						<div class="row">
 							<div class="col col-50" ng-repeat="feedbackImage in feedbackImages track by $index">
-								<label>{{feedbackImage.label}}</label>
-								<div class="feedback-image" ng-style="{'background-image': 'url(' + feedbackImage.URI + ')'}" ng-click="feedbackImage.previewDisabled || previewImage({{$index}})" ng-disabled="feedbackImage.previewDisabled">
+								<label ng-if = "!isFeedbackAvailable()">{{feedbackImage.label}}</label>
+								<div ng-if = "!isFeedbackAvailable() || feedbackImage.isDownloaded" class="feedback-image" ng-style="{'background-image': 'url(' + feedbackImage.URI + ')'}" ng-click="feedbackImage.previewDisabled || previewImage({{$index}})" ng-disabled="feedbackImage.previewDisabled">
 								</div>
 								<div class="text-center">
-										<button class="button icon ion-camera" ng-hide="canNotEnterFeedBack()"  ng-click="getPhoto({{$index}})"></button>
+									<button ng-if = "isFeedbackAvailable() && !feedbackImage.isDownloaded" class="button icon ion-archive" ng-click="downloadPhoto({{$index}})"></button>
+									<button ng-if = "!canNotEnterFeedBack()" class="button icon ion-camera" ng-click="getPhoto({{$index}})"></button>
 								</div>
 							</div>
 						</div>
-						<button class="button button-full button-positive" ng-click="saveFeedback()">Submit</button>
+						<button ng-if = "!canNotEnterFeedBack()"  class="button button-full button-positive" ng-disabled = "!canSubmit()" ng-click="saveFeedback()">Submit</button>
 					</form>
 				</div>
 			</div>
