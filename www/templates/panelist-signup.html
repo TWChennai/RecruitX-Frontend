@@ -45,7 +45,7 @@
         </ion-content>
       </ion-tab>
 
-      <ion-tab title="My Interviews">
+      <ion-tab title="My Interviews" ng-if="!isLoggedinUserRecruiter">
         <ion-content>
           <ion-refresher on-refresh="refreshMyInterviews()">
           </ion-refresher>
@@ -78,6 +78,12 @@
             </ion-list>
 
         </ion-content>
+      </ion-tab>
+
+      <ion-tab title="Candidates" ng-if="isLoggedinUserRecruiter">
+          <ion-content>
+              <h4>hi recruiter!!! here are your candidates</h4>
+          </ion-content>
       </ion-tab>
     </ion-tabs>
 </ion-view>
