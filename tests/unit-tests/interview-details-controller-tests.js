@@ -74,7 +74,7 @@ describe('interviewDetailsController', function () {
         minutes = 1;
         $scope.interview.start_time = new Date(currentDate.getYear(), currentDate.getMonth(), currentDate.getDay() - 1);
         $scope.interview.panelistsArray = ['userId'];
-        $scope.interview.status = "feedback";
+        $scope.interview.status = 'feedback';
 
         expect($scope.canNotEnterFeedBack()).toEqual(true);
       });
@@ -85,7 +85,7 @@ describe('interviewDetailsController', function () {
         futureDate = new Date(currentDate.setMinutes(currentDate.getMinutes() - minutes));
         $scope.interview.start_time = futureDate;
         $scope.interview.panelists = ['test'];
-        $scope.interview.status = "feedback";
+        $scope.interview.status = 'feedback';
 
         expect($scope.canNotEnterFeedBack()).toEqual(true);
       });

@@ -31,7 +31,7 @@ angular.module('recruitX')
     };
 
     var baseUrl = 'http://' + endpoints.apiUrl;
-    var fileServerURL = baseUrl + '/interviews/' + $stateParams.id +'/feedback_images';
+    var fileServerURL = baseUrl + '/interviews/' + $stateParams.id + '/feedback_images';
 
     $scope.finishRefreshing = function () {
       ionicLoadingService.stopLoading();
@@ -55,7 +55,7 @@ angular.module('recruitX')
     $scope.refreshInterviewFeedback = function () {
       recruitFactory.getInterview($stateParams.id, function (interview) {
         $scope.interview = interview;
-        if(interview.feedback_images.length !== 0 ){
+        if (interview.feedback_images.length !== 0) {
           $scope.feedbackImages = interview.feedback_images;
         }
         $scope.finishRefreshing();
@@ -128,11 +128,11 @@ angular.module('recruitX')
       $scope.isUploadComplete = false;
       if ($scope.imageURIs && $scope.imageURIs.length) {
         $scope.fileIndex = {};
-        for($scope.fileIndex in $scope.imageURIs){
+        for ($scope.fileIndex in $scope.imageURIs) {
           $scope.promises.push(Upload.urlToBlob($scope.imageURIs[$scope.fileIndex]));
         }
         $q.all($scope.promises).then(function (data) {
-          for (var index in data){
+          for (var index in data) {
             $scope.BLOBs.push(data[index]);
           }
           $scope.uploadFiles();
@@ -140,18 +140,18 @@ angular.module('recruitX')
       }
     };
 
-  $scope.uploadFiles = function(){
-     Upload.upload({
-          url: fileServerURL,
-          headers : {
-            'Content-Type': 'image/jpeg'
-          },
-          data: {
-              feedback_images: $scope.BLOBs,
-              status_id: $scope.feedBackResult.id
-          }
+    $scope.uploadFiles = function () {
+      Upload.upload({
+        url: fileServerURL,
+        headers: {
+          'Content-Type': 'image/jpeg'
+        },
+        data: {
+          feedback_images: $scope.BLOBs,
+          status_id: $scope.feedBackResult.id
+        }
       }).then(function (response) {
-          dialogService.showAlertWithDismissHandler('Success!!', 'Upload was successful', $scope.refreshInterviewFeedback);
+        dialogService.showAlertWithDismissHandler('Success!!', 'Upload was successful', $scope.refreshInterviewFeedback);
       }, function (error, status) {
         if (status === UNPROCESSABLE_ENTITY_STATUS) {
           unProcessableEntityErrorHandler(error, status);
@@ -164,7 +164,7 @@ angular.module('recruitX')
     $scope.downloadPhoto = function (index) {
       var filename = $scope.feedbackImages[index].file_name;
       var targetPath = cordova.file.externalRootDirectory + filename;
-      $cordovaFileTransfer.download(fileServerURL + "/" + filename, targetPath, {}, true).then(function (result) {
+      $cordovaFileTransfer.download(fileServerURL + '/' + filename, targetPath, {}, true).then(function (result) {
         $scope.feedbackImages[index].URI = result.nativeURL;
         $scope.feedbackImages[index].isDownloaded = true;
       }, function (error) {

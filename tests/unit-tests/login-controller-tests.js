@@ -9,10 +9,10 @@ describe('loginController', function() {
       validUser = {
         'id':'1241kjhhlkj634345',
         'profile':{
-            'login':'recruitx@thoughtworks.com',
-            'firstName':'recruit',
-            'lastName':'user'
-          }
+          'login':'recruitx@thoughtworks.com',
+          'firstName':'recruit',
+          'lastName':'user'
+        }
       };
 
       scope = $rootScope.$new();
@@ -54,8 +54,8 @@ describe('loginController', function() {
 
     it('should not store or navigate to sign up page if login is unsuccessful', function() {
       oktaWidget.renderEl = function(targetElementConfig, responseCallback) {
-      expect(targetElementConfig.el).toEqual('#okta-login-container');
-          responseCallback({status : 'FAIL', user: validUser});
+        expect(targetElementConfig.el).toEqual('#okta-login-container');
+        responseCallback({status : 'FAIL', user: validUser});
       };
 
       spyOn(userStore, 'storeUser');

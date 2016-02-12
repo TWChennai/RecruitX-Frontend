@@ -129,16 +129,16 @@ angular.module('recruitX')
         onAlertDismiss();
       });
     },
-    askConfirmation: function(confirmTitle, confirmText, onOkPress){
-        $ionicPopup.confirm({
-         title: confirmTitle,
-         template: confirmText
-       })
-       .then(function(res) {
-         if(res) {
-           onOkPress();
-         }
-       });
+    askConfirmation: function (confirmTitle, confirmText, onOkPress) {
+      $ionicPopup.confirm({
+        title: confirmTitle,
+        template: confirmText
+      })
+      .then(function (res) {
+        if (res) {
+          onOkPress();
+        }
+      });
     }
   };
 });

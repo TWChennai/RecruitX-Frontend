@@ -23,9 +23,16 @@ angular.module('recruitX')
 
     var fleshOutCandidate = function (candidate) {
       candidate.all_skills = skillHelperService.formatAllSkills(candidate.skills, candidate.other_skills);
-      candidate.role = ($filter('filter')(MasterData.getRoles(), {
+      candidate.role = (($filter('filter')(MasterData.getRoles(), {
         id: candidate.role_id
-      }))[0];
+      }))[0]).name;
+    };
+
+    var fleshOutCandidates = function (candidates) {
+      // TODO: Please use a consistent for construct
+      angular.forEach(candidates, function (candidate) {
+        fleshOutCandidate(candidate);
+      });
     };
 
     var fleshOutInterview = function (interview) {
@@ -33,8 +40,9 @@ angular.module('recruitX')
         id: interview.interview_type_id
       }))[0];
       if (interview.panelists !== undefined) {
+        // TODO: This seems like a temp placeholder - so why store in the interview?
         interview.panelistsArray = [];
-        angular.forEach(interview.panelists, function(interview_panelist) {
+        angular.forEach(interview.panelists, function (interview_panelist) {
           interview.panelistsArray.push(interview_panelist.name);
         });
         interview.formattedPanelists = interview.panelistsArray.join(', ');
@@ -44,14 +52,6 @@ angular.module('recruitX')
         id: interviewStatusId
       }))[0];
       fleshOutCandidate(interview.candidate);
-    };
-
-    var fleshOutCandidates = function(candidates){
-      angular.forEach(candidates, function(candidate){
-         candidate.role = (($filter('filter')(MasterData.getRoles(), {
-           id: candidate.role_id
-       }))[0]).name;
-      });
     };
 
     var fleshOutInterviews = function (interviews) {
@@ -87,9 +87,9 @@ angular.module('recruitX')
       // Transactional data calls
       isRecruiter: function (employee_id, success, customError) {
         $http.get(baseUrl + '/is_recruiter/' + employee_id).success(success)
-        .error(function (err, status) {
-          defaultErrorHandler(err, status, customError);
-        });
+          .error(function (err, status) {
+            defaultErrorHandler(err, status, customError);
+          });
       },
 
       getCandidate: function (candidate_id, success, failureCallback) {
@@ -132,14 +132,13 @@ angular.module('recruitX')
         });
       },
 
-      getAllCandidates: function(success){
-          $http.get(baseUrl + '/candidates')
-          .success(function(response){
-             fleshOutCandidates(response);
-             success(response);
+      getAllCandidates: function (success) {
+        $http.get(baseUrl + '/candidates')
+          .success(function (response) {
+            fleshOutCandidates(response);
+            success(response);
           })
-          .error(function(err, status){
-
+          .error(function (err, status) {
           });
       },
 

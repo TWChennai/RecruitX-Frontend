@@ -41,10 +41,10 @@ angular.module('recruitX')
       });
     };
 
-    $scope.refreshCandidates = function(){
-        recruitFactory.getAllCandidates(function(candidates){
-          $scope.all_candidates = candidates;
-          $scope.finishRefreshing();
+    $scope.refreshCandidates = function () {
+      recruitFactory.getAllCandidates(function (candidates) {
+        $scope.all_candidates = candidates;
+        $scope.finishRefreshing();
       });
     };
 
@@ -77,14 +77,14 @@ angular.module('recruitX')
     };
 
     $scope.logout = function () {
-       dialogService.askConfirmation('Logout', 'Are you sure you want to logout?', function(){
-           loggedinUserStore.clearDb();
-           $state.go('login');
-           $ionicHistory.nextViewOptions({
-             disableBack: true,
-             disableAnimate: true
-           });
-       });
+      dialogService.askConfirmation('Logout', 'Are you sure you want to logout?', function () {
+        loggedinUserStore.clearDb();
+        $state.go('login');
+        $ionicHistory.nextViewOptions({
+          disableBack: true,
+          disableAnimate: true
+        });
+      });
     };
 
     document.addEventListener('deviceready', function onDeviceReady() {
