@@ -16,10 +16,13 @@ describe('interviewDetailsController', function () {
   describe('methods', function () {
     describe('extractFeedback', function () {
       $scope.feedBackResult = {};
-      var result = 'Pursue';
+      var result = {
+        id: 1,
+        name: 'Pursue'
+      };
       it('should extract the feed back result', function () {
         $scope.extractFeedback(result);
-        expect(angular.equals($scope.feedBackResult, result)).toBe(true);
+        expect(angular.equals($scope.feedBackResult.name, result.name)).toBe(true);
       });
     });
 
