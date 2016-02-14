@@ -175,7 +175,7 @@ angular.module('recruitX')
       },
 
       getInterviewStatus: function (success, customError) {
-        $http.get(baseUrl + '/interview_status').success(success)
+        $http.get(baseUrl + '/interview_statuses').success(success)
           .error(function (err, status) {
             defaultErrorHandler(err, status, customError);
           });
