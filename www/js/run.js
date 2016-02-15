@@ -19,7 +19,7 @@ angular.module('recruitX')
       }
 
       var request = 0;
-      var maxRequests = 3;
+      var maxRequests = 4;
 
       function hideSplashScreen() {
         if (request >= maxRequests) {
