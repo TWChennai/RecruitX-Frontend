@@ -166,7 +166,6 @@ angular.module('recruitX')
         $cordovaToast.showShortBottom(error);
       }, function (progress) {
         // PROGRESS HANDLING GOES HERE
-        $cordovaToast.showShortBottom(progress);
         console.log(progress);
       });
     };
