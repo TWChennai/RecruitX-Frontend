@@ -7,7 +7,9 @@
   },
   "dependencies": {
     "ngCordova": "~0.1.23-alpha",
-    "ng-file-upload": "^11.2.3"
+    "ng-file-upload": "^11.2.3",
+    "okta-sign-in-1.0.2.min": "https://thoughtworks.okta.com/js/sdk/okta-sign-in-1.0.2.min.js",
+    "okta-theme-1.0.2": "https://thoughtworks.okta.com/js/sdk/okta-theme-1.0.2.css"
   },
   "resolutions": {
     "angular": "1.4.3"
