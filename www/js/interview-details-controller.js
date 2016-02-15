@@ -98,7 +98,7 @@ angular.module('recruitX')
         var feedbackImage = $scope.feedbackImages[index];
         feedbackImage.URI = imageURI;
         feedbackImage.previewDisabled = false;
-        $scope.imageURIs.push(imageURI);
+        $scope.imageURIs[index] = imageURI;
       }, function (err) {
         $cordovaToast.showShortBottom(err);
       });
