@@ -1,7 +1,10 @@
 describe('loggedinUserStore', function () {
   'use strict';
+
   beforeEach(module('recruitX'));
+
   var loggedinUserStore;
+
   beforeEach(inject(function (_loggedinUserStore_) {
     loggedinUserStore = _loggedinUserStore_;
   }));

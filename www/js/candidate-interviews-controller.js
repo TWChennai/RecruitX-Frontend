@@ -68,7 +68,7 @@ angular.module('recruitX')
       };
 
       $cordovaDatePicker.show(options).then(function (dateTime) {
-        if(dateTime === undefined) {
+        if (dateTime === undefined) {
           return;
         }
 
@@ -81,21 +81,27 @@ angular.module('recruitX')
       });
     };
 
-    $scope.updateInterview = function(interview, index) {
-      recruitFactory.updateInterviewSchedule({interview: {start_time: interview.start_time}}, $scope.interviewSet[index].id, function(response) {
+    $scope.updateInterview = function (interview, index) {
+      recruitFactory.updateInterviewSchedule({
+        interview: {
+          start_time: interview.start_time
+        }
+      }, $scope.interviewSet[index].id, function (response) {
         $scope.interviewSet[index].start_time = response.data.start_time;
         dialogService.showAlert('Update Success', 'Updated successfully!');
-      }, function(response) {
+      }, function (response) {
         dialogService.showAlert('Update Failed', response.data.errors.start_time);
       });
     };
 
-    $scope.createInterview = function(interview, index) {
-      recruitFactory.createInterviewSchedule({interview: interview}, function(response) {
+    $scope.createInterview = function (interview, index) {
+      recruitFactory.createInterviewSchedule({
+        interview: interview
+      }, function (response) {
         $scope.interviewSet[index].start_time = response.data.start_time;
         $scope.interviewSet[index].id = response.data.id;
         dialogService.showAlert('Create Success', 'Created successfully!');
-      }, function(response) {
+      }, function (response) {
         dialogService.showAlert('Create Failed', response.data.errors.start_time);
       });
     };

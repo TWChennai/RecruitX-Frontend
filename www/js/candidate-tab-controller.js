@@ -8,7 +8,7 @@ angular.module('recruitX')
         id: $rootScope.candidate_id
       });
     };
-    backBtn.addEventListener('click', function(e){
+    backBtn.addEventListener('click', function (e) {
       e.preventDefault();
       $state.go('panelist-signup');
     });

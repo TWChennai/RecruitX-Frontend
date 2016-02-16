@@ -6,7 +6,7 @@ angular.module('recruitX')
     $scope.skills = MasterData.getSkills();
     $scope.roles = MasterData.getRoles();
 
-    $scope.blurElem = function() {
+    $scope.blurElem = function () {
       document.querySelector('#experience').blur();
     };
 
@@ -61,15 +61,15 @@ angular.module('recruitX')
         }
       }
       var otherCheckBox = $scope.getOtherCheckbox();
-      if(!otherCheckBox.checked){
+      if (!otherCheckBox.checked) {
         $scope.candidate.other_skills = undefined;
       }
     };
 
-    $rootScope.$on('clearFormData', function(){
+    $rootScope.$on('clearFormData', function () {
       $scope.candidateForm.$setPristine();
       $scope.candidate = undefined;
-      angular.forEach($scope.skills, function(skill) {
+      angular.forEach($scope.skills, function (skill) {
         skill.checked = false;
       });
       $scope.firstName = undefined;

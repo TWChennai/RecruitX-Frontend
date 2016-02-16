@@ -138,8 +138,7 @@ angular.module('recruitX')
             fleshOutCandidates(response);
             success(response);
           })
-          .error(function (err, status) {
-          });
+          .error(function (err, status) {});
       },
 
       // TODO: This should be merged with the above method
@@ -181,11 +180,11 @@ angular.module('recruitX')
           });
       },
 
-      updateInterviewSchedule: function(data, id, success, failure) {
+      updateInterviewSchedule: function (data, id, success, failure) {
         $http.put(baseUrl + '/interviews/' + id, data).then(success, failure);
       },
 
-      createInterviewSchedule: function(data, success, failure) {
+      createInterviewSchedule: function (data, success, failure) {
         $http.post(baseUrl + '/interviews', data).then(success, failure);
       }
     };
