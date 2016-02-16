@@ -1,4 +1,4 @@
-describe('loggedinUserStore', function () {
+xdescribe('loggedinUserStore', function () {
   'use strict';
 
   beforeEach(module('recruitX'));
