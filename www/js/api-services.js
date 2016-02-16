@@ -183,6 +183,10 @@ angular.module('recruitX')
 
       updateInterviewSchedule: function(data, id, success, failure) {
         $http.put(baseUrl + '/interviews/' + id, data).then(success, failure);
+      },
+
+      createInterviewSchedule: function(data, success, failure) {
+        $http.post(baseUrl + '/interviews', data).then(success, failure);
       }
     };
   }])

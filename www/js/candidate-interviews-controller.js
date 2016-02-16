@@ -44,11 +44,19 @@ angular.module('recruitX')
       return interviewData.start_time === $scope.notScheduled;
     };
 
+    $scope.isNextSchedulableRound = function (currentInterview) {
+      var previousPriority = currentInterview.priority - 1;
+      var previousInterview = $filter('filter')($scope.interviewSet, {
+        priority: previousPriority
+      })[0];
+      return $scope.isNotScheduled(currentInterview) && !$scope.isNotScheduled(previousInterview);
+    };
+
     $scope.viewInterviewDetails = function (interviewType) {
       return $scope.isNotScheduled(interviewType) ? '#' : 'interview-details({id:interviewType.id})';
     };
 
-    $scope.dateTime = function (index, event) {
+    $scope.dateTime = function (index, event, callback) {
       event.stopPropagation();
 
       var options = {
@@ -59,57 +67,36 @@ angular.module('recruitX')
       };
 
       $cordovaDatePicker.show(options).then(function (dateTime) {
-        if(dateTime !== undefined) {
-          var currentInterviewRound = $scope.interviewTypes[index];
-          var currentPriority = currentInterviewRound.priority;
-
-          var nextLowerPriorityInterviewRounds = ($filter('filter')($scope.interviewSet, {
-            priority: currentPriority - 1
-          }));
-          var previousInterviewRound = nextLowerPriorityInterviewRounds[0];
-
-          var nextHigherPriorityInterviewRounds = ($filter('filter')($scope.interviewSet, {
-            priority: currentPriority + 1
-          }));
-          var nextInterviewRound = nextHigherPriorityInterviewRounds[0];
-
-          if ($scope.checkWithPreviousRound(dateTime, currentInterviewRound, previousInterviewRound)) {
-            if($scope.checkWithNextRound(dateTime, currentInterviewRound, nextInterviewRound)) {
-              $scope.interviewSet[index].start_time = dateTime;
-              recruitFactory.updateInterviewSchedule({interview: {start_time: dateTime}}, $scope.interviewSet[index].id, function(response) {
-                dialogService.showAlert('Update Success', response.data.success);
-              }, function(response) {
-                dialogService.showAlert('Update Failed', response.data.errors.start_time);
-              });
-            }
-            else {
-              dialogService.showAlert('Invalid Selection', 'Please schedule this round atleast 1hr before  ' + nextInterviewRound.name);
-            }
-          } else {
-            dialogService.showAlert('Invalid Selection', 'Please schedule this round atleast 1hr after  ' + previousInterviewRound.name);
-          }
+        if(dateTime === undefined) {
+          return;
         }
+
+        var interview = {
+          candidate_id: $stateParams.id,
+          interview_type_id: $scope.interviewTypes[index].id,
+          start_time: dateTime
+        };
+        callback(interview, index);
       });
     };
 
-    $scope.checkWithPreviousRound = function(scheduleDateTime, currentInterviewRound, previousInterviewRound) {
-      var currentPriority = currentInterviewRound.priority;
-      var previousInterviewTime = {};
-      if (currentPriority > 1) {
-        previousInterviewTime = previousInterviewRound.start_time === undefined ? undefined : new Date(previousInterviewRound.start_time);
-        return !(previousInterviewTime === undefined || scheduleDateTime < previousInterviewTime.setHours(previousInterviewTime.getHours() + 1));
-      }
-      return true;
+    $scope.updateInterview = function(interview, index) {
+      recruitFactory.updateInterviewSchedule({interview: {start_time: interview.start_time}}, $scope.interviewSet[index].id, function(response) {
+        $scope.interviewSet[index].start_time = response.data.start_time;
+        dialogService.showAlert('Update Success', 'Updated successfully!');
+      }, function(response) {
+        dialogService.showAlert('Update Failed', response.data.errors.start_time);
+      });
     };
 
-    $scope.checkWithNextRound = function(scheduleDateTime, currentInterviewRound, nextInterviewRound) {
-      var currentPriority = currentInterviewRound.priority;
-      var nextInterviewTime = {};
-      if (currentPriority < 4) {
-        nextInterviewTime = nextInterviewRound.start_time === undefined ? undefined : new Date(nextInterviewRound.start_time);
-        return !(nextInterviewTime === undefined || scheduleDateTime > nextInterviewTime.setHours(nextInterviewTime.getHours() - 1));
-      }
-      return true;
+    $scope.createInterview = function(interview, index) {
+      recruitFactory.createInterviewSchedule({interview: interview}, function(response) {
+        $scope.interviewSet[index].start_time = response.data.start_time;
+        $scope.interviewSet[index].id = response.data.id;
+        dialogService.showAlert('Create Success', 'Created successfully!');
+      }, function(response) {
+        dialogService.showAlert('Create Failed', response.data.errors.start_time);
+      });
     };
   }
 ]);
