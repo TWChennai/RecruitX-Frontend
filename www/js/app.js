@@ -85,6 +85,6 @@ angular.module('recruitX', ['ngFileUpload', 'ionic', 'ui.router', 'ngCordova', '
     if (window.localStorage['LOGGEDIN_USER']) {
       $urlRouterProvider.otherwise('/panelist-signup');
     } else {
-      $urlRouterProvider.otherwise('/panelist-signup');
+      $urlRouterProvider.otherwise('/login');
     }
   });

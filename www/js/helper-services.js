@@ -58,18 +58,15 @@ angular.module('recruitX')
   };
 
   loggedinUserStore.userId = function () {
-      return "recruitx";
-    // return (JSON.parse(window.localStorage[STORAGE_KEY])).id;
+    return (JSON.parse(window.localStorage[STORAGE_KEY])).id;
   };
 
   loggedinUserStore.isRecruiter = function () {
-      return true;
-    // return (JSON.parse(window.localStorage[STORAGE_KEY])).is_recruiter;
+    return (JSON.parse(window.localStorage[STORAGE_KEY])).is_recruiter;
   };
 
   loggedinUserStore.userFirstName = function () {
-      return "recruitx";
-    // return (JSON.parse(window.localStorage[STORAGE_KEY])).firstName;
+    return (JSON.parse(window.localStorage[STORAGE_KEY])).firstName;
   };
 
   loggedinUserStore.clearDb = function () {

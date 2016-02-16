@@ -1,7 +1,7 @@
 angular.module('recruitX')
   .controller('panelistSignupController', ['$scope', 'recruitFactory', 'skillHelperService', 'ionicLoadingService', 'loggedinUserStore', 'dialogService', '$ionicHistory', '$state', function ($scope, recruitFactory, skillHelperService, ionicLoadingService, loggedinUserStore, dialogService, $ionicHistory, $state) {
     'use strict';
-
+    
     $scope.items = [];
     $scope.loggedinUserName = loggedinUserStore.userFirstName();
     $scope.isLoggedinUserRecruiter = loggedinUserStore.isRecruiter();
