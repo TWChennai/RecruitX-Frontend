@@ -97,7 +97,7 @@ angular.module('recruitX')
       var previousInterviewTime = {};
       if (currentPriority > 1) {
         previousInterviewTime = previousInterviewRound.start_time === undefined ? undefined : new Date(previousInterviewRound.start_time);
-        return !(previousInterviewTime === undefined || scheduleDateTime <= previousInterviewTime.setHours(previousInterviewTime.getHours() + 1));
+        return !(previousInterviewTime === undefined || scheduleDateTime < previousInterviewTime.setHours(previousInterviewTime.getHours() + 1));
       }
       return true;
     };
@@ -107,7 +107,7 @@ angular.module('recruitX')
       var nextInterviewTime = {};
       if (currentPriority < 4) {
         nextInterviewTime = nextInterviewRound.start_time === undefined ? undefined : new Date(nextInterviewRound.start_time);
-        return !(nextInterviewTime === undefined || scheduleDateTime >= nextInterviewTime.setHours(nextInterviewTime.getHours() - 1));
+        return !(nextInterviewTime === undefined || scheduleDateTime > nextInterviewTime.setHours(nextInterviewTime.getHours() - 1));
       }
       return true;
     };
