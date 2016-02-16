@@ -2,6 +2,19 @@ angular.module('recruitX')
   .controller('interviewDetailsController', ['$filter', 'ionicLoadingService', 'MasterData', '$q', 'Upload', 'dialogService', 'endpoints', '$cordovaFileTransfer', '$scope', '$stateParams', 'recruitFactory', '$rootScope', '$cordovaToast', 'Camera', 'loggedinUserStore', function ($filter, ionicLoadingService, MasterData, $q, Upload, dialogService, endpoints, $cordovaFileTransfer, $scope, $stateParams, recruitFactory, $rootScope, $cordovaToast, Camera, loggedinUserStore) {
     'use strict';
 
+    var backBtnAll = document.querySelectorAll('.back-button'), newClassName, classes;
+
+    for(var i = 0, len = backBtnAll.length; i < len; i++) {
+      classes = backBtnAll[i].className.split(' ');
+      newClassName = '';
+      for(var j = 0; j < classes.length; j++) {
+        if(classes[j] !== 'hide') {
+          newClassName += classes[j] + ' ';
+        }
+      }
+      backBtnAll[i].className = newClassName;
+    }
+
     $scope.interviewStatus = MasterData.getInterviewStatus();
     $scope.interview = {};
     $scope.imageURIs = [];
