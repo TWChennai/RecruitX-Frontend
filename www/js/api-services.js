@@ -179,6 +179,10 @@ angular.module('recruitX')
           .error(function (err, status) {
             defaultErrorHandler(err, status, customError);
           });
+      },
+
+      updateInterviewSchedule: function(data, id, success, failure) {
+        $http.put(baseUrl + '/interviews/' + id, data).then(success, failure);
       }
     };
   }])

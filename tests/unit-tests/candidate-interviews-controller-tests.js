@@ -125,7 +125,7 @@ describe('candidateInterviewsController', function () {
     describe('viewInterviewDetails', function () {
       it('should return interview details state for a scheduled interview', function () {
         interviewRound = $scope.expectedInterviewScheduleList[0];
-        expect(angular.equals($scope.viewInterviewDetails(interviewRound), 'interview-details({id:interviewRound.id})')).toBe(true);
+        expect(angular.equals($scope.viewInterviewDetails(interviewRound), 'interview-details({id:interviewType.id})')).toBe(true);
       });
     });
     describe('viewInterviewDetails', function () {
