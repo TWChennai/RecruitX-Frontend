@@ -1,6 +1,6 @@
 <ion-view hide-nav-bar="true">
   <ion-header-bar class="bar-positive cust-header fixedTop">
-      <h1 class="title">Hi {{loggedinUserName}}!!!</h1>
+      <h1 class="title">Hi {{loggedinUserName}}!</h1>
       <div class="buttons">
         <a class="button icon ion-plus-round bgTransparent" href="#/candidates/new" ng-if="isLoggedinUserRecruiter"></a>
         <a class="button icon ion-log-out" ng-click="logout()"></a>
@@ -69,7 +69,7 @@
                     </div>
                     <div class="col col-70">
                       <div class="pull-right">
-                        <a class="button button-small button-positive" ui-sref = "interview-details({id:myinterview.id})" >FeedBack</a>
+                        <button class="button button-small button-positive" ui-sref = "interview-details({id:myinterview.id})" >FeedBack</button>
                       </div>
                     </div>
                   </div>
