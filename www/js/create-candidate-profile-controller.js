@@ -68,12 +68,12 @@ angular.module('recruitX')
 
     $rootScope.$on('clearFormData', function(){
       $scope.candidateForm.$setPristine();
-      $scope.candidate = {};
+      $scope.candidate = undefined;
       angular.forEach($scope.skills, function(skill) {
         skill.checked = false;
       });
-      $scope.firstName = {};
-      $scope.lastName = {};
+      $scope.firstName = undefined;
+      $scope.lastName = undefined;
     });
   }
 ]);
