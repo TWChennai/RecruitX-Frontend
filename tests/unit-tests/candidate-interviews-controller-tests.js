@@ -5,7 +5,8 @@ describe('candidateInterviewsController', function () {
 
   var $scope = {};
 
-  beforeEach(inject(function ($controller) {
+  beforeEach(inject(function ($controller, loggedinUserStore) {
+    spyOn(loggedinUserStore, 'isRecruiter').and.returnValue('true');
     $controller('candidateInterviewsController', {
       $scope: $scope
     });

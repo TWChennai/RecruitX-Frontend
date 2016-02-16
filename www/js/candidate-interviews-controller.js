@@ -1,11 +1,12 @@
 angular.module('recruitX')
-  .controller('candidateInterviewsController', ['MasterData', '$state', '$filter', '$rootScope', '$scope', '$stateParams', 'recruitFactory', '$cordovaDatePicker', 'dialogService', function (MasterData, $state, $filter, $rootScope, $scope, $stateParams, recruitFactory, $cordovaDatePicker, dialogService) {
+  .controller('candidateInterviewsController', ['MasterData', '$state', '$filter', '$rootScope', '$scope', '$stateParams', 'recruitFactory', '$cordovaDatePicker', 'dialogService', 'loggedinUserStore', function (MasterData, $state, $filter, $rootScope, $scope, $stateParams, recruitFactory, $cordovaDatePicker, dialogService, loggedinUserStore) {
     'use strict';
 
     $scope.interviews = [];
     $scope.interviewSet = [];
     $scope.notScheduled = 'Not Scheduled';
     $scope.interviewTypes = MasterData.getInterviewTypes();
+    $scope.isLoggedinUserRecruiter = loggedinUserStore.isRecruiter();
 
     recruitFactory.getCandidateInterviews($stateParams.id, function (interviews) {
       $scope.interviews = interviews;
