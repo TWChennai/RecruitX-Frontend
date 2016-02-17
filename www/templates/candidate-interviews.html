@@ -2,12 +2,12 @@
   <ion-content>
     <ion-list inset ng-controller="candidateInterviewsController">
       <div ng-repeat="interviewType in interviewSet">
-        <ion-item class="item" ui-sref={{viewInterviewDetails(interviewType)}}>
+        <ion-item class="item interview-container" ui-sref={{viewInterviewDetails(interviewType)}}>
             <div class="row">
                 <p class="col col-30">{{interviewType.name}}</p>
                 <p class="col col-50">{{interviewType.start_time | date: 'dd/MM/yyyy h:mma'}}</p>
-                <button class="button button-small button-positive col col-20" ng-show="isLoggedinUserRecruiter && !isNotScheduled(interviewType)" ng-click="dateTime($index, $event, updateInterview)">Edit</button>
-                <button class="button button-small button-positive col col-20" ng-show="isLoggedinUserRecruiter && isNextSchedulableRound(interviewType)" ng-click="dateTime($index, $event, createInterview)">Add</button>
+                <button class="button ion-edit col col-10 modify-interview" ng-show="isLoggedinUserRecruiter && !isNotScheduled(interviewType)" ng-click="dateTime($index, $event, updateInterview)"></button>
+                <button class="button ion-plus col col-10 modify-interview" ng-show="isLoggedinUserRecruiter && isNextSchedulableRound(interviewType)" ng-click="dateTime($index, $event, createInterview)"></button>
             </div>
         </ion-item>
       </div>

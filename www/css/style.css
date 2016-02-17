@@ -243,3 +243,10 @@ textarea {
  background: #387ef5;
  color: #fff;
 }
+
+.interview-container .item-content {
+  padding-right: 16px;
+}
+.interview-container .modify-interview {
+  background: transparent;
+}
