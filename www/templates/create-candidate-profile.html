@@ -32,13 +32,14 @@
           <div class="item item-input" ng-class="{ 'has-error' : candidateForm.experience.$invalid && !candidateForm.experience.$pristine }">
             <span class="input-label">Experience (in yrs)</span>
             <div class="new-block">
-              <input type="number" name="experience" id="experience" ng-model="candidate.experience" min="0" max="50" ng-minlength="1" ng-maxlength="5" placeholder="Experience in years" required />
-              <p class="error" ng-show="candidateForm.experience.$error.maxlength && !candidateForm.experience.$pristine">Value cannot exceed more than 5 chars</p>
+              <input type="number" name="experience" id="experience" ng-model="candidate.experience" min="0" max="50" ng-minlength="1" ng-maxlength="4" ng-pattern="/^[0-9]+(\.[0-9]{1,1})?$/" placeholder="Experience in years" required />
+              <p class="error" ng-show="candidateForm.experience.$error.required && !candidateForm.experience.$pristine">
+                Is required</p>
+              <p class="error" ng-show="candidateForm.experience.$invalid && !candidateForm.experience.$pristine">Value should not exceed 1 decimal value</p>
+              <p class="error" ng-show="candidateForm.experience.$error.maxlength && !candidateForm.experience.$pristine">Value cannot exceed more than 4 chars</p>
               <p class="error" ng-show="candidateForm.experience.$error.max && !candidateForm.experience.$pristine">Experience not more than 50</p>
               <p class="error" ng-show="candidateForm.experience.$error.min">should be positive</p>
-              <p class="error" ng-show="candidateForm.experience.$error.required && !candidateForm.experience.$pristine">
-                is required</p>
-              </div>
+            </div>
           </div>
 
           <div class="item item-input">
