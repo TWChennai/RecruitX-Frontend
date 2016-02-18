@@ -41,7 +41,8 @@ angular.module('recruitX', ['ngFileUpload', 'ionic', 'ui.router', 'ngCordova', '
     .state('interview-details', {
       url: '/interview-details/:id',
       templateUrl: 'templates/interview-details.html',
-      controller: 'interviewDetailsController'
+      controller: 'interviewDetailsController',
+      cache: false
     })
 
     .state('candidate-tab-view', {
