@@ -30,7 +30,7 @@
           </div>
 
           <div class="item item-input" ng-class="{ 'has-error' : candidateForm.experience.$invalid && !candidateForm.experience.$pristine }">
-            <span class="input-label">Experience (in yrs)</span>
+            <span class="input-label">Experience<br/><em>(in yrs)</em></span>
             <div class="new-block">
               <input type="number" name="experience" id="experience" ng-model="candidate.experience" min="0" max="50" ng-minlength="1" ng-maxlength="4" ng-pattern="/^[0-9]+(\.[0-9]{1,1})?$/" placeholder="Experience in years" required />
               <p class="error" ng-show="candidateForm.experience.$error.required && !candidateForm.experience.$pristine">
