@@ -1,6 +1,6 @@
 angular.module('recruitX')
   .config(function($httpProvider) {
-    $httpProvider.interceptors.push(function($rootScope) {
+    $httpProvider.interceptors.push(function($rootScope, $q) {
       return {
         request: function(config) {
           $rootScope.$broadcast('loading:show');
@@ -12,7 +12,7 @@ angular.module('recruitX')
         },
         responseError: function(response) {
           $rootScope.$broadcast('loading:hide');
-          return response;
+          return $q.reject(response);
         }
       };
     });

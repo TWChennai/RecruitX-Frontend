@@ -7,7 +7,7 @@ angular.module('recruitX')
     $scope.roles = MasterData.getRoles();
 
     $scope.init = function () {
-      $scope.candidate.role_id =  $scope.roles[0].id;
+      $scope.candidate.role_id = $scope.roles[0].id;
     };
 
     $scope.blurElem = function () {
