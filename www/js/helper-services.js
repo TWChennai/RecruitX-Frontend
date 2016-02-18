@@ -28,11 +28,11 @@ angular.module('recruitX')
   }
 ])
 
-.service('oktaSigninWidget', function (endpoints) {
+.service('oktaSigninWidget', function (oktaUrl) {
   'use strict';
 
   return new OktaSignIn({
-    baseUrl: endpoints.oktaUrl,
+    baseUrl: oktaUrl,
     labels: {
       'primaryauth.title': 'RecruitX',
       'primaryauth.username.tooltip': 'Enter your Okta username or email id',
