@@ -2,7 +2,7 @@
   <ion-content>
     <ion-list inset ng-controller="candidateInterviewsController">
       <div ng-repeat="interviewType in interviewSet">
-        <ion-item class="item interview-container" ui-sref={{viewInterviewDetails(interviewType)}}>
+        <ion-item class="item interview-container" ui-sref="interview-details({id: interviewType.id})" disable-ui-sref="isNotScheduled(interviewType)">
             <div class="row">
                 <p class="col col-30">{{interviewType.name}}</p>
                 <p class="col col-50">{{interviewType.start_time | date: 'dd/MM/yyyy h:mma'}}</p>

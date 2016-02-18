@@ -150,17 +150,5 @@ describe('candidateInterviewsController', function () {
         expect($scope.isNextSchedulableRound(interviewRound)).toEqual(true);
       });
     });
-    describe('viewInterviewDetails', function () {
-      it('should return interview details state for a scheduled interview', function () {
-        interviewRound = $scope.expectedInterviewScheduleList[0];
-        expect(angular.equals($scope.viewInterviewDetails(interviewRound), 'interview-details({id:interviewType.id})')).toBe(true);
-      });
-    });
-    describe('viewInterviewDetails', function () {
-      it('should return invalid state # for a scheduled interview', function () {
-        interviewRound = $scope.expectedInterviewScheduleList[2];
-        expect(angular.equals($scope.viewInterviewDetails(interviewRound), '#')).toBe(true);
-      });
-    });
   });
 });
