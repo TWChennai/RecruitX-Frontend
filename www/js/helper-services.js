@@ -133,16 +133,7 @@ angular.module('recruitX')
       $ionicPopup.confirm({
         title: confirmTitle,
         template: confirmText,
-        buttons: [
-          {
-            type: 'button-positive',
-            text: 'Cancel'
-          },
-          {
-            type: 'button-positive',
-            text: 'OK'
-          }
-        ]
+        cancelType: 'button-positive'
       })
       .then(function (res) {
         if (res) {
