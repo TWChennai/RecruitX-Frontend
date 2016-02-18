@@ -62,7 +62,7 @@
 							<a name = "feedback" id = "feedback" ng-repeat="status in interviewStatus" ng-class = "(feedBackResult.name === '{{status.name}}' && 'button-positive') || (interview.status.name === '{{status.name}}' && 'button-positive')" class="button button-block button-small button-stable" ng-disabled = "canNotEnterFeedBack()" ng-click = "extractFeedback(status)"><h6>{{status.name}}</h6></a>
 						</div>
 						<div class="row">
-							<div class="col col-50" ng-repeat="feedbackImage in feedbackImages track by $index">
+							<div class="col col-50 text-center" ng-repeat="feedbackImage in feedbackImages track by $index">
 								<label ng-if = "!isFeedbackAvailable()">{{feedbackImage.label}}</label>
 								<div ng-if = "!isFeedbackAvailable() || feedbackImage.isDownloaded" class="feedback-image" ng-style="{'background-image': 'url(' + feedbackImage.URI + ')'}" ng-click="feedbackImage.previewDisabled || previewImage({{$index}})" ng-disabled="feedbackImage.previewDisabled">
 								</div>
