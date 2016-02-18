@@ -4,9 +4,11 @@ angular.module('recruitX')
 
     $scope.interviews = [];
     $scope.interviewSet = [];
+    $scope.isPanelistForAnyInterviewRound = false;
     $scope.notScheduled = 'Not Scheduled';
     $scope.interviewTypes = MasterData.getInterviewTypes();
     $scope.isLoggedinUserRecruiter = loggedinUserStore.isRecruiter();
+    $scope.loggedinUser = loggedinUserStore.userId();
 
     $scope.fetchCandidateInterviews = function() {
       recruitFactory.getCandidateInterviews($stateParams.id, function (interviews) {
@@ -29,11 +31,13 @@ angular.module('recruitX')
     $scope.buildInterviewScheduleList = function () {
       var interviewStartTime = $scope.notScheduled;
       var interviewID = '';
+      var status = undefined;
       var interviewType;
 
       for (var interviewsIndex in $scope.interviewTypes) {
         interviewStartTime = $scope.notScheduled;
         interviewID = '';
+        status = undefined;
         interviewType = $scope.interviewTypes[interviewsIndex];
 
         var scheduledInterview = ($filter('filter')($scope.interviews, {
@@ -43,12 +47,19 @@ angular.module('recruitX')
         if (scheduledInterview[0] !== undefined) {
           interviewStartTime = scheduledInterview[0].start_time;
           interviewID = scheduledInterview[0].id;
+          status = scheduledInterview[0].status;
+          angular.forEach(scheduledInterview[0].panelists, function (interview_panelist) {
+            if ($scope.loggedinUser === interview_panelist.name) {
+              $scope.isPanelistForAnyInterviewRound = true;
+            }
+          });
         }
         $scope.interviewSet.push({
           id: interviewID,
           name: interviewType.name,
           priority: interviewType.priority,
-          start_time: interviewStartTime
+          start_time: interviewStartTime,
+          status: status
         });
       }
       $scope.interviewSet = $filter('orderBy')($scope.interviewSet, 'start_time');
@@ -86,6 +97,14 @@ angular.module('recruitX')
 
     $scope.viewInterviewDetails = function (interviewType) {
       return $scope.isNotScheduled(interviewType) ? '#' : 'interview-details({id:interviewType.id})';
+    };
+
+    $scope.isFeedbackGiven = function(status) {
+      return status !== undefined;
+    };
+
+    $scope.compareStatus = function(interviewStatus, status) {
+      return interviewStatus.name === status;
     };
 
     $scope.dateTime = function (index, event, callback) {
