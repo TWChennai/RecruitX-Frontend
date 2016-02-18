@@ -1,6 +1,9 @@
+html { position: relative;}
 body, .ionic-body {
   position: absolute;
 }
+
+.platform-ios, .platform-ios body { overflow-y: visible;}
 
 /* Helper Classes */
 
@@ -74,32 +77,32 @@ textarea {
   padding-bottom: 10px;
 }
 .cust-header, .bar-header.has-tabs-top {
-  height: 50px;
+  height: 44px;
 }
 .bar-header.has-tabs-top {
   border-bottom: 2px solid #fff;
 }
-.cust-tab {
+.cust-tab, .platform-android .panelist-tab {
   position: absolute;
-  top: 0;
+  top: 44px;
   left: 0;
   bottom: 0;
   right: 0;
-  margin-top: 50px;
 }
-.cust-tab .overflow-scroll {
+/* .platform-ios .cust-tab { top: 65px; bottom: auto; height: 100%; } */
+.cust-tab .overflow-scroll, .panelist-tab .overflow-scroll {
   overflow-y: scroll;
 }
-.cust-tab .tab-title, .candidate-tab .tab-title {
+.cust-tab .tab-title, .candidate-tab .tab-title, .panelist-tab .tab-title {
   font-size: 16px;
 }
-.cust-tab .tab-item, .candidate-tab .tab-item {
+.cust-tab .tab-item, .candidate-tab .tab-item, .panelist-tab .tab-item {
   max-width: initial;
 }
-.cust-tab.tabs-top > .tabs {
+.cust-tab.tabs-top > .tabs, .platform-android .panelist-tab.tabs-top > .tabs {
   top: 0;
 }
-.nav-bar-tabs-top.hide ~ .view-container .cust-tab .tabs {
+.nav-bar-tabs-top.hide ~ .view-container .cust-tab .tabs, .platform-android .nav-bar-tabs-top.hide ~ .view-container .panelist-tab .tabs {
   top: 0;
 }
 .candidateDetails .item-radio input:checked+.radio-content .radio-icon {
@@ -243,10 +246,13 @@ textarea {
  background: #387ef5;
  color: #fff;
 }
-
+.bar .title+.buttons { top: 3px; bottom: 2px; }
 .interview-container .item-content {
   padding-right: 16px;
 }
 .interview-container .modify-interview {
   background: transparent;
 }
+
+
+/* .pane[hide-nav-bar=true] .has-tabs-top.ic-blk { bottom: auto; top: 0; -webkit-overflow-scrolling: touch; } */
