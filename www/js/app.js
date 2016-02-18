@@ -32,6 +32,7 @@ angular.module('recruitX', ['ngFileUpload', 'ionic', 'ui.router', 'ngCordova', '
     })
 
     .state('panelist-signup', {
+      cache: false,
       url: '/panelist-signup',
       templateUrl: 'templates/panelist-signup.html',
       controller: 'panelistSignupController'
