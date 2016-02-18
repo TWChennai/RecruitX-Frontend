@@ -19,7 +19,7 @@ angular.module('recruitX')
       }
 
       var request = 0;
-      var maxRequests = 4;
+      var maxRequests = 5;
 
       function hideSplashScreen() {
         if (request >= maxRequests) {
@@ -47,6 +47,12 @@ angular.module('recruitX')
 
       recruitFactory.getInterviewStatus(function (interviewStatus) {
         MasterData.setInterviewStatus(interviewStatus);
+        request++;
+        hideSplashScreen();
+      });
+
+      recruitFactory.getPipelineStatuses(function (pipelineStatuses) {
+        MasterData.setPipelineStatuses(pipelineStatuses);
         request++;
         hideSplashScreen();
       });

@@ -40,6 +40,27 @@ describe('recruitFactory', function () {
     });
   });
 
+  describe('getPipelineStatuses', function () {
+    it('getPipelineStatuses should return pipeline statuses when successful', function () {
+      httpBackend.expectGET(baseUrl + '/pipeline_statuses').respond(['In Progress', 'Closed']);
+      recruitFactory.getPipelineStatuses(function (pipelineStatuses) {
+        expect(pipelineStatuses).toEqual(['In Progress', 'Closed']);
+      });
+      httpBackend.flush();
+    });
+
+    it('getRoles should display toast error message when error and should not call the success method', function () {
+      httpBackend.expectGET(baseUrl + '/pipeline_statuses').respond(422, 'error');
+      spyOn(cordovaToast, 'showShortBottom');
+
+      recruitFactory.getPipelineStatuses(function (success) {
+        expect(false).toEqual(success);
+      });
+      httpBackend.flush();
+      expect(cordovaToast.showShortBottom).toHaveBeenCalledWith('Something went wrong while processing your request. Please try again soon.');
+    });
+  });
+
   describe('getSkills', function () {
     it('getSkills should return skills when successful', function () {
       httpBackend.expectGET(baseUrl + '/skills').respond(['java', 'ruby']);

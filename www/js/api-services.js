@@ -26,6 +26,9 @@ angular.module('recruitX')
       candidate.role = (($filter('filter')(MasterData.getRoles(), {
         id: candidate.role_id
       }))[0]).name;
+      candidate.pipelineStatusId = (($filter('filter')(MasterData.getPipelineStatuses(), {
+        id: candidate.pipeline_status_id
+      }))[0]).name;
     };
 
     var fleshOutCandidates = function (candidates) {
@@ -79,6 +82,13 @@ angular.module('recruitX')
 
       getInterviewTypes: function (success, customError) {
         $http.get(baseUrl + '/interview_types').success(success)
+          .error(function (err, status) {
+            defaultErrorHandler(err, status, customError);
+          });
+      },
+
+      getPipelineStatuses: function (success, customError) {
+        $http.get(baseUrl + '/pipeline_statuses').success(success)
           .error(function (err, status) {
             defaultErrorHandler(err, status, customError);
           });
@@ -197,6 +207,7 @@ angular.module('recruitX')
   var skills;
   var roles;
   var interviewStatus;
+  var pipelineStatuses;
 
   return {
     setInterviewTypes: function (i) {
@@ -229,6 +240,14 @@ angular.module('recruitX')
 
     getInterviewStatus: function () {
       return interviewStatus;
+    },
+
+    setPipelineStatuses: function (ps) {
+      pipelineStatuses = ps;
+    },
+
+    getPipelineStatuses: function () {
+      return pipelineStatuses;
     }
   };
 }]);
