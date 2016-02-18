@@ -8,10 +8,23 @@ angular.module('recruitX')
     $scope.interviewTypes = MasterData.getInterviewTypes();
     $scope.isLoggedinUserRecruiter = loggedinUserStore.isRecruiter();
 
-    recruitFactory.getCandidateInterviews($stateParams.id, function (interviews) {
-      $scope.interviews = interviews;
-      $scope.buildInterviewScheduleList();
-    });
+    $scope.fetchCandidateInterviews = function() {
+      recruitFactory.getCandidateInterviews($stateParams.id, function (interviews) {
+        $scope.interviews = interviews;
+        $scope.buildInterviewScheduleList();
+        if(interviews[0] === undefined){
+          recruitFactory.getCandidate($rootScope.candidate_id, function (response) {
+            $scope.current_candidate = response;
+          }, function (response) {
+            console.log('failed with response: ' + response);
+          });
+        } else {
+          $scope.current_candidate = $scope.interviews[0].candidate;
+        }
+      });
+    };
+
+    $scope.fetchCandidateInterviews();
 
     $scope.buildInterviewScheduleList = function () {
       var interviewStartTime = $scope.notScheduled;
@@ -39,6 +52,24 @@ angular.module('recruitX')
         });
       }
       $scope.interviewSet = $filter('orderBy')($scope.interviewSet, 'start_time');
+    };
+
+    $scope.isPipelineInProgress = function () {
+      return $scope.current_candidate !== undefined && $scope.current_candidate.pipelineStatus === 'In Progress';
+    };
+
+    $scope.closePipeline = function () {
+      var closedPipelineStatusId = (($filter('filter')(MasterData.getPipelineStatuses(), {
+        name: 'Closed'
+      }))[0]).id;
+      var data_to_update = {candidate: {pipeline_status_id: closedPipelineStatusId}};
+      recruitFactory.closePipeline(data_to_update, $scope.current_candidate.id, function(success_response){
+        dialogService.showAlertWithDismissHandler('Pipeline', 'Pipeline has been closed for this candidate',function(){
+          $state.go($state.current, {}, {reload: true});
+        });
+      }, function(failure){
+        dialogService.showAlert('Pipeline', 'Something went wrong while closing pipeline!');
+      });
     };
 
     $scope.isNotScheduled = function (interviewData) {

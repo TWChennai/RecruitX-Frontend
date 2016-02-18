@@ -9,6 +9,7 @@ angular.module('recruitX', ['ngFileUpload', 'ionic', 'ui.router', 'ngCordova', '
   .constant('endpoints', {
     apiUrl: '10.134.125.194:4001'
   })
+
   .config(function ($stateProvider, $urlRouterProvider, $compileProvider, $ionicConfigProvider) {
     'use strict';
 

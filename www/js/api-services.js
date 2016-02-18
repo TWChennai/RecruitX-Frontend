@@ -26,7 +26,7 @@ angular.module('recruitX')
       candidate.role = (($filter('filter')(MasterData.getRoles(), {
         id: candidate.role_id
       }))[0]).name;
-      candidate.pipelineStatusId = (($filter('filter')(MasterData.getPipelineStatuses(), {
+      candidate.pipelineStatus = (($filter('filter')(MasterData.getPipelineStatuses(), {
         id: candidate.pipeline_status_id
       }))[0]).name;
     };
@@ -106,7 +106,9 @@ angular.module('recruitX')
         $http.get(baseUrl + '/candidates/' + candidate_id).success(function (response) {
           fleshOutCandidate(response);
           success(response);
-        }).error(failureCallback);
+        }).error(function (err, status) {
+          defaultErrorHandler(err, status, failureCallback);
+        });
       },
 
       saveCandidate: function (data, success, customError) {
@@ -196,6 +198,10 @@ angular.module('recruitX')
 
       createInterviewSchedule: function (data, success, failure) {
         $http.post(baseUrl + '/interviews', data).then(success, failure);
+      },
+
+      closePipeline: function (data, id, success, failure) {
+        $http.put(baseUrl + '/candidates/' + id, data).then(success, failure);
       }
     };
   }])
