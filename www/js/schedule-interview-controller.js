@@ -59,7 +59,7 @@ angular.module('recruitX')
           var minuteToMilliSecond = 60000;
           var dateTime = $scope.interviewRounds[interviewRoundIndex].dateTime;
           var formattedDateTime = $filter('date')(dateTime.getTime() + dateTime.getTimezoneOffset() * minuteToMilliSecond, 'yyyy-MM-dd HH:mm:ss');
-          $stateParams.candidate.interview_rounds.push({
+          $stateParams.candidate.interview_rounds[interviewRoundIndex] = ({
             'interview_type_id': $scope.interviewRounds[interviewRoundIndex].id,
             'start_time': formattedDateTime
           });
