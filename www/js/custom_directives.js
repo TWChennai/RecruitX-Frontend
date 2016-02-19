@@ -1,16 +1,18 @@
 angular.module('recruitX')
   .directive('disableUiSref', ['$parse', '$rootScope',
-    function($parse, $rootScope) {
+    function ($parse, $rootScope) {
+      'use strict';
+
       return {
         priority: 100, // compile before ngClick
         restrict: 'A', // restrict to attributes
-        compile: function($element, attr) {
+        compile: function ($element, attr) {
           var fn = $parse(attr.disableUiSref);
           return {
             pre: function link(scope, element) {
               var eventName = 'click';
-              element.on(eventName, function(event) {
-                var callback = function() {
+              element.on(eventName, function (event) {
+                var callback = function () {
                   if (fn(scope, {
                     $event: event
                   })) {
@@ -26,7 +28,7 @@ angular.module('recruitX')
                 }
               });
             },
-            post: function() {}
+            post: function () {}
           };
         }
       };

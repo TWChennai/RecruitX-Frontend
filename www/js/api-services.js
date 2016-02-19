@@ -214,40 +214,40 @@ angular.module('recruitX')
   var data;
 
   return {
-    getInterviewTypes: function() {
+    getInterviewTypes: function () {
       return data.interviewTypes;
     },
 
-    getRoles: function() {
+    getRoles: function () {
       return data.roles;
     },
 
-    getSkills: function() {
+    getSkills: function () {
       return data.skills;
     },
 
-    getInterviewStatuses: function() {
+    getInterviewStatuses: function () {
       return data.interviewStatuses;
     },
 
-    getPipelineStatuses: function() {
+    getPipelineStatuses: function () {
       return data.pipelineStatuses;
     },
 
-    load: function() {
+    load: function () {
       return $q.all([$http.get(baseUrl + '/interview_types'), $http.get(baseUrl + '/roles'), $http.get(baseUrl + '/skills'), $http.get(baseUrl + '/interview_statuses'), $http.get(baseUrl + '/pipeline_statuses')])
-      .then(function(response) {
-        data = {
-          interviewTypes: response[0].data,
-          roles: response[1].data,
-          skills: response[2].data,
-          interviewStatuses: response[3].data,
-          pipelineStatuses: response[4].data
-        };
-        return data;
-      }, function(err) {
-        return $q.reject(err);
-      });
+        .then(function (response) {
+          data = {
+            interviewTypes: response[0].data,
+            roles: response[1].data,
+            skills: response[2].data,
+            interviewStatuses: response[3].data,
+            pipelineStatuses: response[4].data
+          };
+          return data;
+        }, function (err) {
+          return $q.reject(err);
+        });
     }
   };
 }]);

@@ -3,61 +3,61 @@
     <i class="ion-chevron-left"></i>
   </ion-nav-back-button>
   <ion-content ng-controller="createCandidateProfileController" class="newCandidateBlk">
-      <form name="candidateForm" id="candidateForm" class="candidateForm" novalidate>
-        <div class="list">
-          <div class="item item-input" ng-class="{ 'has-error' : candidateForm.firstName.$invalid && !candidateForm.firstName.$pristine }">
-            <label class="input-label">First Name</label>
-            <div class="new-block">
-                <input type="text" name="firstName" ng-model="firstName" ng-maxlength="30" placeholder="First Name" ng-pattern="/^[a-zA-Z ]{1,30}$/" required />
-                <p class="error" ng-show="candidateForm.firstName.$error.pattern && !candidateForm.firstName.$pristine">Name should contain only characters</p>
-                <p class="error" ng-show="candidateForm.firstName.$error.required && !candidateForm.firstName.$pristine">is required</p>
-                <p class="error" ng-show="candidateForm.firstName.$error.maxlength && !candidateForm.firstName.$pristine">exceeded 30 characters</p>
-            </div>
+    <form name="candidateForm" id="candidateForm" class="candidateForm" novalidate>
+      <div class="list">
+        <div class="item item-input" ng-class="{ 'has-error' : candidateForm.firstName.$invalid && !candidateForm.firstName.$pristine }">
+          <label class="input-label">First Name</label>
+          <div class="new-block">
+            <input type="text" name="firstName" ng-model="firstName" ng-maxlength="30" placeholder="First Name" ng-pattern="/^[a-zA-Z ]{1,30}$/" required />
+            <p class="error" ng-show="candidateForm.firstName.$error.pattern && !candidateForm.firstName.$pristine">Name should contain only characters</p>
+            <p class="error" ng-show="candidateForm.firstName.$error.required && !candidateForm.firstName.$pristine">is required</p>
+            <p class="error" ng-show="candidateForm.firstName.$error.maxlength && !candidateForm.firstName.$pristine">exceeded 30 characters</p>
           </div>
-          <div class="item item-input" ng-class="{ 'has-error' : candidateForm.lastName.$invalid && !candidateForm.lastName.$pristine }">
-            <label class="input-label">Last Name</label>
-            <div class="new-block">
-                <input type="text" name="lastName" ng-model="lastName" ng-maxlength="30" placeholder="Last Name" ng-pattern="/^[a-zA-Z ]{1,30}$/" required />
-                <p class="error" ng-show="candidateForm.lastName.$error.pattern && !candidateForm.lastName.$pristine">Name should contain only characters</p>
-                <p class="error" ng-show="candidateForm.lastName.$error.required && !candidateForm.lastName.$pristine">is required</p>
-                <p class="error" ng-show="candidateForm.lastName.$error.maxlength && !candidateForm.lastName.$pristine">exceeded 30 characters</p>
-            </div>
+        </div>
+        <div class="item item-input" ng-class="{ 'has-error' : candidateForm.lastName.$invalid && !candidateForm.lastName.$pristine }">
+          <label class="input-label">Last Name</label>
+          <div class="new-block">
+            <input type="text" name="lastName" ng-model="lastName" ng-maxlength="30" placeholder="Last Name" ng-pattern="/^[a-zA-Z ]{1,30}$/" required />
+            <p class="error" ng-show="candidateForm.lastName.$error.pattern && !candidateForm.lastName.$pristine">Name should contain only characters</p>
+            <p class="error" ng-show="candidateForm.lastName.$error.required && !candidateForm.lastName.$pristine">is required</p>
+            <p class="error" ng-show="candidateForm.lastName.$error.maxlength && !candidateForm.lastName.$pristine">exceeded 30 characters</p>
           </div>
+        </div>
 
-          <div class="item item-input item-select" ng-class="{ 'has-error' : candidateForm.role.$invalid && !candidateForm.role.$pristine }">
-            <label class="input-label">Role</label>
-            <select name="role" ng-options="role.id as role.name for role in roles" ng-model="candidate.role_id" required class="new-block"></select>
-          </div>
+        <div class="item item-input item-select" ng-class="{ 'has-error' : candidateForm.role.$invalid && !candidateForm.role.$pristine }">
+          <label class="input-label">Role</label>
+          <select name="role" ng-options="role.id as role.name for role in roles" ng-model="candidate.role_id" required class="new-block"></select>
+        </div>
 
-          <div class="item item-input" ng-class="{ 'has-error' : candidateForm.experience.$invalid && !candidateForm.experience.$pristine }">
-            <span class="input-label">Experience<br/><em>(in yrs)</em></span>
-            <div class="new-block">
-              <input type="number" name="experience" id="experience" ng-model="candidate.experience" min="0" max="50" ng-minlength="1" ng-maxlength="4" ng-pattern="/^[0-9]+(\.[0-9]{1,1})?$/" placeholder="Experience in years" required />
-              <p class="error" ng-show="candidateForm.experience.$error.required && !candidateForm.experience.$pristine">
-                Is required</p>
-              <p class="error" ng-show="candidateForm.experience.$invalid && !candidateForm.experience.$pristine">Value should not exceed 1 decimal value</p>
-              <p class="error" ng-show="candidateForm.experience.$error.maxlength && !candidateForm.experience.$pristine">Value cannot exceed more than 4 chars</p>
-              <p class="error" ng-show="candidateForm.experience.$error.max && !candidateForm.experience.$pristine">Experience not more than 50</p>
-              <p class="error" ng-show="candidateForm.experience.$error.min">should be positive</p>
-            </div>
+        <div class="item item-input" ng-class="{ 'has-error' : candidateForm.experience.$invalid && !candidateForm.experience.$pristine }">
+          <span class="input-label">Experience<br/><em>(in yrs)</em></span>
+          <div class="new-block">
+            <input type="number" name="experience" id="experience" ng-model="candidate.experience" min="0" max="50" ng-minlength="1" ng-maxlength="4" ng-pattern="/^[0-9]+(\.[0-9]{1,1})?$/" placeholder="Experience in years" required />
+            <p class="error" ng-show="candidateForm.experience.$error.required && !candidateForm.experience.$pristine">
+              Is required</p>
+            <p class="error" ng-show="candidateForm.experience.$invalid && !candidateForm.experience.$pristine">Value should not exceed 1 decimal value</p>
+            <p class="error" ng-show="candidateForm.experience.$error.maxlength && !candidateForm.experience.$pristine">Value cannot exceed more than 4 chars</p>
+            <p class="error" ng-show="candidateForm.experience.$error.max && !candidateForm.experience.$pristine">Experience not more than 50</p>
+            <p class="error" ng-show="candidateForm.experience.$error.min">should be positive</p>
           </div>
+        </div>
 
-          <div class="item item-input">
-            <span class="input-label">Skills</span>
-            <div class="new-block">
-              <ion-list >
-                <ion-checkbox ng-repeat="skill in skills" ng-model="skill.checked" ng-change="blurElem()">{{skill.name}}</ion-checkbox>
-              </ion-list>
-              <div ng-if="getOtherCheckbox().checked">
-                  <textarea placeholder="Please specify"  name="otherSkills" ng-model="candidate.other_skills" ng-maxlength="130" required></textarea>
-                  <p class="error" ng-show="candidateForm.otherSkills.$error.maxlength && !candidateForm.otherSkills.$pristine">Other Skills cannot exceed more than 130 Chars</p>
-                  <p class="error" ng-show="candidateForm.other_skills.$error.required && !candidateForm.other_skills.$pristine">
-                    is required</p>
-              </div>
+        <div class="item item-input">
+          <span class="input-label">Skills</span>
+          <div class="new-block">
+            <ion-list>
+              <ion-checkbox ng-repeat="skill in skills" ng-model="skill.checked" ng-change="blurElem()">{{skill.name}}</ion-checkbox>
+            </ion-list>
+            <div ng-if="getOtherCheckbox().checked">
+              <textarea placeholder="Please specify" name="otherSkills" ng-model="candidate.other_skills" ng-maxlength="130" required></textarea>
+              <p class="error" ng-show="candidateForm.otherSkills.$error.maxlength && !candidateForm.otherSkills.$pristine">Other Skills cannot exceed more than 130 Chars</p>
+              <p class="error" ng-show="candidateForm.other_skills.$error.required && !candidateForm.other_skills.$pristine">
+                is required</p>
             </div>
           </div>
         </div>
-        <a class="button button-full icon-right ion-chevron-right button-positive" ng-disabled="isFormInvalid()" ui-sref="schedule-interview({candidate: candidate})" ng-click =  "processCandidateData()">Next</a>
-      </form>
+      </div>
+      <a class="button button-full icon-right ion-chevron-right button-positive" ng-disabled="isFormInvalid()" ui-sref="schedule-interview({candidate: candidate})" ng-click="processCandidateData()">Next</a>
+    </form>
   </ion-content>
 </ion-view>

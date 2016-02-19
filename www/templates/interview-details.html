@@ -1,81 +1,82 @@
 <ion-view ng-controller="interviewDetailsController">
-	<ion-nav-title>Feedback - {{ interview.interview_type.name }}</ion-nav-title>
-	<ion-content>
-		<div>
-			<div class="list padding">
-				<div class="list-item candidateDetails">
-					<div class="row">
-						<div class="col col-50">
-							<h5>Candidate</h5>
-						</div>
-						<div class="col col-50">
-							<h5>{{interview.candidate.name}}</h5>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col col-50">
-							<h5>Role</h5>
-						</div>
-						<div class="col col-50">
-							<h5>{{interview.candidate.role}}</h5>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col col-50">
-							<h5>Work Experience</h5>
-						</div>
-						<div class="col col-50">
-							<h5>{{interview.candidate.experience | number: 1}} yrs</h5>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col col-50">
-							<h5>Date</h5>
-						</div>
-						<div class="col col-50">
-							<h5 ng-bind="interview.start_time | date:'dd/MM/yyyy'"></h5>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col col-50">
-							<h5>Time</h5>
-						</div>
-						<div class="col col-50">
-							<h5 ng-bind="(interview.start_time | date:'h:mma') + (' - ') + (endTime(interview.start_time) | date: 'h:mma')"></h5>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col col-50">
-							<h5>Panel</h5>
-						</div>
-						<div class="col col-50">
-							<h5>{{interview.formattedPanelists}}</h5>
-						</div>
-					</div>
-					<form name="feedackForm">
-						<div class="row">
-							<div class="col">
-								<h5><strong>Feedback</strong></h5></div>
-							</div>
-							<!--TODO: Need to implement this in a cleaner way using mutually exclusive radio buttons -->
-						<div class="button-bar feedBack">
-							<a name = "feedback" id = "feedback" ng-repeat="status in interviewStatus" ng-class = "(feedBackResult.name === '{{status.name}}' && 'button-positive') || (interview.status.name === '{{status.name}}' && 'button-positive')" class="button button-block button-small button-stable" ng-disabled = "canNotEnterFeedBack()" ng-click = "extractFeedback(status)"><h6>{{status.name}}</h6></a>
-						</div>
-						<div class="row">
-							<div class="col col-50 text-center" ng-repeat="feedbackImage in feedbackImages track by $index">
-								<label ng-if = "!isFeedbackAvailable()">{{feedbackImage.label}}</label>
-								<div ng-if = "!isFeedbackAvailable() || feedbackImage.isDownloaded" class="feedback-image" ng-style="{'background-image': 'url(' + feedbackImage.URI + ')'}" ng-click="feedbackImage.previewDisabled || previewImage({{$index}})" ng-disabled="feedbackImage.previewDisabled">
-								</div>
-								<div class="text-center">
-									<button ng-if = "isFeedbackAvailable() && !feedbackImage.isDownloaded" class="button icon ion-archive" ng-click="downloadPhoto({{$index}})"></button>
-									<button ng-if = "!canNotEnterFeedBack()" class="button icon ion-camera" ng-click="getPhoto({{$index}})"></button>
-								</div>
-							</div>
-						</div>
-						<button ng-if = "!canNotEnterFeedBack()"  class="button button-full button-positive" ng-disabled = "!canSubmit()" ng-click="saveFeedback()">Submit</button>
-					</form>
-				</div>
-			</div>
-		</div>
-	</ion-content>
+  <ion-nav-title>Feedback - {{ interview.interview_type.name }}</ion-nav-title>
+  <ion-content>
+    <div>
+      <div class="list padding">
+        <div class="list-item candidateDetails">
+          <div class="row">
+            <div class="col col-50">
+              <h5>Candidate</h5>
+            </div>
+            <div class="col col-50">
+              <h5>{{interview.candidate.name}}</h5>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-50">
+              <h5>Role</h5>
+            </div>
+            <div class="col col-50">
+              <h5>{{interview.candidate.role}}</h5>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-50">
+              <h5>Work Experience</h5>
+            </div>
+            <div class="col col-50">
+              <h5>{{interview.candidate.experience | number: 1}} yrs</h5>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-50">
+              <h5>Date</h5>
+            </div>
+            <div class="col col-50">
+              <h5 ng-bind="interview.start_time | date:'dd/MM/yyyy'"></h5>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-50">
+              <h5>Time</h5>
+            </div>
+            <div class="col col-50">
+              <h5 ng-bind="(interview.start_time | date:'h:mma') + (' - ') + (endTime(interview.start_time) | date: 'h:mma')"></h5>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-50">
+              <h5>Panel</h5>
+            </div>
+            <div class="col col-50">
+              <h5>{{interview.formattedPanelists}}</h5>
+            </div>
+          </div>
+          <form name="feedackForm">
+            <div class="row">
+              <div class="col">
+                <h5><strong>Feedback</strong></h5></div>
+            </div>
+            <!--TODO: Need to implement this in a cleaner way using mutually exclusive radio buttons -->
+            <div class="button-bar feedBack">
+              <a name="feedback" id="feedback" ng-repeat="status in interviewStatus" ng-class="(feedBackResult.name === '{{status.name}}' && 'button-positive') || (interview.status.name === '{{status.name}}' && 'button-positive')" class="button button-block button-small button-stable"
+                ng-disabled="canNotEnterFeedBack()" ng-click="extractFeedback(status)"><h6>{{status.name}}</h6></a>
+            </div>
+            <div class="row">
+              <div class="col col-50 text-center" ng-repeat="feedbackImage in feedbackImages track by $index">
+                <label ng-if="!isFeedbackAvailable()">{{feedbackImage.label}}</label>
+                <div ng-if="!isFeedbackAvailable() || feedbackImage.isDownloaded" class="feedback-image" ng-style="{'background-image': 'url(' + feedbackImage.URI + ')'}" ng-click="feedbackImage.previewDisabled || previewImage({{$index}})" ng-disabled="feedbackImage.previewDisabled">
+                </div>
+                <div class="text-center">
+                  <button ng-if="isFeedbackAvailable() && !feedbackImage.isDownloaded" class="button icon ion-archive" ng-click="downloadPhoto({{$index}})"></button>
+                  <button ng-if="!canNotEnterFeedBack()" class="button icon ion-camera" ng-click="getPhoto({{$index}})"></button>
+                </div>
+              </div>
+            </div>
+            <button ng-if="!canNotEnterFeedBack()" class="button button-full button-positive" ng-disabled="!canSubmit()" ng-click="saveFeedback()">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </ion-content>
 </ion-view>

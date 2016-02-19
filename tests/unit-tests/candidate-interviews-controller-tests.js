@@ -27,7 +27,7 @@ describe('candidateInterviewsController', function () {
       name: 'P3',
       priority: 4
     }];
-    
+
     spyOn(loggedinUserStore, 'isRecruiter').and.returnValue('true');
     spyOn(loggedinUserStore, 'userId').and.returnValue('recruitx');
     spyOn(MasterData, 'getInterviewTypes').and.returnValue(interviewTypes);
@@ -122,18 +122,21 @@ describe('candidateInterviewsController', function () {
         }
       });
     });
+
     describe('isNotScheduled', function () {
       it('should return true if an interview is not scheduled yet', function () {
         interviewRound = $scope.expectedInterviewScheduleList[2];
         expect($scope.isNotScheduled(interviewRound)).toEqual(true);
       });
     });
+
     describe('isNotScheduled', function () {
       it('should return false if an interview is scheduled', function () {
         interviewRound = $scope.expectedInterviewScheduleList[1];
         expect($scope.isNotScheduled(interviewRound)).toEqual(false);
       });
     });
+
     describe('isNextSchedulableRound', function () {
       it('should return false if an interview is scheduled', function () {
         $scope.buildInterviewScheduleList();
@@ -141,6 +144,7 @@ describe('candidateInterviewsController', function () {
         expect($scope.isNextSchedulableRound(interviewRound)).toEqual(false);
       });
     });
+
     describe('isNextSchedulableRound', function () {
       it('should return false if an interview is unscheduled and previous round is also unscheduled', function () {
         $scope.buildInterviewScheduleList();
@@ -155,17 +159,22 @@ describe('candidateInterviewsController', function () {
         expect($scope.isNextSchedulableRound(interviewRound)).toEqual(true);
       });
     });
+
     describe('isPipelineInProgress', function () {
       it('should return false if current candidate is not yet fetched', function () {
         $scope.current_candidate = undefined;
         expect($scope.isPipelineInProgress()).toEqual(false);
       });
       it('should return false if current candidate status is not in progress', function () {
-        $scope.current_candidate ={pipelineStatus: 'Closed'};
+        $scope.current_candidate = {
+          pipelineStatus: 'Closed'
+        };
         expect($scope.isPipelineInProgress()).toEqual(false);
       });
       it('should return true if current candidate status is in progress', function () {
-        $scope.current_candidate ={pipelineStatus: 'In Progress'};
+        $scope.current_candidate = {
+          pipelineStatus: 'In Progress'
+        };
         expect($scope.isPipelineInProgress()).toEqual(true);
       });
     });

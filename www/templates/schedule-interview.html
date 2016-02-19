@@ -3,15 +3,15 @@
     <ion-list inset>
       <div ng-repeat="interviewRound in interviewRounds">
         <ion-item class="item" ng-model="interviewRound.name" ng-click="dateTime($index)">
-            <div class="row">
-                <p class="col col-50">{{interviewRound.name}}</p>
-                <p class="col col-50">{{interviewRound.dateTime | date: 'dd/MM/yyyy h:mma'}}</p>
-            </div>
+          <div class="row">
+            <p class="col col-50">{{interviewRound.name}}</p>
+            <p class="col col-50">{{interviewRound.dateTime | date: 'dd/MM/yyyy h:mma'}}</p>
+          </div>
         </ion-item>
       </div>
     </ion-list>
   </ion-content>
   <div class="bar bar-footer bar-positive">
-    <button class="button button-full" ng-disabled = "isFormInvalid()" ng-click="postCandidate()">Save</button>
+    <button class="button button-full" ng-disabled="isFormInvalid()" ng-click="postCandidate()">Save</button>
   </div>
 </ion-view>

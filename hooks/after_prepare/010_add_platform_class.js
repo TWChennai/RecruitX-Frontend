@@ -11,7 +11,7 @@
 var fs = require('fs'),
   path = require('path'),
   rootdir = process.argv[2],
-  findBodyTag = function(html) {
+  findBodyTag = function (html) {
     'use strict';
 
     // get the body tag
@@ -20,7 +20,7 @@ var fs = require('fs'),
     } catch (e) {}
   },
 
-  findClassAttr = function(bodyTag) {
+  findClassAttr = function (bodyTag) {
     'use strict';
 
     // get the body tag's class attribute
@@ -29,7 +29,7 @@ var fs = require('fs'),
     } catch (e) {}
   },
 
-  addPlatformBodyTag = function(indexPath, platform) {
+  addPlatformBodyTag = function (indexPath, platform) {
     'use strict';
 
     // add the platform class to the body tag
@@ -77,7 +77,7 @@ if (rootdir) {
   // go through each of the platform directories that have been prepared
   var platforms = (process.env.CORDOVA_PLATFORMS ? process.env.CORDOVA_PLATFORMS.split(',') : []);
 
-  for (var x = 0; x < platforms.length; x+=1) {
+  for (var x = 0; x < platforms.length; x += 1) {
     // open up the index.html file at the www root
     try {
       var platform = platforms[x].trim().toLowerCase();

@@ -1,115 +1,120 @@
 <ion-view hide-nav-bar="true">
   <ion-header-bar class="bar-positive cust-header fixedTop">
-      <h1 class="title">Hi {{loggedinUserName}}!</h1>
-      <div class="buttons">
-        <a class="button icon ion-plus-round bgTransparent" href="#/candidates/new" ng-if="isLoggedinUserRecruiter"></a>
-        <a class="button icon ion-log-out bgTransparent" ng-click="logout()"></a>
-      </div>
+    <h1 class="title">Hi {{loggedinUserName}}!</h1>
+    <div class="buttons">
+      <a class="button icon ion-plus-round bgTransparent" href="#/candidates/new" ng-if="isLoggedinUserRecruiter"></a>
+      <a class="button icon ion-log-out bgTransparent" ng-click="logout()"></a>
+    </div>
   </ion-header-bar>
 
-    <ion-tabs class="panelist-tab tabs-striped tabs-positive tabs-top">
-      <ion-tab title="Interviews">
-        <ion-nav-view>
-          <ion-content class="ic-blk">
-            <ion-refresher on-refresh="refreshInterviews()">
-            </ion-refresher>
-            <ion-list class="candidatePanelList">
-                <ion-item ng-repeat="item in items">
-                  <div class="item item-divider candidateInfo">
-                    <div class="row">
-                      <div class="col col-50" ng-if="isInPipeline(item.candidate)">
-                        <a ui-sref="candidate-profile({id: item.candidate.id})"><strong>{{item.candidate.name | limitTo: 10}}</strong></a> <h5> ({{item.candidate.experience | number: 1}} Yrs) </h5>
-                      </div>
-                      <div class="col col-50" ng-if= "!isInPipeline(item.candidate)">
-                        <span><strong>{{item.candidate.name | limitTo: 10}}</strong></span> <h5> ({{item.candidate.experience | number: 1}} Yrs) </h5>
-                      </div>
-                      <div class="col col-30">
-                        <h3><strong ng-bind = "item.start_time | date:'dd/MM/yyyy'"></strong></h3>
-                      </div>
-                      <div class="col col-20 inherit_display">
-                        <h3><strong ng-bind = "item.start_time | date:'h:mma'"></strong></h3>
-                      </div>
-                    </div>
-                    <div class="row pad-box">
-                      <div class="col col-30">
-                        <h4><strong>Skills: </strong>{{item.candidate.all_skills}}</h4>
-                      </div>
-                      <div class="col col-70">
-                        <div class="pull-right">
-                          <h4 ng-if="isLoggedinUserRecruiter">{{item.formattedPanelists}}</h4>
-                          <button ng-hide="isLoggedinUserRecruiter" class="button button-small button-positive" ng-disabled="!item.signup || !isInPipeline(item.candidate)" ng-click="signingUp(item)">Signup: {{item.interview_type.name}}</button>
-                        </div>
-                      </div>
+  <ion-tabs class="panelist-tab tabs-striped tabs-positive tabs-top">
+    <ion-tab title="Interviews">
+      <ion-nav-view>
+        <ion-content class="ic-blk">
+          <ion-refresher on-refresh="refreshInterviews()">
+          </ion-refresher>
+          <ion-list class="candidatePanelList">
+            <ion-item ng-repeat="item in items">
+              <div class="item item-divider candidateInfo">
+                <div class="row">
+                  <div class="col col-50" ng-if="isInPipeline(item.candidate)">
+                    <a ui-sref="candidate-profile({id: item.candidate.id})"><strong>{{item.candidate.name | limitTo: 10}}</strong></a>
+                    <h5> ({{item.candidate.experience | number: 1}} Yrs) </h5>
+                  </div>
+                  <div class="col col-50" ng-if="!isInPipeline(item.candidate)">
+                    <span><strong>{{item.candidate.name | limitTo: 10}}</strong></span>
+                    <h5> ({{item.candidate.experience | number: 1}} Yrs) </h5>
+                  </div>
+                  <div class="col col-30">
+                    <h3><strong ng-bind = "item.start_time | date:'dd/MM/yyyy'"></strong></h3>
+                  </div>
+                  <div class="col col-20 inherit_display">
+                    <h3><strong ng-bind = "item.start_time | date:'h:mma'"></strong></h3>
+                  </div>
+                </div>
+                <div class="row pad-box">
+                  <div class="col col-30">
+                    <h4><strong>Skills: </strong>{{item.candidate.all_skills}}</h4>
+                  </div>
+                  <div class="col col-70">
+                    <div class="pull-right">
+                      <h4 ng-if="isLoggedinUserRecruiter">{{item.formattedPanelists}}</h4>
+                      <button ng-hide="isLoggedinUserRecruiter" class="button button-small button-positive" ng-disabled="!item.signup || !isInPipeline(item.candidate)" ng-click="signingUp(item)">Signup: {{item.interview_type.name}}</button>
                     </div>
                   </div>
-                </ion-item>
-              </ion-list>
-          </ion-content>
-        </ion-nav-view>
-      </ion-tab>
+                </div>
+              </div>
+            </ion-item>
+          </ion-list>
+        </ion-content>
+      </ion-nav-view>
+    </ion-tab>
 
-      <ion-tab title="My Interviews" ng-if="!isLoggedinUserRecruiter">
-        <ion-nav-view>
-          <ion-content>
-            <ion-refresher on-refresh="refreshMyInterviews()">
-            </ion-refresher>
-            <ion-list class="candidatePanelList">
-                <ion-item ng-repeat="myinterview in myinterviews">
-                  <div class="item item-divider candidateInfo">
-                    <div class="row">
-                      <div class="col col-50" ng-if = "isInPipeline(myinterview.candidate)">
-                        <a ui-sref="candidate-profile({id: myinterview.candidate.id})"><strong>{{myinterview.candidate.name | limitTo: 10}}</strong></a> <h5> ({{myinterview.candidate.experience}} Yrs) </h5>
-                      </div>
-                      <div class="col col-50" ng-if= "!isInPipeline(myinterview.candidate)">
-                        <span><strong>{{myinterview.candidate.name | limitTo: 10}}</strong></span> <h5> ({{myinterview.candidate.experience}} Yrs) </h5>
-                      </div>
-                      <div class="col col-30">
-                        <h3><strong ng-bind = "myinterview.start_time | date:'dd/MM/yyyy'"></strong></h3>
-                      </div>
-                      <div class="col col-20 inherit_display">
-                        <h3><strong ng-bind = "myinterview.start_time | date:'h:mma'"></strong></h3>
-                      </div>
-                    </div>
-                    <div class="row pad-box">
-                      <div class="col col-30">
-                        <h4><strong>Round: {{myinterview.interview_type.name}}</strong></h4>
-                      </div>
-                      <div class="col col-70">
-                        <div class="pull-right">
-                          <button class="button button-small button-positive" ui-sref = "interview-details({id:myinterview.id})" ng-disabled = "!isInPipeline(myinterview.candidate)">FeedBack</button>
-                        </div>
-                      </div>
+    <ion-tab title="My Interviews" ng-if="!isLoggedinUserRecruiter">
+      <ion-nav-view>
+        <ion-content>
+          <ion-refresher on-refresh="refreshMyInterviews()">
+          </ion-refresher>
+          <ion-list class="candidatePanelList">
+            <ion-item ng-repeat="myinterview in myinterviews">
+              <div class="item item-divider candidateInfo">
+                <div class="row">
+                  <div class="col col-50" ng-if="isInPipeline(myinterview.candidate)">
+                    <a ui-sref="candidate-profile({id: myinterview.candidate.id})"><strong>{{myinterview.candidate.name | limitTo: 10}}</strong></a>
+                    <h5> ({{myinterview.candidate.experience}} Yrs) </h5>
+                  </div>
+                  <div class="col col-50" ng-if="!isInPipeline(myinterview.candidate)">
+                    <span><strong>{{myinterview.candidate.name | limitTo: 10}}</strong></span>
+                    <h5> ({{myinterview.candidate.experience}} Yrs) </h5>
+                  </div>
+                  <div class="col col-30">
+                    <h3><strong ng-bind = "myinterview.start_time | date:'dd/MM/yyyy'"></strong></h3>
+                  </div>
+                  <div class="col col-20 inherit_display">
+                    <h3><strong ng-bind = "myinterview.start_time | date:'h:mma'"></strong></h3>
+                  </div>
+                </div>
+                <div class="row pad-box">
+                  <div class="col col-30">
+                    <h4><strong>Round: {{myinterview.interview_type.name}}</strong></h4>
+                  </div>
+                  <div class="col col-70">
+                    <div class="pull-right">
+                      <button class="button button-small button-positive" ui-sref="interview-details({id:myinterview.id})" ng-disabled="!isInPipeline(myinterview.candidate)">FeedBack</button>
                     </div>
                   </div>
-                </ion-item>
-              </ion-list>
-          </ion-content>
-        </ion-nav-view>
-      </ion-tab>
+                </div>
+              </div>
+            </ion-item>
+          </ion-list>
+        </ion-content>
+      </ion-nav-view>
+    </ion-tab>
 
-      <ion-tab title="Candidates" ng-if="isLoggedinUserRecruiter">
-        <ion-nav-view>
-          <ion-content>
-              <ion-refresher on-refresh="refreshCandidates()">
-              </ion-refresher>
-              <ion-list class="candidatePanelList">
-                  <ion-item ng-repeat="candidate in all_candidates">
-                    <div class="item item-divider candidateInfo">
-                      <div class="row">
-                        <div class="col col-50">
-                          <a ui-sref="candidate-profile({id:candidate.id})"><strong>{{candidate.name | limitTo: 10}}</strong></a> <h5> ({{candidate.experience}} Yrs) </h5>
-                      </div>
-                      <div class="col col-25">
-                      <h4>{{candidate.role}}</h4>
-                     </div>
-                     <div class="col col-25">
-                     <h4>{{candidate.pipelineStatus}}</h4>
-                     </div>
-                    </div>
-                  </ion-item>
-                </ion-list>
-          </ion-content>
-        </ion-nav-view>
-      </ion-tab>
-    </ion-tabs>
+    <ion-tab title="Candidates" ng-if="isLoggedinUserRecruiter">
+      <ion-nav-view>
+        <ion-content>
+          <ion-refresher on-refresh="refreshCandidates()">
+          </ion-refresher>
+          <ion-list class="candidatePanelList">
+            <ion-item ng-repeat="candidate in all_candidates">
+              <div class="item item-divider candidateInfo">
+                <div class="row">
+                  <div class="col col-50">
+                    <a ui-sref="candidate-profile({id:candidate.id})"><strong>{{candidate.name | limitTo: 10}}</strong></a>
+                    <h5> ({{candidate.experience}} Yrs) </h5>
+                  </div>
+                  <div class="col col-25">
+                    <h4>{{candidate.role}}</h4>
+                  </div>
+                  <div class="col col-25">
+                    <h4>{{candidate.pipelineStatus}}</h4>
+                  </div>
+                </div>
+            </ion-item>
+          </ion-list>
+        </ion-content>
+      </ion-nav-view>
+    </ion-tab>
+  </ion-tabs>
 </ion-view>

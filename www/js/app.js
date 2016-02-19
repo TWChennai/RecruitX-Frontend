@@ -10,82 +10,82 @@ angular.module('recruitX', ['ngFileUpload', 'ionic', 'ui.router', 'ngCordova', '
     apiUrl: '10.134.125.194:4001'
   })
 
-  .config(function ($stateProvider, $urlRouterProvider, $compileProvider, $ionicConfigProvider) {
-    'use strict';
+.config(function ($stateProvider, $urlRouterProvider, $compileProvider, $ionicConfigProvider) {
+  'use strict';
 
-    $ionicConfigProvider.backButton.previousTitleText(false);
-    $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|file):/);
+  $ionicConfigProvider.backButton.previousTitleText(false);
+  $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|file):/);
 
-    $stateProvider
-      .state('create-candidate-profile', {
-        url: '/candidates/new',
-        templateUrl: 'templates/create-candidate-profile.html',
-        controller: 'createCandidateProfileController'
-      })
-
-    .state('schedule-interview', {
-      url: '/candidates/interviews/new',
-      templateUrl: 'templates/schedule-interview.html',
-      controller: 'scheduleInterviewController',
-      params: {
-        candidate: null
-      }
+  $stateProvider
+    .state('create-candidate-profile', {
+      url: '/candidates/new',
+      templateUrl: 'templates/create-candidate-profile.html',
+      controller: 'createCandidateProfileController'
     })
 
-    .state('panelist-signup', {
-      url: '/panelist-signup',
-      templateUrl: 'templates/panelist-signup.html',
-      controller: 'panelistSignupController'
-    })
-
-    .state('interview-details', {
-      url: '/interview-details/:id',
-      templateUrl: 'templates/interview-details.html',
-      controller: 'interviewDetailsController',
-      cache: false
-    })
-
-    .state('candidate-tab-view', {
-      url: '/candidate-tabs',
-      abstract: true,
-      templateUrl: 'templates/candidate-tabs.html',
-      controller: 'candidateTabController',
-      cache: false
-    })
-
-    .state('candidate-profile', {
-      url: '/candidates/:id',
-      parent: 'candidate-tab-view',
-      views: {
-        'candidate-profile-tab': {
-          templateUrl: 'templates/candidate-profile.html',
-          controller: 'candidateProfileController',
-          cache: false
-        }
-      }
-    })
-
-    .state('candidate-interviews', {
-      url: '/candidates/:id/interviews',
-      parent: 'candidate-tab-view',
-      views: {
-        'candidate-interviews-tab': {
-          templateUrl: 'templates/candidate-interviews.html',
-          controller: 'candidateInterviewsController',
-          cache: false
-        }
-      }
-    })
-
-    .state('login', {
-      url: '/login',
-      templateUrl: 'templates/login.html',
-      controller: 'loginController'
-    });
-
-    if (window.localStorage['LOGGEDIN_USER']) {
-      $urlRouterProvider.otherwise('/panelist-signup');
-    } else {
-      $urlRouterProvider.otherwise('/login');
+  .state('schedule-interview', {
+    url: '/candidates/interviews/new',
+    templateUrl: 'templates/schedule-interview.html',
+    controller: 'scheduleInterviewController',
+    params: {
+      candidate: null
     }
+  })
+
+  .state('panelist-signup', {
+    url: '/panelist-signup',
+    templateUrl: 'templates/panelist-signup.html',
+    controller: 'panelistSignupController'
+  })
+
+  .state('interview-details', {
+    url: '/interview-details/:id',
+    templateUrl: 'templates/interview-details.html',
+    controller: 'interviewDetailsController',
+    cache: false
+  })
+
+  .state('candidate-tab-view', {
+    url: '/candidate-tabs',
+    abstract: true,
+    templateUrl: 'templates/candidate-tabs.html',
+    controller: 'candidateTabController',
+    cache: false
+  })
+
+  .state('candidate-profile', {
+    url: '/candidates/:id',
+    parent: 'candidate-tab-view',
+    views: {
+      'candidate-profile-tab': {
+        templateUrl: 'templates/candidate-profile.html',
+        controller: 'candidateProfileController',
+        cache: false
+      }
+    }
+  })
+
+  .state('candidate-interviews', {
+    url: '/candidates/:id/interviews',
+    parent: 'candidate-tab-view',
+    views: {
+      'candidate-interviews-tab': {
+        templateUrl: 'templates/candidate-interviews.html',
+        controller: 'candidateInterviewsController',
+        cache: false
+      }
+    }
+  })
+
+  .state('login', {
+    url: '/login',
+    templateUrl: 'templates/login.html',
+    controller: 'loginController'
   });
+
+  if (window.localStorage['LOGGEDIN_USER']) {
+    $urlRouterProvider.otherwise('/panelist-signup');
+  } else {
+    $urlRouterProvider.otherwise('/login');
+  }
+});

@@ -146,7 +146,7 @@ describe('recruitFactory', function () {
 
       recruitFactory.closePipeline('data', 'id', function (success) {
         expect(false).toEqual(success);
-      }, function(error){
+      }, function (error) {
         expect(true).toEqual(true);
       });
 
@@ -154,7 +154,6 @@ describe('recruitFactory', function () {
       expect(cordovaToast.showShortBottom).not.toHaveBeenCalled();
     });
   });
-
 
   describe('signUp', function () {
     it('signup should post data when successful', function () {

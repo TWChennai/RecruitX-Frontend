@@ -16,7 +16,7 @@ describe('interviewDetailsController', function () {
       name: 'Strong Pursue',
       id: 3
     }];
-    
+
     spyOn(loggedinUserStore, 'userId').and.returnValue('userId');
     spyOn(MasterData, 'getInterviewStatuses').and.returnValue(interviewStatuses);
 

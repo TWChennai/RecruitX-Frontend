@@ -1,4 +1,6 @@
 describe('loginController', function () {
+  'use strict';
+
   beforeEach(module('recruitX'));
 
   describe('let users log in', function () {
