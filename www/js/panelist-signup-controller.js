@@ -87,6 +87,10 @@ angular.module('recruitX')
       });
     };
 
+    $scope.isInPipeline = function (candidate) {
+      return candidate !== undefined && candidate.pipelineStatus === 'In Progress';
+    };
+
     document.addEventListener('deviceready', function onDeviceReady() {
       console.log('View loaded!');
       $scope.manuallyRefreshInterviews();
