@@ -2,12 +2,10 @@ angular.module('recruitX')
   .controller('createCandidateProfileController', ['$rootScope', '$scope', 'MasterData', function ($rootScope, $scope, MasterData) {
     'use strict';
 
-    $scope.candidate = {};
     $scope.skills = MasterData.getSkills();
     $scope.roles = MasterData.getRoles();
-
-    $scope.init = function () {
-      $scope.candidate.role_id = $scope.roles[0].id;
+    $scope.candidate = {
+      role_id: $scope.roles[0].id
     };
 
     $scope.blurElem = function () {
@@ -74,6 +72,10 @@ angular.module('recruitX')
     $rootScope.$on('clearFormData', function () {
       $scope.candidateForm.$setPristine();
       $scope.candidate = undefined;
+      // Resetting the default role
+      $scope.candidate = {
+        role_id: $scope.roles[0].id
+      }
       angular.forEach($scope.skills, function (skill) {
         skill.checked = false;
       });
