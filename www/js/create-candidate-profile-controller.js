@@ -57,7 +57,8 @@ angular.module('recruitX')
 
     $scope.processCandidateData = function () {
       $scope.candidate.skill_ids = [];
-      $scope.candidate.name = $scope.firstName + ' ' + $scope.lastName;
+      $scope.candidate.first_name = $scope.firstName;
+      $scope.candidate.last_name = $scope.lastName;
       // TODO: There should be a better way in angular to extract with a certain parameter
       for (var skill in $scope.skills) {
         if ($scope.skills[skill].checked) {
