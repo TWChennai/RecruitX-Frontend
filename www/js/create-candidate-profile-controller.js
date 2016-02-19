@@ -75,7 +75,7 @@ angular.module('recruitX')
       // Resetting the default role
       $scope.candidate = {
         role_id: $scope.roles[0].id
-      }
+      };
       angular.forEach($scope.skills, function (skill) {
         skill.checked = false;
       });

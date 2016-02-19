@@ -24,19 +24,19 @@ describe('createCandidateProfileController', function () {
     }];
 
     var roles = [{
-      name: "Dev",
+      name: 'Dev',
       id: 1
     }, {
-      name: "QA",
+      name: 'QA',
       id: 2
     }, {
-      name: "BA",
+      name: 'BA',
       id: 3
     }, {
-      name: "PM",
+      name: 'PM',
       id: 4
     }, {
-      name: "UI/UX",
+      name: 'UI/UX',
       id: 5
     }];
 

@@ -7,13 +7,13 @@ describe('interviewDetailsController', function () {
 
   beforeEach(inject(function ($controller, loggedinUserStore, MasterData) {
     var interviewStatuses = [{
-      name: "Pass",
+      name: 'Pass',
       id: 1
     }, {
-      name: "Pursue",
+      name: 'Pursue',
       id: 2
     }, {
-      name: "Strong Pursue",
+      name: 'Strong Pursue',
       id: 3
     }];
     
