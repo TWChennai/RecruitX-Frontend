@@ -64,6 +64,10 @@ angular.module('recruitX')
       return $scope.current_candidate !== undefined && $scope.current_candidate.pipelineStatus === 'In Progress';
     };
 
+    $scope.closePipelineWithConfirmation = function () {
+      dialogService.askConfirmation('Pipeline', 'Are you sure you want to close the pipeline ?', $scope.closePipeline);
+    };
+
     $scope.closePipeline = function () {
       var closedPipelineStatusId = (($filter('filter')(MasterData.getPipelineStatuses(), {
         name: 'Closed'
