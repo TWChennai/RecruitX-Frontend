@@ -1,38 +1,45 @@
 <div class="pane">
 <ion-content>
-  <div class="list padding">
+  <div class="list">
     <div class="list-item interviewDetails">
-
-      <div class="row">
-        <div class="col col-50">
-          <h5>Name</h5>
-        </div>
-        <div class="col col-50">
-          <h5>{{candidate.name}}</h5>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col col-50">
-          <h5>Role</h5>
-        </div>
-        <div class="col col-50">
-          <h5>{{candidate.role}}</h5>
+      <div class="item">
+        <div class="row">
+          <div class="col col-50">
+            <h5>Name</h5>
+          </div>
+          <div class="col col-50">
+            <h5>{{candidate.name}}</h5>
+          </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col col-50">
-          <h5>Experience</h5>
-        </div>
-        <div class="col col-50">
-          <h5>{{candidate.experience | number: 1}} yrs</h5>
+      <div class="item">
+        <div class="row">
+          <div class="col col-50">
+            <h5>Role</h5>
+          </div>
+          <div class="col col-50">
+            <h5>{{candidate.role}}</h5>
+          </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col col-50">
-          <h5>Skills</h5>
+      <div class="item">
+        <div class="row">
+          <div class="col col-50">
+            <h5>Experience</h5>
+          </div>
+          <div class="col col-50">
+            <h5>{{candidate.experience | number: 1}} yrs</h5>
+          </div>
         </div>
-        <div class="col col-50">
-          <h5>{{candidate.all_skills}}</h5>
+      </div>
+      <div class="item">
+        <div class="row">
+          <div class="col col-50">
+            <h5>Skills</h5>
+          </div>
+          <div class="col col-50">
+            <h5>{{candidate.all_skills}}</h5>
+          </div>
         </div>
       </div>
     </div>
