@@ -130,6 +130,31 @@ describe('recruitFactory', function () {
     });
   });
 
+  describe('closePipeline', function () {
+    it('closePipeline should post data when successful', function () {
+      httpBackend.expectPUT(baseUrl + '/candidates/id', 'data').respond('success');
+      recruitFactory.closePipeline('data', 'id', function (response) {
+        expect(response.data).toEqual('success');
+      });
+
+      httpBackend.flush();
+    });
+
+    it('closePipeline should display alert when error and should not call the success method', function () {
+      httpBackend.expectPUT(baseUrl + '/candidates/id', 'data').respond(422, 'error');
+      spyOn(cordovaToast, 'showShortBottom');
+
+      recruitFactory.closePipeline('data', 'id', function (success) {
+        expect(false).toEqual(success);
+      }, function(error){
+        expect(true).toEqual(true);
+      });
+
+      httpBackend.flush();
+      expect(cordovaToast.showShortBottom).not.toHaveBeenCalled();
+    });
+  });
+
 
   describe('signUp', function () {
     it('signup should post data when successful', function () {

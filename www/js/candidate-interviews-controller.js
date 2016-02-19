@@ -73,13 +73,13 @@ angular.module('recruitX')
           pipeline_status_id: closedPipelineStatusId
         }
       };
-      recruitFactory.closePipeline(data_to_update, $scope.current_candidate.id, function (success_response) {
-        dialogService.showAlertWithDismissHandler('Pipeline', 'Pipeline has been closed for this candidate', function () {
+      recruitFactory.closePipeline(data_to_update, $scope.current_candidate.id, function(){
+        dialogService.showAlertWithDismissHandler('Pipeline', 'Pipeline has been closed for this candidate',function () {
           $state.go($state.current, {}, {
             reload: true
           });
         });
-      }, function (failure) {
+      }, function () {
         dialogService.showAlert('Pipeline', 'Something went wrong while closing pipeline!');
       });
     };
