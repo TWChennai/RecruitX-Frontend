@@ -15,6 +15,7 @@ angular.module('recruitX')
       ionicLoadingService.showLoading();
       $scope.refreshInterviews();
       $scope.refreshMyInterviews();
+      $scope.refreshCandidates();
     };
 
     $scope.refreshInterviews = function () {
