@@ -25,13 +25,9 @@ Note:
   3. If you want to use another browser, you'll have to install a launcher for it, so that Karma can call it. Chrome and PhantomJS launchers are included with the default installation.
   4. You will have to follow instructions to install the 'android-22' SDK and tools as a separate pre-requisite.
 
-## To run based on environment:
+## To run or build the app:
 
-Say if you want run for test environments, run the following command:
-```bash
-$ IONIC_ENV=test ionic run android
-```
-Similarly there exists environments, "dev" and "prod".
+Before running or building the app, make sure you have the environment variable, "OKTA_URL" set.
 
 ## Contributing to this codebase:
 
