@@ -9,83 +9,85 @@
 
     <ion-tabs class="panelist-tab tabs-striped tabs-positive tabs-top">
       <ion-tab title="Interviews">
-        <ion-content class="ic-blk">
-          <ion-refresher on-refresh="refreshInterviews()">
-          </ion-refresher>
-
-          <ion-list class="candidatePanelList">
-              <ion-item collection-repeat="item in items">
-                <div class="item item-divider candidateInfo">
-                  <div class="row">
-                    <div class="col col-50">
-                      <a ui-sref="candidate-profile({id: item.candidate.id})"><strong>{{item.candidate.name | limitTo: 10}}</strong></a> <h5> ({{item.candidate.experience | number: 1}} Yrs) </h5>
+        <ion-nav-view>
+          <ion-content class="ic-blk">
+            <ion-refresher on-refresh="refreshInterviews()">
+            </ion-refresher>
+            <ion-list class="candidatePanelList">
+                <ion-item ng-repeat="item in items">
+                  <div class="item item-divider candidateInfo">
+                    <div class="row">
+                      <div class="col col-50">
+                        <a ui-sref="candidate-profile({id: item.candidate.id})"><strong>{{item.candidate.name | limitTo: 10}}</strong></a> <h5> ({{item.candidate.experience | number: 1}} Yrs) </h5>
+                      </div>
+                      <div class="col col-30">
+                        <h3><strong ng-bind = "item.start_time | date:'dd/MM/yyyy'"></strong></h3>
+                      </div>
+                      <div class="col col-20 inherit_display">
+                        <h3><strong ng-bind = "item.start_time | date:'h:mma'"></strong></h3>
+                      </div>
                     </div>
-                    <div class="col col-30">
-                      <h3><strong ng-bind = "item.start_time | date:'dd/MM/yyyy'"></strong></h3>
-                    </div>
-                    <div class="col col-20 inherit_display">
-                      <h3><strong ng-bind = "item.start_time | date:'h:mma'"></strong></h3>
-                    </div>
-                  </div>
-                  <div class="row pad-box">
-                    <div class="col col-30">
-                      <h4><strong>Skills: </strong>{{item.candidate.all_skills}}</h4>
-                    </div>
-                    <div class="col col-70">
-                      <div class="pull-right">
-                        <h4 ng-if="isLoggedinUserRecruiter">{{item.formattedPanelists}}</h4>
-                        <button ng-hide="isLoggedinUserRecruiter" class="button button-small button-positive" ng-disabled="!item.signup" ng-click="signingUp(item)">Signup: {{item.interview_type.name}}</button>
+                    <div class="row pad-box">
+                      <div class="col col-30">
+                        <h4><strong>Skills: </strong>{{item.candidate.all_skills}}</h4>
+                      </div>
+                      <div class="col col-70">
+                        <div class="pull-right">
+                          <h4 ng-if="isLoggedinUserRecruiter">{{item.formattedPanelists}}</h4>
+                          <button ng-hide="isLoggedinUserRecruiter" class="button button-small button-positive" ng-disabled="!item.signup" ng-click="signingUp(item)">Signup: {{item.interview_type.name}}</button>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </ion-item>
-            </ion-list>
-
-        </ion-content>
+                </ion-item>
+              </ion-list>
+          </ion-content>
+        </ion-nav-view>
       </ion-tab>
 
       <ion-tab title="My Interviews" ng-if="!isLoggedinUserRecruiter">
-        <ion-content>
-          <ion-refresher on-refresh="refreshMyInterviews()">
-          </ion-refresher>
-          <ion-list class="candidatePanelList">
-              <ion-item collection-repeat="myinterview in myinterviews">
-                <div class="item item-divider candidateInfo">
-                  <div class="row">
-                    <div class="col col-50">
-                      <a ui-sref="candidate-profile({id: myinterview.candidate.id})"><strong>{{myinterview.candidate.name | limitTo: 10}}</strong></a> <h5> ({{myinterview.candidate.experience}} Yrs) </h5>
+        <ion-nav-view>
+          <ion-content>
+            <ion-refresher on-refresh="refreshMyInterviews()">
+            </ion-refresher>
+            <ion-list class="candidatePanelList">
+                <ion-item ng-repeat="myinterview in myinterviews">
+                  <div class="item item-divider candidateInfo">
+                    <div class="row">
+                      <div class="col col-50">
+                        <a ui-sref="candidate-profile({id: myinterview.candidate.id})"><strong>{{myinterview.candidate.name | limitTo: 10}}</strong></a> <h5> ({{myinterview.candidate.experience}} Yrs) </h5>
+                      </div>
+                      <div class="col col-30">
+                        <h3><strong ng-bind = "myinterview.start_time | date:'dd/MM/yyyy'"></strong></h3>
+                      </div>
+                      <div class="col col-20 inherit_display">
+                        <h3><strong ng-bind = "myinterview.start_time | date:'h:mma'"></strong></h3>
+                      </div>
                     </div>
-                    <div class="col col-30">
-                      <h3><strong ng-bind = "myinterview.start_time | date:'dd/MM/yyyy'"></strong></h3>
-                    </div>
-                    <div class="col col-20 inherit_display">
-                      <h3><strong ng-bind = "myinterview.start_time | date:'h:mma'"></strong></h3>
-                    </div>
-                  </div>
-                  <div class="row pad-box">
-                    <div class="col col-30">
-                      <h4><strong>Round: {{myinterview.interview_type.name}}</strong></h4>
-                    </div>
-                    <div class="col col-70">
-                      <div class="pull-right">
-                        <button class="button button-small button-positive" ui-sref = "interview-details({id:myinterview.id})" >FeedBack</button>
+                    <div class="row pad-box">
+                      <div class="col col-30">
+                        <h4><strong>Round: {{myinterview.interview_type.name}}</strong></h4>
+                      </div>
+                      <div class="col col-70">
+                        <div class="pull-right">
+                          <button class="button button-small button-positive" ui-sref = "interview-details({id:myinterview.id})" >FeedBack</button>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </ion-item>
-            </ion-list>
-
-        </ion-content>
+                </ion-item>
+              </ion-list>
+          </ion-content>
+        </ion-nav-view>
       </ion-tab>
 
       <ion-tab title="Candidates" ng-if="isLoggedinUserRecruiter">
+        <ion-nav-view>
           <ion-content>
               <ion-refresher on-refresh="refreshCandidates()">
               </ion-refresher>
               <ion-list class="candidatePanelList">
-                  <ion-item collection-repeat="candidate in all_candidates">
+                  <ion-item ng-repeat="candidate in all_candidates">
                     <div class="item item-divider candidateInfo">
                       <div class="row">
                         <div class="col col-50">
@@ -98,6 +100,7 @@
                   </ion-item>
                 </ion-list>
           </ion-content>
+        </ion-nav-view>
       </ion-tab>
     </ion-tabs>
 </ion-view>
