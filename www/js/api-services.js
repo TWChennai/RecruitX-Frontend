@@ -22,6 +22,7 @@ angular.module('recruitX')
     };
 
     var fleshOutCandidate = function (candidate) {
+      candidate.name = candidate.first_name + ' ' + candidate.last_name;
       candidate.all_skills = skillHelperService.formatAllSkills(candidate.skills, candidate.other_skills);
       candidate.role = (($filter('filter')(MasterData.getRoles(), {
         id: candidate.role_id

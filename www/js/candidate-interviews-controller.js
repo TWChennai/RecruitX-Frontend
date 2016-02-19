@@ -10,11 +10,11 @@ angular.module('recruitX')
     $scope.isLoggedinUserRecruiter = loggedinUserStore.isRecruiter();
     $scope.loggedinUser = loggedinUserStore.userId();
 
-    $scope.fetchCandidateInterviews = function() {
+    $scope.fetchCandidateInterviews = function () {
       recruitFactory.getCandidateInterviews($stateParams.id, function (interviews) {
         $scope.interviews = interviews;
         $scope.buildInterviewScheduleList();
-        if(interviews[0] === undefined){
+        if (interviews[0] === undefined) {
           recruitFactory.getCandidate($rootScope.candidate_id, function (response) {
             $scope.current_candidate = response;
           }, function (response) {
@@ -29,16 +29,11 @@ angular.module('recruitX')
     $scope.fetchCandidateInterviews();
 
     $scope.buildInterviewScheduleList = function () {
-      var interviewStartTime = $scope.notScheduled;
-      var interviewID = '';
-      var status = undefined;
-      var interviewType;
-
       for (var interviewsIndex in $scope.interviewTypes) {
-        interviewStartTime = $scope.notScheduled;
-        interviewID = '';
-        status = undefined;
-        interviewType = $scope.interviewTypes[interviewsIndex];
+        var interviewStartTime = $scope.notScheduled;
+        var interviewID = '';
+        var status;
+        var interviewType = $scope.interviewTypes[interviewsIndex];
 
         var scheduledInterview = ($filter('filter')($scope.interviews, {
           interview_type_id: interviewType.id
@@ -73,12 +68,18 @@ angular.module('recruitX')
       var closedPipelineStatusId = (($filter('filter')(MasterData.getPipelineStatuses(), {
         name: 'Closed'
       }))[0]).id;
-      var data_to_update = {candidate: {pipeline_status_id: closedPipelineStatusId}};
-      recruitFactory.closePipeline(data_to_update, $scope.current_candidate.id, function(success_response){
-        dialogService.showAlertWithDismissHandler('Pipeline', 'Pipeline has been closed for this candidate',function(){
-          $state.go($state.current, {}, {reload: true});
+      var data_to_update = {
+        candidate: {
+          pipeline_status_id: closedPipelineStatusId
+        }
+      };
+      recruitFactory.closePipeline(data_to_update, $scope.current_candidate.id, function (success_response) {
+        dialogService.showAlertWithDismissHandler('Pipeline', 'Pipeline has been closed for this candidate', function () {
+          $state.go($state.current, {}, {
+            reload: true
+          });
         });
-      }, function(failure){
+      }, function (failure) {
         dialogService.showAlert('Pipeline', 'Something went wrong while closing pipeline!');
       });
     };
@@ -99,11 +100,11 @@ angular.module('recruitX')
       return $scope.isNotScheduled(interviewType) ? '#' : 'interview-details({id:interviewType.id})';
     };
 
-    $scope.isFeedbackGiven = function(status) {
+    $scope.isFeedbackGiven = function (status) {
       return status !== undefined;
     };
 
-    $scope.compareStatus = function(interviewStatus, status) {
+    $scope.compareStatus = function (interviewStatus, status) {
       return interviewStatus.name === status;
     };
 
