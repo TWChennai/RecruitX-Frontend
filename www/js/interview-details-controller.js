@@ -17,7 +17,7 @@ angular.module('recruitX')
       backBtnAll[i].className = newClassName;
     }
 
-    $scope.interviewStatus = MasterData.getInterviewStatus();
+    $scope.interviewStatus = MasterData.getInterviewStatuses();
     $scope.interview = {};
     $scope.imageURIs = [];
     $scope.BLOBs = [];

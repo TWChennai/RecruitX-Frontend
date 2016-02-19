@@ -47,43 +47,12 @@ angular.module('recruitX')
         window.StatusBar.styleDefault();
       }
 
-      var request = 0;
-      var maxRequests = 5;
-
-      function hideSplashScreen() {
-        if (request >= maxRequests) {
-          navigator.splashscreen.hide();
-        }
-      }
-
-      recruitFactory.getInterviewTypes(function (interviewTypes) {
-        MasterData.setInterviewTypes(interviewTypes);
-        request++;
-        hideSplashScreen();
-      });
-
-      recruitFactory.getRoles(function (roles) {
-        MasterData.setRoles(roles);
-        request++;
-        hideSplashScreen();
-      });
-
-      recruitFactory.getSkills(function (skills) {
-        MasterData.setSkills(skills);
-        request++;
-        hideSplashScreen();
-      });
-
-      recruitFactory.getInterviewStatus(function (interviewStatus) {
-        MasterData.setInterviewStatus(interviewStatus);
-        request++;
-        hideSplashScreen();
-      });
-
-      recruitFactory.getPipelineStatuses(function (pipelineStatuses) {
-        MasterData.setPipelineStatuses(pipelineStatuses);
-        request++;
-        hideSplashScreen();
+      MasterData.load().then(function() {
+        navigator.splashscreen.hide();
+      }, function(err) {
+        console.log('Failed dur to: ' + err.data);
+        // TODO: Need to show this mesage as Toast
+        alert('Something went wrong while contacting the server.');
       });
     });
   });

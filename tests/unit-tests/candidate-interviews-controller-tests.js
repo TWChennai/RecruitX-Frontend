@@ -5,18 +5,8 @@ describe('candidateInterviewsController', function () {
 
   var $scope = {};
 
-  beforeEach(inject(function ($controller, loggedinUserStore) {
-    spyOn(loggedinUserStore, 'isRecruiter').and.returnValue('true');
-    spyOn(loggedinUserStore, 'userId').and.returnValue('recruitx');
-    $controller('candidateInterviewsController', {
-      $scope: $scope
-    });
-
-    $scope.interviewSet = [];
-    $scope.notScheduled = 'Not Scheduled';
-    $scope.interviews = {};
-
-    $scope.interviewTypes = [{
+  beforeEach(inject(function ($controller, loggedinUserStore, MasterData) {
+    var interviewTypes = [{
       id: 1,
       name: 'Code Pairing',
       priority: 1
@@ -37,6 +27,20 @@ describe('candidateInterviewsController', function () {
       name: 'P3',
       priority: 4
     }];
+    
+    spyOn(loggedinUserStore, 'isRecruiter').and.returnValue('true');
+    spyOn(loggedinUserStore, 'userId').and.returnValue('recruitx');
+    spyOn(MasterData, 'getInterviewTypes').and.returnValue(interviewTypes);
+
+    $controller('candidateInterviewsController', {
+      $scope: $scope
+    });
+
+    $scope.interviewSet = [];
+    $scope.notScheduled = 'Not Scheduled';
+    $scope.interviews = {};
+
+    $scope.interviewTypes = interviewTypes;
 
     $scope.interviews = [{
       start_time: '2016-04-03T13:27:00Z',

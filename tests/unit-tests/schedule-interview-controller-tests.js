@@ -5,14 +5,11 @@ describe('scheduleInterviewController', function () {
 
   var $scope = {};
 
-  beforeEach(inject(function ($controller, $stateParams) {
+  beforeEach(inject(function ($controller, $stateParams, MasterData) {
     $stateParams.candidate = {};
     $stateParams.candidate.interview_schedule = [];
-    $controller('scheduleInterviewController', {
-      $scope: $scope
-    });
 
-    $scope.interviewRounds = [{
+    var interviewTypes = [{
       id: 1,
       name: 'Code Pairing',
       priority: 1
@@ -29,10 +26,18 @@ describe('scheduleInterviewController', function () {
       name: 'Leadership',
       priority: 4
     }, {
-      id: 1,
+      id: 5,
       name: 'P3',
       priority: 4
     }];
+
+    spyOn(MasterData, 'getInterviewTypes').and.returnValue(interviewTypes);
+
+    $controller('scheduleInterviewController', {
+      $scope: $scope
+    });
+
+    $scope.interviewRounds = interviewTypes;
   }));
 
   describe('screen validations', function () {

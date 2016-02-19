@@ -5,12 +5,8 @@ describe('createCandidateProfileController', function () {
 
   var $scope = {};
 
-  beforeEach(inject(function ($controller) {
-    $controller('createCandidateProfileController', {
-      $scope: $scope
-    });
-
-    $scope.skills = [{
+  beforeEach(inject(function ($controller, MasterData) {
+    var skills = [{
       id: 1,
       name: 'Java'
     }, {
@@ -26,6 +22,32 @@ describe('createCandidateProfileController', function () {
       id: 5,
       name: 'Other'
     }];
+
+    var roles = [{
+      name: "Dev",
+      id: 1
+    }, {
+      name: "QA",
+      id: 2
+    }, {
+      name: "BA",
+      id: 3
+    }, {
+      name: "PM",
+      id: 4
+    }, {
+      name: "UI/UX",
+      id: 5
+    }];
+
+    spyOn(MasterData, 'getSkills').and.returnValue(skills);
+    spyOn(MasterData, 'getRoles').and.returnValue(roles);
+
+    $controller('createCandidateProfileController', {
+      $scope: $scope
+    });
+
+    $scope.skills = skills;
   }));
 
   describe('methods', function () {

@@ -5,8 +5,20 @@ describe('interviewDetailsController', function () {
 
   var $scope = {};
 
-  beforeEach(inject(function ($controller, loggedinUserStore) {
+  beforeEach(inject(function ($controller, loggedinUserStore, MasterData) {
+    var interviewStatuses = [{
+      name: "Pass",
+      id: 1
+    }, {
+      name: "Pursue",
+      id: 2
+    }, {
+      name: "Strong Pursue",
+      id: 3
+    }];
+    
     spyOn(loggedinUserStore, 'userId').and.returnValue('userId');
+    spyOn(MasterData, 'getInterviewStatuses').and.returnValue(interviewStatuses);
 
     $controller('interviewDetailsController', {
       $scope: $scope

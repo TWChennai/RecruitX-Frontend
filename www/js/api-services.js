@@ -52,7 +52,7 @@ angular.module('recruitX')
         interview.formattedPanelists = interview.panelistsArray.join(', ');
       }
       var interviewStatusId = interview.status_id;
-      interview.status = ($filter('filter')(MasterData.getInterviewStatus(), {
+      interview.status = ($filter('filter')(MasterData.getInterviewStatuses(), {
         id: interviewStatusId
       }))[0];
       fleshOutCandidate(interview.candidate);
@@ -207,54 +207,47 @@ angular.module('recruitX')
     };
   }])
 
-.factory('MasterData', [function () {
+.factory('MasterData', ['$http', '$q', 'endpoints', function ($http, $q, endpoints) {
   'use strict';
 
-  var interviewTypes;
-  var skills;
-  var roles;
-  var interviewStatus;
-  var pipelineStatuses;
+  var baseUrl = 'http://' + endpoints.apiUrl;
+  var data;
 
   return {
-    setInterviewTypes: function (i) {
-      interviewTypes = i;
+    getInterviewTypes: function() {
+      return data.interviewTypes;
     },
 
-    getInterviewTypes: function () {
-      return interviewTypes;
+    getRoles: function() {
+      return data.roles;
     },
 
-    setRoles: function (r) {
-      roles = r;
+    getSkills: function() {
+      return data.skills;
     },
 
-    getRoles: function () {
-      return roles;
+    getInterviewStatuses: function() {
+      return data.interviewStatuses;
     },
 
-    setSkills: function (s) {
-      skills = s;
+    getPipelineStatuses: function() {
+      return data.pipelineStatuses;
     },
 
-    getSkills: function () {
-      return skills;
-    },
-
-    setInterviewStatus: function (is) {
-      interviewStatus = is;
-    },
-
-    getInterviewStatus: function () {
-      return interviewStatus;
-    },
-
-    setPipelineStatuses: function (ps) {
-      pipelineStatuses = ps;
-    },
-
-    getPipelineStatuses: function () {
-      return pipelineStatuses;
+    load: function() {
+      return $q.all([$http.get(baseUrl + '/interview_types'), $http.get(baseUrl + '/roles'), $http.get(baseUrl + '/skills'), $http.get(baseUrl + '/interview_statuses'), $http.get(baseUrl + '/pipeline_statuses')])
+      .then(function(response) {
+        data = {
+          interviewTypes: response[0].data,
+          roles: response[1].data,
+          skills: response[2].data,
+          interviewStatuses: response[3].data,
+          pipelineStatuses: response[4].data
+        };
+        return data;
+      }, function(err) {
+        return $q.reject(err);
+      });
     }
   };
 }]);
