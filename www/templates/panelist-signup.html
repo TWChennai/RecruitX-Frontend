@@ -94,7 +94,7 @@
     <ion-tab title="Candidates" ng-if="isLoggedinUserRecruiter">
       <ion-nav-view>
         <ion-content>
-          <ion-refresher on-refresh="refreshCandidates()">
+          <ion-refresher on-refresh="refreshCandidates(1)">
           </ion-refresher>
           <ion-list class="candidatePanelList">
             <ion-item ng-repeat="candidate in all_candidates">
@@ -111,8 +111,13 @@
                     <h4>{{candidate.pipelineStatus}}</h4>
                   </div>
                 </div>
+              </div>
             </ion-item>
           </ion-list>
+          <ion-infinite-scroll
+          on-infinite="loadMoreCandidates()"
+          distance="1%">
+          </ion-infinite-scroll>
         </ion-content>
       </ion-nav-view>
     </ion-tab>

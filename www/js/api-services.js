@@ -145,12 +145,13 @@ angular.module('recruitX')
         });
       },
 
-      getAllCandidates: function (success) {
-        $http.get(baseUrl + '/candidates')
-          .success(function (response) {
-            fleshOutCandidates(response);
-            success(response);
-          })
+      getAllCandidates: function (data, success) {
+        $http.get(baseUrl + '/candidates', {
+          params: data
+        }).success(function (response) {
+          fleshOutCandidates(response.candidates);
+          success(response.candidates, response.total_pages);
+        })
           .error(function (err, status) {});
       },
 

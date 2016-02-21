@@ -5,6 +5,9 @@ angular.module('recruitX')
     $scope.items = [];
     $scope.loggedinUserName = loggedinUserStore.userFirstName();
     $scope.isLoggedinUserRecruiter = loggedinUserStore.isRecruiter();
+    $scope.all_candidates = [];
+    $scope.next_requesting_page = 1;
+    $scope.total_pages = 1;
 
     $scope.finishRefreshing = function () {
       ionicLoadingService.stopLoading();
@@ -42,12 +45,34 @@ angular.module('recruitX')
       });
     };
 
-    $scope.refreshCandidates = function () {
-      recruitFactory.getAllCandidates(function (candidates) {
-        $scope.all_candidates = candidates;
+    $scope.refreshCandidates = function (page_number) {
+      var data = {
+        'page': page_number
+      };
+      if (page_number === 1) {
+        $scope.next_requesting_page = 1;
+        $scope.all_candidates = [];
+      }
+      recruitFactory.getAllCandidates(data, function (candidates, total_pages) {
+        angular.forEach(candidates, function(candidate) {
+          $scope.all_candidates.push(candidate);
+        });
+        $scope.total_pages = total_pages;
+        $scope.next_requesting_page++;
         $scope.finishRefreshing();
       });
     };
+
+    $scope.loadMoreCandidates = function() {
+      if ($scope.next_requesting_page <= $scope.total_pages) {
+        $scope.refreshCandidates($scope.next_requesting_page);
+      }
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+    };
+
+    $scope.$on('$stateChangeSuccess', function() {
+      $scope.loadMoreCandidates();
+    });
 
     $scope.signingUp = function (item) {
       $scope.interview_panelist = {
