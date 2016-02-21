@@ -54,9 +54,7 @@ angular.module('recruitX')
         $scope.all_candidates = [];
       }
       recruitFactory.getAllCandidates(data, function (candidates, total_pages) {
-        angular.forEach(candidates, function(candidate) {
-          $scope.all_candidates.push(candidate);
-        });
+        $scope.all_candidates = $scope.all_candidates.concat(candidates)
         $scope.total_pages = total_pages;
         $scope.next_requesting_page++;
         $scope.finishRefreshing();
