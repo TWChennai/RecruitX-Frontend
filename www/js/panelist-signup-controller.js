@@ -1,5 +1,5 @@
 angular.module('recruitX')
-  .controller('panelistSignupController', ['$scope', 'recruitFactory', 'skillHelperService', 'ionicLoadingService', 'loggedinUserStore', 'dialogService', '$ionicHistory', '$state', function ($scope, recruitFactory, skillHelperService, ionicLoadingService, loggedinUserStore, dialogService, $ionicHistory, $state) {
+  .controller('panelistSignupController', ['$scope', 'recruitFactory', 'skillHelperService', 'loggedinUserStore', 'dialogService', '$ionicHistory', '$state', function ($scope, recruitFactory, skillHelperService, loggedinUserStore, dialogService, $ionicHistory, $state) {
     'use strict';
 
     $scope.items = [];
@@ -10,12 +10,10 @@ angular.module('recruitX')
     $scope.total_pages = 1;
 
     $scope.finishRefreshing = function () {
-      ionicLoadingService.stopLoading();
       $scope.$broadcast('scroll.refreshComplete');
     };
 
     $scope.manuallyRefreshInterviews = function () {
-      ionicLoadingService.showLoading();
       $scope.refreshInterviews();
       $scope.refreshMyInterviews();
       $scope.refreshCandidates();
@@ -54,7 +52,7 @@ angular.module('recruitX')
         $scope.all_candidates = [];
       }
       recruitFactory.getAllCandidates(data, function (candidates, total_pages) {
-        $scope.all_candidates = $scope.all_candidates.concat(candidates)
+        $scope.all_candidates = $scope.all_candidates.concat(candidates);
         $scope.total_pages = total_pages;
         $scope.next_requesting_page++;
         $scope.finishRefreshing();
@@ -79,7 +77,6 @@ angular.module('recruitX')
           'interview_id': item.id
         }
       };
-      ionicLoadingService.showLoading();
       recruitFactory.signUp($scope.interview_panelist, $scope.signUpSuccessHandler, $scope.signUpUnprocessableEntityHandler, $scope.defaultErrorHandler);
     };
 
@@ -117,9 +114,8 @@ angular.module('recruitX')
       return candidate !== undefined && candidate.pipelineStatus === 'In Progress';
     };
 
-    document.addEventListener('deviceready', function onDeviceReady() {
-      console.log('View loaded!');
+    $scope.$on('loaded:masterData', function () {
       $scope.manuallyRefreshInterviews();
-    }, false);
+    });
   }
 ]);

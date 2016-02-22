@@ -31,7 +31,7 @@ angular.module('recruitX')
   });
 })
 
-.run(function ($ionicPlatform, recruitFactory, MasterData) {
+.run(function ($ionicPlatform, $rootScope, recruitFactory, MasterData) {
   'use strict';
 
   $ionicPlatform.ready(function () {
@@ -52,6 +52,7 @@ angular.module('recruitX')
 
     MasterData.load().then(function () {
       navigator.splashscreen.hide();
+      $rootScope.$broadcast('loaded:masterData');
     }, function (err) {
       console.log('Failed dur to: ' + err.data);
       // TODO: Need to show this mesage as Toast
