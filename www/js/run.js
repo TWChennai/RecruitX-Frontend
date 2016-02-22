@@ -3,6 +3,7 @@ angular.module('recruitX')
     $httpProvider.interceptors.push(function ($rootScope, $q) {
       return {
         request: function (config) {
+          config.timeout = 30000;
           $rootScope.$broadcast('loading:show');
           return config;
         },
