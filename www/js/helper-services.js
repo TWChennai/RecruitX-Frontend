@@ -116,10 +116,11 @@ angular.module('recruitX')
   'use strict';
   return {
     showAlert: function (alertTitle, alertText) {
-      $ionicPopup.alert({
+      var alert = $ionicPopup.alert({
         title: alertTitle,
         template: alertText
       });
+      return alert;
     },
     showAlertWithDismissHandler: function (alertTitle, alertText, onAlertDismiss) {
       $ionicPopup.alert({
