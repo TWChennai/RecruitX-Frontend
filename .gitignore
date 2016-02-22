@@ -131,3 +131,6 @@ hs_err_pid*
 node_modules/
 
 .DS_Store
+
+# Project specific env variables
+.envrc
