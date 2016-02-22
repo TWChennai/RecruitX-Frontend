@@ -102,7 +102,7 @@ angular.module('recruitX')
     $scope.logout = function () {
       dialogService.askConfirmation('Logout', 'Are you sure you want to logout?', function () {
         loggedinUserStore.clearDb();
-        $state.go('login');
+        $ionicHistory.clearCache().then(function(){$state.go('login')});
         $ionicHistory.nextViewOptions({
           disableBack: true,
           disableAnimate: true

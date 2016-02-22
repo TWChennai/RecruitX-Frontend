@@ -14,9 +14,7 @@ angular.module('recruitX')
             disableBack: true
           });
 
-          $ionicHistory.clearCache().then(function () {
-            $state.go('panelist-signup');
-          });
+          $state.go('panelist-signup');
         });
       }
     });

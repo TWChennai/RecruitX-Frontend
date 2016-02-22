@@ -44,7 +44,7 @@ describe('loginController', function () {
       };
     }));
 
-    xit('should store a user and navigate to signup page when a user is authorised', function () {
+    it('should store a user and navigate to signup page when a user is authorised', function () {
       var recruiter = {
         is_recruiter: true
       };
