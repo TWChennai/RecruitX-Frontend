@@ -172,7 +172,7 @@ angular.module('recruitX')
 
     $scope.downloadPhoto = function (index) {
       var filename = $scope.feedbackImages[index].file_name;
-      var targetPath = cordova.file.externalRootDirectory + filename;
+      var targetPath = cordova.file.cacheDirectory + filename;
       $cordovaFileTransfer.download(fileServerURL + '/' + filename, targetPath, {}, true).then(function (result) {
         $scope.feedbackImages[index].URI = result.nativeURL;
         $scope.feedbackImages[index].isDownloaded = true;
