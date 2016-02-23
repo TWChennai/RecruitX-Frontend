@@ -101,15 +101,21 @@ angular.module('recruitX')
 
     $scope.postCandidate = function() {
       $stateParams.candidate.interview_rounds = [];
+      var interviewRounds = [];
       for (var interviewRoundIndex in $scope.interviewRounds) {
         if ($scope.interviewRounds[interviewRoundIndex].dateTime !== undefined) {
           var dateTime = $scope.interviewRounds[interviewRoundIndex].dateTime;
-          $stateParams.candidate.interview_rounds[interviewRoundIndex] = ({
+          interviewRounds[interviewRoundIndex] = ({
             'interview_type_id': $scope.interviewRounds[interviewRoundIndex].id,
             'start_time': dateTime
           });
         }
       }
+
+      // Eliminate null, undefined, false from the array
+      $stateParams.candidate.interview_rounds = interviewRounds.filter(function(interviewRound) {
+        return Boolean(interviewRound);
+      });
 
       var redirectToHomePage = function() {
         $timeout(function() {
