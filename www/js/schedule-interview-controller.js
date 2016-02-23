@@ -11,6 +11,14 @@ angular.module('recruitX')
     var MIN_PRIORITY = Math.min.apply(Math, interviewRoundsAsMap);
     var MAX_PRIORITY = Math.max.apply(Math, interviewRoundsAsMap);
 
+    var currentInterviewScheduledAfterNextInterview = function(scheduleDateTime, nextInterviewTime) {
+      return (scheduleDateTime > nextInterviewTime.setHours(nextInterviewTime.getHours() - 1));
+    };
+
+    var currentInterviewScheduledBeforePreviousInterview = function(scheduleDateTime, previousInterviewTime) {
+      return (previousInterviewTime === undefined || scheduleDateTime < previousInterviewTime.setHours(previousInterviewTime.getHours() + 1));
+    };
+
     $scope.dateTime = function(index) {
       var options = {
         date: new Date(),
@@ -53,7 +61,7 @@ angular.module('recruitX')
       var previousInterviewTime = {};
       if (currentPriority > MIN_PRIORITY) {
         previousInterviewTime = previousInterviewRound.dateTime === undefined ? undefined : new Date(previousInterviewRound.dateTime);
-        if (previousInterviewTime === undefined || currentInterviewScheduledBeforePreviousInterview(scheduleDateTime, previousInterviewTime)) {
+        if (currentInterviewScheduledBeforePreviousInterview(scheduleDateTime, previousInterviewTime)) {
           error.message = 'Please schedule this round atleast 1hr after  ' + previousInterviewRound.name;
         }
       }
@@ -136,13 +144,5 @@ angular.module('recruitX')
         // console.log(errors);
         dialogService.showAlertWithDismissHandler('Failed', errors[0].reason);
       });
-    };
-
-    var currentInterviewScheduledAfterNextInterview = function(scheduleDateTime, nextInterviewTime) {
-      return (scheduleDateTime > nextInterviewTime.setHours(nextInterviewTime.getHours() - 1));
-    };
-
-    var currentInterviewScheduledBeforePreviousInterview = function(scheduleDateTime, previousInterviewTime) {
-      return (scheduleDateTime < previousInterviewTime.setHours(previousInterviewTime.getHours() + 1));
     };
   }]);
