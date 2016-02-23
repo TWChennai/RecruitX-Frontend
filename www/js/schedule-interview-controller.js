@@ -28,10 +28,9 @@ angular.module('recruitX')
         var nextInterviewRound = nextHigherPriorityInterviewRounds[0];
 
         if ($scope.checkWithPreviousRound(dateTime, currentInterviewRound, previousInterviewRound)) {
-          if($scope.checkWithNextRound(dateTime, currentInterviewRound, nextInterviewRound)) {
+          if ($scope.checkWithNextRound(dateTime, currentInterviewRound, nextInterviewRound)) {
             $scope.interviewRounds[index].dateTime = dateTime;
-          }
-          else {
+          } else {
             dialogService.showAlert('Invalid Selection', 'Please schedule this round atleast 1hr before  ' + nextInterviewRound.name);
           }
         } else {
@@ -40,7 +39,7 @@ angular.module('recruitX')
       });
     };
 
-    $scope.checkWithPreviousRound = function(scheduleDateTime, currentInterviewRound, previousInterviewRound) {
+    $scope.checkWithPreviousRound = function (scheduleDateTime, currentInterviewRound, previousInterviewRound) {
       var currentPriority = currentInterviewRound.priority;
       var previousInterviewTime = {};
       if (currentPriority > 1) {
@@ -50,9 +49,10 @@ angular.module('recruitX')
       return true;
     };
 
-    $scope.checkWithNextRound = function(scheduleDateTime, currentInterviewRound, nextInterviewRound) {
+    $scope.checkWithNextRound = function (scheduleDateTime, currentInterviewRound, nextInterviewRound) {
       var currentPriority = currentInterviewRound.priority;
       var nextInterviewTime = {};
+      // TODO: @arun - what is the meaning being conveyed here to a new programmer?
       if (currentPriority < 4) {
         nextInterviewTime = nextInterviewRound.dateTime === undefined ? undefined : new Date(nextInterviewRound.dateTime);
         return !(nextInterviewTime !== undefined && scheduleDateTime >= nextInterviewTime.setHours(nextInterviewTime.getHours() - 1));
@@ -85,7 +85,7 @@ angular.module('recruitX')
 
       var redirectToHomePage = function () {
         $timeout(function () {
-          for(var interviewIndex in $scope.interviewRounds){
+          for (var interviewIndex in $scope.interviewRounds) {
             $scope.interviewRounds[interviewIndex].dateTime = undefined;
           }
           $rootScope.$broadcast('clearFormData');
@@ -97,7 +97,7 @@ angular.module('recruitX')
       recruitFactory.saveCandidate($stateParams, function (response) {
         // console.log(response);
         dialogService.showAlertWithDismissHandler('Success', 'Candidate Interview successfully added!!', redirectToHomePage);
-      }, function(response) {
+      }, function (response) {
         var errors = response.data.errors;
         // console.log(errors);
         dialogService.showAlertWithDismissHandler('Failed', errors[0].reason);
