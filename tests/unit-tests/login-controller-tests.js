@@ -24,7 +24,13 @@ describe('loginController', function () {
         renderEl: function () {}
       };
       history = {
-        nextViewOptions: function () {}
+        nextViewOptions: function () {},
+        clearCache: function(){
+        var sample;
+        return sample = {
+                then: function(){}
+            }
+        }
       };
       mockRecruitFactory = {
         isRecruiter: function () {}
@@ -71,7 +77,6 @@ describe('loginController', function () {
 
       expect(oktaWidget.renderEl).toHaveBeenCalled();
       expect(userStore.storeUser).toHaveBeenCalledWith(validUser, recruiter.is_recruiter);
-      expect(state.go).toHaveBeenCalledWith('panelist-signup');
       expect(history.nextViewOptions).toHaveBeenCalledWith({
         disableBack: recruiter.is_recruiter
       });

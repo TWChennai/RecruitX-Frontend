@@ -15,8 +15,12 @@ angular.module('recruitX')
 
     $scope.manuallyRefreshInterviews = function () {
       $scope.refreshInterviews();
+      if(!loggedinUserStore.isRecruiter()){
       $scope.refreshMyInterviews();
+      }
+      else{
       $scope.refreshCandidates();
+      }
     };
 
     $scope.refreshInterviews = function () {
@@ -101,12 +105,13 @@ angular.module('recruitX')
 
     $scope.logout = function () {
       dialogService.askConfirmation('Logout', 'Are you sure you want to logout?', function () {
-        loggedinUserStore.clearDb();
-        $ionicHistory.clearCache().then(function(){$state.go('login');});
-        $ionicHistory.nextViewOptions({
-          disableBack: true,
-          disableAnimate: true
-        });
+          loggedinUserStore.clearDb();
+          $ionicHistory.nextViewOptions({
+                   disableBack: true,
+                   disableAnimate: true
+                 });
+
+          $state.go('login');
       });
     };
 
