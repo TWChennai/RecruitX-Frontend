@@ -6,18 +6,17 @@ angular.module('recruitX')
       var all_skills = [];
       var skills = MasterData.getSkills();
 
-      // TODO: Please use a consistent for construct
-      angular.forEach(candidate_skills, function (skill) {
+      for(var candidateSkillIndex in candidate_skills){
         // TODO: Hard-coding a magic number doesn't convey the meaning. Move this to app.js where the skills are loaded for the first time.
         var other_skill_id = 5;
-        if (skill.id !== other_skill_id) {
-          var role = ($filter('filter')(skills, {
-            id: skill.id
+        var candidateSkill = candidate_skills[candidateSkillIndex];
+        if (candidateSkill.id !== other_skill_id) {
+          var role = ($filter('filter')(candidateSkill, {
+            id: candidateSkill.id
           }))[0];
           all_skills.push(role.name);
         }
-      });
-
+      }
 
       if (other_skills !== undefined && other_skills !== null && other_skills.trim().length > 0) {
         all_skills.push(other_skills);

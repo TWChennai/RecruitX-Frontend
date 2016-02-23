@@ -90,11 +90,11 @@ angular.module('recruitX')
     $scope.isValidPanelist = function () {
       var panelists = $scope.interview.panelistsArray;
       var isPanelist = false;
-      angular.forEach(panelists, function (panelist) {
-        if (panelist === loggedinUserStore.userId()) {
+      for(var panelistIndex in panelists){
+        if (panelists[panelistIndex] === loggedinUserStore.userId()) {
           isPanelist = true;
         }
-      });
+      }
       return isPanelist;
     };
 

@@ -76,9 +76,9 @@ angular.module('recruitX')
       $scope.candidate = {
         role_id: $scope.roles[0].id
       };
-      angular.forEach($scope.skills, function (skill) {
-        skill.checked = false;
-      });
+      for(var skillIndex in $scope.skills){
+        $scope.skills[skillIndex].checked = false;
+      }
       $scope.firstName = undefined;
       $scope.lastName = undefined;
     });

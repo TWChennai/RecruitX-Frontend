@@ -33,10 +33,9 @@ angular.module('recruitX')
     };
 
     var fleshOutCandidates = function (candidates) {
-      // TODO: Please use a consistent for construct
-      angular.forEach(candidates, function (candidate) {
-        fleshOutCandidate(candidate);
-      });
+      for(var candidateIndex in candidates){
+        fleshOutCandidate(candidates[candidateIndex]);
+      }
     };
 
     var fleshOutInterview = function (interview) {
@@ -46,9 +45,9 @@ angular.module('recruitX')
       if (interview.panelists !== undefined) {
         // TODO: This seems like a temp placeholder - so why store in the interview?
         interview.panelistsArray = [];
-        angular.forEach(interview.panelists, function (interview_panelist) {
-          interview.panelistsArray.push(interview_panelist.name);
-        });
+        for(var interviewPanelistIndex in interview.panelists){
+          interview.panelistsArray.push(interview.panelists[interviewPanelistIndex].name);
+        }
         interview.formattedPanelists = interview.panelistsArray.join(', ');
       }
       var interviewStatusId = interview.status_id;
@@ -60,9 +59,9 @@ angular.module('recruitX')
 
     var fleshOutInterviews = function (interviews) {
       // TODO: Please use a consistent for construct
-      angular.forEach(interviews, function (interview) {
-        fleshOutInterview(interview);
-      });
+      for(var interviewIndex in interviews){
+        fleshOutInterview(interviews[interviewIndex]);
+      }
     };
 
     return {

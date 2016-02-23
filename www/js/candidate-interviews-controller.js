@@ -43,11 +43,11 @@ angular.module('recruitX')
           interviewStartTime = scheduledInterview[0].start_time;
           interviewID = scheduledInterview[0].id;
           status = scheduledInterview[0].status;
-          angular.forEach(scheduledInterview[0].panelists, function (interview_panelist) {
-            if ($scope.loggedinUser === interview_panelist.name) {
+          for(var interviewPanelistIndex in scheduledInterview[0].panelists){
+            if ($scope.loggedinUser === scheduledInterview[0].panelists[interviewPanelistIndex].name) {
               $scope.isPanelistForAnyInterviewRound = true;
             }
-          });
+          }
         }
         $scope.interviewSet.push({
           id: interviewID,

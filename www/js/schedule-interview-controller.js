@@ -68,9 +68,9 @@ angular.module('recruitX')
 
       var redirectToHomePage = function () {
         $timeout(function () {
-          angular.forEach($scope.interviewRounds, function (interview) {
-            interview.dateTime = undefined;
-          });
+          for(var interviewIndex in $scope.interviewRounds){
+            $scope.interviewRounds[interviewIndex].dateTime = undefined;
+          }
           $rootScope.$broadcast('clearFormData');
         });
         $state.go('panelist-signup');
