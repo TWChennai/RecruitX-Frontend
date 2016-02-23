@@ -11,7 +11,7 @@ angular.module('recruitX')
         var other_skill_id = 5;
         var candidateSkill = candidate_skills[candidateSkillIndex];
         if (candidateSkill.id !== other_skill_id) {
-          var role = ($filter('filter')(candidateSkill, {
+          var role = ($filter('filter')(skills, {
             id: candidateSkill.id
           }))[0];
           all_skills.push(role.name);
