@@ -72,6 +72,7 @@ angular.module('recruitX')
             $scope.interviewRounds[interviewIndex].dateTime = undefined;
           }
           $rootScope.$broadcast('clearFormData');
+          $rootScope.$broadcast('loaded:masterData');
         });
         $state.go('panelist-signup');
       };
