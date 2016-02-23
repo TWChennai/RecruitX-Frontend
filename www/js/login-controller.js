@@ -15,7 +15,7 @@ angular.module('recruitX')
           });
 
           $ionicHistory.clearCache().then(function(){
-             $state.go('panelist-signup');
+            $state.go('panelist-signup');
           });
         });
       }
