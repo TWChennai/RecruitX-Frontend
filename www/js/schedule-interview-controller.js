@@ -5,6 +5,12 @@ angular.module('recruitX')
     // TODO: Inline later - currently not working - need to figure out why so.
     $scope.interviewRounds = MasterData.getInterviewTypes();
 
+    var interviewRoundsAsMap = $scope.interviewRounds.map(function(interviewRound) {
+      return interviewRound.priority;
+    });
+    var MIN_PRIORITY = Math.min.apply(Math, interviewRoundsAsMap);
+    var MAX_PRIORITY = Math.max.apply(Math, interviewRoundsAsMap);
+
     $scope.dateTime = function (index) {
       var options = {
         date: new Date(),
@@ -46,9 +52,9 @@ angular.module('recruitX')
       var error = {};
       var currentPriority = currentInterviewRound.priority;
       var previousInterviewTime = {};
-      if (currentPriority > 1) {
+      if (currentPriority > MIN_PRIORITY) {
         previousInterviewTime = previousInterviewRound.dateTime === undefined ? undefined : new Date(previousInterviewRound.dateTime);
-        if(previousInterviewTime === undefined || scheduleDateTime < previousInterviewTime.setHours(previousInterviewTime.getHours() + 1)) {
+        if(previousInterviewTime === undefined || currentInterviewScheduledBeforePreviousInterview(scheduleDateTime, previousInterviewTime)) {
           error.message = 'Please schedule this round atleast 1hr after  ' + previousInterviewRound.name;
         }
       }
@@ -63,10 +69,9 @@ angular.module('recruitX')
       var nextInterviewRound = $scope.getInterviewWithMinStartTime(nextInterviewRounds);
       var currentPriority = currentInterviewRound.priority;
       var nextInterviewTime = {};
-      // TODO: @arun - what is the meaning being conveyed here to a new programmer?
-      if (currentPriority < 4) {
+      if (currentPriority < MAX_PRIORITY) {
         nextInterviewTime = new Date(nextInterviewRound.dateTime);
-        if(scheduleDateTime > nextInterviewTime.setHours(nextInterviewTime.getHours() - 1)) {
+        if(currentInterviewScheduledAfterNextInterview(scheduleDateTime, nextInterviewTime)) {
           error.message = 'Please schedule this round atleast 1hr before  ' + nextInterviewRound.name;
         }
       }
@@ -126,6 +131,14 @@ angular.module('recruitX')
         // console.log(errors);
         dialogService.showAlertWithDismissHandler('Failed', errors[0].reason);
       });
+    };
+
+    var currentInterviewScheduledAfterNextInterview = function(scheduleDateTime, nextInterviewTime) {
+      return (scheduleDateTime > nextInterviewTime.setHours(nextInterviewTime.getHours() - 1));
+    };
+
+    var currentInterviewScheduledBeforePreviousInterview = function(scheduleDateTime, previousInterviewTime) {
+      return (scheduleDateTime < previousInterviewTime.setHours(previousInterviewTime.getHours() + 1));
     };
   }
 ]);
