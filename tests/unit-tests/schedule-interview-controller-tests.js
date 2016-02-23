@@ -1,11 +1,11 @@
-describe('scheduleInterviewController', function () {
+describe('scheduleInterviewController', function() {
   'use strict';
 
   beforeEach(module('recruitX'));
 
   var $scope = {};
 
-  beforeEach(inject(function ($controller, $stateParams, MasterData) {
+  beforeEach(inject(function($controller, $stateParams, MasterData) {
     $stateParams.candidate = {};
     $stateParams.candidate.interview_schedule = [];
 
@@ -40,21 +40,21 @@ describe('scheduleInterviewController', function () {
     $scope.interviewRounds = interviewTypes;
   }));
 
-  describe('screen validations', function () {
-    describe('isFormValid', function () {
-      it('should return false when atleast one interview has been scheduled', function () {
+  describe('screen validations', function() {
+    describe('isFormValid', function() {
+      it('should return false when atleast one interview has been scheduled', function() {
         $scope.interviewRounds[0].dateTime = new Date();
         expect($scope.isFormInvalid()).toEqual(false);
       });
 
-      it('should return true when none of the interviews have been scheduled', function () {
+      it('should return true when none of the interviews have been scheduled', function() {
         // $scope.interviewRounds[1].dateTime = new Date();
         expect($scope.isFormInvalid()).toEqual(true);
       });
     });
 
-    describe('checkWithPreviousRound', function () {
-      it('should not return error when date selected is greater than previous priority interview schedule', function () {
+    describe('checkWithPreviousRound', function() {
+      it('should not return error when date selected is greater than previous priority interview schedule', function() {
         var previousInterviewRound = $scope.interviewRounds[0];
         previousInterviewRound.dateTime = new Date();
         var currentInterviewRound = $scope.interviewRounds[1];
@@ -66,7 +66,7 @@ describe('scheduleInterviewController', function () {
         expect($scope.checkWithPreviousRound(scheduleDateTime, currentInterviewRound, previousInterviewRound)).toEqual({});
       });
 
-      it('should return error when date selected is less than previous priority interview schedule', function () {
+      it('should return error when date selected is less than previous priority interview schedule', function() {
         var previousInterviewRound = $scope.interviewRounds[1];
         previousInterviewRound.dateTime = new Date();
         var currentInterviewRound = $scope.interviewRounds[2];
@@ -75,23 +75,27 @@ describe('scheduleInterviewController', function () {
 
         scheduleDateTime.setMinutes(scheduleDateTime.getMinutes() + minutes);
 
-        expect($scope.checkWithPreviousRound(scheduleDateTime, currentInterviewRound, previousInterviewRound)).toEqual({message: 'Please schedule this round atleast 1hr after  ' + previousInterviewRound.name});
+        expect($scope.checkWithPreviousRound(scheduleDateTime, currentInterviewRound, previousInterviewRound)).toEqual({
+          message: 'Please schedule this round atleast 1hr after  ' + previousInterviewRound.name
+        });
       });
 
-      it('should return error when date is selected for a round before the previous round is scheduled', function () {
+      it('should return error when date is selected for a round before the previous round is scheduled', function() {
         var previousInterviewRound = $scope.interviewRounds[1];
         var currentInterviewRound = $scope.interviewRounds[2];
 
-        expect($scope.checkWithPreviousRound(1453445460000, currentInterviewRound, previousInterviewRound)).toEqual({message: 'Please schedule this round atleast 1hr after  ' + previousInterviewRound.name});
+        expect($scope.checkWithPreviousRound(1453445460000, currentInterviewRound, previousInterviewRound)).toEqual({
+          message: 'Please schedule this round atleast 1hr after  ' + previousInterviewRound.name
+        });
       });
 
-      it('should not return error while scheduling interview with least priority', function () {
+      it('should not return error while scheduling interview with least priority', function() {
         var currentInterviewRound = $scope.interviewRounds[0];
 
         expect($scope.checkWithPreviousRound(1453445460000, currentInterviewRound, undefined)).toEqual({});
       });
 
-      it('should not return error if the current round is exactly one hour after previous round', function () {
+      it('should not return error if the current round is exactly one hour after previous round', function() {
         var previousInterviewRound = $scope.interviewRounds[1];
         var date = new Date();
         previousInterviewRound.dateTime = date;
@@ -104,8 +108,8 @@ describe('scheduleInterviewController', function () {
       });
     });
 
-    describe('getInterviewWithMinStartTime', function () {
-      it('should return interview with least start time', function () {
+    describe('getInterviewWithMinStartTime', function() {
+      it('should return interview with least start time', function() {
         var interview1 = $scope.interviewRounds[0];
         interview1.dateTime = new Date();
         var interview2 = $scope.interviewRounds[1];
@@ -122,8 +126,8 @@ describe('scheduleInterviewController', function () {
       });
     });
 
-    describe('checkWithNextRound', function () {
-      it('should not return error when there are no interviews next', function () {
+    describe('checkWithNextRound', function() {
+      it('should not return error when there are no interviews next', function() {
         var nextInterviewRounds = [];
         var currentInterviewRound = $scope.interviewRounds[1];
         var scheduleDateTime = new Date();
@@ -131,7 +135,7 @@ describe('scheduleInterviewController', function () {
         expect($scope.checkWithNextRound(scheduleDateTime, currentInterviewRound, nextInterviewRounds)).toEqual({});
       });
 
-      it('should not return error when date selected is less than next priority interview schedule', function () {
+      it('should not return error when date selected is less than next priority interview schedule', function() {
         var nextInterviewRound = $scope.interviewRounds[2];
         nextInterviewRound.dateTime = new Date();
         var nextInterviewRounds = [nextInterviewRound];
@@ -144,7 +148,7 @@ describe('scheduleInterviewController', function () {
         expect($scope.checkWithNextRound(scheduleDateTime, currentInterviewRound, nextInterviewRounds)).toEqual({});
       });
 
-      it('should return error when date selected is greater than than next priority interview schedule', function () {
+      it('should return error when date selected is greater than than next priority interview schedule', function() {
         var nextInterviewRound = $scope.interviewRounds[2];
         nextInterviewRound.dateTime = new Date();
         var nextInterviewRounds = [nextInterviewRound];
@@ -154,10 +158,12 @@ describe('scheduleInterviewController', function () {
 
         scheduleDateTime.setMinutes(scheduleDateTime.getMinutes() - minutes);
 
-        expect($scope.checkWithNextRound(scheduleDateTime, currentInterviewRound, nextInterviewRounds)).toEqual({message: 'Please schedule this round atleast 1hr before  ' + nextInterviewRound.name});
+        expect($scope.checkWithNextRound(scheduleDateTime, currentInterviewRound, nextInterviewRounds)).toEqual({
+          message: 'Please schedule this round atleast 1hr before  ' + nextInterviewRound.name
+        });
       });
 
-      it('should not return error when next interview is not scheduled', function () {
+      it('should not return error when next interview is not scheduled', function() {
         var nextInterviewRound = $scope.interviewRounds[2];
         var nextInterviewRounds = [nextInterviewRound];
         var currentInterviewRound = $scope.interviewRounds[1];
@@ -166,7 +172,7 @@ describe('scheduleInterviewController', function () {
         expect($scope.checkWithNextRound(scheduleDateTime, currentInterviewRound, nextInterviewRounds)).toEqual({});
       });
 
-      it('should not return error when scheduling the highest priority interview', function () {
+      it('should not return error when scheduling the highest priority interview', function() {
         var nextInterviewRound = $scope.interviewRounds[4];
         var nextInterviewRounds = [nextInterviewRound];
         var currentInterviewRound = $scope.interviewRounds[3];
@@ -175,7 +181,7 @@ describe('scheduleInterviewController', function () {
         expect($scope.checkWithNextRound(scheduleDateTime, currentInterviewRound, nextInterviewRounds)).toEqual({});
       });
 
-      it('should use the next interview with lowest start time for comparison if next n interviews are of same priority', function () {
+      it('should use the next interview with lowest start time for comparison if next n interviews are of same priority', function() {
         var nextInterviewRound1 = $scope.interviewRounds[3];
         nextInterviewRound1.dateTime = new Date();
         var nextInterviewRound2 = $scope.interviewRounds[4];
@@ -186,10 +192,12 @@ describe('scheduleInterviewController', function () {
         var currentInterviewRound = $scope.interviewRounds[2];
         var scheduleDateTime = new Date();
 
-        expect($scope.checkWithNextRound(scheduleDateTime, currentInterviewRound, nextInterviewRounds)).toEqual({message: 'Please schedule this round atleast 1hr before  ' + nextInterviewRound2.name});
+        expect($scope.checkWithNextRound(scheduleDateTime, currentInterviewRound, nextInterviewRounds)).toEqual({
+          message: 'Please schedule this round atleast 1hr before  ' + nextInterviewRound2.name
+        });
       });
 
-      it('should not return error if the current round is exactly one hour before next round', function () {
+      it('should not return error if the current round is exactly one hour before next round', function() {
         var nextInterviewRound = $scope.interviewRounds[2];
         var date = new Date();
         nextInterviewRound.dateTime = date;

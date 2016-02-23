@@ -1,5 +1,5 @@
 angular.module('recruitX')
-  .controller('scheduleInterviewController', ['$timeout', '$rootScope', '$state', 'MasterData', '$scope', '$stateParams', '$cordovaDatePicker', 'recruitFactory', '$filter', 'dialogService', function ($timeout, $rootScope, $state, MasterData, $scope, $stateParams, $cordovaDatePicker, recruitFactory, $filter, dialogService) {
+  .controller('scheduleInterviewController', ['$timeout', '$rootScope', '$state', 'MasterData', '$scope', '$stateParams', '$cordovaDatePicker', 'recruitFactory', '$filter', 'dialogService', function($timeout, $rootScope, $state, MasterData, $scope, $stateParams, $cordovaDatePicker, recruitFactory, $filter, dialogService) {
     'use strict';
 
     // TODO: Inline later - currently not working - need to figure out why so.
@@ -11,7 +11,7 @@ angular.module('recruitX')
     var MIN_PRIORITY = Math.min.apply(Math, interviewRoundsAsMap);
     var MAX_PRIORITY = Math.max.apply(Math, interviewRoundsAsMap);
 
-    $scope.dateTime = function (index) {
+    $scope.dateTime = function(index) {
       var options = {
         date: new Date(),
         mode: 'datetime',
@@ -19,7 +19,7 @@ angular.module('recruitX')
         minDate: (new Date()).valueOf()
       };
 
-      $cordovaDatePicker.show(options).then(function (dateTime) {
+      $cordovaDatePicker.show(options).then(function(dateTime) {
         var currentInterviewRound = $scope.interviewRounds[index];
         var currentPriority = currentInterviewRound.priority;
 
@@ -36,10 +36,9 @@ angular.module('recruitX')
         var result1 = $scope.checkWithPreviousRound(dateTime, currentInterviewRound, previousInterviewRound);
         var result2 = $scope.checkWithNextRound(dateTime, currentInterviewRound, nextInterviewRounds);
         if (angular.equals({}, result1)) {
-          if(angular.equals({}, result2)) {
+          if (angular.equals({}, result2)) {
             $scope.interviewRounds[index].dateTime = dateTime;
-          }
-          else {
+          } else {
             dialogService.showAlert('Invalid Selection', result2.message);
           }
         } else {
@@ -54,7 +53,7 @@ angular.module('recruitX')
       var previousInterviewTime = {};
       if (currentPriority > MIN_PRIORITY) {
         previousInterviewTime = previousInterviewRound.dateTime === undefined ? undefined : new Date(previousInterviewRound.dateTime);
-        if(previousInterviewTime === undefined || currentInterviewScheduledBeforePreviousInterview(scheduleDateTime, previousInterviewTime)) {
+        if (previousInterviewTime === undefined || currentInterviewScheduledBeforePreviousInterview(scheduleDateTime, previousInterviewTime)) {
           error.message = 'Please schedule this round atleast 1hr after  ' + previousInterviewRound.name;
         }
       }
@@ -63,7 +62,7 @@ angular.module('recruitX')
 
     $scope.checkWithNextRound = function(scheduleDateTime, currentInterviewRound, nextInterviewRounds) {
       var error = {};
-      if(nextInterviewRounds.length === 0) {
+      if (nextInterviewRounds.length === 0) {
         return error;
       }
       var nextInterviewRound = $scope.getInterviewWithMinStartTime(nextInterviewRounds);
@@ -71,7 +70,7 @@ angular.module('recruitX')
       var nextInterviewTime = {};
       if (currentPriority < MAX_PRIORITY) {
         nextInterviewTime = new Date(nextInterviewRound.dateTime);
-        if(currentInterviewScheduledAfterNextInterview(scheduleDateTime, nextInterviewTime)) {
+        if (currentInterviewScheduledAfterNextInterview(scheduleDateTime, nextInterviewTime)) {
           error.message = 'Please schedule this round atleast 1hr before  ' + nextInterviewRound.name;
         }
       }
@@ -82,14 +81,14 @@ angular.module('recruitX')
       var minInterview = interviews[0];
       for (var i = 0; i < interviews.length; i++) {
         var minDate = minInterview.dateTime;
-        if(interviews[i].dateTime < minDate) {
+        if (interviews[i].dateTime < minDate) {
           minInterview = interviews[i];
         }
       }
       return minInterview;
     };
 
-    $scope.isFormInvalid = function () {
+    $scope.isFormInvalid = function() {
       // TODO: Use some built-in functionality from angular for this
       for (var interviewRoundIndex in $scope.interviewRounds) {
         if ($scope.interviewRounds[interviewRoundIndex].dateTime !== undefined) {
@@ -100,7 +99,7 @@ angular.module('recruitX')
       return true;
     };
 
-    $scope.postCandidate = function () {
+    $scope.postCandidate = function() {
       $stateParams.candidate.interview_rounds = [];
       for (var interviewRoundIndex in $scope.interviewRounds) {
         if ($scope.interviewRounds[interviewRoundIndex].dateTime !== undefined) {
@@ -112,8 +111,8 @@ angular.module('recruitX')
         }
       }
 
-      var redirectToHomePage = function () {
-        $timeout(function () {
+      var redirectToHomePage = function() {
+        $timeout(function() {
           for (var interviewIndex in $scope.interviewRounds) {
             $scope.interviewRounds[interviewIndex].dateTime = undefined;
           }
@@ -123,10 +122,10 @@ angular.module('recruitX')
         $state.go('panelist-signup');
       };
 
-      recruitFactory.saveCandidate($stateParams, function (response) {
+      recruitFactory.saveCandidate($stateParams, function(response) {
         // console.log(response);
         dialogService.showAlertWithDismissHandler('Success', 'Candidate Interview successfully added!!', redirectToHomePage);
-      }, function (response) {
+      }, function(response) {
         var errors = response.data.errors;
         // console.log(errors);
         dialogService.showAlertWithDismissHandler('Failed', errors[0].reason);
@@ -140,5 +139,4 @@ angular.module('recruitX')
     var currentInterviewScheduledBeforePreviousInterview = function(scheduleDateTime, previousInterviewTime) {
       return (scheduleDateTime < previousInterviewTime.setHours(previousInterviewTime.getHours() + 1));
     };
-  }
-]);
+  }]);
