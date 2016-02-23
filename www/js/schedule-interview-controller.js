@@ -22,42 +22,66 @@ angular.module('recruitX')
         }));
         var previousInterviewRound = nextLowerPriorityInterviewRounds[0];
 
-        var nextHigherPriorityInterviewRounds = ($filter('filter')($scope.interviewRounds, {
-          priority: currentPriority + 1
+        var nextInterviewRounds = ($filter('filter')($scope.interviewRounds, {
+          priority: currentPriority + 1,
+          dateTime: '!!'
         }));
-        var nextInterviewRound = nextHigherPriorityInterviewRounds[0];
 
-        if ($scope.checkWithPreviousRound(dateTime, currentInterviewRound, previousInterviewRound)) {
-          if ($scope.checkWithNextRound(dateTime, currentInterviewRound, nextInterviewRound)) {
+        var result1 = $scope.checkWithPreviousRound(dateTime, currentInterviewRound, previousInterviewRound);
+        var result2 = $scope.checkWithNextRound(dateTime, currentInterviewRound, nextInterviewRounds);
+        if (angular.equals({}, result1)) {
+          if(angular.equals({}, result2)) {
             $scope.interviewRounds[index].dateTime = dateTime;
-          } else {
-            dialogService.showAlert('Invalid Selection', 'Please schedule this round atleast 1hr before  ' + nextInterviewRound.name);
+          }
+          else {
+            dialogService.showAlert('Invalid Selection', result2.message);
           }
         } else {
-          dialogService.showAlert('Invalid Selection', 'Please schedule this round atleast 1hr after  ' + previousInterviewRound.name);
+          dialogService.showAlert('Invalid Selection', result1.message);
         }
       });
     };
 
-    $scope.checkWithPreviousRound = function (scheduleDateTime, currentInterviewRound, previousInterviewRound) {
+    $scope.checkWithPreviousRound = function(scheduleDateTime, currentInterviewRound, previousInterviewRound) {
+      var error = {};
       var currentPriority = currentInterviewRound.priority;
       var previousInterviewTime = {};
       if (currentPriority > 1) {
         previousInterviewTime = previousInterviewRound.dateTime === undefined ? undefined : new Date(previousInterviewRound.dateTime);
-        return !(previousInterviewTime === undefined || scheduleDateTime <= previousInterviewTime.setHours(previousInterviewTime.getHours() + 1));
+        if(previousInterviewTime === undefined || scheduleDateTime < previousInterviewTime.setHours(previousInterviewTime.getHours() + 1)) {
+          error.message = 'Please schedule this round atleast 1hr after  ' + previousInterviewRound.name;
+        }
       }
-      return true;
+      return error;
     };
 
-    $scope.checkWithNextRound = function (scheduleDateTime, currentInterviewRound, nextInterviewRound) {
+    $scope.checkWithNextRound = function(scheduleDateTime, currentInterviewRound, nextInterviewRounds) {
+      var error = {};
+      if(nextInterviewRounds.length === 0) {
+        return error;
+      }
+      var nextInterviewRound = $scope.getInterviewWithMinStartTime(nextInterviewRounds);
       var currentPriority = currentInterviewRound.priority;
       var nextInterviewTime = {};
       // TODO: @arun - what is the meaning being conveyed here to a new programmer?
       if (currentPriority < 4) {
-        nextInterviewTime = nextInterviewRound.dateTime === undefined ? undefined : new Date(nextInterviewRound.dateTime);
-        return !(nextInterviewTime !== undefined && scheduleDateTime >= nextInterviewTime.setHours(nextInterviewTime.getHours() - 1));
+        nextInterviewTime = new Date(nextInterviewRound.dateTime);
+        if(scheduleDateTime > nextInterviewTime.setHours(nextInterviewTime.getHours() - 1)) {
+          error.message = 'Please schedule this round atleast 1hr before  ' + nextInterviewRound.name;
+        }
       }
-      return true;
+      return error;
+    };
+
+    $scope.getInterviewWithMinStartTime = function(interviews) {
+      var minInterview = interviews[0];
+      for (var i = 0; i < interviews.length; i++) {
+        var minDate = minInterview.dateTime;
+        if(interviews[i].dateTime < minDate) {
+          minInterview = interviews[i];
+        }
+      }
+      return minInterview;
     };
 
     $scope.isFormInvalid = function () {
