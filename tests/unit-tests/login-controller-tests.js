@@ -28,8 +28,8 @@ describe('loginController', function () {
         clearCache: function(){
           var sample;
           return sample = {
-          then: function(){}
-        };
+            then: function(){}
+          };
         }
       };
       mockRecruitFactory = {

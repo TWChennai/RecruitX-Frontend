@@ -119,12 +119,8 @@ angular.module('recruitX')
         });
       },
 
-      saveCandidate: function (data, success, customError) {
-        $http.post(baseUrl + '/candidates', data)
-          .success(success)
-          .error(function (err, status) {
-            defaultErrorHandler(err, status, customError);
-          });
+      saveCandidate: function (data, success, error) {
+        $http.post(baseUrl + '/candidates', data).then(success, error);
       },
 
       // TODO: Rename this method to convey the full intent

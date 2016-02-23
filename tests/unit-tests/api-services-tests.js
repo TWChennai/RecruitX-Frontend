@@ -111,22 +111,23 @@ describe('recruitFactory', function () {
     it('saveCandidate should post data when successful', function () {
       httpBackend.expectPOST(baseUrl + '/candidates', 'data').respond('success');
       recruitFactory.saveCandidate('data', function (response) {
-        expect(response).toEqual('success');
+        expect(response.data).toEqual('success');
       });
 
       httpBackend.flush();
     });
 
-    it('saveCandidate should display toast error message when error and should not call the success method', function () {
+    it('saveCandidate on error should not call the success method', function () {
       httpBackend.expectPOST(baseUrl + '/candidates', 'data').respond(422, 'error');
       spyOn(cordovaToast, 'showShortBottom');
 
-      recruitFactory.saveCandidate('data', function (success) {
-        expect(false).toEqual(success);
+      recruitFactory.saveCandidate('data', function (response) {
+        expect(false).toEqual(response);
+      }, function(response) {
+        expect(response.data).toEqual('error');
       });
 
       httpBackend.flush();
-      expect(cordovaToast.showShortBottom).toHaveBeenCalledWith('Something went wrong while processing your request. Please try again soon.');
     });
   });
 

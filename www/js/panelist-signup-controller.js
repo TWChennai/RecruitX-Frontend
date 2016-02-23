@@ -107,9 +107,9 @@ angular.module('recruitX')
       dialogService.askConfirmation('Logout', 'Are you sure you want to logout?', function () {
         loggedinUserStore.clearDb();
         $ionicHistory.nextViewOptions({
-            disableBack: true,
-            disableAnimate: true
-          });
+          disableBack: true,
+          disableAnimate: true
+        });
 
         $state.go('login');
       });

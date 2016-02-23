@@ -22,22 +22,41 @@ angular.module('recruitX')
         }));
         var previousInterviewRound = nextLowerPriorityInterviewRounds[0];
 
-        if ($scope.isInterviewScheduleValid(dateTime, currentInterviewRound, previousInterviewRound)) {
-          $scope.interviewRounds[index].dateTime = dateTime;
+        var nextHigherPriorityInterviewRounds = ($filter('filter')($scope.interviewRounds, {
+          priority: currentPriority + 1
+        }));
+        var nextInterviewRound = nextHigherPriorityInterviewRounds[0];
+
+        if ($scope.checkWithPreviousRound(dateTime, currentInterviewRound, previousInterviewRound)) {
+          if($scope.checkWithNextRound(dateTime, currentInterviewRound, nextInterviewRound)) {
+            $scope.interviewRounds[index].dateTime = dateTime;
+          }
+          else {
+            dialogService.showAlert('Invalid Selection', 'Please schedule this round atleast 1hr before  ' + nextInterviewRound.name);
+          }
         } else {
           dialogService.showAlert('Invalid Selection', 'Please schedule this round atleast 1hr after  ' + previousInterviewRound.name);
         }
       });
     };
 
-    $scope.isInterviewScheduleValid = function (scheduleDateTime, currentInterviewRound, previousInterviewRound) {
+    $scope.checkWithPreviousRound = function(scheduleDateTime, currentInterviewRound, previousInterviewRound) {
       var currentPriority = currentInterviewRound.priority;
       var previousInterviewTime = {};
       if (currentPriority > 1) {
-        previousInterviewTime = previousInterviewRound.dateTime === undefined ? undefined : new Date(previousInterviewRound.dateTime.getTime());
+        previousInterviewTime = previousInterviewRound.dateTime === undefined ? undefined : new Date(previousInterviewRound.dateTime);
         return !(previousInterviewTime === undefined || scheduleDateTime <= previousInterviewTime.setHours(previousInterviewTime.getHours() + 1));
       }
+      return true;
+    };
 
+    $scope.checkWithNextRound = function(scheduleDateTime, currentInterviewRound, nextInterviewRound) {
+      var currentPriority = currentInterviewRound.priority;
+      var nextInterviewTime = {};
+      if (currentPriority < 4) {
+        nextInterviewTime = nextInterviewRound.dateTime === undefined ? undefined : new Date(nextInterviewRound.dateTime);
+        return !(nextInterviewTime !== undefined && scheduleDateTime >= nextInterviewTime.setHours(nextInterviewTime.getHours() - 1));
+      }
       return true;
     };
 
@@ -56,12 +75,10 @@ angular.module('recruitX')
       $stateParams.candidate.interview_rounds = [];
       for (var interviewRoundIndex in $scope.interviewRounds) {
         if ($scope.interviewRounds[interviewRoundIndex].dateTime !== undefined) {
-          var minuteToMilliSecond = 60000;
           var dateTime = $scope.interviewRounds[interviewRoundIndex].dateTime;
-          var formattedDateTime = $filter('date')(dateTime.getTime() + dateTime.getTimezoneOffset() * minuteToMilliSecond, 'yyyy-MM-dd HH:mm:ss');
           $stateParams.candidate.interview_rounds[interviewRoundIndex] = ({
             'interview_type_id': $scope.interviewRounds[interviewRoundIndex].id,
-            'start_time': formattedDateTime
+            'start_time': dateTime
           });
         }
       }
@@ -77,9 +94,13 @@ angular.module('recruitX')
         $state.go('panelist-signup');
       };
 
-      recruitFactory.saveCandidate($stateParams, function (res) {
-        // console.log(res);
+      recruitFactory.saveCandidate($stateParams, function (response) {
+        // console.log(response);
         dialogService.showAlertWithDismissHandler('Success', 'Candidate Interview successfully added!!', redirectToHomePage);
+      }, function(response) {
+        var errors = response.data.errors;
+        // console.log(errors);
+        dialogService.showAlertWithDismissHandler('Failed', errors[0].reason);
       });
     };
   }
