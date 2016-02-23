@@ -29,7 +29,8 @@
     "cordova-plugin-splashscreen@3.1.0",
     "cordova-plugin-whitelist@1.2.1",
     "cordova-plugin-x-toast@2.4.0",
-    "ionic-plugin-keyboard@1.0.8"
+    "ionic-plugin-keyboard@1.0.8",
+    "cordova-plugin-network-information@~1.2.0"
   ],
   "cordovaPlatforms": [
     "android",

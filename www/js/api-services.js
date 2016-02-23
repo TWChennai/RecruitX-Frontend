@@ -1,5 +1,5 @@
 angular.module('recruitX')
-  .factory('recruitFactory', ['$cordovaToast', '$http', 'endpoints', 'skillHelperService', '$filter', 'MasterData', 'loggedinUserStore', function ($cordovaToast, $http, endpoints, skillHelperService, $filter, MasterData, loggedinUserStore) {
+  .factory('recruitFactory', ['$cordovaToast', '$http', 'endpoints', 'skillHelperService', '$filter', 'MasterData', 'loggedinUserStore', '$cordovaNetwork', function ($cordovaToast, $http, endpoints, skillHelperService, $filter, MasterData, loggedinUserStore, $cordovaNetwork) {
     'use strict';
 
     var baseUrl = 'http://' + endpoints.apiUrl;
@@ -8,6 +8,14 @@ angular.module('recruitX')
     var getErrorMessage = function (status) {
       // TODO: Need to add more statuses to the switch
       switch (status) {
+        case 0:
+          var isOffline = $cordovaNetwork.isOffline();
+          if(isOffline){
+            return 'Please check your internet connection';
+          } else {
+            return 'Connection timed out. Please try later!';
+          }
+          break;
         default: return 'Something went wrong while processing your request. Please try again soon.';
       }
     };
@@ -151,7 +159,7 @@ angular.module('recruitX')
           fleshOutCandidates(response.candidates);
           success(response.candidates, response.total_pages);
         })
-          .error(function (err, status) {});
+          .error(function () {});
       },
 
       // TODO: This should be merged with the above method
