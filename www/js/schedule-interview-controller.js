@@ -2,7 +2,6 @@ angular.module('recruitX')
   .controller('scheduleInterviewController', ['$timeout', '$rootScope', '$state', 'MasterData', '$scope', '$stateParams', '$cordovaDatePicker', 'recruitFactory', '$filter', 'dialogService', function ($timeout, $rootScope, $state, MasterData, $scope, $stateParams, $cordovaDatePicker, recruitFactory, $filter, dialogService) {
     'use strict';
 
-    $stateParams.candidate.interview_rounds = [];
     // TODO: Inline later - currently not working - need to figure out why so.
     $scope.interviewRounds = MasterData.getInterviewTypes();
 
@@ -54,6 +53,7 @@ angular.module('recruitX')
     };
 
     $scope.postCandidate = function () {
+      $stateParams.candidate.interview_rounds = [];
       for (var interviewRoundIndex in $scope.interviewRounds) {
         if ($scope.interviewRounds[interviewRoundIndex].dateTime !== undefined) {
           var minuteToMilliSecond = 60000;
