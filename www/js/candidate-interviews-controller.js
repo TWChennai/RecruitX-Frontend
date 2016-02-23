@@ -32,7 +32,7 @@ angular.module('recruitX')
       for (var interviewsIndex in $scope.interviewTypes) {
         var interviewStartTime = $scope.notScheduled;
         var interviewID = '';
-        var status;
+        var status = undefined;
         var interviewType = $scope.interviewTypes[interviewsIndex];
 
         var scheduledInterview = ($filter('filter')($scope.interviews, {
