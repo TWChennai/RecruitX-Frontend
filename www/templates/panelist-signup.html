@@ -34,7 +34,7 @@
                 </div>
                 <div class="row pad-box">
                   <div ng-if="!isLoggedinUserRecruiter"class="col col-30">
-                    <h4><strong>Skills: </strong>{{item.candidate.all_skills}}</h4>
+                    <h4><strong>{{item.interview_type.name}}: </strong>{{item.candidate.all_skills}}</h4>
                   </div>
                   <div ng-if="isLoggedinUserRecruiter"class="col col-30">
                     <h4><strong>Round: {{item.interview_type.name}}</strong></h4>
@@ -42,7 +42,7 @@
                   <div class="col col-70">
                     <div class="pull-right">
                       <h4 ng-if="isLoggedinUserRecruiter">{{item.formattedPanelists}}</h4>
-                      <button ng-hide="isLoggedinUserRecruiter" class="button button-small button-positive" ng-disabled="!item.signup || !isInPipeline(item.candidate)" ng-click="signingUp(item)">Signup: {{item.interview_type.name}}</button>
+                      <button ng-hide="isLoggedinUserRecruiter" class="button button-small button-positive" ng-disabled="!item.signup || !isInPipeline(item.candidate)" ng-click="signingUp(item)">Signup</button>
                     </div>
                   </div>
                 </div>
