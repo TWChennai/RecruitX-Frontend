@@ -1,5 +1,5 @@
 angular.module('recruitX')
-  .controller('loginController', ['$scope', '$state', '$ionicHistory', 'oktaSigninWidget', 'loggedinUserStore', 'recruitFactory', function ($scope, $state, $ionicHistory, oktaSigninWidget, loggedinUserStore, recruitFactory) {
+  .controller('loginController', ['$rootScope', '$scope', '$state', '$ionicHistory', 'oktaSigninWidget', 'loggedinUserStore', 'recruitFactory', function ($rootScope, $scope, $state, $ionicHistory, oktaSigninWidget, loggedinUserStore, recruitFactory) {
     'use strict';
 
     oktaSigninWidget.renderEl({
@@ -16,6 +16,7 @@ angular.module('recruitX')
 
           $ionicHistory.clearCache().then(function(){
             $state.go('panelist-signup');
+            $rootScope.$broadcast('load:masterData');
           });
         });
       }

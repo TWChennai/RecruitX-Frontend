@@ -3,7 +3,7 @@ angular.module('recruitX')
     $httpProvider.interceptors.push(function ($rootScope, $q) {
       return {
         request: function (config) {
-          config.timeout = 30000;
+          config.timeout = 10000;
           $rootScope.$broadcast('loading:show');
           return config;
         },
@@ -50,13 +50,23 @@ angular.module('recruitX')
       window.StatusBar.styleDefault();
     }
 
-    MasterData.load().then(function () {
-      navigator.splashscreen.hide();
-      $rootScope.$broadcast('loaded:masterData');
-    }, function (err) {
-      console.log('Failed dur to: ' + err.data);
-      // TODO: Need to show this mesage as Toast
-      alert('Something went wrong while contacting the server.');
+    var loadMasterData = function () {
+      MasterData.load().then(function () {
+        navigator.splashscreen.hide();
+        $rootScope.$broadcast('loaded:masterData');
+      }, function (err) {
+        console.log('Failed dur to: ' + err.data);
+        // TODO: Need to show this mesage as Toast
+        alert('Something went wrong while contacting the server.');
+      });
+    };
+
+    if (window.localStorage['LOGGEDIN_USER']) {
+      loadMasterData();
+    }
+
+    $rootScope.$on('load:masterData', function () {
+      loadMasterData();
     });
   });
 });
