@@ -14,7 +14,7 @@
           <ion-refresher on-refresh="refreshInterviews()">
           </ion-refresher>
           <ion-list class="candidatePanelList">
-            <ion-item ng-repeat="item in itemsCount = items">
+            <ion-item ng-repeat="item in items">
               <div class="item item-divider candidateInfo">
                 <div class="row">
                   <div class="col col-50" ng-if="isInPipeline(item.candidate)">
@@ -49,7 +49,7 @@
               </div>
             </ion-item>
           </ion-list>
-          <div ng-if="itemsCount.length === 0" class='full-screen-div'>
+          <div ng-if="items.length === 0" class='full-screen-div'>
             <div class="center-screen"><b>Currently there are no interviews   scheduled yet! Please pull to refresh!</b>
             </div>
           </div>
@@ -63,7 +63,7 @@
           <ion-refresher on-refresh="refreshMyInterviews()">
           </ion-refresher>
           <ion-list class="candidatePanelList">
-            <ion-item ng-repeat="myinterview in myInterviewsCount = myinterviews">
+            <ion-item ng-repeat="myinterview in myinterviews">
               <div class="item item-divider candidateInfo">
                 <div class="row">
                   <div class="col col-50" ng-if="isInPipeline(myinterview.candidate)">
@@ -94,7 +94,7 @@
               </div>
             </ion-item>
           </ion-list>
-          <div ng-if="myInterviewsCount.length === 0" class='full-screen-div'>
+          <div ng-if="myInterviews.length === 0" class='full-screen-div'>
             <div class="center-screen"><b>Currently there are no signups here! Please sign up.</b>
             </div>
           </div>
@@ -108,7 +108,7 @@
           <ion-refresher on-refresh="refreshCandidates(1)">
           </ion-refresher>
           <ion-list class="candidatePanelList">
-            <ion-item ng-repeat="candidate in candidateIndex = all_candidates">
+            <ion-item ng-repeat="candidate in all_candidates">
               <div class="item item-divider candidateInfo">
                 <div class="row">
                   <div class="col col-50">
@@ -125,7 +125,7 @@
               </div>
             </ion-item>
           </ion-list>
-          <div ng-if="candidateIndex.length === 0" class='full-screen-div'>
+          <div ng-if="all_candidates.length === 0" class='full-screen-div'>
             <div class="center-screen"><b>Currently there are no candidates yet! Please create new candidates.</b>
             </div>
           </div>
