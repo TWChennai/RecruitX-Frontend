@@ -134,3 +134,6 @@ node_modules/
 
 # Project specific env variables
 .envrc
+
+# Project specific files
+www/js/app_constants.js
