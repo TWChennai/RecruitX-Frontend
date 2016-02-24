@@ -11,7 +11,8 @@ angular.module('recruitX')
           loggedinUserStore.storeUser(res.user, response.is_recruiter);
 
           $ionicHistory.nextViewOptions({
-            disableBack: true
+            disableBack: true,
+            historyRoot: true
           });
 
           $ionicHistory.clearCache().then(function(){

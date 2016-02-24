@@ -78,7 +78,8 @@ describe('loginController', function () {
       expect(oktaWidget.renderEl).toHaveBeenCalled();
       expect(userStore.storeUser).toHaveBeenCalledWith(validUser, recruiter.is_recruiter);
       expect(history.nextViewOptions).toHaveBeenCalledWith({
-        disableBack: recruiter.is_recruiter
+        disableBack: true,
+        historyRoot: true
       });
     });
 
