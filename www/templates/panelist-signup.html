@@ -14,7 +14,7 @@
           <ion-refresher on-refresh="refreshInterviews()">
           </ion-refresher>
           <ion-list class="candidatePanelList">
-            <ion-item ng-repeat="item in items">
+            <ion-item ng-repeat="item in itemsCount = items">
               <div class="item item-divider candidateInfo">
                 <div class="row">
                   <div class="col col-50" ng-if="isInPipeline(item.candidate)">
@@ -46,6 +46,10 @@
               </div>
             </ion-item>
           </ion-list>
+          <div ng-if="itemsCount.length === 0" class='full-screen-div'>
+            <div class="center-screen"><b>Currently there are no interviews   scheduled yet! Please pull to refresh!</b>
+            </div>
+          </div>
         </ion-content>
       </ion-nav-view>
     </ion-tab>
@@ -56,7 +60,7 @@
           <ion-refresher on-refresh="refreshMyInterviews()">
           </ion-refresher>
           <ion-list class="candidatePanelList">
-            <ion-item ng-repeat="myinterview in myinterviews">
+            <ion-item ng-repeat="myinterview in myInterviewsCount = myinterviews">
               <div class="item item-divider candidateInfo">
                 <div class="row">
                   <div class="col col-50" ng-if="isInPipeline(myinterview.candidate)">
@@ -87,6 +91,10 @@
               </div>
             </ion-item>
           </ion-list>
+          <div ng-if="myInterviewsCount.length === 0" class='full-screen-div'>
+            <div class="center-screen"><b>Currently there are no signups here! Please sign up.</b>
+            </div>
+          </div>
         </ion-content>
       </ion-nav-view>
     </ion-tab>
@@ -97,7 +105,7 @@
           <ion-refresher on-refresh="refreshCandidates(1)">
           </ion-refresher>
           <ion-list class="candidatePanelList">
-            <ion-item ng-repeat="candidate in all_candidates">
+            <ion-item ng-repeat="candidate in candidateIndex = all_candidates">
               <div class="item item-divider candidateInfo">
                 <div class="row">
                   <div class="col col-50">
@@ -114,6 +122,10 @@
               </div>
             </ion-item>
           </ion-list>
+          <div ng-if="candidateIndex.length === 0" class='full-screen-div'>
+            <div class="center-screen"><b>Currently there are no candidates yet! Please create new candidates.</b>
+            </div>
+          </div>
           <ion-infinite-scroll
           on-infinite="loadMoreCandidates()"
           distance="1%">
