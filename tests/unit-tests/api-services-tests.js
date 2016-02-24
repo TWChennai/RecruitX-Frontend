@@ -123,7 +123,7 @@ describe('recruitFactory', function () {
 
       recruitFactory.saveCandidate('data', function (response) {
         expect(false).toEqual(response);
-      }, function(response) {
+      }, function (response) {
         expect(response.data).toEqual('error');
       });
 
@@ -147,7 +147,7 @@ describe('recruitFactory', function () {
 
       recruitFactory.closePipeline('data', 'id', function (success) {
         expect(false).toEqual(success);
-      }, function (error) {
+      }, function () {
         expect(true).toEqual(true);
       });
 

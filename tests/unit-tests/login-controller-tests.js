@@ -25,10 +25,9 @@ describe('loginController', function () {
       };
       history = {
         nextViewOptions: function () {},
-        clearCache: function(){
-          var sample;
-          return sample = {
-            then: function(){}
+        clearCache: function () {
+          return {
+            then: function () {}
           };
         }
       };

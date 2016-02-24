@@ -1,33 +1,33 @@
 angular.module('recruitX')
-  .controller('scheduleInterviewController', ['$timeout', '$rootScope', '$state', 'MasterData', '$scope', '$stateParams', '$cordovaDatePicker', 'recruitFactory', '$filter', 'dialogService', function($timeout, $rootScope, $state, MasterData, $scope, $stateParams, $cordovaDatePicker, recruitFactory, $filter, dialogService) {
+  .controller('scheduleInterviewController', ['$timeout', '$rootScope', '$state', 'MasterData', '$scope', '$stateParams', '$cordovaDatePicker', 'recruitFactory', '$filter', 'dialogService', function ($timeout, $rootScope, $state, MasterData, $scope, $stateParams, $cordovaDatePicker, recruitFactory, $filter, dialogService) {
     'use strict';
 
     // TODO: Inline later - currently not working - need to figure out why so.
     $scope.interviewRounds = MasterData.getInterviewTypes();
 
-    var interviewRoundsAsMap = $scope.interviewRounds.map(function(interviewRound) {
+    var interviewRoundsAsMap = $scope.interviewRounds.map(function (interviewRound) {
       return interviewRound.priority;
     });
     var MIN_PRIORITY = Math.min.apply(Math, interviewRoundsAsMap);
     var MAX_PRIORITY = Math.max.apply(Math, interviewRoundsAsMap);
 
-    var currentInterviewScheduledAfterNextInterview = function(scheduleDateTime, nextInterviewTime) {
+    var currentInterviewScheduledAfterNextInterview = function (scheduleDateTime, nextInterviewTime) {
       return (scheduleDateTime > nextInterviewTime.setHours(nextInterviewTime.getHours() - 1));
     };
 
-    var currentInterviewScheduledBeforePreviousInterview = function(scheduleDateTime, previousInterviewTime) {
+    var currentInterviewScheduledBeforePreviousInterview = function (scheduleDateTime, previousInterviewTime) {
       return (previousInterviewTime === undefined || scheduleDateTime < previousInterviewTime.setHours(previousInterviewTime.getHours() + 1));
     };
 
-    var getNextInterviewRounds = function(currentInterview) {
+    var getNextInterviewRounds = function (currentInterview) {
       return ($filter('filter')($scope.interviewRounds, {
         priority: currentInterview.priority + 1,
         dateTime: '!!'
       }));
     };
 
-    var redirectToHomePage = function() {
-      $timeout(function() {
+    var redirectToHomePage = function () {
+      $timeout(function () {
         for (var interviewIndex in $scope.interviewRounds) {
           $scope.interviewRounds[interviewIndex].dateTime = undefined;
         }
@@ -37,7 +37,7 @@ angular.module('recruitX')
       $state.go('panelist-signup');
     };
 
-    $scope.dateTime = function(index) {
+    $scope.dateTime = function (index) {
       var options = {
         date: new Date(),
         mode: 'datetime',
@@ -45,7 +45,7 @@ angular.module('recruitX')
         minDate: (new Date()).valueOf()
       };
 
-      $cordovaDatePicker.show(options).then(function(dateTime) {
+      $cordovaDatePicker.show(options).then(function (dateTime) {
         var currentInterviewRound = $scope.interviewRounds[index];
         var currentPriority = currentInterviewRound.priority;
 
@@ -70,7 +70,7 @@ angular.module('recruitX')
       });
     };
 
-    $scope.checkWithPreviousRound = function(scheduleDateTime, currentInterviewRound, previousInterviewRound) {
+    $scope.checkWithPreviousRound = function (scheduleDateTime, currentInterviewRound, previousInterviewRound) {
       var error = {};
       var currentPriority = currentInterviewRound.priority;
       var previousInterviewTime = {};
@@ -83,7 +83,7 @@ angular.module('recruitX')
       return error;
     };
 
-    $scope.checkWithNextRound = function(scheduleDateTime, currentInterviewRound, nextInterviewRounds) {
+    $scope.checkWithNextRound = function (scheduleDateTime, currentInterviewRound, nextInterviewRounds) {
       var error = {};
       if (nextInterviewRounds.length === 0) {
         return error;
@@ -100,7 +100,7 @@ angular.module('recruitX')
       return error;
     };
 
-    $scope.getInterviewWithMinStartTime = function(interviews) {
+    $scope.getInterviewWithMinStartTime = function (interviews) {
       var minInterview = interviews[0];
       for (var i = 0; i < interviews.length; i++) {
         var minDate = minInterview.dateTime;
@@ -111,7 +111,7 @@ angular.module('recruitX')
       return minInterview;
     };
 
-    $scope.isFormInvalid = function() {
+    $scope.isFormInvalid = function () {
       // TODO: Use some built-in functionality from angular for this
       for (var interviewRoundIndex in $scope.interviewRounds) {
         if ($scope.interviewRounds[interviewRoundIndex].dateTime !== undefined) {
@@ -122,11 +122,11 @@ angular.module('recruitX')
       return true;
     };
 
-    $scope.cancelInterviewSchedule = function() {
+    $scope.cancelInterviewSchedule = function () {
       dialogService.askConfirmation('Discard Changes', 'Do you want to discard the changes and go back ?', redirectToHomePage);
     };
 
-    $scope.postCandidate = function() {
+    $scope.postCandidate = function () {
       $stateParams.candidate.interview_rounds = [];
       var interviewRounds = [];
       for (var interviewRoundIndex in $scope.interviewRounds) {
@@ -140,36 +140,33 @@ angular.module('recruitX')
       }
 
       // Eliminate null, undefined, false from the array
-      $stateParams.candidate.interview_rounds = interviewRounds.filter(function(interviewRound) {
+      $stateParams.candidate.interview_rounds = interviewRounds.filter(function (interviewRound) {
         return Boolean(interviewRound);
       });
 
-      recruitFactory.saveCandidate($stateParams, function(response) {
-        // console.log(response);
+      recruitFactory.saveCandidate($stateParams, function () {
         dialogService.showAlertWithDismissHandler('Success', 'Candidate Interview successfully added!!', $scope.redirectToHomePage);
-      }, function(response) {
+      }, function (response) {
         var errors = response.data.errors;
-        // console.log(errors);
         dialogService.showAlertWithDismissHandler('Failed', errors[0].reason);
       });
     };
 
-    $scope.isCancelable = function(currentInterview) {
-      if(currentInterview.dateTime === undefined) {
+    $scope.isCancelable = function (currentInterview) {
+      if (currentInterview.dateTime === undefined) {
         return false;
       }
       var nextInterviewRounds = getNextInterviewRounds(currentInterview);
       for (var i = 0; i < nextInterviewRounds.length; i++) {
-        if(nextInterviewRounds[i].dateTime !== undefined) {
+        if (nextInterviewRounds[i].dateTime !== undefined) {
           return false;
         }
       }
       return true;
     };
 
-    $scope.cancel = function($event, interview) {
+    $scope.cancel = function ($event, interview) {
       $event.stopPropagation();
       interview.dateTime = undefined;
     };
-
   }]);

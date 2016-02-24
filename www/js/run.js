@@ -1,5 +1,7 @@
 angular.module('recruitX')
   .config(function ($httpProvider) {
+    'use strict';
+
     $httpProvider.interceptors.push(function ($rootScope, $q) {
       var pendingRequests = 0;
       return {
@@ -30,6 +32,8 @@ angular.module('recruitX')
   })
 
 .run(function ($ionicPlatform, $ionicLoading, $rootScope) {
+  'use strict';
+
   $rootScope.$on('loading:show', function () {
     $ionicLoading.show({
       template: 'Loading...'
@@ -65,9 +69,10 @@ angular.module('recruitX')
         navigator.splashscreen.hide();
         $rootScope.$broadcast('loaded:masterData');
       }, function (err) {
-        console.log('Failed dur to: ' + err.data);
-        // TODO: Need to show this mesage as Toast
-        alert('Something went wrong while contacting the server.');
+        console.log('Failed to laod master data due to: ' + err.data);
+        if (window.cordova && window.cordova.plugins.cordovaToast) {
+          cordova.plugins.cordovaToast.showShortBottom('Something went wrong while contacting the server.');
+        }
       });
     };
 

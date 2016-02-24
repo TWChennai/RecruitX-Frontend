@@ -28,7 +28,7 @@ module.exports = {
     'dot-location': [1, 'property'],
     'dot-notation': 1,
     'eqeqeq': 2,
-    'guard-for-in': 1,
+    'guard-for-in': 0,
     'no-alert': 2,
     'no-caller': 2,
     'no-case-declarations': 2,
@@ -52,7 +52,7 @@ module.exports = {
     'no-lone-blocks': 1,
     'no-loop-func': 2,
     'no-magic-numbers': [2, {
-      'ignore': [-1, 0, 1, 2, 100, 200, 422, 3600000, 1453449120000, 1453445460000]
+      'ignore': [-1, 0, 1, 2, 3, 4, 10, 100, 200, 422, 3600000, 1453449120000, 1453445460000]
     }],
     'no-multi-spaces': 1,
     'no-multi-str': 1,

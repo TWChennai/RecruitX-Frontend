@@ -30,10 +30,10 @@ angular.module('recruitX')
 
     $scope.buildInterviewScheduleList = function () {
       for (var interviewsIndex in $scope.interviewTypes) {
-        var interviewStartTime = $scope.notScheduled;
-        var interviewID = '';
-        var status = undefined;
-        var interviewType = $scope.interviewTypes[interviewsIndex];
+        var interviewStartTime = $scope.notScheduled,
+          interviewID = '',
+          status,
+          interviewType = $scope.interviewTypes[interviewsIndex];
 
         var scheduledInterview = ($filter('filter')($scope.interviews, {
           interview_type_id: interviewType.id
@@ -43,7 +43,7 @@ angular.module('recruitX')
           interviewStartTime = scheduledInterview[0].start_time;
           interviewID = scheduledInterview[0].id;
           status = scheduledInterview[0].status;
-          for(var interviewPanelistIndex in scheduledInterview[0].panelists){
+          for (var interviewPanelistIndex in scheduledInterview[0].panelists) {
             if ($scope.loggedinUser === scheduledInterview[0].panelists[interviewPanelistIndex].name) {
               $scope.isPanelistForAnyInterviewRound = true;
             }

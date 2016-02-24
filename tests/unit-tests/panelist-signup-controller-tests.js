@@ -20,7 +20,7 @@ describe('panelistSignupController', function () {
 
   describe('methods', function () {
     it('should be able to logout', function () {
-      var panelistSignupController = createController();
+      createController();
       spyOn(dialogService, 'askConfirmation');
 
       scope.logout();

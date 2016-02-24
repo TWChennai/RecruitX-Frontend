@@ -2,7 +2,6 @@
 
 var gulp = require('gulp');
 var replace = require('gulp-replace-task');
-var args = require('yargs').argv;
 
 // Get the environment from the command line
 var oktaUrl = process.env.OKTA_URL;

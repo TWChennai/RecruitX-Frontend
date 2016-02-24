@@ -90,7 +90,7 @@ angular.module('recruitX')
     $scope.isValidPanelist = function () {
       var panelists = $scope.interview.panelistsArray;
       var isPanelist = false;
-      for(var panelistIndex in panelists){
+      for (var panelistIndex in panelists) {
         if (panelists[panelistIndex] === loggedinUserStore.userId()) {
           isPanelist = true;
         }
@@ -159,7 +159,7 @@ angular.module('recruitX')
           feedback_images: $scope.BLOBs,
           status_id: $scope.feedBackResult.id
         }
-      }).then(function (response) {
+      }).then(function () {
         dialogService.showAlertWithDismissHandler('Success!!', 'Upload was successful', $scope.refreshInterviewFeedback);
       }, function (error, status) {
         if (status === UNPROCESSABLE_ENTITY_STATUS) {
