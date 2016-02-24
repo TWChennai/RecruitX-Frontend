@@ -1,18 +1,28 @@
 angular.module('recruitX')
   .config(function ($httpProvider) {
     $httpProvider.interceptors.push(function ($rootScope, $q) {
+      var pendingRequests = 0;
       return {
         request: function (config) {
           config.timeout = 10000;
-          $rootScope.$broadcast('loading:show');
+          if (pendingRequests === 0) {
+            $rootScope.$broadcast('loading:show');
+          }
+          pendingRequests++;
           return config;
         },
         response: function (response) {
-          $rootScope.$broadcast('loading:hide');
+          pendingRequests--;
+          if (pendingRequests === 0) {
+            $rootScope.$broadcast('loading:hide');
+          }
           return response;
         },
         responseError: function (response) {
-          $rootScope.$broadcast('loading:hide');
+          pendingRequests--;
+          if (pendingRequests === 0) {
+            $rootScope.$broadcast('loading:hide');
+          }
           return $q.reject(response);
         }
       };
@@ -63,6 +73,8 @@ angular.module('recruitX')
 
     if (window.localStorage['LOGGEDIN_USER']) {
       loadMasterData();
+    } else {
+      navigator.splashscreen.hide();
     }
 
     $rootScope.$on('load:masterData', function () {
