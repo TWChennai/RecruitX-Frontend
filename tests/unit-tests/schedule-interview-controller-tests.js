@@ -210,5 +210,34 @@ describe('scheduleInterviewController', function() {
         expect($scope.checkWithNextRound(scheduleDateTime, currentInterviewRound, nextInterviewRounds)).toEqual({});
       });
     });
+
+    describe('isCancelable', function() {
+      it('should return false if start time for current interview is undefined', function() {
+        var currentInterview = $scope.interviewRounds[0];
+
+        expect($scope.isCancelable(currentInterview)).toEqual(false);
+      });
+
+      it('should return false if next interview is scheduled already', function() {
+        var currentInterview = $scope.interviewRounds[1];
+        $scope.interviewRounds[0].dateTime = $scope.interviewRounds[2].dateTime = currentInterview.dateTime = 'date time';
+
+        expect($scope.isCancelable(currentInterview)).toEqual(false);
+      });
+
+      it('should return false if one of the next interviews is scheduled already', function() {
+        var currentInterview = $scope.interviewRounds[2];
+        $scope.interviewRounds[0].dateTime = $scope.interviewRounds[1].dateTime = currentInterview.dateTime = $scope.interviewRounds[4].dateTime = 'date time';
+
+        expect($scope.isCancelable(currentInterview)).toEqual(false);
+      });
+
+      it('should return true if none of the next interviews are scheduled', function() {
+        var currentInterview = $scope.interviewRounds[2];
+        $scope.interviewRounds[0].dateTime = $scope.interviewRounds[1].dateTime = currentInterview.dateTime = 'date time';
+
+        expect($scope.isCancelable(currentInterview)).toEqual(true);
+      });
+    });
   });
 });

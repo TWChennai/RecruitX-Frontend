@@ -4,14 +4,22 @@
       <div ng-repeat="interviewRound in interviewRounds">
         <ion-item class="item" ng-model="interviewRound.name" ng-click="dateTime($index)">
           <div class="row">
-            <p class="col col-50">{{interviewRound.name}}</p>
+            <p class="col col-40">{{interviewRound.name}}</p>
             <p class="col col-50">{{interviewRound.dateTime | date: 'dd/MM/yyyy h:mma'}}</p>
+            <button class="button ion-minus-round col col-10 modify-interview" ng-show="isCancelable(interviewRound)" ng-click="cancel($event, interviewRound)"></button>
           </div>
         </ion-item>
       </div>
     </ion-list>
   </ion-content>
-  <div class="bar bar-footer bar-positive">
-    <button class="button button-full" ng-disabled="isFormInvalid()" ng-click="postCandidate()">Save</button>
+  <div class="bar-footer bar">
+    <div class="row">
+      <div class="col col-50">
+          <button class="button button-full icon-right ion-close-round button-positive" ng-click="cancelInterviewSchedule()">Cancel</button>
+      </div>
+      <div class="col col-50">
+        <button class="button button-full button-positive" ng-disabled="isFormInvalid()" ng-click="postCandidate()">Save</button>
+      </div>
+    </div>
   </div>
 </ion-view>

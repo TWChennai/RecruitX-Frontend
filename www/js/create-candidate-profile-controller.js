@@ -1,5 +1,5 @@
 angular.module('recruitX')
-  .controller('createCandidateProfileController', ['$rootScope', '$scope', 'MasterData', function ($rootScope, $scope, MasterData) {
+  .controller('createCandidateProfileController', ['$rootScope', '$scope', '$state', 'MasterData', 'dialogService', function ($rootScope, $scope, $state, MasterData, dialogService) {
     'use strict';
 
     $scope.skills = MasterData.getSkills();
@@ -67,6 +67,14 @@ angular.module('recruitX')
       if (!otherCheckBox.checked) {
         $scope.candidate.other_skills = undefined;
       }
+    };
+
+    $scope.resetForm = function() {
+      dialogService.askConfirmation('Discard Changes', 'Do you want to discard the changes and go back ?', function() {
+        $rootScope.$broadcast('clearFormData');
+        $rootScope.$broadcast('loaded:masterData');
+        $state.go('panelist-signup');
+      });
     };
 
     $rootScope.$on('clearFormData', function () {

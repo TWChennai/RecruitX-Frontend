@@ -19,6 +19,24 @@ angular.module('recruitX')
       return (previousInterviewTime === undefined || scheduleDateTime < previousInterviewTime.setHours(previousInterviewTime.getHours() + 1));
     };
 
+    var getNextInterviewRounds = function(currentInterview) {
+      return ($filter('filter')($scope.interviewRounds, {
+        priority: currentInterview.priority + 1,
+        dateTime: '!!'
+      }));
+    };
+
+    var redirectToHomePage = function() {
+      $timeout(function() {
+        for (var interviewIndex in $scope.interviewRounds) {
+          $scope.interviewRounds[interviewIndex].dateTime = undefined;
+        }
+        $rootScope.$broadcast('clearFormData');
+        $rootScope.$broadcast('loaded:masterData');
+      });
+      $state.go('panelist-signup');
+    };
+
     $scope.dateTime = function(index) {
       var options = {
         date: new Date(),
@@ -36,10 +54,7 @@ angular.module('recruitX')
         }));
         var previousInterviewRound = nextLowerPriorityInterviewRounds[0];
 
-        var nextInterviewRounds = ($filter('filter')($scope.interviewRounds, {
-          priority: currentPriority + 1,
-          dateTime: '!!'
-        }));
+        var nextInterviewRounds = getNextInterviewRounds(currentInterviewRound);
 
         var result1 = $scope.checkWithPreviousRound(dateTime, currentInterviewRound, previousInterviewRound);
         var result2 = $scope.checkWithNextRound(dateTime, currentInterviewRound, nextInterviewRounds);
@@ -107,6 +122,10 @@ angular.module('recruitX')
       return true;
     };
 
+    $scope.cancelInterviewSchedule = function() {
+      dialogService.askConfirmation('Discard Changes', 'Do you want to discard the changes and go back ?', redirectToHomePage);
+    };
+
     $scope.postCandidate = function() {
       $stateParams.candidate.interview_rounds = [];
       var interviewRounds = [];
@@ -125,24 +144,32 @@ angular.module('recruitX')
         return Boolean(interviewRound);
       });
 
-      var redirectToHomePage = function() {
-        $timeout(function() {
-          for (var interviewIndex in $scope.interviewRounds) {
-            $scope.interviewRounds[interviewIndex].dateTime = undefined;
-          }
-          $rootScope.$broadcast('clearFormData');
-          $rootScope.$broadcast('loaded:masterData');
-        });
-        $state.go('panelist-signup');
-      };
-
       recruitFactory.saveCandidate($stateParams, function(response) {
         // console.log(response);
-        dialogService.showAlertWithDismissHandler('Success', 'Candidate Interview successfully added!!', redirectToHomePage);
+        dialogService.showAlertWithDismissHandler('Success', 'Candidate Interview successfully added!!', $scope.redirectToHomePage);
       }, function(response) {
         var errors = response.data.errors;
         // console.log(errors);
         dialogService.showAlertWithDismissHandler('Failed', errors[0].reason);
       });
     };
+
+    $scope.isCancelable = function(currentInterview) {
+      if(currentInterview.dateTime === undefined) {
+        return false;
+      }
+      var nextInterviewRounds = getNextInterviewRounds(currentInterview);
+      for (var i = 0; i < nextInterviewRounds.length; i++) {
+        if(nextInterviewRounds[i].dateTime !== undefined) {
+          return false;
+        }
+      }
+      return true;
+    };
+
+    $scope.cancel = function($event, interview) {
+      $event.stopPropagation();
+      interview.dateTime = undefined;
+    };
+
   }]);

@@ -56,7 +56,14 @@
           </div>
         </div>
       </div>
-      <a class="button button-full icon-right ion-chevron-right button-positive" ng-disabled="isFormInvalid()" ui-sref="schedule-interview({candidate: candidate})" ng-click="processCandidateData()">Next</a>
+      <div class="row">
+        <div class="col col-50 text-center">
+            <a class="button button-full icon-right ion-close-round button-positive" ng-click="resetForm()" ng-disabled="candidateForm.$pristine">Cancel</a>
+        </div>
+        <div class="col col-50 text-center">
+          <a class="button button-full icon-right ion-chevron-right button-positive" ng-disabled="isFormInvalid()" ui-sref="schedule-interview({candidate: candidate})" ng-click="processCandidateData()">Next</a>
+        </div>
+      </div>
     </form>
   </ion-content>
 </ion-view>
