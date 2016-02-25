@@ -1,5 +1,5 @@
 angular.module('recruitX')
-  .controller('panelistSignupController', ['$scope', 'recruitFactory', 'skillHelperService', 'loggedinUserStore', 'dialogService', '$ionicHistory', '$state', function ($scope, recruitFactory, skillHelperService, loggedinUserStore, dialogService, $ionicHistory, $state) {
+  .controller('panelistSignupController', ['$scope', 'recruitFactory', 'skillHelperService', 'loggedinUserStore', 'dialogService', '$ionicHistory', '$state', 'ptrService', function ($scope, recruitFactory, skillHelperService, loggedinUserStore, dialogService, $ionicHistory, $state, ptrService) {
     'use strict';
 
     $scope.items = [];
@@ -75,10 +75,6 @@ angular.module('recruitX')
       $scope.$broadcast('scroll.infiniteScrollComplete');
     };
 
-    $scope.$on('$stateChangeSuccess', function () {
-      $scope.loadMoreCandidates();
-    });
-
     $scope.signingUp = function (item) {
       $scope.interview_panelist = {
         interview_panelist: {
@@ -126,6 +122,10 @@ angular.module('recruitX')
 
     $scope.$on('loaded:masterData', function () {
       $scope.manuallyRefreshInterviews();
+    });
+
+    $scope.$on('$ionicView.beforeEnter', function() {
+      ptrService.triggerPtr('ptr-content');
     });
   }
 ]);
