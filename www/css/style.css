@@ -34,7 +34,7 @@ textarea {
 
 /* Ionic Overrides */
 .nav-bar-tabs-top .bar { border-bottom: 2px solid #fff; }
-
+.empty .scroll { height: 100%; }
 /* Form Elements */
 
 .item-checkbox {

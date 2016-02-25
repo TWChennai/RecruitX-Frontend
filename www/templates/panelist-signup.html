@@ -1,4 +1,4 @@
-<ion-view hide-nav-bar="true">
+<ion-view hide-nav-bar="true" ng-controller="panelistSignupController">
   <ion-header-bar class="bar-positive cust-header fixedTop">
     <h1 class="title">Hi {{loggedinUserName}}!</h1>
     <div class="buttons">
@@ -10,9 +10,13 @@
   <ion-tabs class="panelist-tab tabs-striped tabs-positive tabs-top">
     <ion-tab title="Interviews">
       <ion-nav-view>
-        <ion-content class="ic-blk">
+        <ion-content class="ic-blk" ng-class="{'empty' : noItems }">
           <ion-refresher on-refresh="refreshInterviews()">
           </ion-refresher>
+          <div ng-if="noItems" class='full-screen-div'>
+            <div class="center-screen"><b>Currently there are no interviews   scheduled yet! Please pull to refresh!</b>
+            </div>
+          </div>
           <ion-list class="candidatePanelList">
             <ion-item collection-repeat="item in items">
               <div class="item item-divider candidateInfo">
@@ -49,19 +53,19 @@
               </div>
             </ion-item>
           </ion-list>
-          <div ng-if="items.length === 0" class='full-screen-div'>
-            <div class="center-screen"><b>Currently there are no interviews   scheduled yet! Please pull to refresh!</b>
-            </div>
-          </div>
         </ion-content>
       </ion-nav-view>
     </ion-tab>
 
     <ion-tab title="My Interviews" ng-if="!isLoggedinUserRecruiter">
       <ion-nav-view>
-        <ion-content>
+        <ion-content ng-class="{'empty' : noMyInterviews }">
           <ion-refresher on-refresh="refreshMyInterviews()">
           </ion-refresher>
+          <div ng-if="noMyInterviews" class='full-screen-div'>
+            <div class="center-screen"><b>Currently there are no signups here! Please sign up.</b>
+            </div>
+          </div>
           <ion-list class="candidatePanelList">
             <ion-item collection-repeat="myinterview in myinterviews">
               <div class="item item-divider candidateInfo">
@@ -94,19 +98,19 @@
               </div>
             </ion-item>
           </ion-list>
-          <div ng-if="myInterviews.length === 0" class='full-screen-div'>
-            <div class="center-screen"><b>Currently there are no signups here! Please sign up.</b>
-            </div>
-          </div>
         </ion-content>
       </ion-nav-view>
     </ion-tab>
 
     <ion-tab title="Candidates" ng-if="isLoggedinUserRecruiter">
       <ion-nav-view>
-        <ion-content>
+        <ion-content ng-class="{'empty' : noCandidates }">
           <ion-refresher on-refresh="refreshCandidates(1)">
           </ion-refresher>
+          <div ng-if="noCandidates" class='full-screen-div'>
+            <div class="center-screen"><b>Currently there are no candidates yet! Please create new candidates.</b>
+            </div>
+          </div>
           <ion-list class="candidatePanelList">
             <ion-item collection-repeat="candidate in all_candidates">
               <div class="item item-divider candidateInfo">
@@ -125,10 +129,6 @@
               </div>
             </ion-item>
           </ion-list>
-          <div ng-if="all_candidates.length === 0" class='full-screen-div'>
-            <div class="center-screen"><b>Currently there are no candidates yet! Please create new candidates.</b>
-            </div>
-          </div>
           <ion-infinite-scroll
           on-infinite="loadMoreCandidates()"
           distance="1%">

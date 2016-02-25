@@ -8,6 +8,9 @@ angular.module('recruitX')
     $scope.all_candidates = [];
     $scope.next_requesting_page = 1;
     $scope.total_pages = 1;
+    $scope.noMyInterviews = true;
+    $scope.noItems = true;
+    $scope.noCandidates = true;
 
     $scope.finishRefreshing = function () {
       $scope.$broadcast('scroll.refreshComplete');
@@ -29,6 +32,7 @@ angular.module('recruitX')
         panelist_login_name: loggedinUserStore.userId()
       }, function (newItems) {
         $scope.items = newItems;
+        $scope.noItems = $scope.items.length === 0 ? true : false;
         $scope.finishRefreshing();
         console.log('AM success' + $scope.items);
       }, function (error) {
@@ -40,6 +44,7 @@ angular.module('recruitX')
     $scope.refreshMyInterviews = function () {
       recruitFactory.getMyInterviews({}, function (newItems) {
         $scope.myinterviews = newItems;
+        $scope.noMyInterviews = $scope.myinterviews.length === 0 ? true : false;
         $scope.finishRefreshing();
       }, function (error) {
         console.log('AM custom error' + error);
@@ -57,6 +62,7 @@ angular.module('recruitX')
       }
       recruitFactory.getAllCandidates(data, function (candidates, total_pages) {
         $scope.all_candidates = $scope.all_candidates.concat(candidates);
+        $scope.noCandidates = $scope.all_candidates.length === 0 ? true : false;
         $scope.total_pages = total_pages;
         $scope.next_requesting_page++;
         $scope.finishRefreshing();
