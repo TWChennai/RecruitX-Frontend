@@ -211,6 +211,121 @@ describe('scheduleInterviewController', function() {
       });
     });
 
+    describe('checkWithRoundOfSamePriority', function() {
+      it('should not return error when there are no interviews next', function() {
+        var otherRoundsWithSamePriority = [];
+        var currentInterviewRound = $scope.interviewRounds[3];
+        var scheduleDateTime = new Date();
+
+        expect($scope.checkWithRoundOfSamePriority(scheduleDateTime, currentInterviewRound, otherRoundsWithSamePriority)).toEqual({});
+      });
+
+      it('should not return error when date selected is less than same priority interview schedule', function() {
+        var otherRoundWithSamePriority = $scope.interviewRounds[3];
+        otherRoundWithSamePriority.dateTime = new Date();
+        var otherRoundsWithSamePriority = [otherRoundWithSamePriority];
+        var currentInterviewRound = $scope.interviewRounds[4];
+        var scheduleDateTime = new Date();
+        var minutes = 61;
+
+        scheduleDateTime.setMinutes(scheduleDateTime.getMinutes() - minutes);
+
+        expect($scope.checkWithRoundOfSamePriority(scheduleDateTime, currentInterviewRound, otherRoundsWithSamePriority)).toEqual({});
+      });
+
+      it('should not return error when date selected is greater than same priority interview schedule', function() {
+        var otherRoundWithSamePriority = $scope.interviewRounds[3];
+        otherRoundWithSamePriority.dateTime = new Date();
+        var otherRoundsWithSamePriority = [otherRoundWithSamePriority];
+        var currentInterviewRound = $scope.interviewRounds[4];
+        var scheduleDateTime = new Date();
+        var minutes = 61;
+
+        scheduleDateTime.setMinutes(scheduleDateTime.getMinutes() + minutes);
+
+        expect($scope.checkWithRoundOfSamePriority(scheduleDateTime, currentInterviewRound, otherRoundsWithSamePriority)).toEqual({});
+      });
+
+      it('should not return error when date selected is greater than same priority interview schedule', function() {
+        var otherRoundWithSamePriority = $scope.interviewRounds[3];
+        otherRoundWithSamePriority.dateTime = new Date();
+        var otherRoundsWithSamePriority = [otherRoundWithSamePriority];
+        var currentInterviewRound = $scope.interviewRounds[4];
+        var scheduleDateTime = new Date();
+        var minutes = 61;
+
+        scheduleDateTime.setMinutes(scheduleDateTime.getMinutes() + minutes);
+
+        expect($scope.checkWithRoundOfSamePriority(scheduleDateTime, currentInterviewRound, otherRoundsWithSamePriority)).toEqual({});
+      });
+
+      it('should not return error when date selected is exactly one hour greater than same priority interview schedule', function() {
+        var otherRoundWithSamePriority = $scope.interviewRounds[3];
+        otherRoundWithSamePriority.dateTime = new Date();
+        var otherRoundsWithSamePriority = [otherRoundWithSamePriority];
+        var currentInterviewRound = $scope.interviewRounds[4];
+        var scheduleDateTime = new Date();
+        var minutes = 60;
+
+        scheduleDateTime.setMinutes(scheduleDateTime.getMinutes() + minutes);
+
+        expect($scope.checkWithRoundOfSamePriority(scheduleDateTime, currentInterviewRound, otherRoundsWithSamePriority)).toEqual({});
+      });
+
+      it('should not return error when date selected is exactly one hour lesser than same priority interview schedule', function() {
+        var otherRoundWithSamePriority = $scope.interviewRounds[3];
+        otherRoundWithSamePriority.dateTime = new Date();
+        var otherRoundsWithSamePriority = [otherRoundWithSamePriority];
+        var currentInterviewRound = $scope.interviewRounds[4];
+        var scheduleDateTime = new Date();
+        var minutes = 60;
+
+        scheduleDateTime.setMinutes(scheduleDateTime.getMinutes() - minutes);
+
+        expect($scope.checkWithRoundOfSamePriority(scheduleDateTime, currentInterviewRound, otherRoundsWithSamePriority)).toEqual({});
+      });
+
+      it('should return error when selected date is less than same priority interview schedule by one hour', function() {
+        var otherRoundWithSamePriority = $scope.interviewRounds[3];
+        otherRoundWithSamePriority.dateTime = new Date();
+        var otherRoundsWithSamePriority = [otherRoundWithSamePriority];
+        var currentInterviewRound = $scope.interviewRounds[4];
+        var scheduleDateTime = new Date();
+        var minutes = 59;
+
+        scheduleDateTime.setMinutes(scheduleDateTime.getMinutes() - minutes);
+
+        expect($scope.checkWithRoundOfSamePriority(scheduleDateTime, currentInterviewRound, otherRoundsWithSamePriority)).toEqual({
+          message: 'Please schedule this round atleast 1hr before/after ' + otherRoundWithSamePriority.name});
+      });
+
+      it('should return error when date selected is greater than same priority interview schedule by less than one hour', function() {
+        var otherRoundWithSamePriority = $scope.interviewRounds[3];
+        otherRoundWithSamePriority.dateTime = new Date();
+        var otherRoundsWithSamePriority = [otherRoundWithSamePriority];
+        var currentInterviewRound = $scope.interviewRounds[4];
+        var scheduleDateTime = new Date();
+        var minutes = 59;
+
+        scheduleDateTime.setMinutes(scheduleDateTime.getMinutes() + minutes);
+
+        expect($scope.checkWithRoundOfSamePriority(scheduleDateTime, currentInterviewRound, otherRoundsWithSamePriority)).toEqual({
+          message: 'Please schedule this round atleast 1hr before/after ' + otherRoundWithSamePriority.name});
+      });
+
+      it('should return error when date selected is equal to same priority interview schedule', function() {
+        var now = new Date();
+        var otherRoundWithSamePriority = $scope.interviewRounds[3];
+        otherRoundWithSamePriority.dateTime = now;
+        var otherRoundsWithSamePriority = [otherRoundWithSamePriority];
+        var currentInterviewRound = $scope.interviewRounds[4];
+        var scheduleDateTime = now;
+
+        expect($scope.checkWithRoundOfSamePriority(scheduleDateTime, currentInterviewRound, otherRoundsWithSamePriority)).toEqual({
+          message: 'Please schedule this round atleast 1hr before/after ' + otherRoundWithSamePriority.name});
+      });
+    });
+
     describe('isCancelable', function() {
       it('should return false if start time for current interview is undefined', function() {
         var currentInterview = $scope.interviewRounds[0];

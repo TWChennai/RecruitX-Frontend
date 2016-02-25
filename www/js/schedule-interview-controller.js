@@ -19,7 +19,12 @@ angular.module('recruitX')
       return (previousInterviewTime === undefined || scheduleDateTime < previousInterviewTime.setHours(previousInterviewTime.getHours() + 1));
     };
 
-    var getNextInterviewRounds = function (currentInterview) {
+    var isCurrentInterviewScheduledClashWithSamePriorityInterview = function(scheduleDateTime, otherRoundTime) {
+      var otherRoundTimeTemp = new Date(otherRoundTime);
+      return !((scheduleDateTime <= otherRoundTime.setHours(otherRoundTime.getHours() - 1)) || (scheduleDateTime >= otherRoundTimeTemp.setHours(otherRoundTimeTemp.getHours() + 1)));
+    };
+
+    var getNextInterviewRounds = function(currentInterview) {
       return ($filter('filter')($scope.interviewRounds, {
         priority: currentInterview.priority + 1,
         dateTime: '!!'
@@ -54,13 +59,22 @@ angular.module('recruitX')
         }));
         var previousInterviewRound = nextLowerPriorityInterviewRounds[0];
 
+        var otherRoundsWithSamePriority = ($filter('filter')($scope.interviewRounds, function(interviewRound) {
+          return (interviewRound.priority === currentInterviewRound.priority) && (interviewRound.id !== currentInterviewRound.id);
+        }));
+
         var nextInterviewRounds = getNextInterviewRounds(currentInterviewRound);
 
         var result1 = $scope.checkWithPreviousRound(dateTime, currentInterviewRound, previousInterviewRound);
         var result2 = $scope.checkWithNextRound(dateTime, currentInterviewRound, nextInterviewRounds);
+        var result3 = $scope.checkWithRoundOfSamePriority(dateTime, currentInterviewRound, otherRoundsWithSamePriority);
         if (angular.equals({}, result1)) {
           if (angular.equals({}, result2)) {
-            $scope.interviewRounds[index].dateTime = dateTime;
+            if (angular.equals({}, result3)) {
+              $scope.interviewRounds[index].dateTime = dateTime;
+            } else {
+              dialogService.showAlert('Invalid Selection', result3.message);
+            }
           } else {
             dialogService.showAlert('Invalid Selection', result2.message);
           }
@@ -100,7 +114,24 @@ angular.module('recruitX')
       return error;
     };
 
-    $scope.getInterviewWithMinStartTime = function (interviews) {
+    $scope.checkWithRoundOfSamePriority = function(scheduleDateTime, currentInterviewRound, otherRoundsWithSamePriority) {
+      var error = {};
+      if (otherRoundsWithSamePriority.length === 0) {
+        return error;
+      }
+      var otherRoundWithSamePriority = $scope.getInterviewWithMinStartTime(otherRoundsWithSamePriority);
+      if (otherRoundWithSamePriority.dateTime === undefined) {
+        return error;
+      }
+      var otherRoundTime = {};
+      otherRoundTime = new Date(otherRoundWithSamePriority.dateTime);
+      if (isCurrentInterviewScheduledClashWithSamePriorityInterview(scheduleDateTime, otherRoundTime)) {
+        error.message = 'Please schedule this round atleast 1hr before/after ' + otherRoundWithSamePriority.name;
+      }
+      return error;
+    };
+
+    $scope.getInterviewWithMinStartTime = function(interviews) {
       var minInterview = interviews[0];
       for (var i = 0; i < interviews.length; i++) {
         var minDate = minInterview.dateTime;
