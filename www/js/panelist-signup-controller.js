@@ -18,10 +18,9 @@ angular.module('recruitX')
 
     $scope.manuallyRefreshInterviews = function () {
       $scope.refreshInterviews();
-      if(!loggedinUserStore.isRecruiter()){
+      if (!loggedinUserStore.isRecruiter()) {
         $scope.refreshMyInterviews();
-      }
-      else{
+      } else {
         $scope.refreshCandidates();
       }
     };
@@ -69,14 +68,14 @@ angular.module('recruitX')
       });
     };
 
-    $scope.loadMoreCandidates = function() {
+    $scope.loadMoreCandidates = function () {
       if ($scope.next_requesting_page <= $scope.total_pages) {
         $scope.refreshCandidates($scope.next_requesting_page);
       }
       $scope.$broadcast('scroll.infiniteScrollComplete');
     };
 
-    $scope.$on('$stateChangeSuccess', function() {
+    $scope.$on('$stateChangeSuccess', function () {
       $scope.loadMoreCandidates();
     });
 
@@ -100,7 +99,7 @@ angular.module('recruitX')
 
     $scope.signUpUnprocessableEntityHandler = function (error) {
       $scope.finishRefreshing();
-      dialogService.showAlert('Sign up', error.errors[0].reason).then(function(){
+      dialogService.showAlert('Sign up', error.errors[0].reason).then(function () {
         $scope.manuallyRefreshInterviews();
       });
     };
