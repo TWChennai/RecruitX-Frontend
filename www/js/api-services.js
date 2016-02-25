@@ -13,7 +13,7 @@ angular.module('recruitX')
           if(isOffline){
             return 'Please check your internet connection';
           } else {
-            return 'Connection timed out. Please try later!';
+            return 'Something went wrong while processing your request. Please try again soon.';
           }
           break;
         default: return 'Something went wrong while processing your request. Please try again soon.';

@@ -36,7 +36,7 @@ angular.module('recruitX')
 
   $rootScope.$on('loading:show', function () {
     $ionicLoading.show({
-      template: 'Loading...'
+      template: '<ion-spinner icon="lines" class="spinner-calm"></ion-spinner>'
     });
   });
 
