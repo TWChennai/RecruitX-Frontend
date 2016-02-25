@@ -144,9 +144,10 @@ angular.module('recruitX')
         return Boolean(interviewRound);
       });
 
-      recruitFactory.saveCandidate($stateParams, function () {
-        dialogService.showAlertWithDismissHandler('Success', 'Candidate Interview successfully added!!', $scope.redirectToHomePage);
-      }, function (response) {
+      recruitFactory.saveCandidate($stateParams, function() {
+        // console.log(response);
+        dialogService.showAlertWithDismissHandler('Success', 'Candidate Interview successfully added!!', redirectToHomePage);
+      }, function(response) {
         var errors = response.data.errors;
         dialogService.showAlertWithDismissHandler('Failed', errors[0].reason);
       });
