@@ -14,7 +14,7 @@
           <ion-refresher on-refresh="refreshInterviews()">
           </ion-refresher>
           <ion-list class="candidatePanelList">
-            <ion-item ng-repeat="item in items">
+            <ion-item collection-repeat="item in items">
               <div class="item item-divider candidateInfo">
                 <div class="row">
                   <div class="col col-50" ng-if="isInPipeline(item.candidate)">
@@ -63,7 +63,7 @@
           <ion-refresher on-refresh="refreshMyInterviews()">
           </ion-refresher>
           <ion-list class="candidatePanelList">
-            <ion-item ng-repeat="myinterview in myinterviews">
+            <ion-item collection-repeat="myinterview in myinterviews">
               <div class="item item-divider candidateInfo">
                 <div class="row">
                   <div class="col col-50" ng-if="isInPipeline(myinterview.candidate)">
@@ -108,7 +108,7 @@
           <ion-refresher on-refresh="refreshCandidates(1)">
           </ion-refresher>
           <ion-list class="candidatePanelList">
-            <ion-item ng-repeat="candidate in all_candidates">
+            <ion-item collection-repeat="candidate in all_candidates">
               <div class="item item-divider candidateInfo">
                 <div class="row">
                   <div class="col col-50">
