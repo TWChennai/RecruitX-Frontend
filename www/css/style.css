@@ -6,7 +6,12 @@ body, .ionic-body {
 .platform-ios, .platform-ios body { overflow-y: visible;}
 
 /* Helper Classes */
-
+.padding-bottom {
+  padding-bottom: 3px;
+}
+.no-margin, .button.no-margin {
+  margin: 0;
+}
 .col-30 {
   width: 30%;
 }

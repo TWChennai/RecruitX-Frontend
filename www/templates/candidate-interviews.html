@@ -1,11 +1,14 @@
-<div class="pane">
-  <ion-content ng-controller="candidateInterviewsController">
-    <div class="row text-center">
+<ion-view>
+  <ion-content ng-controller="candidateInterviewsController" ng-class="{'empty' : noInterviews }">
+    <div class="row text-center" ng-if="!noInterviews">
       <div class="col col-100">
         <h5>{{current_candidate.pipelineStatus}}</h5>
       </div>
     </div>
-
+    <div ng-if="noInterviews" class='full-screen-div'>
+      <div class="center-screen"><b>Without attending any round, the candidate got closed.</b>
+      </div>
+    </div>
     <ion-list inset>
       <div collection-repeat="interviewType in interviewSet">
         <ion-item class="item interview-container" ui-sref="interview-details({id: interviewType.id})" disable-ui-sref="!((isLoggedinUserRecruiter || isPanelistForAnyInterviewRound) && !isNotScheduled(interviewType))">
@@ -16,14 +19,14 @@
             <p class="ion-thumbsup col col-10 modify-interview" ng-if="(isLoggedinUserRecruiter || isPanelistForAnyInterviewRound) && isFeedbackGiven(interviewType.status) && compareStatus(interviewType.status, 'Pursue')"></p>
             <p class="ion-thumbsup col col-10 modify-interview" ng-if="(isLoggedinUserRecruiter || isPanelistForAnyInterviewRound) && isFeedbackGiven(interviewType.status) && compareStatus(interviewType.status, 'Strong Pursue')"></p>
             <p class="ion-thumbsup col col-10 modify-interview" ng-if="(isLoggedinUserRecruiter || isPanelistForAnyInterviewRound) && isFeedbackGiven(interviewType.status) && compareStatus(interviewType.status, 'Strong Pursue')"></p>
-            <button class="button ion-edit col col-10 modify-interview" ng-show="isLoggedinUserRecruiter && !isNotScheduled(interviewType) && !isFeedbackGiven(interviewType.status)" ng-click="dateTime($index, $event, updateInterview)"></button>
+            <button class="button ion-edit col col-10 modify-interview" ng-show="isLoggedinUserRecruiter && !isNotScheduled(interviewType) && !isFeedbackGiven(interviewType.status) && isPipelineNotClosed()" ng-click="dateTime($index, $event, updateInterview)"></button>
             <button class="button ion-plus col col-10 modify-interview" ng-show="isLoggedinUserRecruiter && isNextSchedulableRound(interviewType) && !isFeedbackGiven(interviewType.status)" ng-click="dateTime($index, $event, createInterview)"></button>
           </div>
         </ion-item>
       </div>
     </ion-list>
+    <div class="padding-bottom" ng-if="isLoggedinUserRecruiter && isPipelineNotClosed()">
+      <button class="button button-positive button-full no-margin" ng-click="closePipelineWithConfirmation()">Close Pipeline</button>
+    </div>
   </ion-content>
-  <div class="bar bar-footer bar-positive" ng-if="isLoggedinUserRecruiter && isPipelineInProgress()">
-    <button class="button button-full" ng-click="closePipelineWithConfirmation()">Close Pipeline</button>
-  </div>
-</div>
+</ion-view>

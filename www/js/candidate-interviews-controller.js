@@ -6,6 +6,7 @@ angular.module('recruitX')
     $scope.interviewSet = [];
     $scope.isPanelistForAnyInterviewRound = false;
     $scope.notScheduled = 'Not Scheduled';
+    $scope.noInterviews = true;
     $scope.interviewTypes = MasterData.getInterviewTypes();
     $scope.isLoggedinUserRecruiter = loggedinUserStore.isRecruiter();
     $scope.loggedinUser = loggedinUserStore.userId();
@@ -13,6 +14,7 @@ angular.module('recruitX')
     $scope.fetchCandidateInterviews = function () {
       recruitFactory.getCandidateInterviews($stateParams.id, function (interviews) {
         $scope.interviews = interviews;
+        $scope.noInterviews = interviews.length === 0 ? true : false;
         $scope.buildInterviewScheduleList();
         if (interviews[0] === undefined) {
           recruitFactory.getCandidate($rootScope.candidate_id, function (response) {
@@ -49,19 +51,24 @@ angular.module('recruitX')
             }
           }
         }
-        $scope.interviewSet.push({
-          id: interviewID,
-          name: interviewType.name,
-          priority: interviewType.priority,
-          start_time: interviewStartTime,
-          status: status
-        });
+        if (!(!$scope.isPipelineNotClosed() && scheduledInterview[0] === undefined)) {
+          $scope.interviewSet.push({
+            id: interviewID,
+            name: interviewType.name,
+            priority: interviewType.priority,
+            start_time: interviewStartTime,
+            status: status
+          });
+        }
+        if (status !== undefined && status.name === 'Pass') {
+          return;
+        }
       }
       $scope.interviewSet = $filter('orderBy')($scope.interviewSet, 'start_time');
     };
 
-    $scope.isPipelineInProgress = function () {
-      return $scope.current_candidate !== undefined && $scope.current_candidate.pipelineStatus === 'In Progress';
+    $scope.isPipelineNotClosed = function () {
+      return $scope.current_candidate !== undefined && $scope.current_candidate.pipelineStatus !== 'Closed';
     };
 
     $scope.closePipelineWithConfirmation = function () {
@@ -105,7 +112,7 @@ angular.module('recruitX')
     };
 
     $scope.isFeedbackGiven = function (status) {
-      return status !== '';
+      return status !== undefined && status !== '';
     };
 
     $scope.compareStatus = function (interviewStatus, status) {
