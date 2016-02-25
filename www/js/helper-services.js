@@ -2,27 +2,29 @@ angular.module('recruitX')
   .service('skillHelperService', ['$filter', 'MasterData', function ($filter, MasterData) {
     'use strict';
 
-    this.formatAllSkills = function (candidate_skills, other_skills) {
-      var all_skills = [];
-      var skills = MasterData.getSkills();
+    return {
+      formatAllSkills: function (candidate_skills, other_skills) {
+        var all_skills = [];
+        var skills = MasterData.getSkills();
 
-      for(var candidateSkillIndex in candidate_skills){
-        // TODO: Hard-coding a magic number doesn't convey the meaning. Move this to app.js where the skills are loaded for the first time.
-        var other_skill_id = 5;
-        var candidateSkill = candidate_skills[candidateSkillIndex];
-        if (candidateSkill.id !== other_skill_id) {
-          var role = ($filter('filter')(skills, {
-            id: candidateSkill.id
-          }))[0];
-          all_skills.push(role.name);
+        for(var candidateSkillIndex in candidate_skills){
+          // TODO: Hard-coding a magic number doesn't convey the meaning. Move this to app.js where the skills are loaded for the first time.
+          var other_skill_id = 5;
+          var candidateSkill = candidate_skills[candidateSkillIndex];
+          if (candidateSkill.id !== other_skill_id) {
+            var role = ($filter('filter')(skills, {
+              id: candidateSkill.id
+            }))[0];
+            all_skills.push(role.name);
+          }
         }
-      }
 
-      if (other_skills !== undefined && other_skills !== null && other_skills.trim().length > 0) {
-        all_skills.push(other_skills);
-      }
+        if (other_skills !== undefined && other_skills !== null && other_skills.trim().length > 0) {
+          all_skills.push(other_skills);
+        }
 
-      return all_skills.join(', ');
+        return all_skills.join(', ');
+      }
     };
   }
 ])
@@ -113,6 +115,7 @@ angular.module('recruitX')
 
 .factory('dialogService', function ($ionicPopup) {
   'use strict';
+
   return {
     showAlert: function (alertTitle, alertText) {
       var alert = $ionicPopup.alert({
@@ -143,41 +146,43 @@ angular.module('recruitX')
     }
   };
 })
+
 .service('ptrService', ['$timeout', '$ionicScrollDelegate', function($timeout, $ionicScrollDelegate) {
+  'use strict';
 
-  /**
-   * Trigger the pull-to-refresh on a specific scroll view delegate handle.
-   * @param {string} delegateHandle - The `delegate-handle` assigned to the `ion-content` in the view.
-   */
-  this.triggerPtr = function(delegateHandle) {
+  return {
+    /**
+     * Trigger the pull-to-refresh on a specific scroll view delegate handle.
+     * @param {string} delegateHandle - The `delegate-handle` assigned to the `ion-content` in the view.
+     */
+    triggerPtr: function (delegateHandle) {
+      $timeout(function() {
+        var scrollView = $ionicScrollDelegate.$getByHandle(delegateHandle).getScrollView();
 
-    $timeout(function() {
+        if (!scrollView) {
+          return;
+        }
 
-      var scrollView = $ionicScrollDelegate.$getByHandle(delegateHandle).getScrollView();
+        scrollView.__publish(
+          scrollView.__scrollLeft, -scrollView.__refreshHeight,
+          scrollView.__zoomLevel, true);
 
-      if (!scrollView) return;
+        var d = new Date();
 
-      scrollView.__publish(
-        scrollView.__scrollLeft, -scrollView.__refreshHeight,
-        scrollView.__zoomLevel, true);
+        scrollView.refreshStartTime = d.getTime();
 
-      var d = new Date();
-
-      scrollView.refreshStartTime = d.getTime();
-
-      scrollView.__refreshActive = true;
-      scrollView.__refreshHidden = false;
-      if (scrollView.__refreshShow) {
-        scrollView.__refreshShow();
-      }
-      if (scrollView.__refreshActivate) {
-        scrollView.__refreshActivate();
-      }
-      if (scrollView.__refreshStart) {
-        scrollView.__refreshStart();
-      }
-
-    });
-
+        scrollView.__refreshActive = true;
+        scrollView.__refreshHidden = false;
+        if (scrollView.__refreshShow) {
+          scrollView.__refreshShow();
+        }
+        if (scrollView.__refreshActivate) {
+          scrollView.__refreshActivate();
+        }
+        if (scrollView.__refreshStart) {
+          scrollView.__refreshStart();
+        }
+      });
+    }
   };
 }]);
