@@ -1,7 +1,7 @@
 <ion-view view-title="Schedule Interview" ng-controller="scheduleInterviewController">
   <ion-content>
     <ion-list inset>
-      <div ng-repeat="interviewRound in interviewRounds">
+      <div collection-repeat="interviewRound in interviewRounds">
         <ion-item class="item" ng-model="interviewRound.name" ng-click="dateTime($index)">
           <div class="row">
             <p class="col col-40">{{interviewRound.name}}</p>
