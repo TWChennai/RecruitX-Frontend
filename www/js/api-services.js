@@ -62,6 +62,12 @@ angular.module('recruitX')
       interview.status = ($filter('filter')(MasterData.getInterviewStatuses(), {
         id: interviewStatusId
       }))[0];
+
+      if (!(interview.last_interview_status === null)) {
+        interview.lastInterviewStatusName = ($filter('filter')(MasterData.getInterviewStatuses(), {
+          id: interview.last_interview_status
+        }))[0].name;
+      }
       fleshOutCandidate(interview.candidate);
     };
 
