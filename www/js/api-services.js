@@ -22,60 +22,76 @@ angular.module('recruitX')
 
     var defaultErrorHandler = function (err, status, customError) {
       $cordovaToast.showShortBottom(getErrorMessage(status));
-
       // console.log(getErrorMessage(status));
       if (customError !== undefined) {
         customError();
       }
     };
 
+    var load_and_flesh = function (flesh_out_fn, input) {
+      if (MasterData.isLoaded()) {
+        flesh_out_fn(input);
+      } else {
+        MasterData.load().then( function() {
+          flesh_out_fn(input);
+        });
+      }
+    };
+
     var fleshOutCandidate = function (candidate) {
-      candidate.name = candidate.first_name + ' ' + candidate.last_name;
-      candidate.all_skills = skillHelperService.formatAllSkills(candidate.skills, candidate.other_skills);
-      candidate.role = (($filter('filter')(MasterData.getRoles(), {
-        id: candidate.role_id
-      }))[0]).name;
-      candidate.pipelineStatus = (($filter('filter')(MasterData.getPipelineStatuses(), {
-        id: candidate.pipeline_status_id
-      }))[0]).name;
+      load_and_flesh( function(candidate) {
+        candidate.name = candidate.first_name + ' ' + candidate.last_name;
+        candidate.all_skills = skillHelperService.formatAllSkills(candidate.skills, candidate.other_skills);
+        candidate.role = (($filter('filter')(MasterData.getRoles(), {
+          id: candidate.role_id
+        }))[0]).name;
+        candidate.pipelineStatus = (($filter('filter')(MasterData.getPipelineStatuses(), {
+          id: candidate.pipeline_status_id
+        }))[0]).name;
+      }, candidate);
     };
 
     var fleshOutCandidates = function (candidates) {
-      for(var candidateIndex in candidates){
-        fleshOutCandidate(candidates[candidateIndex]);
-      }
+      load_and_flesh( function(candidates) {
+        for(var candidateIndex in candidates){
+          fleshOutCandidate(candidates[candidateIndex]);
+        }
+      }, candidates);
     };
 
     var fleshOutInterview = function (interview) {
-      interview.interview_type = ($filter('filter')(MasterData.getInterviewTypes(), {
-        id: interview.interview_type_id
-      }))[0];
-      if (interview.panelists !== undefined) {
-        // TODO: This seems like a temp placeholder - so why store in the interview?
-        interview.panelistsArray = [];
-        for(var interviewPanelistIndex in interview.panelists){
-          interview.panelistsArray.push(interview.panelists[interviewPanelistIndex].name);
+      load_and_flesh( function(interview) {
+        interview.interview_type = ($filter('filter')(MasterData.getInterviewTypes(), {
+          id: interview.interview_type_id
+        }))[0];
+        if (interview.panelists !== undefined) {
+          // TODO: This seems like a temp placeholder - so why store in the interview?
+          interview.panelistsArray = [];
+          for(var interviewPanelistIndex in interview.panelists){
+            interview.panelistsArray.push(interview.panelists[interviewPanelistIndex].name);
+          }
+          interview.formattedPanelists = interview.panelistsArray.join(', ');
         }
-        interview.formattedPanelists = interview.panelistsArray.join(', ');
-      }
-      var interviewStatusId = interview.status_id;
-      interview.status = ($filter('filter')(MasterData.getInterviewStatuses(), {
-        id: interviewStatusId
-      }))[0];
-
-      if (!(interview.last_interview_status === null)) {
-        interview.lastInterviewStatusName = ($filter('filter')(MasterData.getInterviewStatuses(), {
-          id: interview.last_interview_status
-        }))[0].name;
-      }
-      fleshOutCandidate(interview.candidate);
+        var interviewStatusId = interview.status_id;
+        interview.status = ($filter('filter')(MasterData.getInterviewStatuses(), {
+          id: interviewStatusId
+        }))[0];
+        if (!(interview.last_interview_status === null)) {
+          interview.lastInterviewStatusName = ($filter('filter')(MasterData.getInterviewStatuses(), {
+            id: interview.last_interview_status
+          }))[0].name;
+        }
+        fleshOutCandidate(interview.candidate);
+      }, interview);
     };
 
     var fleshOutInterviews = function (interviews) {
-      // TODO: Please use a consistent for construct
-      for(var interviewIndex in interviews){
-        fleshOutInterview(interviews[interviewIndex]);
-      }
+      load_and_flesh(function(interviews){
+        // TODO: Please use a consistent for construct
+        for(var interviewIndex in interviews){
+          fleshOutInterview(interviews[interviewIndex]);
+        }
+      }, interviews);
     };
 
     return {
@@ -224,6 +240,10 @@ angular.module('recruitX')
   var data;
 
   return {
+    isLoaded: function () {
+      return data != undefined;
+    },
+
     getInterviewTypes: function () {
       return data.interviewTypes;
     },
@@ -245,6 +265,7 @@ angular.module('recruitX')
     },
 
     load: function () {
+      console.log("LOADING MASTER DATA ******************");
       return $q.all([$http.get(baseUrl + '/interview_types'), $http.get(baseUrl + '/roles'), $http.get(baseUrl + '/skills'), $http.get(baseUrl + '/interview_statuses'), $http.get(baseUrl + '/pipeline_statuses')])
         .then(function (response) {
           data = {

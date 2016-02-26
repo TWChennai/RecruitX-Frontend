@@ -80,10 +80,4 @@ angular.module('recruitX', ['ngFileUpload', 'ionic', 'ui.router', 'ngCordova', '
     templateUrl: 'templates/login.html',
     controller: 'loginController'
   });
-
-  if (window.localStorage['LOGGEDIN_USER']) {
-    $urlRouterProvider.otherwise('/panelist-signup');
-  } else {
-    $urlRouterProvider.otherwise('/login');
-  }
 });

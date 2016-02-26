@@ -45,10 +45,10 @@ angular.module('recruitX')
   });
 })
 
-.run(function ($ionicPlatform, $rootScope, recruitFactory, MasterData) {
+.run(function ($ionicPlatform, $rootScope, recruitFactory, MasterData, $state) {
   'use strict';
 
-  $ionicPlatform.ready(function () {
+    $ionicPlatform.ready(function () {
     if (window.cordova && window.cordova.plugins.Keyboard) {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
@@ -59,6 +59,7 @@ angular.module('recruitX')
       // a much nicer keyboard experience.
       cordova.plugins.Keyboard.disableScroll(true);
     }
+    navigator.splashscreen.show();
 
     if (window.StatusBar) {
       window.StatusBar.styleDefault();
@@ -70,6 +71,7 @@ angular.module('recruitX')
         $rootScope.$broadcast('loaded:masterData');
       }, function (err) {
         console.log('Failed to laod master data due to: ' + err.data);
+        navigator.splashscreen.hide();
         if (window.cordova && window.cordova.plugins.cordovaToast) {
           cordova.plugins.cordovaToast.showShortBottom('Something went wrong while contacting the server.');
         }
@@ -78,7 +80,9 @@ angular.module('recruitX')
 
     if (window.localStorage['LOGGEDIN_USER']) {
       loadMasterData();
+      $state.go('panelist-signup');
     } else {
+      $state.go('login');
       navigator.splashscreen.hide();
     }
 
