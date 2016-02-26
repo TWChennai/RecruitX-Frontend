@@ -1,5 +1,6 @@
 #!/usr/bin/env sh
 
+npm set progress=false
 npm install
 
 set -e
