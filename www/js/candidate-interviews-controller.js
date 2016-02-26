@@ -116,7 +116,7 @@ angular.module('recruitX')
     };
 
     $scope.compareStatus = function (interviewStatus, status) {
-      return interviewStatus.name === status;
+      return interviewStatus !== undefined && interviewStatus.name === status;
     };
 
     $scope.dateTime = function (index, event, callback) {
