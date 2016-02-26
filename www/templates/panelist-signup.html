@@ -21,7 +21,7 @@
               <div class="item item-divider candidateInfo" collection-item-width="'100%'" collection-item-height="item.height" ng-style="{height:item.height+'px'}">
                 <div class="row">
                   <div class="col col-50" ng-if="isInPipeline(item.candidate)">
-                    <a ui-sref="candidate-profile({id: item.candidate.id})"><strong>{{item.candidate.name | limitTo: 10}}</strong></a>
+                    <a ui-sref="candidate-tabs.candidate-profile({candidate_id: item.candidate.id})"><strong>{{item.candidate.name | limitTo: 10}}</strong></a>
                     <h5> ({{item.candidate.experience | number: 1}} Yrs) </h5>
                   </div>
                   <div class="col col-50" ng-if="!isInPipeline(item.candidate)">
@@ -70,7 +70,7 @@
               <div class="item item-divider candidateInfo" collection-item-width="'100%'" collection-item-height="item.height" ng-style="{height:item.height+'px'}">
                 <div class="row">
                   <div class="col col-50" ng-if="isInPipeline(myinterview.candidate)">
-                    <a ui-sref="candidate-profile({id: myinterview.candidate.id})"><strong>{{myinterview.candidate.name | limitTo: 10}}</strong></a>
+                    <a ui-sref="candidate-tabs.candidate-profile({candidate_id: myinterview.candidate.id})"><strong>{{myinterview.candidate.name | limitTo: 10}}</strong></a>
                     <h5> ({{myinterview.candidate.experience}} Yrs) </h5>
                   </div>
                   <div class="col col-50" ng-if="!isInPipeline(myinterview.candidate)">
@@ -116,7 +116,7 @@
               <div class="item item-divider candidateInfo" collection-item-width="'100%'" collection-item-height="item.height"  ng-style="{height:item.height+'px'}">
                 <div class="row">
                   <div class="col col-50">
-                    <a ui-sref="candidate-profile({id:candidate.id})"><strong>{{candidate.name | limitTo: 10}}</strong></a>
+                    <a ui-sref="candidate-tabs.candidate-profile({candidate_id: candidate.id})"><strong>{{candidate.name | limitTo: 10}}</strong></a>
                     <h5> ({{candidate.experience}} Yrs) </h5>
                   </div>
                   <div class="col col-25">

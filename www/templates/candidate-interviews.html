@@ -1,5 +1,5 @@
-<ion-view>
-  <ion-content ng-controller="candidateInterviewsController" ng-class="{'empty' : noInterviews }">
+<ion-view title="Candidate">
+  <ion-content has-tabs="true" ng-controller="candidateInterviewsController" ng-class="{'empty' : noInterviews }">
     <div class="row text-center" ng-if="!noInterviews">
       <div class="col col-100">
         <h5>{{current_candidate.pipelineStatus}}</h5>

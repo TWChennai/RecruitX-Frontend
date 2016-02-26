@@ -5,7 +5,7 @@ describe('candidateInterviewsController', function () {
 
   var $scope = {};
 
-  beforeEach(inject(function ($controller, loggedinUserStore, MasterData) {
+  beforeEach(inject(function ($controller, loggedinUserStore, MasterData, $rootScope) {
     var interviewTypes = [{
       id: 1,
       name: 'Code Pairing',
@@ -32,6 +32,7 @@ describe('candidateInterviewsController', function () {
     spyOn(loggedinUserStore, 'userId').and.returnValue('recruitx');
     spyOn(MasterData, 'getInterviewTypes').and.returnValue(interviewTypes);
 
+    $scope = $rootScope.$new();
     $controller('candidateInterviewsController', {
       $scope: $scope
     });

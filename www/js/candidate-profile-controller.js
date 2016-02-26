@@ -3,12 +3,15 @@ angular.module('recruitX')
     'use strict';
 
     $scope.candidate = {};
-    $rootScope.candidate_id = $stateParams.id; // TODO: Should we even be storing anything on rootScope?
 
-    recruitFactory.getCandidate($rootScope.candidate_id, function (response) {
-      $scope.candidate = response;
+    recruitFactory.getCandidate($stateParams.candidate_id, function (candidate) {
+      $scope.candidate = candidate;
     }, function (response) {
       console.log('failed with response: ' + response);
+    });
+
+    $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
+      viewData.enableBack = true;
     });
   }
 ]);

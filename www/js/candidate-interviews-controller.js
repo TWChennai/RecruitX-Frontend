@@ -12,7 +12,7 @@ angular.module('recruitX')
     $scope.loggedinUser = loggedinUserStore.userId();
 
     $scope.fetchCandidateInterviews = function () {
-      recruitFactory.getCandidateInterviews($stateParams.id, function (interviews) {
+      recruitFactory.getCandidateInterviews($stateParams.candidate_id, function (interviews) {
         $scope.interviews = interviews;
         $scope.noInterviews = interviews.length === 0 ? true : false;
         $scope.buildInterviewScheduleList();
@@ -135,7 +135,7 @@ angular.module('recruitX')
         }
 
         var interview = {
-          candidate_id: $stateParams.id,
+          candidate_id: $stateParams.candidate_id,
           interview_type_id: $scope.interviewTypes[index].id,
           start_time: dateTime
         };
@@ -167,5 +167,9 @@ angular.module('recruitX')
         dialogService.showAlert('Create Failed', response.data.errors.start_time);
       });
     };
+
+    $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
+      viewData.enableBack = true;
+    });
   }
 ]);

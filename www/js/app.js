@@ -45,7 +45,7 @@ angular.module('recruitX', ['ngFileUpload', 'ionic', 'ui.router', 'ngCordova', '
     cache: false
   })
 
-  .state('candidate-tab-view', {
+  .state('candidate-tabs', {
     url: '/candidate-tabs',
     abstract: true,
     templateUrl: 'templates/candidate-tabs.html',
@@ -53,9 +53,8 @@ angular.module('recruitX', ['ngFileUpload', 'ionic', 'ui.router', 'ngCordova', '
     cache: false
   })
 
-  .state('candidate-profile', {
-    url: '/candidates/:id',
-    parent: 'candidate-tab-view',
+  .state('candidate-tabs.candidate-profile', {
+    url: '/candidates/:candidate_id',
     views: {
       'candidate-profile-tab': {
         templateUrl: 'templates/candidate-profile.html',
@@ -65,9 +64,8 @@ angular.module('recruitX', ['ngFileUpload', 'ionic', 'ui.router', 'ngCordova', '
     }
   })
 
-  .state('candidate-interviews', {
-    url: '/candidates/:id/interviews',
-    parent: 'candidate-tab-view',
+  .state('candidate-tabs.candidate-interviews', {
+    url: '/candidates/:candidate_id/interviews',
     views: {
       'candidate-interviews-tab': {
         templateUrl: 'templates/candidate-interviews.html',
