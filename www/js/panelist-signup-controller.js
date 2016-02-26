@@ -125,7 +125,8 @@ angular.module('recruitX')
     });
 
     $scope.$on('$ionicView.beforeEnter', function() {
-      ptrService.triggerPtr('ptr-content');
+      ptrService.triggerPtr('ptr-interviews');
+      ptrService.triggerPtr('ptr-candidates');
     });
   }
 ]);

@@ -10,7 +10,7 @@
   <ion-tabs class="panelist-tab tabs-striped tabs-positive tabs-top">
     <ion-tab title="Interviews">
       <ion-nav-view>
-        <ion-content class="ic-blk" delegate-handle="ptr-content" ng-class="{'empty' : noItems }" >
+        <ion-content class="ic-blk" delegate-handle="ptr-interviews" ng-class="{'empty' : noItems }" >
           <ion-refresher on-refresh="refreshInterviews()">
           </ion-refresher>
           <div ng-if="noItems" class='full-screen-div'>
@@ -104,7 +104,7 @@
 
     <ion-tab title="Candidates" ng-if="isLoggedinUserRecruiter">
       <ion-nav-view>
-        <ion-content ng-class="{'empty' : noCandidates }" delegate-handle="ptr-content">
+        <ion-content delegate-handle="ptr-candidates" ng-class="{'empty' : noCandidates }">
           <ion-refresher on-refresh="refreshCandidates(1)">
           </ion-refresher>
           <div ng-if="noCandidates" class='full-screen-div'>
