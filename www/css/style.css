@@ -309,3 +309,7 @@ textarea {
 .bar-footer {
   bottom: 8%;
 }
+
+.has-tabs-top {
+  top: 44px;
+}
