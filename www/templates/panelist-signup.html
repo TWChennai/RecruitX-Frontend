@@ -67,7 +67,7 @@
           </div>
           <ion-list class="candidatePanelList">
             <ion-item collection-repeat="myinterview in myinterviews">
-              <div class="item item-divider candidateInfo" collection-item-width="'100%'" collection-item-height="item.height" ng-style="{height:item.height+'px'}">
+              <div class="item item-divider candidateInfo" collection-item-width="'100%'" collection-item-height="myinterview.height" ng-style="{height:myinterview.height+'px'}">
                 <div class="row">
                   <div class="col col-50" ng-if="isInPipeline(myinterview.candidate)">
                     <a ui-sref="candidate-tabs.candidate-profile({candidate_id: myinterview.candidate.id})"><strong>{{myinterview.candidate.name | limitTo: 10}}</strong></a>
@@ -113,7 +113,7 @@
           </div>
           <ion-list class="candidatePanelList">
             <ion-item collection-repeat="candidate in all_candidates">
-              <div class="item item-divider candidateInfo" collection-item-width="'100%'" collection-item-height="item.height"  ng-style="{height:item.height+'px'}">
+              <div class="item item-divider candidateInfo" collection-item-width="'100%'" collection-item-height="candidate.height" ng-style="{height:candidate.height+'px'}">
                 <div class="row">
                   <div class="col col-50">
                     <a ui-sref="candidate-tabs.candidate-profile({candidate_id: candidate.id})"><strong>{{candidate.name | limitTo: 10}}</strong></a>
