@@ -38,7 +38,7 @@ angular.module('recruitX')
       }
     };
 
-    var fleshOutCandidate = function (candidate) {
+    var fleshOutCandidate = function (candidate_input) {
       load_and_flesh( function(candidate) {
         candidate.name = candidate.first_name + ' ' + candidate.last_name;
         candidate.all_skills = skillHelperService.formatAllSkills(candidate.skills, candidate.other_skills);
@@ -48,18 +48,18 @@ angular.module('recruitX')
         candidate.pipelineStatus = (($filter('filter')(MasterData.getPipelineStatuses(), {
           id: candidate.pipeline_status_id
         }))[0]).name;
-      }, candidate);
+      }, candidate_input);
     };
 
-    var fleshOutCandidates = function (candidates) {
+    var fleshOutCandidates = function (candidates_input) {
       load_and_flesh( function(candidates) {
         for(var candidateIndex in candidates){
           fleshOutCandidate(candidates[candidateIndex]);
         }
-      }, candidates);
+      }, candidates_input);
     };
 
-    var fleshOutInterview = function (interview) {
+    var fleshOutInterview = function (interview_input) {
       load_and_flesh( function(interview) {
         interview.interview_type = ($filter('filter')(MasterData.getInterviewTypes(), {
           id: interview.interview_type_id
@@ -82,16 +82,16 @@ angular.module('recruitX')
           }))[0].name;
         }
         fleshOutCandidate(interview.candidate);
-      }, interview);
+      }, interview_input);
     };
 
-    var fleshOutInterviews = function (interviews) {
+    var fleshOutInterviews = function (interviews_input) {
       load_and_flesh(function(interviews){
         // TODO: Please use a consistent for construct
         for(var interviewIndex in interviews){
           fleshOutInterview(interviews[interviewIndex]);
         }
-      }, interviews);
+      }, interviews_input);
     };
 
     return {
@@ -241,7 +241,7 @@ angular.module('recruitX')
 
   return {
     isLoaded: function () {
-      return data != undefined;
+      return data !== undefined;
     },
 
     getInterviewTypes: function () {
@@ -265,7 +265,7 @@ angular.module('recruitX')
     },
 
     load: function () {
-      console.log("LOADING MASTER DATA ******************");
+      console.log('LOADING MASTER DATA ******************');
       return $q.all([$http.get(baseUrl + '/interview_types'), $http.get(baseUrl + '/roles'), $http.get(baseUrl + '/skills'), $http.get(baseUrl + '/interview_statuses'), $http.get(baseUrl + '/pipeline_statuses')])
         .then(function (response) {
           data = {
