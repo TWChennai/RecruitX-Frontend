@@ -16,15 +16,7 @@ angular.module('recruitX')
         $scope.interviews = interviews;
         $scope.noInterviews = interviews.length === 0 ? true : false;
         $scope.buildInterviewScheduleList();
-        if (interviews[0] === undefined) {
-          recruitFactory.getCandidate($rootScope.candidate_id, function (response) {
-            $scope.current_candidate = response;
-          }, function (response) {
-            console.log('failed with response: ' + response);
-          });
-        } else {
-          $scope.current_candidate = $scope.interviews[0].candidate;
-        }
+        $scope.current_candidate = $scope.interviews[0].candidate;
       });
     };
 
