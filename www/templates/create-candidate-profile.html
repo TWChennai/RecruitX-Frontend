@@ -45,7 +45,8 @@
           <span class="input-label">Skills</span>
           <div class="new-block">
             <ion-list>
-              <ion-checkbox collection-repeat="skill in skills" ng-model="skill.checked" ng-change="blurElem()">{{skill.name}}</ion-checkbox>
+              <!--TODO: Replace with collection repeat after making css changes-->
+              <ion-checkbox ng-repeat="skill in skills" ng-model="skill.checked" ng-change="blurElem()">{{skill.name}}</ion-checkbox>
             </ion-list>
             <div ng-if="getOtherCheckbox().checked">
               <textarea placeholder="Please specify" name="otherSkills" ng-model="candidate.other_skills" ng-maxlength="130" required></textarea>
