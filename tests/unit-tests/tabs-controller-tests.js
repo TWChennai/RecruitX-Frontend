@@ -1,4 +1,4 @@
-describe('panelistSignupController', function () {
+describe('TabsCtrl', function () {
   'use strict';
 
   beforeEach(module('recruitX'));
@@ -10,7 +10,7 @@ describe('panelistSignupController', function () {
     scope = $rootScope.$new();
     dialogService = _dialogService_;
     createController = function () {
-      $controller('panelistSignupController', {
+      $controller('TabsCtrl', {
         $scope: scope,
         loggedinUserStore: _loggedinUserStore_,
         dialogService: _dialogService_

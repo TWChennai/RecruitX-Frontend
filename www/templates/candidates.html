@@ -1,0 +1,41 @@
+<ion-view view-title="Hi {{loggedinUserName}}!">
+  <ion-nav-buttons side="right">
+    <div class="buttons">
+      <a class="button icon ion-plus-round bgTransparent" href="#/candidates/new" ng-if="isLoggedinUserRecruiter"></a>
+      <a class="button icon ion-log-out bgTransparent" ng-click="logout()"></a>
+    </div>
+  </ion-nav-buttons>
+
+  <ion-content delegate-handle="ptr-candidates" ng-class="{'empty' : noCandidates }">
+    <ion-refresher on-refresh="refreshCandidates(1)">
+    </ion-refresher>
+    <div ng-if="noCandidates" class='full-screen-div'>
+      <div class="center-screen"><b>Currently there are no candidates yet! Please create new candidates.</b>
+      </div>
+    </div>
+    <ion-list class="candidatePanelList">
+      <ion-item collection-repeat="candidate in all_candidates">
+        <div class="item item-divider candidateInfo" collection-item-width="'100%'" collection-item-height="item.height"
+             ng-style="{height:item.height+'px'}">
+          <div class="row">
+            <div class="col col-50">
+              <a ui-sref="candidate-tabs.candidate-profile({candidate_id: candidate.id})"><strong>{{candidate.name |
+                limitTo: 10}}</strong></a>
+              <h5> ({{candidate.experience}} Yrs) </h5>
+            </div>
+            <div class="col col-25">
+              <h4>{{candidate.role}}</h4>
+            </div>
+            <div class="col col-25">
+              <h4>{{candidate.pipelineStatus}}</h4>
+            </div>
+          </div>
+        </div>
+      </ion-item>
+    </ion-list>
+    <ion-infinite-scroll
+      on-infinite="loadMoreCandidates()"
+      distance="1%">
+    </ion-infinite-scroll>
+  </ion-content>
+</ion-view>

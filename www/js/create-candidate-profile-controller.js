@@ -73,7 +73,7 @@ angular.module('recruitX')
       dialogService.askConfirmation('Discard Changes', 'Do you want to discard the changes and go back ?', function() {
         $rootScope.$broadcast('clearFormData');
         $rootScope.$broadcast('loaded:masterData');
-        $state.go('panelist-signup');
+        $state.go('tabs.interviews');
       });
     };
 

@@ -1,0 +1,55 @@
+<ion-view view-title="Hi {{loggedinUserName}}!">
+  <ion-nav-buttons side="right">
+    <div class="buttons">
+      <a class="button icon ion-plus-round bgTransparent" href="#/candidates/new" ng-if="isLoggedinUserRecruiter"></a>
+      <a class="button icon ion-log-out bgTransparent" ng-click="logout()"></a>
+    </div>
+  </ion-nav-buttons>
+
+  <ion-content ng-class="{'empty' : noMyInterviews }">
+    <ion-refresher on-refresh="refreshMyInterviews()">
+    </ion-refresher>
+    <div ng-if="noMyInterviews" class='full-screen-div'>
+      <div class="center-screen"><b>Currently there are no signups here! Please sign up.</b>
+      </div>
+    </div>
+    <ion-list class="candidatePanelList">
+      <ion-item collection-repeat="myinterview in myinterviews">
+        <div class="item item-divider candidateInfo" collection-item-width="'100%'" collection-item-height="item.height"
+             ng-style="{height:item.height+'px'}">
+          <div class="row">
+            <div class="col col-50" ng-if="isInPipeline(myinterview.candidate)">
+              <a ui-sref="candidate-tabs.candidate-profile({candidate_id: myinterview.candidate.id})"><strong>{{myinterview.candidate.name
+                | limitTo: 10}}</strong></a>
+              <h5> ({{myinterview.candidate.experience}} Yrs) </h5>
+            </div>
+            <div class="col col-50" ng-if="!isInPipeline(myinterview.candidate)">
+              <span><strong>{{myinterview.candidate.name | limitTo: 10}}</strong></span>
+              <h5> ({{myinterview.candidate.experience}} Yrs) </h5>
+            </div>
+            <div class="col col-30">
+              <h3><strong ng-bind="myinterview.start_time | date:'dd/MM/yyyy'"></strong></h3>
+            </div>
+            <div class="col col-20 inherit_display">
+              <h3><strong ng-bind="myinterview.start_time | date:'h:mma'"></strong></h3>
+            </div>
+          </div>
+          <div class="row pad-box">
+            <div class="col col-30">
+              <h4><strong>Round: {{myinterview.interview_type.name}}</strong></h4>
+            </div>
+            <div class="col col-70">
+              <div class="pull-right" ng-switch="isInPipeline(myinterview.candidate)">
+                <button ng-switch-when="true" class="button button-small button-positive" ui-sref="interview-details({interview_id:myinterview.id})">FeedBack</button>
+                <div ng-switch-when="false">
+                  <h3 class="button" style="pointer-events: none;" ng-if="myinterview.lastInterviewStatusName === undefined"><strong>Closed</strong></h3>
+                  <h3 class="button" style="pointer-events: none;" ng-if="myinterview.lastInterviewStatusName !== undefined"><strong>{{myinterview.lastInterviewStatusName}}</strong></h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

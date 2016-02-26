@@ -39,7 +39,7 @@ angular.module('recruitX')
         $rootScope.$broadcast('clearFormData');
         $rootScope.$broadcast('loaded:masterData');
       });
-      $state.go('panelist-signup');
+      $state.go('tabs.interviews');
     };
 
     $scope.dateTime = function (index) {

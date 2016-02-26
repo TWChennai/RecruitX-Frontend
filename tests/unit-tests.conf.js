@@ -24,12 +24,12 @@ module.exports = function (config) {
       '../app/app_constants.js',
       '../www/js/helper-services.js',
       '../www/js/api-services.js',
+      '../www/js/tabs-controller.js',
       '../www/js/create-candidate-profile-controller.js',
       '../www/js/candidate-interviews-controller.js',
       '../www/js/schedule-interview-controller.js',
       '../www/js/interview-details-controller.js',
       '../www/js/login-controller.js',
-      '../www/js/panelist-signup-controller.js',
       '../www/lib/angular-mocks/angular-mocks.js',
       'unit-tests/**/*.js'
     ],

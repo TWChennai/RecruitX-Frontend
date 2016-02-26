@@ -1,0 +1,15 @@
+<ion-tabs class="tabs-striped tabs-top tabs-background-positive tabs-color-light">
+
+  <ion-tab title="Interviews" href="#/tab/interviews">
+    <ion-nav-view name="interviews-tab"></ion-nav-view>
+  </ion-tab>
+
+  <ion-tab title="Candidates" href="#/tab/candidates" ng-if="isLoggedinUserRecruiter">
+    <ion-nav-view name="candidates-tab"></ion-nav-view>
+  </ion-tab>
+
+  <ion-tab title="My Interviews" href="#/tab/my_interviews" ng-if="!isLoggedinUserRecruiter">
+    <ion-nav-view name="my-interviews-tab"></ion-nav-view>
+  </ion-tab>
+
+</ion-tabs>

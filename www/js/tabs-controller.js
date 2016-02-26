@@ -1,5 +1,5 @@
 angular.module('recruitX')
-  .controller('panelistSignupController', ['$scope', 'recruitFactory', 'skillHelperService', 'loggedinUserStore', 'dialogService', '$ionicHistory', '$state', 'ptrService', function ($scope, recruitFactory, skillHelperService, loggedinUserStore, dialogService, $ionicHistory, $state, ptrService) {
+  .controller('TabsCtrl', ['$scope', 'recruitFactory', 'skillHelperService', 'loggedinUserStore', 'dialogService', '$ionicHistory', '$state', 'ptrService', function ($scope, recruitFactory, skillHelperService, loggedinUserStore, dialogService, $ionicHistory, $state, ptrService) {
     'use strict';
 
     $scope.items = [];
@@ -129,4 +129,4 @@ angular.module('recruitX')
       ptrService.triggerPtr('ptr-candidates');
     });
   }
-]);
+  ]);

@@ -1,0 +1,57 @@
+<ion-view view-title="Hi {{loggedinUserName}}!">
+  <ion-nav-buttons side="right">
+    <div class="buttons">
+      <a class="button icon ion-plus-round bgTransparent" href="#/candidates/new" ng-if="isLoggedinUserRecruiter"></a>
+      <a class="button icon ion-log-out bgTransparent" ng-click="logout()"></a>
+    </div>
+  </ion-nav-buttons>
+
+  <ion-content class="ic-blk" delegate-handle="ptr-interviews" ng-class="{'empty' : noItems }">
+    <ion-refresher on-refresh="refreshInterviews()">
+    </ion-refresher>
+    <div ng-if="noItems" class='full-screen-div'>
+      <div class="center-screen"><b>Currently there are no interviews scheduled yet! Please pull to refresh!</b>
+      </div>
+    </div>
+    <ion-list class="candidatePanelList">
+      <ion-item collection-repeat="item in items">
+        <div class="item item-divider candidateInfo" collection-item-width="'100%'" collection-item-height="item.height"
+             ng-style="{height:item.height+'px'}">
+          <div class="row">
+            <div class="col col-50" ng-if="isInPipeline(item.candidate)">
+              <a ui-sref="candidate-tabs.candidate-profile({candidate_id: item.candidate.id})"><strong>{{item.candidate.name
+                | limitTo: 10}}</strong></a>
+              <h5> ({{item.candidate.experience | number: 1}} Yrs) </h5>
+            </div>
+            <div class="col col-50" ng-if="!isInPipeline(item.candidate)">
+              <span><strong>{{item.candidate.name | limitTo: 10}}</strong></span>
+              <h5> ({{item.candidate.experience | number: 1}} Yrs) </h5>
+            </div>
+            <div class="col col-30">
+              <h3><strong ng-bind="item.start_time | date:'dd/MM/yyyy'"></strong></h3>
+            </div>
+            <div class="col col-20 inherit_display">
+              <h3><strong ng-bind="item.start_time | date:'h:mma'"></strong></h3>
+            </div>
+          </div>
+          <div class="row pad-box">
+            <div ng-if="!isLoggedinUserRecruiter" class="col col-30">
+              <h4><strong>{{item.interview_type.name}}: </strong>{{item.candidate.all_skills}}</h4>
+            </div>
+            <div ng-if="isLoggedinUserRecruiter" class="col col-30">
+              <h4><strong>Round: {{item.interview_type.name}}</strong></h4>
+            </div>
+            <div class="col col-70">
+              <div class="pull-right">
+                <h4 ng-if="isLoggedinUserRecruiter">{{item.formattedPanelists}}</h4>
+                <button ng-hide="isLoggedinUserRecruiter" class="button button-small button-positive"
+                        ng-disabled="!item.signup || !isInPipeline(item.candidate)" ng-click="signingUp(item)">Signup
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
