@@ -128,9 +128,13 @@ angular.module('recruitX')
       $scope.manuallyRefreshInterviews();
     });
 
-    $scope.$on('$ionicView.beforeEnter', function() {
+    $scope.$on('$ionicView.beforeEnter', function(event, viewData) {
       ptrService.triggerPtr('ptr-interviews');
       ptrService.triggerPtr('ptr-candidates');
+
+      // For Home Button
+      $ionicHistory.clearHistory();
+      viewData.enableBack = false;
     });
   }
   ]);

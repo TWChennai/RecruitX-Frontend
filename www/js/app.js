@@ -79,6 +79,12 @@ angular.module('recruitX', ['ngFileUpload', 'ionic', 'ui.router', 'ngCordova', '
         url: '/login',
         templateUrl: 'templates/login.html',
         controller: 'loginController'
+      })
+
+      .state('user-profile', {
+        url: '/user',
+        templateUrl: 'templates/user-profile.html',
+        controller: 'UserProfileCtrl'
       });
 
     if (window.localStorage['LOGGEDIN_USER']) {
