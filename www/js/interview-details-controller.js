@@ -2,21 +2,6 @@ angular.module('recruitX')
   .controller('interviewDetailsController', ['$filter', 'ionicLoadingService', 'MasterData', '$q', 'Upload', 'dialogService', 'endpoints', '$cordovaFileTransfer', '$scope', '$stateParams', 'recruitFactory', '$rootScope', '$cordovaToast', 'Camera', 'loggedinUserStore','apiKey', function ( $filter, ionicLoadingService, MasterData, $q, Upload, dialogService, endpoints, $cordovaFileTransfer, $scope, $stateParams, recruitFactory, $rootScope, $cordovaToast, Camera, loggedinUserStore, apiKey) {
     'use strict';
 
-    var backBtnAll = document.querySelectorAll('.back-button'),
-      newClassName, classes;
-
-    // TODO: Can't this be done by using a regex pattern to remove the whole word 'hide'?
-    for (var i = 0, len = backBtnAll.length; i < len; i++) {
-      classes = backBtnAll[i].className.split(' ');
-      newClassName = '';
-      for (var j = 0; j < classes.length; j++) {
-        if (classes[j] !== 'hide') {
-          newClassName += classes[j] + ' ';
-        }
-      }
-      backBtnAll[i].className = newClassName;
-    }
-
     $scope.interviewStatus = MasterData.getInterviewStatuses();
     $scope.interview = {};
     $scope.imageURIs = [];
