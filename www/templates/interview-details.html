@@ -9,7 +9,9 @@
               <h5>Candidate</h5>
             </div>
             <div class="col col-50">
-              <h5>{{interview.candidate.name}}</h5>
+              <a ui-sref="candidate-profile({candidate_id: interview.candidate.id})">
+                <h5>{{interview.candidate.name}}</h5>
+              </a>
             </div>
           </div>
           <div class="row">

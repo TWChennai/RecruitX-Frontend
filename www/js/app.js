@@ -40,58 +40,39 @@ angular.module('recruitX', ['ngFileUpload', 'ionic', 'ui.router', 'ngCordova', '
       })
 
       .state('tabs.interviews', {
-        url: "/interviews",
+        url: '/interviews',
         templateUrl: 'templates/interviews.html',
         controller: 'TabsCtrl'
       })
 
       .state('tabs.my-interviews', {
-        url: "/my_interviews",
+        url: '/my_interviews',
         templateUrl: 'templates/my-interviews.html',
         controller: 'TabsCtrl'
       })
 
       .state('tabs.candidates', {
-        url: "/candidates",
+        url: '/candidates',
         templateUrl: 'templates/candidates.html',
         controller: 'TabsCtrl'
       })
 
       .state('interview-details', {
-        url: '/interview-details/:id',
+        url: '/interviews/:interview_id',
         templateUrl: 'templates/interview-details.html',
-        controller: 'interviewDetailsController',
-        cache: false
+        controller: 'interviewDetailsController'
       })
 
-      .state('candidate-tabs', {
-        url: '/candidate-tabs',
-        abstract: true,
-        templateUrl: 'templates/candidate-tabs.html',
-        controller: 'candidateTabController',
-        cache: false
-      })
-
-      .state('candidate-tabs.candidate-profile', {
+      .state('candidate-profile', {
         url: '/candidates/:candidate_id',
-        views: {
-          'candidate-profile-tab': {
-            templateUrl: 'templates/candidate-profile.html',
-            controller: 'candidateProfileController',
-            cache: false
-          }
-        }
+        templateUrl: 'templates/candidate-profile.html',
+        controller: 'candidateProfileController'
       })
 
-      .state('candidate-tabs.candidate-interviews', {
+      .state('candidate-interviews', {
         url: '/candidates/:candidate_id/interviews',
-        views: {
-          'candidate-interviews-tab': {
-            templateUrl: 'templates/candidate-interviews.html',
-            controller: 'candidateInterviewsController',
-            cache: false
-          }
-        }
+        templateUrl: 'templates/candidate-interviews.html',
+        controller: 'candidateInterviewsController'
       })
 
       .state('login', {

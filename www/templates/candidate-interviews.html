@@ -12,7 +12,7 @@
     <ion-list inset>
       <!--TODO: Replace with collection repeat after making css changes-->
       <div ng-repeat="interviewType in interviewSet">
-        <ion-item class="item interview-container" ui-sref="interview-details({id: interviewType.id})" disable-ui-sref="!((isLoggedinUserRecruiter || isPanelistForAnyInterviewRound) && !isNotScheduled(interviewType))">
+        <ion-item class="item interview-container" ui-sref="interview-details({interview_id: interviewType.id})" disable-ui-sref="!((isLoggedinUserRecruiter || isPanelistForAnyInterviewRound) && !isNotScheduled(interviewType))">
           <div class="row">
             <p class="col col-30">{{interviewType.name}}</p>
             <p class="col col-50">{{interviewType.start_time | date: 'dd/MM/yyyy h:mma'}}</p>

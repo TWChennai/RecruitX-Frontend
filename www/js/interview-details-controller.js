@@ -24,7 +24,7 @@ angular.module('recruitX')
     ];
 
     var baseUrl = 'http://' + endpoints.apiUrl;
-    var fileServerURL = baseUrl + '/interviews/' + $stateParams.id + '/feedback_images';
+    var fileServerURL = baseUrl + '/interviews/' + $stateParams.interview_id + '/feedback_images';
 
     $scope.finishRefreshing = function () {
       ionicLoadingService.stopLoading();
@@ -47,7 +47,7 @@ angular.module('recruitX')
     };
 
     $scope.refreshInterviewFeedback = function () {
-      recruitFactory.getInterview($stateParams.id, function (interview) {
+      recruitFactory.getInterview($stateParams.interview_id, function (interview) {
         $scope.interview = interview;
         if (interview.feedback_images.length !== 0) {
           $scope.feedbackImages = interview.feedback_images;
