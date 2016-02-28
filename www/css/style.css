@@ -60,9 +60,6 @@ textarea {
   top: 0;
   border-bottom: 2px solid #fff;
 }
-.bar {
-  padding: 0;
-}
 .new-block {
   display: block;
   width: 65%;
@@ -81,12 +78,7 @@ textarea {
 .tab-content-padding .pad-box {
   padding-bottom: 10px;
 }
-.cust-header, .bar-header.has-tabs-top {
-  height: 44px;
-}
-.bar-header.has-tabs-top {
-  border-bottom: 2px solid #fff;
-}
+
 .cust-tab, .platform-android .panelist-tab {
   position: absolute;
   top: 44px;
@@ -100,9 +92,6 @@ textarea {
 }
 .cust-tab .tab-title, .candidate-tab .tab-title, .panelist-tab .tab-title {
   font-size: 16px;
-}
-.cust-tab .tab-item, .candidate-tab .tab-item, .panelist-tab .tab-item {
-  max-width: initial;
 }
 .cust-tab.tabs-top > .tabs, .platform-android .panelist-tab.tabs-top > .tabs {
   top: 0;
@@ -312,4 +301,16 @@ textarea {
 
 #panelistSignup .has-tabs-top {
   top: 44px;
+}
+
+.tab-item {
+  text-decoration: none !important;
+  max-width: initial;
+}
+
+.scroll-view {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }

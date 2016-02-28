@@ -120,6 +120,10 @@ angular.module('recruitX')
       return candidate !== undefined && candidate.pipelineStatus === 'In Progress';
     };
 
+    $scope.isActive = function(stateName) {
+      return stateName === $state.current.name;
+    };
+
     $scope.$on('loaded:masterData', function () {
       $scope.manuallyRefreshInterviews();
     });

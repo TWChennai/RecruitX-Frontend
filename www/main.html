@@ -5,9 +5,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
 
+  <link href="lib/ionic/css/ionic.min.css" rel="stylesheet">
   <link href="https://thoughtworks.okta.com/js/sdk/okta-sign-in-1.0.2.min.css" type="text/css" rel="stylesheet">
   <link href="https://thoughtworks.okta.com/js/sdk/okta-theme-1.0.2.css" type="text/css" rel="stylesheet">
-  <link href="lib/ionic/css/ionic.min.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
 
 
@@ -38,11 +38,13 @@
 </head>
 
 <body ng-app="recruitX">
-  <ion-nav-bar class="bar-positive backBtn">
-    <ion-nav-back-button>
-    </ion-nav-back-button>
-  </ion-nav-bar>
-  <ion-nav-view></ion-nav-view>
+<ion-nav-bar class="nav-title-slide-ios7 bar-positive">
+  <ion-nav-back-button class="button-icon ion-arrow-left-c">
+  </ion-nav-back-button>
+</ion-nav-bar>
+
+<ion-nav-view></ion-nav-view>
+
 </body>
 
 </html>

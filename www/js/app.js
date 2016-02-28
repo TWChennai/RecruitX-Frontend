@@ -14,6 +14,9 @@ angular.module('recruitX', ['ngFileUpload', 'ionic', 'ui.router', 'ngCordova', '
     'use strict';
 
     $ionicConfigProvider.backButton.previousTitleText(false);
+    $ionicConfigProvider.backButton.text(false);
+    $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|file):/);
+
     $stateProvider
       .state('create-candidate-profile', {
         url: '/candidates/new',
@@ -32,39 +35,26 @@ angular.module('recruitX', ['ngFileUpload', 'ionic', 'ui.router', 'ngCordova', '
 
       .state('tabs', {
         url: '/tab',
-        abstract: true,
         templateUrl: 'templates/tabs.html',
         controller: 'TabsCtrl'
       })
 
       .state('tabs.interviews', {
         url: "/interviews",
-        views: {
-          'interviews-tab': {
-            templateUrl: 'templates/interviews.html',
-            controller: 'TabsCtrl'
-          }
-        }
+        templateUrl: 'templates/interviews.html',
+        controller: 'TabsCtrl'
       })
 
       .state('tabs.my-interviews', {
         url: "/my_interviews",
-        views: {
-          'my-interviews-tab': {
-            templateUrl: 'templates/my-interviews.html',
-            controller: 'TabsCtrl'
-          }
-        }
+        templateUrl: 'templates/my-interviews.html',
+        controller: 'TabsCtrl'
       })
 
       .state('tabs.candidates', {
         url: "/candidates",
-        views: {
-          'candidates-tab': {
-            templateUrl: 'templates/candidates.html',
-            controller: 'TabsCtrl'
-          }
-        }
+        templateUrl: 'templates/candidates.html',
+        controller: 'TabsCtrl'
       })
 
       .state('interview-details', {
@@ -109,8 +99,6 @@ angular.module('recruitX', ['ngFileUpload', 'ionic', 'ui.router', 'ngCordova', '
         templateUrl: 'templates/login.html',
         controller: 'loginController'
       });
-
-    $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|file):/);
 
     if (window.localStorage['LOGGEDIN_USER']) {
       $urlRouterProvider.otherwise('/tab/interviews');

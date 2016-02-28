@@ -1,12 +1,5 @@
-<ion-view view-title="Hi {{loggedinUserName}}!">
-  <ion-nav-buttons side="right">
-    <div class="buttons">
-      <a class="button icon ion-plus-round bgTransparent" href="#/candidates/new" ng-if="isLoggedinUserRecruiter"></a>
-      <a class="button icon ion-log-out bgTransparent" ng-click="logout()"></a>
-    </div>
-  </ion-nav-buttons>
-
-  <ion-content class="ic-blk" delegate-handle="ptr-interviews" ng-class="{'empty' : noItems }">
+<ion-view>
+  <ion-content class="ic-blk padding has-tabs-top" delegate-handle="ptr-interviews" ng-class="{'empty' : noItems }">
     <ion-refresher on-refresh="refreshInterviews()">
     </ion-refresher>
     <div ng-if="noItems" class='full-screen-div'>

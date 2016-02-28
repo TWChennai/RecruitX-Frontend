@@ -1,15 +1,25 @@
-<ion-tabs class="tabs-striped tabs-top tabs-background-positive tabs-color-light">
+<ion-view view-title="RecruitX">
 
-  <ion-tab title="Interviews" href="#/tab/interviews">
-    <ion-nav-view name="interviews-tab"></ion-nav-view>
-  </ion-tab>
+  <ion-nav-buttons side="right">
+    <button class="button button-clear" ui-sref="create-candidate-profile" ng-if="isLoggedinUserRecruiter">
+      <i class="icon ion-plus-round"></i>
+    </button>
+    <button class="button button-clear" ng-click="logout()">
+      <i class="icon ion-log-out"></i>
+    </button>
+  </ion-nav-buttons>
 
-  <ion-tab title="Candidates" href="#/tab/candidates" ng-if="isLoggedinUserRecruiter">
-    <ion-nav-view name="candidates-tab"></ion-nav-view>
-  </ion-tab>
 
-  <ion-tab title="My Interviews" href="#/tab/my_interviews" ng-if="!isLoggedinUserRecruiter">
-    <ion-nav-view name="my-interviews-tab"></ion-nav-view>
-  </ion-tab>
+  <div class="tabs-striped tabs-top tabs-background-stable tabs-color-positive">
+    <div class="tabs">
+      <a class="tab-item" ui-sref=".interviews"
+         ng-class="{'tab-item-active': isActive('tabs.interviews')}">Interviews</a>
+      <a class="tab-item" ui-sref=".candidates" ng-if="isLoggedinUserRecruiter"
+         ng-class="{'tab-item-active': isActive('tabs.candidates')}">Candidates</a>
+      <a class="tab-item" ui-sref=".my-interviews" ng-if="!isLoggedinUserRecruiter"
+         ng-class="{'tab-item-active': isActive('tabs.my-interviews')}">My Interviews</a>
+    </div>
+  </div>
 
-</ion-tabs>
+  <ui-view></ui-view>
+</ion-view>
