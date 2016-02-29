@@ -9,14 +9,10 @@
     <ion-list class="candidatePanelList">
       <ion-item collection-repeat="item in items">
         <div class="item item-divider candidateInfo" collection-item-width="'100%'" collection-item-height="item.height"
-             ng-style="{height:item.height+'px'}" ui-sref="interview-details({interview_id: item.id})">
+             ng-style="{height:item.height+'px'}" ui-sref="candidate-profile({candidate_id: item.candidate.id})">
           <div class="row">
-            <div class="col col-50" ng-if="isInPipeline(item.candidate)">
+            <div class="col col-50">
               <strong>{{item.candidate.name | limitTo: 10}}</strong>
-              <h5> ({{item.candidate.experience | number: 1}} Yrs) </h5>
-            </div>
-            <div class="col col-50" ng-if="!isInPipeline(item.candidate)">
-              <span><strong>{{item.candidate.name | limitTo: 10}}</strong></span>
               <h5> ({{item.candidate.experience | number: 1}} Yrs) </h5>
             </div>
             <div class="col col-30">

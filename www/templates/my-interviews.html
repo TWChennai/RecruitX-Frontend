@@ -9,7 +9,7 @@
     <ion-list class="candidatePanelList">
       <ion-item collection-repeat="myinterview in myinterviews">
         <div class="item item-divider candidateInfo" collection-item-width="'100%'" collection-item-height="item.height"
-             ng-style="{height:item.height+'px'}" ui-sref="candidate-interviews({candidate_id: myinterview.candidate.id})">
+             ng-style="{height:item.height+'px'}" ui-sref="candidate-profile({candidate_id: myinterview.candidate.id})" disable-ui-sref="!isInPipeline(myinterview.candidate)">
           <div class="row">
             <div class="col col-50" ng-if="isInPipeline(myinterview.candidate)">
               <strong>{{myinterview.candidate.name | limitTo: 10}}</strong>
@@ -32,7 +32,7 @@
             </div>
             <div class="col col-70">
               <div class="pull-right" ng-switch="isInPipeline(myinterview.candidate)">
-                <button ng-switch-when="true" class="button button-small button-positive" ui-sref="interview-details({interview_id:myinterview.id})">FeedBack</button>
+                <button ng-switch-when="true" class="button button-small button-positive" ui-sref="interview-details({interview_id:myinterview.id})" ng-click="$event.stopPropagation()">FeedBack</button>
                 <div ng-switch-when="false">
                   <h3 class="button" style="pointer-events: none;" ng-if="myinterview.lastInterviewStatusName === undefined"><strong>Closed</strong></h3>
                   <h3 class="button" style="pointer-events: none;" ng-if="myinterview.lastInterviewStatusName !== undefined"><strong>{{myinterview.lastInterviewStatusName}}</strong></h3>

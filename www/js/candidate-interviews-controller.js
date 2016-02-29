@@ -100,7 +100,7 @@ angular.module('recruitX')
     };
 
     $scope.viewInterviewDetails = function (interviewType) {
-      return $scope.isNotScheduled(interviewType) ? '#' : 'interview-details({id:interviewType.id})';
+      return $scope.isNotScheduled(interviewType) ? '#' : 'interview-details({interview_id: interviewType.id})';
     };
 
     $scope.isFeedbackGiven = function (status) {
