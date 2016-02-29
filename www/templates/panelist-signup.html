@@ -89,9 +89,12 @@
                     <h4><strong>Round: {{myinterview.interview_type.name}}</strong></h4>
                   </div>
                   <div class="col col-70">
-                    <div class="pull-right" ng-switch="myinterview.lastInterviewStatusName">
-                      <button ng-switch-when="undefined" class="button button-small button-positive" ui-sref="interview-details({id:myinterview.id})" ng-disabled="!isInPipeline(myinterview.candidate)">FeedBack</button>
-                      <h3 ng-switch-default="" class="button" style="pointer-events: none;"><strong>{{myinterview.lastInterviewStatusName}}</strong></h3>
+                    <div class="pull-right" ng-switch="isInPipeline(myinterview.candidate)">
+                      <button ng-switch-when="true" class="button button-small button-positive" ui-sref="interview-details({id:myinterview.id})">FeedBack</button>
+                      <div ng-switch-when="false">
+                        <h3 class="button" style="pointer-events: none;" ng-if="myinterview.lastInterviewStatusName === undefined"><strong>Closed</strong></h3>
+                        <h3 class="button" style="pointer-events: none;" ng-if="myinterview.lastInterviewStatusName !== undefined"><strong>{{myinterview.lastInterviewStatusName}}</strong></h3>
+                      </div>
                     </div>
                   </div>
                 </div>
