@@ -310,6 +310,6 @@ textarea {
   bottom: 8%;
 }
 
-.has-tabs-top {
+#panelistSignup .has-tabs-top {
   top: 44px;
 }
