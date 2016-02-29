@@ -2,11 +2,12 @@ angular.module('recruitX')
   .config(function ($httpProvider) {
     'use strict';
 
-    $httpProvider.interceptors.push(function ($rootScope, $q) {
+    $httpProvider.interceptors.push(function ($rootScope, $q, apiKey) {
       var pendingRequests = 0;
       return {
         request: function (config) {
           config.timeout = 10000;
+          config.headers = { 'Authorization': apiKey};
           if (pendingRequests === 0) {
             $rootScope.$broadcast('loading:show');
           }
@@ -67,15 +68,15 @@ angular.module('recruitX')
 
     var loadMasterData = function () {
       MasterData.load().then(function () {
-          navigator.splashscreen.hide();
-          $rootScope.$broadcast('loaded:masterData');
-        }, function (err) {
-          console.log('Failed to laod master data due to: ' + err.data);
-          navigator.splashscreen.hide();
-          if (window.cordova && window.cordova.plugins.cordovaToast) {
-          cordova.plugins.cordovaToast.showShortBottom('Something went wrong while contacting the server.');
-        }
-        });
+        navigator.splashscreen.hide();
+        $rootScope.$broadcast('loaded:masterData');
+      }, function (err) {
+        console.log('Failed to laod master data due to: ' + err.data);
+        navigator.splashscreen.hide();
+        if (window.cordova && window.cordova.plugins.cordovaToast) {
+            cordova.plugins.cordovaToast.showShortBottom('Something went wrong while contacting the server.');
+          }
+      });
     };
 
     if (window.localStorage['LOGGEDIN_USER']) {
