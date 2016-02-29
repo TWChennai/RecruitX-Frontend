@@ -74,8 +74,8 @@ angular.module('recruitX')
         console.log('Failed to laod master data due to: ' + err.data);
         navigator.splashscreen.hide();
         if (window.cordova && window.cordova.plugins.cordovaToast) {
-            cordova.plugins.cordovaToast.showShortBottom('Something went wrong while contacting the server.');
-          }
+          cordova.plugins.cordovaToast.showShortBottom('Something went wrong while contacting the server.');
+        }
       });
     };
 
