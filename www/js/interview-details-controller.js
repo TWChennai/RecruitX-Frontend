@@ -1,5 +1,5 @@
 angular.module('recruitX')
-  .controller('interviewDetailsController', ['$filter', 'ionicLoadingService', 'MasterData', '$q', 'Upload', 'dialogService', 'endpoints', '$cordovaFileTransfer', '$scope', '$stateParams', 'recruitFactory', '$rootScope', '$cordovaToast', 'Camera', 'loggedinUserStore', function ($filter, ionicLoadingService, MasterData, $q, Upload, dialogService, endpoints, $cordovaFileTransfer, $scope, $stateParams, recruitFactory, $rootScope, $cordovaToast, Camera, loggedinUserStore) {
+  .controller('interviewDetailsController', ['$filter', 'ionicLoadingService', 'MasterData', '$q', 'Upload', 'dialogService', 'endpoints', '$cordovaFileTransfer', '$scope', '$stateParams', 'recruitFactory', '$rootScope', '$cordovaToast', 'Camera', 'loggedinUserStore','apiKey', function ( $filter, ionicLoadingService, MasterData, $q, Upload, dialogService, endpoints, $cordovaFileTransfer, $scope, $stateParams, recruitFactory, $rootScope, $cordovaToast, Camera, loggedinUserStore, apiKey) {
     'use strict';
 
     var backBtnAll = document.querySelectorAll('.back-button'),
@@ -153,6 +153,7 @@ angular.module('recruitX')
       Upload.upload({
         url: fileServerURL,
         headers: {
+          'Authorization': apiKey,
           'Content-Type': 'image/jpeg'
         },
         data: {
@@ -173,7 +174,7 @@ angular.module('recruitX')
     $scope.downloadPhoto = function (index) {
       var filename = $scope.feedbackImages[index].file_name;
       var targetPath = cordova.file.cacheDirectory + filename;
-      $cordovaFileTransfer.download(fileServerURL + '/' + filename, targetPath, {}, true).then(function (result) {
+      $cordovaFileTransfer.download(fileServerURL + '/' + filename, targetPath, {headers: { 'Authorization': apiKey }}, true).then(function (result) {
         $scope.feedbackImages[index].URI = result.nativeURL;
         $scope.feedbackImages[index].isDownloaded = true;
       }, function (error) {
