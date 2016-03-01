@@ -50,6 +50,7 @@ angular.module('recruitX')
             id: interviewID,
             name: interviewType.name,
             priority: interviewType.priority,
+            interview_type_id: interviewType.id,
             start_time: interviewStartTime,
             status: status
           });
@@ -113,7 +114,7 @@ angular.module('recruitX')
       return interviewStatus !== undefined && interviewStatus.name === status;
     };
 
-    $scope.dateTime = function (index, event, callback) {
+    $scope.dateTime = function (interviewType, event, callback) {
       event.stopPropagation();
 
       var options = {
@@ -130,19 +131,20 @@ angular.module('recruitX')
 
         var interview = {
           candidate_id: $scope.candidateId,
-          interview_type_id: $scope.interviewTypes[index].id,
+          interview_type_id: interviewType.interview_type_id,
           start_time: dateTime
         };
-        callback(interview, index);
+        callback(interview, interviewType);
       });
     };
 
-    $scope.updateInterview = function (interview, index) {
+    $scope.updateInterview = function (interview, interviewType) {
       recruitFactory.updateInterviewSchedule({
         interview: {
           start_time: interview.start_time
         }
-      }, $scope.interviewSet[index].id, function (response) {
+      }, interviewType.id, function (response) {
+        var index = $scope.interviewSet.indexOf(interviewType);
         $scope.interviewSet[index].start_time = response.data.start_time;
         dialogService.showAlert('Update Success', 'Updated successfully!');
       }, function (response) {
@@ -150,10 +152,11 @@ angular.module('recruitX')
       });
     };
 
-    $scope.createInterview = function (interview, index) {
+    $scope.createInterview = function (interview, interviewType) {
       recruitFactory.createInterviewSchedule({
         interview: interview
       }, function (response) {
+        var index = $scope.interviewSet.indexOf(interviewType);
         $scope.interviewSet[index].start_time = response.data.start_time;
         $scope.interviewSet[index].id = response.data.id;
         dialogService.showAlert('Create Success', 'Created successfully!');
