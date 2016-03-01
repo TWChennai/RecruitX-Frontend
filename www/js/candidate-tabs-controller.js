@@ -1,7 +1,9 @@
 angular.module('recruitX')
-  .controller('candidateInterviewsController', ['MasterData', '$state', '$filter', '$rootScope', '$scope', '$stateParams', 'recruitFactory', '$cordovaDatePicker', 'dialogService', 'loggedinUserStore', function (MasterData, $state, $filter, $rootScope, $scope, $stateParams, recruitFactory, $cordovaDatePicker, dialogService, loggedinUserStore) {
+  .controller('CandidateTabsCtrl', ['MasterData', '$state', '$filter', '$rootScope', '$scope', '$stateParams', 'recruitFactory', '$cordovaDatePicker', 'dialogService', 'loggedinUserStore', function (MasterData, $state, $filter, $rootScope, $scope, $stateParams, recruitFactory, $cordovaDatePicker, dialogService, loggedinUserStore) {
     'use strict';
 
+    $scope.candidateId = $state.params.candidate_id;
+    $scope.candidate = {};
     $scope.interviews = [];
     $scope.interviewSet = [];
     $scope.isPanelistForAnyInterviewRound = false;
@@ -12,7 +14,7 @@ angular.module('recruitX')
     $scope.loggedinUser = loggedinUserStore.userId();
 
     $scope.fetchCandidateInterviews = function () {
-      recruitFactory.getCandidateInterviews($stateParams.candidate_id, function (interviews) {
+      recruitFactory.getCandidateInterviews($scope.candidateId, function (interviews) {
         $scope.interviews = interviews;
         $scope.noInterviews = interviews.length === 0 ? true : false;
         $scope.buildInterviewScheduleList();
@@ -127,7 +129,7 @@ angular.module('recruitX')
         }
 
         var interview = {
-          candidate_id: $stateParams.candidate_id,
+          candidate_id: $scope.candidateId,
           interview_type_id: $scope.interviewTypes[index].id,
           start_time: dateTime
         };
@@ -160,8 +162,15 @@ angular.module('recruitX')
       });
     };
 
-    $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
-      viewData.enableBack = true;
+    $scope.isActive = function(stateName) {
+      return stateName === $state.current.name;
+    };
+
+    recruitFactory.getCandidate($scope.candidateId, function (candidate) {
+      $scope.candidate = candidate;
+    }, function (response) {
+      console.log('failed with response: ' + response);
     });
-  }
-]);
+
+  }]);
+

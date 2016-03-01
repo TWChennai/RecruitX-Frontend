@@ -26,7 +26,7 @@ module.exports = function (config) {
       '../www/js/api-services.js',
       '../www/js/tabs-controller.js',
       '../www/js/create-candidate-profile-controller.js',
-      '../www/js/candidate-interviews-controller.js',
+      '../www/js/candidate-tabs-controller.js',
       '../www/js/schedule-interview-controller.js',
       '../www/js/interview-details-controller.js',
       '../www/js/login-controller.js',

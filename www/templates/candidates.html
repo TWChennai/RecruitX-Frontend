@@ -9,7 +9,7 @@
     <ion-list class="candidatePanelList">
       <ion-item collection-repeat="candidate in all_candidates">
         <div class="item item-divider candidateInfo" collection-item-width="'100%'" collection-item-height="item.height"
-             ng-style="{height:item.height+'px'}" ui-sref="candidate-profile({candidate_id: candidate.id})">
+             ng-style="{height:item.height+'px'}" ui-sref="candidate-tabs.profile({candidate_id: candidate.id})">
           <div class="row">
             <div class="col col-50">
               <strong>{{candidate.name | limitTo: 10}}</strong>

@@ -9,7 +9,7 @@
     <ion-list class="candidatePanelList">
       <ion-item collection-repeat="myinterview in myinterviews">
         <div class="item item-divider candidateInfo" collection-item-width="'100%'" collection-item-height="item.height"
-             ng-style="{height:item.height+'px'}" ui-sref="candidate-profile({candidate_id: myinterview.candidate.id})" disable-ui-sref="!isInPipeline(myinterview.candidate)">
+             ng-style="{height:item.height+'px'}" ui-sref="candidate-tabs.profile({candidate_id: myinterview.candidate.id})" disable-ui-sref="!isInPipeline(myinterview.candidate)">
           <div class="row">
             <div class="col col-50" ng-if="isInPipeline(myinterview.candidate)">
               <strong>{{myinterview.candidate.name | limitTo: 10}}</strong>

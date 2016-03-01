@@ -57,22 +57,28 @@ angular.module('recruitX', ['ngFileUpload', 'ionic', 'ui.router', 'ngCordova', '
         controller: 'TabsCtrl'
       })
 
+      .state('candidate-tabs', {
+        url: '/candidate-tab',
+        templateUrl: 'templates/candidate-tabs.html',
+        controller: 'CandidateTabsCtrl'
+      })
+
+      .state('candidate-tabs.profile', {
+        url: '/candidates/:candidate_id',
+        templateUrl: 'templates/candidate-profile.html',
+        controller: 'CandidateTabsCtrl'
+      })
+
+      .state('candidate-tabs.interviews', {
+        url: '/candidates/:candidate_id/interviews',
+        templateUrl: 'templates/candidate-interviews.html',
+        controller: 'CandidateTabsCtrl'
+      })
+
       .state('interview-details', {
         url: '/interviews/:interview_id',
         templateUrl: 'templates/interview-details.html',
         controller: 'interviewDetailsController'
-      })
-
-      .state('candidate-profile', {
-        url: '/candidates/:candidate_id',
-        templateUrl: 'templates/candidate-profile.html',
-        controller: 'candidateProfileController'
-      })
-
-      .state('candidate-interviews', {
-        url: '/candidates/:candidate_id/interviews',
-        templateUrl: 'templates/candidate-interviews.html',
-        controller: 'candidateInterviewsController'
       })
 
       .state('login', {
