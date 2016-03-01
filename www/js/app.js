@@ -86,10 +86,4 @@ angular.module('recruitX', ['ngFileUpload', 'ionic', 'ui.router', 'ngCordova', '
         templateUrl: 'templates/login.html',
         controller: 'loginController'
       });
-
-    if (window.localStorage['LOGGEDIN_USER']) {
-      $urlRouterProvider.otherwise('/tab/interviews');
-    } else {
-      $urlRouterProvider.otherwise('/login');
-    }
   });

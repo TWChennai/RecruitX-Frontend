@@ -34,8 +34,8 @@
               <div class="pull-right" ng-switch="isInPipeline(myinterview.candidate)">
                 <button ng-switch-when="true" class="button button-small button-positive" ui-sref="interview-details({interview_id:myinterview.id})" ng-click="$event.stopPropagation()">FeedBack</button>
                 <div ng-switch-when="false">
-                  <h3 class="button" style="pointer-events: none;" ng-if="myinterview.lastInterviewStatusName === undefined"><strong>Closed</strong></h3>
-                  <h3 class="button" style="pointer-events: none;" ng-if="myinterview.lastInterviewStatusName !== undefined"><strong>{{myinterview.lastInterviewStatusName}}</strong></h3>
+                  <h3 style="pointer-events: none;" ng-if="myinterview.lastInterviewStatusName === undefined"><strong>Closed</strong></h3>
+                  <h3 style="pointer-events: none;" ng-if="myinterview.lastInterviewStatusName !== undefined"><strong>{{myinterview.lastInterviewStatusName}}</strong></h3>
                 </div>
               </div>
             </div>

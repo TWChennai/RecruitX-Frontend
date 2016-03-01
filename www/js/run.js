@@ -79,9 +79,9 @@ angular.module('recruitX')
       });
     };
 
-    if (window.localStorage['LOGGEDIN_USER']) {
+    if (window.localStorage.LOGGEDIN_USER) {
       loadMasterData();
-      $state.go('panelist-signup');
+      $state.go('tabs.interviews');
     } else {
       $state.go('login');
       navigator.splashscreen.hide();
