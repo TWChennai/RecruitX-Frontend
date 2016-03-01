@@ -1,5 +1,5 @@
 <ion-view view-title="Add Candidate">
-    <ion-scroll direction="y" ng-controller="createCandidateProfileController" class="has-header newCandidateBlk">
+    <ion-content ng-controller="createCandidateProfileController" class="has-header newCandidateBlk" overflow-scroll="false">
     <form name="candidateForm" id="candidateForm" class="candidateForm" novalidate>
       <div class="list">
         <div class="item item-input" ng-class="{ 'has-error' : candidateForm.firstName.$invalid && !candidateForm.firstName.$pristine }">
@@ -63,5 +63,5 @@
         </div>
       </div>
     </form>
-  </ion-scroll>
+</ion-content>
 </ion-view>

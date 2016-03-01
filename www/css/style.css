@@ -310,7 +310,3 @@ textarea {
   bottom: 0;
   left: 0;
 }
-
-ion-scroll[direction=y] {
-  height: 100vh;
-}
