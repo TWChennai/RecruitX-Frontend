@@ -51,6 +51,15 @@ angular.module('recruitX')
       };
 
       $cordovaDatePicker.show(options).then(function (dateTime) {
+        var now = new Date(Date.now())
+        if (dateTime < now) {
+          dialogService.showAlert('Invalid Selection', "Should be in future");
+          return;
+        }
+        if (dateTime > now.setMonth(now.getMonth() + 1)) {
+          dialogService.showAlert('Invalid Selection', "Should be less than a month");
+          return;
+        }
         var currentInterviewRound = $scope.interviewRounds[index];
         var currentPriority = currentInterviewRound.priority;
 
