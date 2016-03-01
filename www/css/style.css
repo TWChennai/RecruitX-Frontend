@@ -299,10 +299,6 @@ textarea {
   bottom: 8%;
 }
 
-#panelistSignup .has-tabs-top {
-  top: 44px;
-}
-
 .tab-item {
   text-decoration: none !important;
   max-width: initial;

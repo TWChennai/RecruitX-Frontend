@@ -65,25 +65,25 @@ describe('CandidateTabsCtrl', function () {
         id: 26
       }
     },
-      {
-        start_time: '2016-03-03T12:27:00Z',
-        interview_type_id: 1,
-        id: 38,
-        candidate: {
-          skills: [
-            {
-              id: 1
-            },
-            {
-              id: 2
-            }
-          ],
-          role_id: 2,
-          other_skills: null,
-          name: 'final merge',
-          id: 26
-        }
+    {
+      start_time: '2016-03-03T12:27:00Z',
+      interview_type_id: 1,
+      id: 38,
+      candidate: {
+        skills: [
+          {
+            id: 1
+          },
+          {
+            id: 2
+          }
+        ],
+        role_id: 2,
+        other_skills: null,
+        name: 'final merge',
+        id: 26
       }
+    }
     ];
 
     $scope.expectedInterviewScheduleList = [{
