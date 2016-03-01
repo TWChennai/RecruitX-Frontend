@@ -33,7 +33,7 @@
               <div class="pull-right">
                 <h4 ng-if="isLoggedinUserRecruiter">{{item.formattedPanelists}}</h4>
                 <button ng-hide="isLoggedinUserRecruiter" class="button button-small button-positive"
-                        ng-disabled="!item.signup || !isInPipeline(item.candidate)" ng-click="signingUp(item)">Signup
+                        ng-disabled="!item.signup || !isInPipeline(item.candidate)" ng-click="signingUp($event, item)">Signup
                 </button>
               </div>
             </div>

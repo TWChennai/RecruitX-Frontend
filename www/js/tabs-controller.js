@@ -79,7 +79,8 @@ angular.module('recruitX')
       }
     };
 
-    $scope.signingUp = function (item) {
+    $scope.signingUp = function ($event, item) {
+      $event.stopPropagation();
       $scope.interview_panelist = {
         interview_panelist: {
           'panelist_login_name': loggedinUserStore.userId(),
