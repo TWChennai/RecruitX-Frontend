@@ -7,7 +7,9 @@ angular.module('recruitX')
       return {
         request: function (config) {
           config.timeout = 10000;
-          config.headers = { 'Authorization': apiKey, 'Content-Type': 'application/json'};
+          if(config.headers['Authorization'] === undefined) {
+            config.headers = { 'Authorization': apiKey, 'Content-Type': 'application/json'};
+          }
           if (pendingRequests === 0) {
             $rootScope.$broadcast('loading:show');
           }
