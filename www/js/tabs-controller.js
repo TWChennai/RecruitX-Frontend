@@ -1,5 +1,5 @@
 angular.module('recruitX')
-  .controller('TabsCtrl', ['$scope', 'recruitFactory', 'skillHelperService', 'loggedinUserStore', 'dialogService', '$ionicHistory', '$state', 'ptrService', function ($scope, recruitFactory, skillHelperService, loggedinUserStore, dialogService, $ionicHistory, $state, ptrService) {
+  .controller('TabsCtrl', ['$scope', 'recruitFactory', 'skillHelperService', 'loggedinUserStore', 'dialogService', '$ionicHistory', '$state', function ($scope, recruitFactory, skillHelperService, loggedinUserStore, dialogService, $ionicHistory, $state) {
     'use strict';
 
     $scope.items = [];
@@ -134,12 +134,13 @@ angular.module('recruitX')
     });
 
     $scope.$on('$ionicView.beforeEnter', function(event, viewData) {
-      ptrService.triggerPtr('ptr-interviews');
-      ptrService.triggerPtr('ptr-candidates');
-
       // For Home Button
       $ionicHistory.clearHistory();
       viewData.enableBack = false;
     });
+
+    (function () {
+      $scope.manuallyRefreshInterviews();
+    })();
   }
   ]);
