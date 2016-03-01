@@ -65,6 +65,8 @@ angular.module('recruitX')
         $scope.total_pages = total_pages;
         $scope.next_requesting_page++;
         $scope.finishRefreshing();
+        //TODO: Do this in a better way to avoid multiple calls to backend during pagination
+        $scope.$broadcast('scroll.infiniteScrollComplete');
       });
     };
 
@@ -72,7 +74,9 @@ angular.module('recruitX')
       if ($scope.next_requesting_page <= $scope.total_pages) {
         $scope.refreshCandidates($scope.next_requesting_page);
       }
-      $scope.$broadcast('scroll.infiniteScrollComplete');
+      else {
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+      }
     };
 
     $scope.signingUp = function (item) {
