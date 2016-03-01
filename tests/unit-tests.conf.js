@@ -21,7 +21,7 @@ module.exports = function (config) {
       '../www/lib/ng-file-upload/ng-file-upload-shim.min.js',
       '../www/lib/ng-file-upload/ng-file-upload.min.js',
       '../www/js/app.js',
-      '../www/js/app_constants.js',
+      '../app/app_constants.js',
       '../www/js/helper-services.js',
       '../www/js/api-services.js',
       '../www/js/create-candidate-profile-controller.js',
