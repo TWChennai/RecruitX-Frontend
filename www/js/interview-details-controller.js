@@ -1,5 +1,5 @@
 angular.module('recruitX')
-  .controller('interviewDetailsController', ['$filter', 'ionicLoadingService', 'MasterData', '$q', 'Upload', 'dialogService', 'endpoints', '$cordovaFileTransfer', '$scope', '$stateParams', 'recruitFactory', '$rootScope', '$cordovaToast', 'Camera', 'loggedinUserStore','apiKey', function ( $filter, ionicLoadingService, MasterData, $q, Upload, dialogService, endpoints, $cordovaFileTransfer, $scope, $stateParams, recruitFactory, $rootScope, $cordovaToast, Camera, loggedinUserStore, apiKey) {
+  .controller('interviewDetailsController', ['$filter', 'ionicLoadingService', 'MasterData', '$q', 'Upload', 'dialogService', 'endpoints', '$cordovaFileTransfer', '$scope', '$stateParams', 'recruitFactory', '$rootScope', '$cordovaToast', 'Camera', 'loggedinUserStore','apiKey', '$state', function ( $filter, ionicLoadingService, MasterData, $q, Upload, dialogService, endpoints, $cordovaFileTransfer, $scope, $stateParams, recruitFactory, $rootScope, $cordovaToast, Camera, loggedinUserStore, apiKey, $state) {
     'use strict';
 
     $scope.interviewStatus = MasterData.getInterviewStatuses();
@@ -53,6 +53,8 @@ angular.module('recruitX')
           $scope.feedbackImages = interview.feedback_images;
         }
         $scope.finishRefreshing();
+      }, function() {
+        $state.go('tabs.interviews');
       });
     };
 
@@ -151,8 +153,8 @@ angular.module('recruitX')
         dialogService.showAlertWithDismissHandler('Success!!', 'Upload was successful', $scope.refreshInterviewFeedback);
       }, function (error) {
         if (error.status === UNPROCESSABLE_ENTITY_STATUS) {
-          dialogService.showAlert('Sign up', error.data.errors[0].reason);
-          $scope.refreshInterviewFeedback();
+          dialogService.showAlertWithDismissHandler('Sign up', error.data.errors[0].reason,
+          $scope.refreshInterviewFeedback);
         } else {
           $cordovaToast.showShortBottom('Something went wrong while processing your request. Please try again soon.');
         }
