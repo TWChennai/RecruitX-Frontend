@@ -149,9 +149,10 @@ angular.module('recruitX')
         }
       }).then(function () {
         dialogService.showAlertWithDismissHandler('Success!!', 'Upload was successful', $scope.refreshInterviewFeedback);
-      }, function (error, status) {
-        if (status === UNPROCESSABLE_ENTITY_STATUS) {
-          dialogService.showAlert('Sign up', error.errors[0].reason);
+      }, function (error) {
+        if (error.status === UNPROCESSABLE_ENTITY_STATUS) {
+          dialogService.showAlert('Sign up', error.data.errors[0].reason);
+          $scope.refreshInterviewFeedback();
         } else {
           $cordovaToast.showShortBottom('Something went wrong while processing your request. Please try again soon.');
         }
