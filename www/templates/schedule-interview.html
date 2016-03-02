@@ -5,7 +5,7 @@
       <div ng-repeat="interviewRound in interviewRounds">
         <ion-item class="item" ng-model="interviewRound.name" ng-click="dateTime($index)">
           <div class="row">
-            <p class="col col-40">{{interviewRound.name}}</p>
+            <p class="col col-30">{{interviewRound.name}}</p>
             <p class="col col-50">{{interviewRound.dateTime | date: 'dd/MM/yyyy h:mma'}}</p>
             <button class="button ion-minus-round col col-10 modify-interview" ng-show="isCancelable(interviewRound)" ng-click="cancel($event, interviewRound)"></button>
           </div>
