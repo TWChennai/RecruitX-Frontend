@@ -165,11 +165,14 @@ angular.module('recruitX')
       window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fileSystem) {
         var filename = $scope.feedbackImages[index].file_name;
         var targetPath = fileSystem.root.toURL() + filename;
+        $rootScope.$broadcast('loading:show');
         $cordovaFileTransfer.download(fileServerURL + '/' + filename, targetPath, {headers: { 'Authorization': apiKey }}, true).then(function (result) {
           $scope.feedbackImages[index].URI = result.nativeURL;
           $scope.feedbackImages[index].isDownloaded = true;
+          $rootScope.$broadcast('loading:hide');
         }, function (error) {
           console.log('Error', error);
+          $rootScope.$broadcast('loading:hide');
         }, function (progress) {
           // PROGRESS HANDLING GOES HERE
           console.log(progress);
