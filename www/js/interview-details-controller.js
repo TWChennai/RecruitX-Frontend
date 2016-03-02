@@ -106,7 +106,7 @@ angular.module('recruitX')
 
     $scope.previewImage = function (index) {
       var feedbackImage = $scope.feedbackImages[index];
-      window.resolveLocalFileSystemURL(feedbackImage.URI, function(fileSystem){
+      window.resolveLocalFileSystemURL(feedbackImage.URI, function(){
         cordova.plugins.disusered.open(feedbackImage.URI, function () {}, function (err) {
           console.log(err);
           $cordovaToast.showShortBottom('Something went wrong while opening the image.');
@@ -162,7 +162,6 @@ angular.module('recruitX')
     $scope.downloadPhoto = function (index) {
       window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fileSystem) {
         var filename = $scope.feedbackImages[index].file_name;
-        var fileTransfer = new FileTransfer();
         var targetPath = fileSystem.root.toURL() + filename;
         $cordovaFileTransfer.download(fileServerURL + '/' + filename, targetPath, {headers: { 'Authorization': apiKey }}, true).then(function (result) {
           $scope.feedbackImages[index].URI = result.nativeURL;
