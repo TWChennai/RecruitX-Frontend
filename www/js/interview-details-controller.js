@@ -106,10 +106,12 @@ angular.module('recruitX')
 
     $scope.previewImage = function (index) {
       var feedbackImage = $scope.feedbackImages[index];
-      cordova.plugins.disusered.open(feedbackImage.URI, function () {}, function (err) {
-        console.log(err);
-        $cordovaToast.showShortBottom('Something went wrong while opening the image.');
-      });
+      window.resolveLocalFileSystemURL(feedbackImage.URI, function(fileSystem){
+        cordova.plugins.disusered.open(feedbackImage.URI, function () {}, function (err) {
+          console.log(err);
+          $cordovaToast.showShortBottom('Something went wrong while opening the image.');
+        });
+      }, function(fail){console.log('error'+fail);});
     };
 
     $scope.saveFeedback = function () {
@@ -157,17 +159,19 @@ angular.module('recruitX')
     };
 
     $scope.downloadPhoto = function (index) {
-      var filename = $scope.feedbackImages[index].file_name;
-      var targetPath = cordova.file.cacheDirectory + filename;
-      $cordovaFileTransfer.download(fileServerURL + '/' + filename, targetPath, {headers: { 'Authorization': apiKey }}, true).then(function (result) {
-        $scope.feedbackImages[index].URI = result.nativeURL;
-        $scope.feedbackImages[index].isDownloaded = true;
-      }, function (error) {
-        console.log('Error', error);
-        $cordovaToast.showShortBottom(error);
-      }, function (progress) {
-        // PROGRESS HANDLING GOES HERE
-        console.log(progress);
+      window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fileSystem) {
+        var filename = $scope.feedbackImages[index].file_name;
+        var fileTransfer = new FileTransfer();
+        var targetPath = fileSystem.root.toURL() + filename;
+        $cordovaFileTransfer.download(fileServerURL + '/' + filename, targetPath, {headers: { 'Authorization': apiKey }}, true).then(function (result) {
+          $scope.feedbackImages[index].URI = result.nativeURL;
+          $scope.feedbackImages[index].isDownloaded = true;
+        }, function (error) {
+          console.log('Error', error);
+        }, function (progress) {
+          // PROGRESS HANDLING GOES HERE
+          console.log(progress);
+        });
       });
     };
   }]);
