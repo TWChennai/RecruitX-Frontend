@@ -16,15 +16,22 @@ angular.module('recruitX')
     $scope.fetchCandidateInterviews = function () {
       recruitFactory.getCandidateInterviews($scope.candidateId, function (interviews) {
         $scope.interviews = interviews;
-        $scope.noInterviews = interviews.length === 0 ? true : false;
+        if (interviews.length === 0) {
+          $scope.noInterviews = true;
+          $scope.current_candidate = undefined;
+        }
+        else {
+          $scope.noInterviews = false;
+          $scope.current_candidate = $scope.interviews[0].candidate;
+        }
         $scope.buildInterviewScheduleList();
-        $scope.current_candidate = $scope.interviews[0].candidate;
       });
     };
 
     $scope.fetchCandidateInterviews();
 
     $scope.buildInterviewScheduleList = function () {
+      $scope.interviewSet = [];
       for (var interviewsIndex in $scope.interviewTypes) {
         var interviewStartTime = $scope.notScheduled,
           interviewID = '',
@@ -81,9 +88,7 @@ angular.module('recruitX')
       };
       recruitFactory.closePipeline(data_to_update, $scope.current_candidate.id, function () {
         dialogService.showAlertWithDismissHandler('Pipeline', 'Pipeline has been closed for this candidate', function () {
-          $state.go($state.current, {}, {
-            reload: true
-          });
+          $scope.fetchCandidateInterviews();
         });
       }, function () {
         dialogService.showAlert('Pipeline', 'Something went wrong while closing pipeline!');
@@ -176,4 +181,3 @@ angular.module('recruitX')
     });
 
   }]);
-
