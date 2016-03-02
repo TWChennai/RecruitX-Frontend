@@ -314,3 +314,8 @@ textarea {
 .popup-body {
    color: black;
 }
+
+button.custom-icon:before {
+    font-size: 22px !important;
+    padding-bottom: 50px !important;
+}
