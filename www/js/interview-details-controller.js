@@ -170,6 +170,7 @@ angular.module('recruitX')
           $scope.feedbackImages[index].URI = result.nativeURL;
           $scope.feedbackImages[index].isDownloaded = true;
           $rootScope.$broadcast('loading:hide');
+          refreshMedia.refresh(targetPath);
         }, function (error) {
           console.log('Error', error);
           $rootScope.$broadcast('loading:hide');

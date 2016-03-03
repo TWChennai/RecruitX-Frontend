@@ -31,6 +31,7 @@ gen/
 /plugins/cordova-plugin-network-information
 /plugins/fetch.json
 /plugins/ionic-plugin-keyboard
+/plugins/com.guinatal.refreshgallery
 /plugins/ios.json
 /resources/android
 /resources/ios
