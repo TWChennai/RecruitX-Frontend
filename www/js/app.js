@@ -7,7 +7,7 @@
 angular.module('recruitX', ['ngFileUpload', 'ionic', 'ui.router', 'ngCordova', 'ngResource'])
   // TODO: Move this into a properties/json file that is read in when the app starts
   .constant('endpoints', {
-    apiUrl: '10.134.125.194:4001'
+    apiUrl: '10.16.2.3:4001'
   })
 
   .config(function ($stateProvider, $urlRouterProvider, $compileProvider, $ionicConfigProvider) {
