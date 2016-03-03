@@ -5,19 +5,14 @@
 // the 2nd parameter is an array of 'requires'
 
 angular.module('recruitX', ['ngFileUpload', 'ionic', 'ui.router', 'ngCordova', 'ngResource'])
-  // TODO: Move this into a properties/json file that is read in when the app starts
-  .constant('endpoints', {
-    apiUrl: '10.16.2.3:4001'
-  })
+    .config(function ($stateProvider, $urlRouterProvider, $compileProvider, $ionicConfigProvider) {
+      'use strict';
 
-  .config(function ($stateProvider, $urlRouterProvider, $compileProvider, $ionicConfigProvider) {
-    'use strict';
+      $ionicConfigProvider.backButton.previousTitleText(false);
+      $ionicConfigProvider.backButton.text(false);
+      $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|file):/);
 
-    $ionicConfigProvider.backButton.previousTitleText(false);
-    $ionicConfigProvider.backButton.text(false);
-    $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|file):/);
-
-    $stateProvider
+      $stateProvider
       .state('create-candidate-profile', {
         url: '/candidates/new',
         templateUrl: 'templates/create-candidate-profile.html',
@@ -86,4 +81,4 @@ angular.module('recruitX', ['ngFileUpload', 'ionic', 'ui.router', 'ngCordova', '
         templateUrl: 'templates/login.html',
         controller: 'loginController'
       });
-  });
+    });

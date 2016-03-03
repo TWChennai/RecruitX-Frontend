@@ -1,8 +1,8 @@
 angular.module('recruitX')
-  .factory('recruitFactory', ['$cordovaToast', '$http', 'endpoints', 'skillHelperService', '$filter', 'MasterData', 'loggedinUserStore', '$cordovaNetwork', function ($cordovaToast, $http, endpoints, skillHelperService, $filter, MasterData, loggedinUserStore, $cordovaNetwork) {
+  .factory('recruitFactory', ['$cordovaToast', '$http', 'apiUrl', 'skillHelperService', '$filter', 'MasterData', 'loggedinUserStore', '$cordovaNetwork', function ($cordovaToast, $http, apiUrl, skillHelperService, $filter, MasterData, loggedinUserStore, $cordovaNetwork) {
     'use strict';
 
-    var baseUrl = 'http://' + endpoints.apiUrl;
+    var baseUrl = 'http://' + apiUrl;
     var UNPROCESSABLE_ENTITY_STATUS = 422;
 
     var getErrorMessage = function (status) {
@@ -233,10 +233,10 @@ angular.module('recruitX')
     };
   }])
 
-.factory('MasterData', ['$http', '$q', 'endpoints', function ($http, $q, endpoints) {
+.factory('MasterData', ['$http', '$q', 'apiUrl', function ($http, $q, apiUrl) {
   'use strict';
 
-  var baseUrl = 'http://' + endpoints.apiUrl;
+  var baseUrl = 'http://' + apiUrl;
   var data;
 
   return {

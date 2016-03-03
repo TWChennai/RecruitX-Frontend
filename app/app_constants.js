@@ -1,3 +1,4 @@
 angular.module('recruitX')
   .constant('oktaUrl', '@@oktaUrl')
-  .constant('apiKey', '@@apiKey');
+  .constant('apiKey', '@@apiKey')
+  .constant('apiUrl', '@@apiUrl');

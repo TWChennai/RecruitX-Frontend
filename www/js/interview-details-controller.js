@@ -1,5 +1,5 @@
 angular.module('recruitX')
-  .controller('interviewDetailsController', ['$filter', 'ionicLoadingService', 'MasterData', '$q', 'Upload', 'dialogService', 'endpoints', '$cordovaFileTransfer', '$scope', '$stateParams', 'recruitFactory', '$rootScope', '$cordovaToast', 'Camera', 'loggedinUserStore','apiKey', '$state', function ( $filter, ionicLoadingService, MasterData, $q, Upload, dialogService, endpoints, $cordovaFileTransfer, $scope, $stateParams, recruitFactory, $rootScope, $cordovaToast, Camera, loggedinUserStore, apiKey, $state) {
+  .controller('interviewDetailsController', ['$filter', 'ionicLoadingService', 'MasterData', '$q', 'Upload', 'dialogService', 'apiUrl', '$cordovaFileTransfer', '$scope', '$stateParams', 'recruitFactory', '$rootScope', '$cordovaToast', 'Camera', 'loggedinUserStore','apiKey', '$state', function ( $filter, ionicLoadingService, MasterData, $q, Upload, dialogService, apiUrl, $cordovaFileTransfer, $scope, $stateParams, recruitFactory, $rootScope, $cordovaToast, Camera, loggedinUserStore, apiKey, $state) {
     'use strict';
 
     $scope.interviewStatus = MasterData.getInterviewStatuses();
@@ -23,7 +23,7 @@ angular.module('recruitX')
       }
     ];
 
-    var baseUrl = 'http://' + endpoints.apiUrl;
+    var baseUrl = 'http://' + apiUrl;
     var fileServerURL = baseUrl + '/interviews/' + $stateParams.interview_id + '/feedback_images';
 
     $scope.finishRefreshing = function () {

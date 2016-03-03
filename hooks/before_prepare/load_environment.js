@@ -6,6 +6,7 @@ var replace = require('gulp-replace-task');
 // Get the environment from the command line
 var oktaUrl = process.env.OKTA_URL;
 var apiKey = process.env.API_KEY;
+var apiUrl = process.env.API_URL;
 process.stdout.write('loading env');
 
 // Replace each placeholder with the correct value for the variable.
@@ -18,6 +19,9 @@ gulp.src('app/app_constants.js')
       }, {
         match: 'apiKey',
         replacement: apiKey
+      }, {
+        match: 'apiUrl',
+        replacement: apiUrl
       }
     ]
   }))
