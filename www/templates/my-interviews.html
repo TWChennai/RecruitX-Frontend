@@ -32,7 +32,7 @@
             </div>
             <div class="col col-70">
               <div class="pull-right" ng-switch="isInPipeline(myinterview.candidate)">
-                <button ng-switch-when="true" class="button button-small button-positive" ui-sref="interview-details({interview_id:myinterview.id})" ng-click="$event.stopPropagation()">FeedBack</button>
+                <button ng-switch-when="true" class="button button-small button-positive" ui-sref="interview-details({interview_id:myinterview.id})" ng-click="$event.stopPropagation()">Feedback</button>
                 <div ng-switch-when="false">
                   <h3 style="pointer-events: none;" ng-if="myinterview.lastInterviewStatusName === undefined"><strong>Closed</strong></h3>
                   <h3 style="pointer-events: none;" ng-if="myinterview.lastInterviewStatusName !== undefined"><strong>{{myinterview.lastInterviewStatusName}}</strong></h3>

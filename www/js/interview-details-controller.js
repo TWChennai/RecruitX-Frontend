@@ -150,7 +150,7 @@ angular.module('recruitX')
           status_id: $scope.feedBackResult.id
         }
       }).then(function () {
-        dialogService.showAlertWithDismissHandler('Success!!', 'Upload was successful', $scope.refreshInterviewFeedback);
+        dialogService.showAlertWithDismissHandler('Success!!', 'Feedback submitted', $scope.refreshInterviewFeedback);
       }, function (error) {
         if (error.status === UNPROCESSABLE_ENTITY_STATUS) {
           dialogService.showAlertWithDismissHandler('Sign up', error.data.errors[0].reason,
