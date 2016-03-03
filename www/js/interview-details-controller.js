@@ -172,7 +172,7 @@ angular.module('recruitX')
           $rootScope.$broadcast('loading:hide');
           refreshMedia.refresh(targetPath);
         }, function (error) {
-          console.log('Error', error);
+          $cordovaToast.showShortBottom('Something went wrong while downloading the image. Please try again later.');
           $rootScope.$broadcast('loading:hide');
         }, function (progress) {
           // PROGRESS HANDLING GOES HERE
