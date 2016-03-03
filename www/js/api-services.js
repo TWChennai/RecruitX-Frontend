@@ -239,32 +239,32 @@ angular.module('recruitX')
 
   return {
     isLoaded: function () {
-       return data !== undefined;
-     },
+      return data !== undefined;
+    },
 
     getInterviewTypes: function () {
-       return data.interviewTypes;
-     },
+      return data.interviewTypes;
+    },
 
     getRoles: function () {
-       return data.roles;
-     },
+      return data.roles;
+    },
 
     getSkills: function () {
-       return data.skills;
-     },
+      return data.skills;
+    },
 
     getInterviewStatuses: function () {
-       return data.interviewStatuses;
-     },
+      return data.interviewStatuses;
+    },
 
     getPipelineStatuses: function () {
-       return data.pipelineStatuses;
-     },
+      return data.pipelineStatuses;
+    },
 
     load: function () {
-       console.log('LOADING MASTER DATA ******************');
-       return $q.all([$http.get(apiUrl + '/interview_types'), $http.get(apiUrl + '/roles'), $http.get(apiUrl + '/skills'), $http.get(apiUrl + '/interview_statuses'), $http.get(apiUrl + '/pipeline_statuses')])
+      console.log('LOADING MASTER DATA ******************');
+      return $q.all([$http.get(apiUrl + '/interview_types'), $http.get(apiUrl + '/roles'), $http.get(apiUrl + '/skills'), $http.get(apiUrl + '/interview_statuses'), $http.get(apiUrl + '/pipeline_statuses')])
         .then(function (response) {
           data = {
             interviewTypes: response[0].data,
@@ -277,6 +277,6 @@ angular.module('recruitX')
         }, function (err) {
           return $q.reject(err);
         });
-     }
+    }
   };
 }]);
