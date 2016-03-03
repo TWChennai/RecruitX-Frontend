@@ -23,8 +23,7 @@ angular.module('recruitX')
       }
     ];
 
-    var baseUrl = 'http://' + apiUrl;
-    var fileServerURL = baseUrl + '/interviews/' + $stateParams.interview_id + '/feedback_images';
+    var fileServerURL = apiUrl + '/interviews/' + $stateParams.interview_id + '/feedback_images';
 
     $scope.finishRefreshing = function () {
       ionicLoadingService.stopLoading();

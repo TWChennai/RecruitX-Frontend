@@ -11,7 +11,7 @@ describe('recruitFactory', function () {
     $httpBackend.whenGET(/templates.*/).respond(200, '');
     httpBackend = $httpBackend;
     cordovaToast = $cordovaToast;
-    baseUrl = 'http://' + apiUrl;
+    baseUrl = apiUrl;
   }));
 
   afterEach(function () {

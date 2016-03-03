@@ -2,7 +2,6 @@ angular.module('recruitX')
   .factory('recruitFactory', ['$cordovaToast', '$http', 'apiUrl', 'skillHelperService', '$filter', 'MasterData', 'loggedinUserStore', '$cordovaNetwork', function ($cordovaToast, $http, apiUrl, skillHelperService, $filter, MasterData, loggedinUserStore, $cordovaNetwork) {
     'use strict';
 
-    var baseUrl = 'http://' + apiUrl;
     var UNPROCESSABLE_ENTITY_STATUS = 422;
 
     var getErrorMessage = function (status) {
@@ -97,28 +96,28 @@ angular.module('recruitX')
     return {
       // Master data calls
       getRoles: function (success, customError) {
-        $http.get(baseUrl + '/roles').success(success)
+        $http.get(apiUrl + '/roles').success(success)
           .error(function (err, status) {
             defaultErrorHandler(err, status, customError);
           });
       },
 
       getSkills: function (success, customError) {
-        $http.get(baseUrl + '/skills').success(success)
+        $http.get(apiUrl + '/skills').success(success)
           .error(function (err, status) {
             defaultErrorHandler(err, status, customError);
           });
       },
 
       getInterviewTypes: function (success, customError) {
-        $http.get(baseUrl + '/interview_types').success(success)
+        $http.get(apiUrl + '/interview_types').success(success)
           .error(function (err, status) {
             defaultErrorHandler(err, status, customError);
           });
       },
 
       getPipelineStatuses: function (success, customError) {
-        $http.get(baseUrl + '/pipeline_statuses').success(success)
+        $http.get(apiUrl + '/pipeline_statuses').success(success)
           .error(function (err, status) {
             defaultErrorHandler(err, status, customError);
           });
@@ -126,14 +125,14 @@ angular.module('recruitX')
 
       // Transactional data calls
       isRecruiter: function (employee_id, success, customError) {
-        $http.get(baseUrl + '/is_recruiter/' + employee_id).success(success)
+        $http.get(apiUrl + '/is_recruiter/' + employee_id).success(success)
           .error(function (err, status) {
             defaultErrorHandler(err, status, customError);
           });
       },
 
       getCandidate: function (candidate_id, success, failureCallback) {
-        $http.get(baseUrl + '/candidates/' + candidate_id).success(function (response) {
+        $http.get(apiUrl + '/candidates/' + candidate_id).success(function (response) {
           fleshOutCandidate(response);
           success(response);
         }).error(function (err, status) {
@@ -142,13 +141,13 @@ angular.module('recruitX')
       },
 
       saveCandidate: function (data, success, error) {
-        $http.post(baseUrl + '/candidates', data).then(success, error);
+        $http.post(apiUrl + '/candidates', data).then(success, error);
       },
 
       // TODO: Rename this method to convey the full intent
       getInterviews: function (data, success, customError) {
         // TODO: the 'data' argument is sent along as query string params, so why repeat the same?
-        $http.get(baseUrl + '/interviews', {
+        $http.get(apiUrl + '/interviews', {
           params: data
         }).success(function (response) {
           fleshOutInterviews(response);
@@ -160,7 +159,7 @@ angular.module('recruitX')
 
       // TODO: This should be merged with the above method
       getMyInterviews: function (data, success, customError) {
-        $http.get(baseUrl + '/panelists/' + loggedinUserStore.userId() + '/interviews', {
+        $http.get(apiUrl + '/panelists/' + loggedinUserStore.userId() + '/interviews', {
           params: data
         }).success(function (response) {
           fleshOutInterviews(response);
@@ -171,7 +170,7 @@ angular.module('recruitX')
       },
 
       getAllCandidates: function (data, success) {
-        $http.get(baseUrl + '/candidates', {
+        $http.get(apiUrl + '/candidates', {
           params: data
         }).success(function (response) {
           fleshOutCandidates(response.candidates);
@@ -182,7 +181,7 @@ angular.module('recruitX')
 
       // TODO: This should be merged with the above method
       getCandidateInterviews: function (id, success, customError) {
-        $http.get(baseUrl + '/candidates/' + id + '/interviews')
+        $http.get(apiUrl + '/candidates/' + id + '/interviews')
           .success(function (response) {
             fleshOutInterviews(response);
             success(response);
@@ -192,7 +191,7 @@ angular.module('recruitX')
       },
 
       getInterview: function (id, success, customError) {
-        $http.get(baseUrl + '/interviews/' + id)
+        $http.get(apiUrl + '/interviews/' + id)
           .success(function (response) {
             fleshOutInterview(response);
             success(response);
@@ -202,7 +201,7 @@ angular.module('recruitX')
       },
 
       signUp: function (data, success, unProcessableEntityErrorHandler, customErrorHandler) {
-        $http.post(baseUrl + '/panelists', data).success(success).error(
+        $http.post(apiUrl + '/panelists', data).success(success).error(
           function (error, status) {
             if (status === UNPROCESSABLE_ENTITY_STATUS) {
               unProcessableEntityErrorHandler(error, status);
@@ -213,22 +212,22 @@ angular.module('recruitX')
       },
 
       getInterviewStatus: function (success, customError) {
-        $http.get(baseUrl + '/interview_statuses').success(success)
+        $http.get(apiUrl + '/interview_statuses').success(success)
           .error(function (err, status) {
             defaultErrorHandler(err, status, customError);
           });
       },
 
       updateInterviewSchedule: function (data, id, success, failure) {
-        $http.put(baseUrl + '/interviews/' + id, data).then(success, failure);
+        $http.put(apiUrl + '/interviews/' + id, data).then(success, failure);
       },
 
       createInterviewSchedule: function (data, success, failure) {
-        $http.post(baseUrl + '/interviews', data).then(success, failure);
+        $http.post(apiUrl + '/interviews', data).then(success, failure);
       },
 
       closePipeline: function (data, id, success, failure) {
-        $http.put(baseUrl + '/candidates/' + id, data).then(success, failure);
+        $http.put(apiUrl + '/candidates/' + id, data).then(success, failure);
       }
     };
   }])
@@ -236,37 +235,36 @@ angular.module('recruitX')
 .factory('MasterData', ['$http', '$q', 'apiUrl', function ($http, $q, apiUrl) {
   'use strict';
 
-  var baseUrl = 'http://' + apiUrl;
   var data;
 
   return {
     isLoaded: function () {
-      return data !== undefined;
-    },
+       return data !== undefined;
+     },
 
     getInterviewTypes: function () {
-      return data.interviewTypes;
-    },
+       return data.interviewTypes;
+     },
 
     getRoles: function () {
-      return data.roles;
-    },
+       return data.roles;
+     },
 
     getSkills: function () {
-      return data.skills;
-    },
+       return data.skills;
+     },
 
     getInterviewStatuses: function () {
-      return data.interviewStatuses;
-    },
+       return data.interviewStatuses;
+     },
 
     getPipelineStatuses: function () {
-      return data.pipelineStatuses;
-    },
+       return data.pipelineStatuses;
+     },
 
     load: function () {
-      console.log('LOADING MASTER DATA ******************');
-      return $q.all([$http.get(baseUrl + '/interview_types'), $http.get(baseUrl + '/roles'), $http.get(baseUrl + '/skills'), $http.get(baseUrl + '/interview_statuses'), $http.get(baseUrl + '/pipeline_statuses')])
+       console.log('LOADING MASTER DATA ******************');
+       return $q.all([$http.get(apiUrl + '/interview_types'), $http.get(apiUrl + '/roles'), $http.get(apiUrl + '/skills'), $http.get(apiUrl + '/interview_statuses'), $http.get(apiUrl + '/pipeline_statuses')])
         .then(function (response) {
           data = {
             interviewTypes: response[0].data,
@@ -279,6 +277,6 @@ angular.module('recruitX')
         }, function (err) {
           return $q.reject(err);
         });
-    }
+     }
   };
 }]);
