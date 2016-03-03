@@ -317,7 +317,7 @@ textarea {
 
 button.custom-icon:before {
     font-size: 22px !important;
-    padding-bottom: 50px !important;
+    margin-bottom: 50px !important;
 }
 
 .full-space-button {
