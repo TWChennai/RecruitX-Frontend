@@ -51,6 +51,9 @@ angular.module('recruitX')
       };
 
       $cordovaDatePicker.show(options).then(function (dateTime) {
+        if (!dateTime) {
+          return;
+        }
         var now = new Date(Date.now());
         if (dateTime < now) {
           dialogService.showAlert('Invalid Selection', 'Should be in future');
