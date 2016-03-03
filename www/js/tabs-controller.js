@@ -122,7 +122,7 @@ angular.module('recruitX')
     };
 
     $scope.isInPipeline = function (candidate) {
-      return candidate !== undefined && candidate.pipelineStatus === 'In Progress';
+      return candidate !== undefined && candidate.pipelineStatus !== 'Closed';
     };
 
     $scope.isActive = function(stateName) {
