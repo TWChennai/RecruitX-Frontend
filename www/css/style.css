@@ -318,6 +318,7 @@ textarea {
 button.custom-icon:before {
     font-size: 22px !important;
     padding-bottom: 50px !important;
+}
 
 .full-space-button {
   min-width: 100%;
