@@ -7,7 +7,9 @@
           <div class="row">
             <p class="col col-30">{{interviewRound.name}}</p>
             <p class="col col-50">{{interviewRound.dateTime | date: 'dd/MM/yyyy h:mma'}}</p>
-            <button class="button ion-minus-round col col-10 modify-interview" ng-show="isCancelable(interviewRound)" ng-click="cancel($event, interviewRound)"></button>
+            <p class="interview-schedule-icons col col-20">
+              <button class="button ion-minus-round modify-interview" ng-show="isCancelable(interviewRound)" ng-click="cancel($event, interviewRound)"></button>
+            </p>
           </div>
         </ion-item>
       </div>

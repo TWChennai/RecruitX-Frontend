@@ -244,7 +244,8 @@ textarea {
 }
 .bar .title+.buttons { top: 3px; bottom: 2px; }
 .interview-container .item-content {
-  padding-right: 16px;
+  padding-right: 1px;
+  padding-left: 7px;
 }
 .modify-interview {
   background: transparent;
@@ -322,4 +323,8 @@ button.custom-icon:before {
 
 .full-space-button {
   min-width: 100%;
+}
+.interview-schedule-icons{
+  padding: 0;
+  margin: 0;
 }
