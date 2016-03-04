@@ -87,6 +87,10 @@ angular.module('recruitX')
           'interview_id': item.id
         }
       };
+      dialogService.askConfirmation('Sign up', 'Are you sure you want to sign up for this interview?', $scope.signUp);
+    };
+
+    $scope.signUp = function () {
       recruitFactory.signUp($scope.interview_panelist, $scope.signUpSuccessHandler, $scope.signUpUnprocessableEntityHandler, $scope.defaultErrorHandler);
     };
 
