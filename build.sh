@@ -1,9 +1,9 @@
 #!/usr/bin/env sh
 
-if [[ ! -d "node_modules" ]] || [[ "$GO_BUILD_NUMBER" -ne "" ]]; then
-  npm set progress=false
-  npm install
-fi
+#if [[ (! -d "node_modules") || ("$GO_BUILD_NUMBER" -ne "") ]]; then
+#  npm set progress=false
+npm install
+#fi
 
 set -e
 
