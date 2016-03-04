@@ -7,7 +7,7 @@ angular.module('recruitX')
       return {
         request: function (config) {
           if(config.headers['Authorization'] === undefined) {
-            config.timeout = 10000;
+            config.timeout = 20000;
             config.headers = { 'Authorization': apiKey, 'Content-Type': 'application/json'};
           } else {
             config.timeout = 60000;
