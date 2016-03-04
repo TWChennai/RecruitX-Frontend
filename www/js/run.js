@@ -50,7 +50,7 @@ angular.module('recruitX')
   });
 })
 
-.run(function ($ionicPlatform, $rootScope, recruitFactory, MasterData, $state) {
+.run(function ($ionicPlatform, $rootScope, recruitFactory, MasterData, $state, $cordovaToast) {
   'use strict';
 
   $ionicPlatform.ready(function () {
@@ -87,8 +87,13 @@ angular.module('recruitX')
       loadMasterData();
       $state.go('tabs.interviews');
     } else {
-      $state.go('login');
-      navigator.splashscreen.hide();
+      if (typeof OktaSignIn === 'undefined') {
+          $cordovaToast.showShortBottom('Please connect to internet and try again');
+        }
+        else{
+          $state.go('login');
+          navigator.splashscreen.hide();
+        }
     }
 
     $rootScope.$on('load:masterData', function () {
