@@ -2,6 +2,7 @@ angular.module('recruitX')
   .controller('TabsCtrl', ['$scope', 'recruitFactory', 'skillHelperService', 'loggedinUserStore', 'dialogService', '$ionicHistory', '$state', function ($scope, recruitFactory, skillHelperService, loggedinUserStore, dialogService, $ionicHistory, $state) {
     'use strict';
 
+    var refreshing = false;
     $scope.items = [];
     $scope.loggedinUserName = loggedinUserStore.userFirstName();
     $scope.isLoggedinUserRecruiter = loggedinUserStore.isRecruiter();
@@ -21,7 +22,8 @@ angular.module('recruitX')
       if (!loggedinUserStore.isRecruiter()) {
         $scope.refreshMyInterviews();
       } else {
-        $scope.refreshCandidates();
+        $scope.refreshCandidates(1);
+        refreshing = true;
       }
     };
 
@@ -67,11 +69,12 @@ angular.module('recruitX')
         $scope.finishRefreshing();
         //TODO: Do this in a better way to avoid multiple calls to backend during pagination
         $scope.$broadcast('scroll.infiniteScrollComplete');
+        refreshing = false;
       });
     };
 
     $scope.loadMoreCandidates = function () {
-      if ($scope.next_requesting_page <= $scope.total_pages) {
+      if (!refreshing && $scope.next_requesting_page <= $scope.total_pages) {
         $scope.refreshCandidates($scope.next_requesting_page);
       }
       else {
