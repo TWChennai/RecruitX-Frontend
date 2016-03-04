@@ -163,7 +163,7 @@ angular.module('recruitX')
     $scope.downloadPhoto = function (index) {
       window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fileSystem) {
         var filename = $scope.feedbackImages[index].file_name;
-        var targetPath = fileSystem.root.toURL() + filename;
+        var targetPath = fileSystem.root.toURL() + filename + '.jpg';
         $rootScope.$broadcast('loading:show');
         $cordovaFileTransfer.download(fileServerURL + '/' + filename, targetPath, {headers: { 'Authorization': apiKey }}, true).then(function (result) {
           $scope.feedbackImages[index].URI = result.nativeURL;
