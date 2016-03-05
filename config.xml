@@ -4,8 +4,8 @@
   <description>
     An Ionic Framework and Cordova project to help the Recruitment team @ TW Chennai for scheduling interviews.
   </description>
-  <author email="chennai@thoughtworks.com" href="http://thoughtworks.com/">
-    ThoughtWorks (Chennai)
+  <author email="recruitx@thoughtworks.com" href="http://thoughtworks.com/">
+    RecruitX Team, ThoughtWorks (Chennai)
   </author>
   <content src="index.html"/>
   <access origin="*"/>
