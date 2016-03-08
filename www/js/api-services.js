@@ -162,8 +162,8 @@ angular.module('recruitX')
         $http.get(apiUrl + '/panelists/' + loggedinUserStore.userId() + '/interviews', {
           params: data
         }).success(function (response) {
-          fleshOutInterviews(response);
-          success(response);
+          fleshOutInterviews(response.interviews);
+          success(response.interviews, response.total_pages);
         }).error(function (err, status) {
           defaultErrorHandler(err, status, customError);
         });

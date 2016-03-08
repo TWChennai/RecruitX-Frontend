@@ -19,11 +19,11 @@ angular.module('recruitX')
 
     $scope.manuallyRefreshInterviews = function () {
       $scope.refreshInterviews();
+      refreshing = true;
       if (!loggedinUserStore.isRecruiter()) {
-        $scope.refreshMyInterviews();
+        $scope.refreshMyInterviews(1);
       } else {
         $scope.refreshCandidates(1);
-        refreshing = true;
       }
     };
 
@@ -42,11 +42,22 @@ angular.module('recruitX')
       });
     };
 
-    $scope.refreshMyInterviews = function () {
-      recruitFactory.getMyInterviews({}, function (newItems) {
-        $scope.myinterviews = newItems;
+    $scope.refreshMyInterviews = function (page_number) {
+      var data = {
+        'page': page_number
+      };
+      if (page_number === 1) {
+        $scope.next_requesting_page = 1;
+        $scope.myinterviews = [];
+      }
+      recruitFactory.getMyInterviews(data, function (myinterviews, total_pages) {
+        $scope.myinterviews = $scope.myinterviews.concat(myinterviews);
         $scope.noMyInterviews = $scope.myinterviews.length === 0 ? true : false;
+        $scope.total_pages = total_pages;
+        $scope.next_requesting_page++;
         $scope.finishRefreshing();
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+        refreshing = false;
       }, function (error) {
         console.log('AM custom error' + error);
         $scope.finishRefreshing();
@@ -76,6 +87,15 @@ angular.module('recruitX')
     $scope.loadMoreCandidates = function () {
       if (!refreshing && $scope.next_requesting_page <= $scope.total_pages) {
         $scope.refreshCandidates($scope.next_requesting_page);
+      }
+      else {
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+      }
+    };
+
+    $scope.loadMoreMyInterviews = function () {
+      if (!refreshing && $scope.next_requesting_page <= $scope.total_pages) {
+        $scope.refreshMyInterviews($scope.next_requesting_page);
       }
       else {
         $scope.$broadcast('scroll.infiniteScrollComplete');

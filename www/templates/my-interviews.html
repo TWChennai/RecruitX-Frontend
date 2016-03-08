@@ -1,6 +1,6 @@
 <ion-view>
   <ion-content class="padding has-tabs-top" ng-class="{'empty' : noMyInterviews }">
-    <ion-refresher on-refresh="refreshMyInterviews()">
+    <ion-refresher on-refresh="refreshMyInterviews(1)">
     </ion-refresher>
     <div ng-if="noMyInterviews" class='full-screen-div'>
       <div class="center-screen"><b>Currently there are no signups here! Please sign up.</b>
@@ -42,5 +42,9 @@
         </div>
       </ion-item>
     </ion-list>
+    <ion-infinite-scroll
+      on-infinite="loadMoreMyInterviews()"
+      distance="1%">
+    </ion-infinite-scroll>
   </ion-content>
 </ion-view>
