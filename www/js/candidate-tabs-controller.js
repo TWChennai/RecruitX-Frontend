@@ -119,6 +119,10 @@ angular.module('recruitX')
       return interviewStatus !== undefined && interviewStatus.name === status;
     };
 
+    $scope.canNotSeeFeedback = function (interviewType){
+      return !(($scope.isLoggedinUserRecruiter || $scope.isPanelistForAnyInterviewRound) && !$scope.isNotScheduled(interviewType));
+    };
+
     $scope.dateTime = function (interviewType, event, callback) {
       event.stopPropagation();
 

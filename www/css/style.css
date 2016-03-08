@@ -328,3 +328,7 @@ button.custom-icon:before {
   padding: 0;
   margin: 0;
 }
+
+.pointer-events-disabled{
+  pointer-events:none;
+}
