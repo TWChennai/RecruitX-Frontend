@@ -16,7 +16,6 @@ body, .ionic-body {
   width: 30%;
 }
 .button {
-  padding: 0 16px;
   min-height: 40px;
   line-height: 36px;
 }
@@ -116,11 +115,20 @@ textarea {
 }
 /* .candidateForm { padding-bottom: 45px; } */
 .button.fixedBottom { position: absolute; bottom: -2px; left: 0; width: 100%; z-index: 9999; }
-.button.fixedBottom, .candidateForm .button.button-full { margin-bottom: 0; }
+.button.fixedBottom { margin-bottom: 0; }
+.custom-button{
+    margin: 0px !important;
+    display: inline-block;
+    min-width: 49.5%;
+    padding: 0px !important;
+}
+.outer-custom-button{
+    min-width: 100%;
+}
 .candidateForm .list .item.item-input:last-child { border-bottom: none; }
 .newCandidateBlk { margin-bottom: -5px;}
 
-/* Candidate Info - Panelist Signup Page */
+/* Candidate Info - Panelist Signup Page*/
 
 .candidateInfo h4 {
   color: #6f6f6f;
@@ -321,9 +329,6 @@ button.custom-icon:before {
     margin-bottom: 50px !important;
 }
 
-.full-space-button {
-  min-width: 100%;
-}
 .interview-schedule-icons{
   padding: 0;
   margin: 0;
