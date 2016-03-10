@@ -1,5 +1,5 @@
 angular.module('recruitX')
-  .controller('TabsCtrl', ['$scope', 'recruitFactory', 'skillHelperService', 'loggedinUserStore', 'dialogService', '$ionicHistory', '$state', function ($scope, recruitFactory, skillHelperService, loggedinUserStore, dialogService, $ionicHistory, $state) {
+  .controller('TabsCtrl', ['$scope', 'recruitFactory', 'skillHelperService', 'loggedinUserStore', 'dialogService', '$ionicHistory', '$state', '$filter', function ($scope, recruitFactory, skillHelperService, loggedinUserStore, dialogService, $ionicHistory, $state, $filter) {
     'use strict';
 
     var refreshing = false;
@@ -28,7 +28,6 @@ angular.module('recruitX')
     };
 
     $scope.refreshInterviews = function () {
-      console.log('AM refreshing');
       recruitFactory.getInterviews({
         panelist_login_name: loggedinUserStore.userId()
       }, function (newItems) {
@@ -113,23 +112,50 @@ angular.module('recruitX')
       dialogService.askConfirmation('Sign up', 'Are you sure you want to sign up for this interview?', $scope.signUp);
     };
 
+    $scope.decliningInterview = function ($event, myinterview) {
+      $event.stopPropagation();
+      $scope.interview_panelist_id = (($filter('filter')(myinterview.panelists, function(panelist) {
+        return panelist.name === loggedinUserStore.userId();
+      }))[0]).interview_panelist_id;
+      dialogService.askConfirmation('Decline', 'Are you sure you want to decline this interview?', $scope.declineInterview);
+    };
+
     $scope.signUp = function () {
       recruitFactory.signUp($scope.interview_panelist, $scope.signUpSuccessHandler, $scope.signUpUnprocessableEntityHandler, $scope.defaultErrorHandler);
     };
 
-    $scope.signUpSuccessHandler = function (res) {
-      console.log(res);
+    $scope.declineInterview = function () {
+      recruitFactory.deleteInterviewPanelist($scope.interview_panelist_id, $scope.declineInterviewSuccessHandler, $scope.declineUnprocessableEntityHandler, $scope.defaultErrorHandler);
+    };
+
+    var successHandler = function(header, message){
       $scope.finishRefreshing();
-      dialogService.showAlertWithDismissHandler('Sign up', 'Thanks for signing up for this interview!', function () {
+      dialogService.showAlertWithDismissHandler(header, message, function () {
         $scope.manuallyRefreshInterviews();
       });
     };
 
-    $scope.signUpUnprocessableEntityHandler = function (error) {
+    var unprocessableEntityHandler = function(error, header) {
       $scope.finishRefreshing();
-      dialogService.showAlert('Sign up', error.errors[0].reason).then(function () {
+      dialogService.showAlert(header, error.errors[0].reason).then(function () {
         $scope.manuallyRefreshInterviews();
       });
+    };
+
+    $scope.signUpSuccessHandler = function () {
+      successHandler('Sign up', 'Thanks for signing up for this interview!');
+    };
+
+    $scope.declineInterviewSuccessHandler = function () {
+      successHandler('Decline', 'Successfully declined for this interview');
+    };
+
+    $scope.signUpUnprocessableEntityHandler = function (error) {
+      unprocessableEntityHandler(error, 'Sign up');
+    };
+
+    $scope.declineUnprocessableEntityHandler = function (error) {
+      unprocessableEntityHandler(error, 'Decline');
     };
 
     $scope.defaultErrorHandler = function () {
@@ -150,6 +176,10 @@ angular.module('recruitX')
 
     $scope.isInPipeline = function (candidate) {
       return candidate !== undefined && candidate.pipelineStatus !== 'Closed';
+    };
+
+    $scope.isInFuture = function (start_time) {
+      return new Date() < new Date(start_time);
     };
 
     $scope.isActive = function(stateName) {
