@@ -13,6 +13,8 @@ angular.module('recruitX')
 
     recruitFactory.getRoleBasedSkills(function (response){
       $scope.roleSkills = response;
+      constructRoleSkillsMap();
+      $scope.refreshSkills();
     });
 
     var constructRoleSkillsMap = function () {
@@ -20,7 +22,6 @@ angular.module('recruitX')
         var roleId = $scope.roleSkills[roleIndex].role_id;
         var skillId = $scope.roleSkills[roleIndex].skill_id;
         if (roleId in $scope.roleSkillsMap) {
-          console.log('IF SUCCESS', $scope.roleSkillsMap[roleId]);
           $scope.roleSkillsMap[roleId].push (($filter ('filter')($scope.allSkills, {
             id: skillId
           }))[0]);
@@ -37,9 +38,6 @@ angular.module('recruitX')
         $scope.skills = JSON.parse(JSON.stringify($scope.roleSkillsMap[$scope.candidate.role_id]));
       }
     };
-
-    constructRoleSkillsMap();
-    $scope.refreshSkills();
 
     $scope.blurElem = function () {
       document.querySelector('#experience').blur();
