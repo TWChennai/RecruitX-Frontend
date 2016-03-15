@@ -2,16 +2,44 @@ angular.module('recruitX')
   .controller('createCandidateProfileController', ['$rootScope', '$scope', '$state', 'MasterData', 'dialogService', '$filter', 'recruitFactory', function ($rootScope, $scope, $state, MasterData, dialogService, $filter, recruitFactory) {
     'use strict';
 
-    $scope.skills = MasterData.getSkills();
+    $scope.allSkills = MasterData.getSkills();
     $scope.roles = MasterData.getRoles();
     $scope.candidate = {
       role_id: $scope.roles[0].id
     };
     $scope.roleSkills = [];
-    
+    $scope.roleSkillsMap = {};
+    $scope.skills = [];
+
     recruitFactory.getRoleBasedSkills(function (response){
       $scope.roleSkills = response;
     });
+
+    var constructRoleSkillsMap = function () {
+      for (var roleIndex in $scope.roleSkills) {
+        var roleId = $scope.roleSkills[roleIndex].role_id;
+        var skillId = $scope.roleSkills[roleIndex].skill_id;
+        if (roleId in $scope.roleSkillsMap) {
+          console.log('IF SUCCESS', $scope.roleSkillsMap[roleId]);
+          $scope.roleSkillsMap[roleId].push (($filter ('filter')($scope.allSkills, {
+            id: skillId
+          }))[0]);
+        } else {
+            $scope.roleSkillsMap[roleId] = ($filter ('filter')($scope.allSkills, {
+              id: skillId
+            }));
+        }
+      }
+    };
+
+    $scope.refreshSkills = function(){
+      if ($scope.candidate.role_id in $scope.roleSkillsMap) {
+        $scope.skills = JSON.parse(JSON.stringify($scope.roleSkillsMap[$scope.candidate.role_id]));
+      }
+    };
+
+    constructRoleSkillsMap();
+    $scope.refreshSkills();
 
     $scope.blurElem = function () {
       document.querySelector('#experience').blur();
@@ -89,11 +117,9 @@ angular.module('recruitX')
       $scope.candidate = {
         role_id: $scope.roles[0].id
       };
-      for(var skillIndex in $scope.skills){
-        $scope.skills[skillIndex].checked = false;
-      }
       $scope.firstName = undefined;
       $scope.lastName = undefined;
+      $scope.refreshSkills();
     });
   }
 ]);
