@@ -1,5 +1,5 @@
 angular.module('recruitX')
-  .controller('createCandidateProfileController', ['$rootScope', '$scope', '$state', 'MasterData', 'dialogService', '$filter', 'recruitFactory', function ($rootScope, $scope, $state, MasterData, dialogService, $filter, recruitFactory) {
+  .controller('createCandidateProfileController', ['$rootScope', '$scope', '$state', 'MasterData', 'dialogService', '$filter', 'recruitFactory', 'skillHelperService', function ($rootScope, $scope, $state, MasterData, dialogService, $filter, recruitFactory, skillHelperService) {
     'use strict';
 
     $scope.allSkills = MasterData.getSkills();
@@ -13,25 +13,9 @@ angular.module('recruitX')
 
     recruitFactory.getRoleBasedSkills(function (response){
       $scope.roleSkills = response;
-      constructRoleSkillsMap();
+      $scope.roleSkillsMap = skillHelperService.constructRoleSkillsMap($scope.roleSkills, $scope.allSkills);
       $scope.refreshSkills();
     });
-
-    var constructRoleSkillsMap = function () {
-      for (var roleIndex in $scope.roleSkills) {
-        var roleId = $scope.roleSkills[roleIndex].role_id;
-        var skillId = $scope.roleSkills[roleIndex].skill_id;
-        if (roleId in $scope.roleSkillsMap) {
-          $scope.roleSkillsMap[roleId].push (($filter ('filter')($scope.allSkills, {
-            id: skillId
-          }))[0]);
-        } else {
-            $scope.roleSkillsMap[roleId] = ($filter ('filter')($scope.allSkills, {
-              id: skillId
-            }));
-        }
-      }
-    };
 
     $scope.refreshSkills = function(){
       if ($scope.candidate.role_id in $scope.roleSkillsMap) {

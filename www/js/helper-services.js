@@ -24,6 +24,24 @@ angular.module('recruitX')
         }
 
         return all_skills.join(', ');
+      },
+      constructRoleSkillsMap: function(roleSkills, allSkills){
+        var roleSkillsMap = {};
+        for (var roleIndex in roleSkills) {
+          var roleId = roleSkills[roleIndex].role_id;
+          var skillId = roleSkills[roleIndex].skill_id;
+          if (roleId in roleSkillsMap) {
+            roleSkillsMap[roleId].push (($filter ('filter')(allSkills, {
+              id: skillId
+            }))[0]);
+          } else {
+            roleSkillsMap[roleId] = ($filter ('filter')(allSkills, {
+              id: skillId
+            }));
+          }
+        }
+
+        return roleSkillsMap;
       }
     };
   }

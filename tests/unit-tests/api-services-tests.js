@@ -40,6 +40,37 @@ describe('recruitFactory', function () {
     });
   });
 
+  describe('getRoleBasedSkills', function () {
+    it('getRoleBasedSkills should return role based skill IDs when successful', function () {
+      var roleBasedSkills = [{
+        'skill_id': 1,
+        'role_id': 1
+      }, {
+        'skill_id': 2,
+        'role_id': 1
+      }, {
+        'skill_id': 3,
+        'role_id': 2
+      }];
+      httpBackend.expectGET(baseUrl + '/role_skills').respond(roleBasedSkills);
+      recruitFactory.getRoleBasedSkills(function (roles) {
+        expect(roles).toEqual(roleBasedSkills);
+      });
+      httpBackend.flush();
+    });
+
+    it('getRoles should display toast error message when error and should not call the success method', function () {
+      httpBackend.expectGET(baseUrl + '/role_skills').respond(422, 'error');
+      spyOn(cordovaToast, 'showShortBottom');
+
+      recruitFactory.getRoleBasedSkills(function (success) {
+        expect(false).toEqual(success);
+      });
+      httpBackend.flush();
+      expect(cordovaToast.showShortBottom).toHaveBeenCalledWith('Something went wrong while processing your request. Please try again soon.');
+    });
+  });
+
   describe('getPipelineStatuses', function () {
     it('getPipelineStatuses should return pipeline statuses when successful', function () {
       httpBackend.expectGET(baseUrl + '/pipeline_statuses').respond(['In Progress', 'Closed']);
