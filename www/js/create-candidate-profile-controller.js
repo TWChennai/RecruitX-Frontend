@@ -1,5 +1,5 @@
 angular.module('recruitX')
-  .controller('createCandidateProfileController', ['$rootScope', '$scope', '$state', 'MasterData', 'dialogService', function ($rootScope, $scope, $state, MasterData, dialogService) {
+  .controller('createCandidateProfileController', ['$rootScope', '$scope', '$state', 'MasterData', 'dialogService', '$filter', 'recruitFactory', function ($rootScope, $scope, $state, MasterData, dialogService, $filter, recruitFactory) {
     'use strict';
 
     $scope.skills = MasterData.getSkills();
@@ -7,6 +7,11 @@ angular.module('recruitX')
     $scope.candidate = {
       role_id: $scope.roles[0].id
     };
+    $scope.roleSkills = [];
+    
+    recruitFactory.getRoleBasedSkills(function (response){
+      $scope.roleSkills = response;
+    });
 
     $scope.blurElem = function () {
       document.querySelector('#experience').blur();

@@ -109,6 +109,13 @@ angular.module('recruitX')
           });
       },
 
+      getRoleBasedSkills: function (success, customError) {
+        $http.get (apiUrl + '/role_skills').success (success)
+          .error (function (err, status) {
+            defaultErrorHandler(err, status, customError);
+          });
+      },
+
       getInterviewTypes: function (success, customError) {
         $http.get(apiUrl + '/interview_types').success(success)
           .error(function (err, status) {
