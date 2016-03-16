@@ -75,7 +75,7 @@ describe('loginController', function () {
       createController();
 
       expect(oktaWidget.renderEl).toHaveBeenCalled();
-      expect(userStore.storeUser).toHaveBeenCalledWith(validUser, recruiter.is_recruiter);
+      expect(userStore.storeUser).toHaveBeenCalledWith(validUser, recruiter);
       expect(history.nextViewOptions).toHaveBeenCalledWith({
         disableBack: true,
         historyRoot: true

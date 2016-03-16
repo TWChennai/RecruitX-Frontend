@@ -16,7 +16,14 @@ describe('helper-services', function () {
     var storedUser = {
       firstName: 'recruitx',
       id: 'recruit',
-      is_recruiter: true
+      is_recruiter: true,
+      tw_hire_date: '2015-11-11',
+      past_experience: 1.23
+    };
+    var userDetails = {
+      is_recruiter: true,
+      tw_hire_date: '2015-11-11',
+      past_experience: 1.23
     };
 
     it('should store a user that is logging in', function () {
@@ -30,29 +37,37 @@ describe('helper-services', function () {
         }
       };
 
-      loggedinUserStore.storeUser(incomingUser, true);
+      loggedinUserStore.storeUser(incomingUser, userDetails);
       expect(window.localStorage[STORAGE_KEY]).toEqual(JSON.stringify(storedUser));
     });
 
-    it('should be able to get the loggedin user id', function () {
+    describe('should get value from store', function() {
       window.localStorage[STORAGE_KEY] = JSON.stringify(storedUser);
-      expect(loggedinUserStore.userId()).toEqual('recruit');
-    });
 
-    it('should be able to get the loggedin user name', function () {
-      window.localStorage[STORAGE_KEY] = JSON.stringify(storedUser);
-      expect(loggedinUserStore.userFirstName()).toEqual('recruitx');
-    });
+      it('should be able to get the loggedin user id', function () {
+        expect(loggedinUserStore.userId()).toEqual('recruit');
+      });
 
-    it('should be able to delete the loggedin user information', function () {
-      window.localStorage[STORAGE_KEY] = JSON.stringify(storedUser);
-      loggedinUserStore.clearDb();
-      expect(window.localStorage[STORAGE_KEY]).toBe(undefined);
-    });
+      it('should be able to get the loggedin user name', function () {
+        expect(loggedinUserStore.userFirstName()).toEqual('recruitx');
+      });
 
-    it('should be able to find if the role', function () {
-      window.localStorage[STORAGE_KEY] = JSON.stringify(storedUser);
-      expect(loggedinUserStore.isRecruiter()).toBe(true);
+      it('should be able to find if the role', function () {
+        expect(loggedinUserStore.isRecruiter()).toBe(true);
+      });
+
+      it('should be able to find if the pastExperience', function () {
+        expect(loggedinUserStore.pastExperience()).toBe(1.23);
+      });
+
+      it('should be able to find if the twHireDate', function () {
+        expect(loggedinUserStore.twHireDate()).toBe('2015-11-11');
+      });
+
+      it('should be able to delete the loggedin user information', function () {
+        loggedinUserStore.clearDb();
+        expect(window.localStorage[STORAGE_KEY]).toBe(undefined);
+      });
     });
   });
   describe('constructRoleSkillsMap', function () {
