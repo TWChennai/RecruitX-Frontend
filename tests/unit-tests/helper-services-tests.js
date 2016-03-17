@@ -65,6 +65,15 @@ describe('helper-services', function () {
         expect(loggedinUserStore.calculatedHireDate()).toBe('2015-11-11');
       });
 
+      it('should be able to calculate total experience from hire date and past experience', function () {
+        var two_years_back = new Date();
+        two_years_back.setDate(two_years_back.getDate() - (2*365));
+        spyOn(loggedinUserStore, "calculatedHireDate").and.returnValue(two_years_back);
+        spyOn(loggedinUserStore, "pastExperience").and.returnValue(1.5243);
+
+        expect(loggedinUserStore.experience()).toBe(3.52);
+      });
+
       it('should be able to delete the loggedin user information', function () {
         loggedinUserStore.clearDb();
         expect(window.localStorage[STORAGE_KEY]).toBe(undefined);

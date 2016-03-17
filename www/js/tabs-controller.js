@@ -27,19 +27,10 @@ angular.module('recruitX')
       }
     };
 
-    var calculateExperience = function(hire_date) {
-      var total_months = 12;
-      var formatted_hire_date = new Date(hire_date);
-      var now = new Date();
-      var hire_date_in_year = formatted_hire_date.getYear() + (formatted_hire_date.getMonth() + 1)/total_months;
-      var now_in_year = now.getYear() + (now.getMonth() + 1)/total_months;
-      return now_in_year - hire_date_in_year;
-    };
-
     $scope.refreshInterviews = function () {
       recruitFactory.getInterviews({
         panelist_login_name: loggedinUserStore.userId(),
-        total_experiences: Math.round((loggedinUserStore.pastExperience() + calculateExperience(loggedinUserStore.calculatedHireDate())) * 100) / 100
+        panelist_experience: loggedinUserStore.experience()
       }, function (newItems) {
         $scope.items = newItems;
         $scope.noItems = $scope.items.length === 0 ? true : false;
@@ -116,7 +107,8 @@ angular.module('recruitX')
       $scope.interview_panelist = {
         interview_panelist: {
           'panelist_login_name': loggedinUserStore.userId(),
-          'interview_id': item.id
+          'interview_id': item.id,
+          'panelist_experience': loggedinUserStore.experience()
         }
       };
       dialogService.askConfirmation('Sign up', 'Are you sure you want to sign up for this interview?', $scope.signUp);

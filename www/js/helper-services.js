@@ -102,6 +102,14 @@ angular.module('recruitX')
     window.localStorage.removeItem(STORAGE_KEY);
   };
 
+  loggedinUserStore.experience = function () {
+    var oneYear = 24*60*60*1000*365;
+    var now = new Date();
+    var hireDate = new Date(loggedinUserStore.calculatedHireDate());
+    var experience = (now.getTime() - hireDate.getTime())/oneYear;
+    return parseFloat((experience + loggedinUserStore.pastExperience()).toFixed(2));
+  };
+
   return loggedinUserStore;
 })
 
