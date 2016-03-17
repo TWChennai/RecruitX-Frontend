@@ -25,19 +25,26 @@ describe('createCandidateProfileController', function () {
 
     var roles = [{
       name: 'Dev',
-      id: 1
+      id: 1,
+      skills: [
+        {
+          id: 1
+        },
+        {
+          id: 2
+        }
+      ]
     }, {
       name: 'QA',
-      id: 2
-    }, {
-      name: 'BA',
-      id: 3
-    }, {
-      name: 'PM',
-      id: 4
-    }, {
-      name: 'UI/UX',
-      id: 5
+      id: 2,
+      skills: [
+        {
+          id: 3
+        },
+        {
+          id: 4
+        }
+      ]
     }];
 
     spyOn(MasterData, 'getSkills').and.returnValue(skills);
@@ -112,31 +119,13 @@ describe('createCandidateProfileController', function () {
     describe('refreshSkills', function () {
       it('should fetch the skills for the respective role', function () {
         $scope.candidate.role_id = 2;
-        $scope.roleSkillsMap = {
-          1: [{
-            id: 1,
-            name: 'Java'
-          }, {
-            id: 3,
-            name: 'Other'
-          }],
-          2: [{
-            id: 2,
-            name: 'Ruby'
-          }, {
-            id: 3,
-            name: 'Other'
-          }]
-        };
-        $scope.expectedSkills = [{
-          id: 2,
-          name: 'Ruby'
+        $scope.expectedSkill_ids = [{
+          id: 3
         }, {
-          id: 3,
-          name: 'Other'
+          id: 4
         }];
-        $scope.refreshSkills();
-        expect(angular.equals($scope.skills, $scope.expectedSkills)).toBe(true);
+        $scope.refreshSkills($scope.candidate.role_id = 2);
+        expect(angular.equals($scope.skill_ids, $scope.expectedSkill_ids)).toBe(true);
       });
     });
   //   describe('constructRoleSkillsMap', function () {

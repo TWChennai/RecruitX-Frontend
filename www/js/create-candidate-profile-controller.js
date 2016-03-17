@@ -7,21 +7,20 @@ angular.module('recruitX')
     $scope.candidate = {
       role_id: $scope.roles[0].id
     };
-    $scope.roleSkills = [];
-    $scope.roleSkillsMap = {};
+    $scope.skill_ids = $scope.roles[0].skills;
     $scope.skills = [];
 
-    // TODO: This should not be an explicit call. Nest the role_skills inside roles call
-    recruitFactory.getRoleBasedSkills(function (response) {
-      $scope.roleSkills = response;
-      $scope.roleSkillsMap = skillHelperService.constructRoleSkillsMap($scope.roleSkills, $scope.allSkills);
-      $scope.refreshSkills();
-    });
+    for (var skillIndex in $scope.skill_ids) {
+      var value = $scope.skill_ids[skillIndex];
+      $scope.skills.push(($filter('filter')($scope.allSkills, {
+        id: value.id
+      }))[0]);
+    }
 
-    $scope.refreshSkills = function () {
-      if ($scope.candidate.role_id in $scope.roleSkillsMap) {
-        $scope.skills = JSON.parse(JSON.stringify($scope.roleSkillsMap[$scope.candidate.role_id]));
-      }
+    $scope.refreshSkills = function (role_id) {
+      $scope.skill_ids = (($filter('filter')($scope.roles, {
+        id: role_id
+      }))[0]).skills;
     };
 
     $scope.blurElem = function () {

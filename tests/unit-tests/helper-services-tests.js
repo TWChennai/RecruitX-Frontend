@@ -68,8 +68,8 @@ describe('helper-services', function () {
       it('should be able to calculate total experience from hire date and past experience', function () {
         var two_years_back = new Date();
         two_years_back.setDate(two_years_back.getDate() - (2*365));
-        spyOn(loggedinUserStore, "calculatedHireDate").and.returnValue(two_years_back);
-        spyOn(loggedinUserStore, "pastExperience").and.returnValue(1.5243);
+        spyOn(loggedinUserStore, 'calculatedHireDate').and.returnValue(two_years_back);
+        spyOn(loggedinUserStore, 'pastExperience').and.returnValue(1.5243);
 
         expect(loggedinUserStore.experience()).toBe(3.52);
       });

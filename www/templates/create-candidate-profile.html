@@ -23,7 +23,7 @@
 
         <div class="item item-input item-select" ng-class="{ 'has-error' : candidateForm.role.$invalid && !candidateForm.role.$pristine }">
           <label class="input-label">Role</label>
-          <select name="role" ng-disabled = "true" ng-style="{'pointer-events': 'none'}" ng-options="role.id as role.name for role in roles" ng-model="candidate.role_id" required ng-change="refreshSkills()" class="new-block"></select>
+          <select name="role" ng-disabled = "true" ng-style="{'pointer-events': 'none'}" ng-options="role.id as role.name for role in roles" ng-model="candidate.role_id" required ng-change="refreshSkills(role.id)" class="new-block"></select>
         </div>
         <div class="item item-input" ng-class="{ 'has-error' : candidateForm.experience.$invalid && !candidateForm.experience.$pristine }">
           <span class="input-label">Experience<br/><em>(in yrs)</em></span>
