@@ -71,7 +71,7 @@ angular.module('recruitX')
       firstName: loggedinUser.profile.firstName,
       id: loggedinUser.profile.login.split('@')[0],
       is_recruiter: user.is_recruiter,
-      tw_hire_date: user.tw_hire_date,
+      calculated_hire_date: user.calculated_hire_date,
       past_experience: user.past_experience
     };
 
@@ -90,8 +90,8 @@ angular.module('recruitX')
     return (JSON.parse(window.localStorage[STORAGE_KEY])).past_experience;
   };
 
-  loggedinUserStore.twHireDate = function () {
-    return (JSON.parse(window.localStorage[STORAGE_KEY])).tw_hire_date;
+  loggedinUserStore.calculatedHireDate = function () {
+    return (JSON.parse(window.localStorage[STORAGE_KEY])).calculated_hire_date;
   };
 
   loggedinUserStore.userFirstName = function () {

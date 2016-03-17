@@ -5,11 +5,12 @@ describe('TabsCtrl', function () {
   var dialogService, $scope, recruitFactory;
 
   beforeEach(inject(function ($controller, _loggedinUserStore_, _dialogService_, $rootScope, _recruitFactory_) {
+    var experience = 1.23;
     spyOn(_loggedinUserStore_, 'userFirstName').and.returnValue('recruitx');
     spyOn(_loggedinUserStore_, 'userId').and.returnValue('recruitx');
     spyOn(_loggedinUserStore_, 'isRecruiter').and.returnValue(true);
-    spyOn(_loggedinUserStore_, 'pastExperience').and.returnValue(1.23);
-    spyOn(_loggedinUserStore_, 'twHireDate').and.returnValue('2015-11-11');
+    spyOn(_loggedinUserStore_, 'pastExperience').and.returnValue(experience);
+    spyOn(_loggedinUserStore_, 'calculatedHireDate').and.returnValue('2015-11-11');
     spyOn(_recruitFactory_, 'deleteInterviewPanelist');
     spyOn(_recruitFactory_, 'signUp');
     $scope = $rootScope.$new();

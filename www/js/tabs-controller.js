@@ -28,17 +28,18 @@ angular.module('recruitX')
     };
 
     var calculateExperience = function(hire_date) {
+      var total_months = 12;
       var formatted_hire_date = new Date(hire_date);
       var now = new Date();
-      var hire_date_in_year = formatted_hire_date.getYear() + (formatted_hire_date.getMonth() + 1)/12;
-      var now_in_year = now.getYear() + (now.getMonth() + 1)/12;
+      var hire_date_in_year = formatted_hire_date.getYear() + (formatted_hire_date.getMonth() + 1)/total_months;
+      var now_in_year = now.getYear() + (now.getMonth() + 1)/total_months;
       return now_in_year - hire_date_in_year;
     };
 
     $scope.refreshInterviews = function () {
       recruitFactory.getInterviews({
         panelist_login_name: loggedinUserStore.userId(),
-        total_experiences: Math.round((loggedinUserStore.pastExperience() + calculateExperience(loggedinUserStore.twHireDate())) * 100) / 100
+        total_experiences: Math.round((loggedinUserStore.pastExperience() + calculateExperience(loggedinUserStore.calculatedHireDate())) * 100) / 100
       }, function (newItems) {
         $scope.items = newItems;
         $scope.noItems = $scope.items.length === 0 ? true : false;

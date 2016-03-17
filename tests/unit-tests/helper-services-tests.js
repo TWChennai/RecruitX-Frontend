@@ -17,12 +17,12 @@ describe('helper-services', function () {
       firstName: 'recruitx',
       id: 'recruit',
       is_recruiter: true,
-      tw_hire_date: '2015-11-11',
+      calculated_hire_date: '2015-11-11',
       past_experience: 1.23
     };
     var userDetails = {
       is_recruiter: true,
-      tw_hire_date: '2015-11-11',
+      calculated_hire_date: '2015-11-11',
       past_experience: 1.23
     };
 
@@ -57,11 +57,12 @@ describe('helper-services', function () {
       });
 
       it('should be able to find if the pastExperience', function () {
-        expect(loggedinUserStore.pastExperience()).toBe(1.23);
+        var expected_experience = 1.23;
+        expect(loggedinUserStore.pastExperience()).toBe(expected_experience);
       });
 
-      it('should be able to find if the twHireDate', function () {
-        expect(loggedinUserStore.twHireDate()).toBe('2015-11-11');
+      it('should be able to find if the calculatedHireDate', function () {
+        expect(loggedinUserStore.calculatedHireDate()).toBe('2015-11-11');
       });
 
       it('should be able to delete the loggedin user information', function () {
