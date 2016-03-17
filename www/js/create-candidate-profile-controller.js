@@ -11,13 +11,14 @@ angular.module('recruitX')
     $scope.roleSkillsMap = {};
     $scope.skills = [];
 
-    recruitFactory.getRoleBasedSkills(function (response){
+    // TODO: This should not be an explicit call. Nest the role_skills inside roles call
+    recruitFactory.getRoleBasedSkills(function (response) {
       $scope.roleSkills = response;
       $scope.roleSkillsMap = skillHelperService.constructRoleSkillsMap($scope.roleSkills, $scope.allSkills);
       $scope.refreshSkills();
     });
 
-    $scope.refreshSkills = function(){
+    $scope.refreshSkills = function () {
       if ($scope.candidate.role_id in $scope.roleSkillsMap) {
         $scope.skills = JSON.parse(JSON.stringify($scope.roleSkillsMap[$scope.candidate.role_id]));
       }
@@ -84,8 +85,8 @@ angular.module('recruitX')
       }
     };
 
-    $scope.resetForm = function() {
-      dialogService.askConfirmation('Discard Changes', 'Do you want to discard the changes and go back ?', function() {
+    $scope.resetForm = function () {
+      dialogService.askConfirmation('Discard Changes', 'Do you want to discard the changes and go back ?', function () {
         $rootScope.$broadcast('clearFormData');
         $rootScope.$broadcast('loaded:masterData');
         $state.go('tabs.interviews');
