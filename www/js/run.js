@@ -90,7 +90,7 @@ angular.module('recruitX')
       if (typeof OktaSignIn === 'undefined') {
         $cordovaToast.showShortBottom('Please connect to internet and try again');
       }
-        else{
+      else{
         $state.go('login');
         navigator.splashscreen.hide();
       }

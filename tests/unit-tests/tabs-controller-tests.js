@@ -2,9 +2,9 @@ describe('TabsCtrl', function () {
   'use strict';
 
   beforeEach(module('recruitX'));
-  var dialogService, $scope, recruitFactory;
+  var dialogService, $scope, recruitFactory, cordovaToast;
 
-  beforeEach(inject(function ($controller, _loggedinUserStore_, _dialogService_, $rootScope, _recruitFactory_) {
+  beforeEach(inject(function ($controller, _loggedinUserStore_, _dialogService_, $rootScope, _recruitFactory_, $cordovaToast) {
     var experience = 1.23;
     spyOn(_loggedinUserStore_, 'userFirstName').and.returnValue('recruitx');
     spyOn(_loggedinUserStore_, 'userId').and.returnValue('recruitx');
@@ -16,6 +16,7 @@ describe('TabsCtrl', function () {
     $scope = $rootScope.$new();
     dialogService = _dialogService_;
     recruitFactory = _recruitFactory_;
+    cordovaToast = $cordovaToast;
     $controller('TabsCtrl', {
       $scope: $scope,
       loggedinUserStore: _loggedinUserStore_,
@@ -60,11 +61,25 @@ describe('TabsCtrl', function () {
       expect(recruitFactory.signUp).toHaveBeenCalled();
     });
 
-    it('signingUp should ask confirmation', function(){
+    it('signingUp should show a toast with the reason if interview is not eligible for signup',function(){
+      spyOn(cordovaToast, 'showShortBottom');
+      var event = jasmine.createSpyObj('$event', ['stopPropagation']);
+      var interview = {
+        signup: false,
+        signup_error: 'More than 2 signups not allowed'
+      };
+
+      $scope.signingUp(event, interview);
+
+      expect(cordovaToast.showShortBottom).toHaveBeenCalledWith('More than 2 signups not allowed');
+    });
+
+    it('signingUp should ask confirmation if interview is eligible for signup', function(){
       spyOn(dialogService, 'askConfirmation');
       var event = jasmine.createSpyObj('$event', ['stopPropagation']);
       var interview = {
-        id: 1
+        id: 1,
+        signup: true
       };
 
       $scope.signingUp(event, interview);

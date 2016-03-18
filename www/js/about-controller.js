@@ -28,7 +28,7 @@ angular.module('recruitX')
           });
         });
       }
-  else{
+      else{
         dialogService.showAlert('App Update', 'There are currently no updates available');
       }
     }, function(error) {

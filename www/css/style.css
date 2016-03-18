@@ -337,3 +337,7 @@ button.custom-icon:before {
 .pointer-events-disabled{
   pointer-events:none;
 }
+
+.button-pseudo-disabled{
+  opacity: .4;
+}

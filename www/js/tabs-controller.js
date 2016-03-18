@@ -1,5 +1,5 @@
 angular.module('recruitX')
-  .controller('TabsCtrl', ['$scope', 'recruitFactory', 'skillHelperService', 'loggedinUserStore', 'dialogService', '$ionicHistory', '$state', '$filter', function ($scope, recruitFactory, skillHelperService, loggedinUserStore, dialogService, $ionicHistory, $state, $filter) {
+  .controller('TabsCtrl', ['$cordovaToast','$scope', 'recruitFactory', 'skillHelperService', 'loggedinUserStore', 'dialogService', '$ionicHistory', '$state', '$filter', function ($cordovaToast,$scope, recruitFactory, skillHelperService, loggedinUserStore, dialogService, $ionicHistory, $state, $filter) {
     'use strict';
 
     var refreshing = false;
@@ -104,14 +104,21 @@ angular.module('recruitX')
 
     $scope.signingUp = function ($event, item) {
       $event.stopPropagation();
-      $scope.interview_panelist = {
-        interview_panelist: {
+      if(!item.signup)
+      {
+        $cordovaToast.showShortBottom(item.signup_error);
+      }
+      else
+      {
+        $scope.interview_panelist = {
+          interview_panelist: {
           'panelist_login_name': loggedinUserStore.userId(),
           'interview_id': item.id,
           'panelist_experience': loggedinUserStore.experience()
         }
-      };
-      dialogService.askConfirmation('Sign up', 'Are you sure you want to sign up for this interview?', $scope.signUp);
+        };
+        dialogService.askConfirmation('Sign up', 'Are you sure you want to sign up for this interview?', $scope.signUp);
+      }
     };
 
     $scope.decliningInterview = function ($event, myinterview) {
