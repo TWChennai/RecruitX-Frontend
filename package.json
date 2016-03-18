@@ -29,11 +29,12 @@
     "cordova-plugin-whitelist@1.2.1",
     "cordova-plugin-x-toast@2.4.0",
     "ionic-plugin-keyboard@1.0.8",
-    "cordova-plugin-refresh-gallery@1.0.9"
+    "cordova-plugin-refresh-gallery@1.0.9",
+    "ionic-plugin-deploy"
   ],
   "cordovaPlatforms": [
-    "android",
-    "ios"
+    "ios",
+    "android"
   ],
   "scripts": {
     "postinstall": "ionic state restore && ionic resources"

@@ -10,7 +10,7 @@ angular.module('recruitX')
     function (res) {
       if (res.status === 'SUCCESS') {
         var loginName = res.user.profile.login.split('@')[0];
-        if(loginName === "ppanelist" || loginName === "ppanelistp"){
+        if(loginName === 'ppanelist' || loginName === 'ppanelistp'){
           var myPopup = $ionicPopup.show({
             template: '<input ng-model="data.experience">',
             title: 'Enter experience',
@@ -39,7 +39,7 @@ angular.module('recruitX')
               });
             });
           });
-         }
+        }
         else {
           recruitFactory.isRecruiter(loginName, function (response) {
             loggedinUserStore.storeUser(res.user, response);
