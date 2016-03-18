@@ -1,7 +1,11 @@
 <ion-view view-title="About">
     <ion-content>
-        <button class="button button-positive" ng-click="checkUpdates()">
-         Check for updates
+        <div class="about-center">
+        <h1 class="app-name">RecruitX</h1>
+        <h3 class="app-version">App version: {{appVersion}}</h3>
+        <button class="button button-positive update-button" ng-click="checkUpdates()">
+         Check Updates
        </button>
+      </div>
     </ion-content>
 </ion-view>

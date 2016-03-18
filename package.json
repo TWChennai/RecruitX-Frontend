@@ -30,7 +30,8 @@
     "cordova-plugin-x-toast@2.4.0",
     "ionic-plugin-keyboard@1.0.8",
     "cordova-plugin-refresh-gallery@1.0.9",
-    "ionic-plugin-deploy"
+    "ionic-plugin-deploy",
+    "cordova-plugin-app-version"
   ],
   "cordovaPlatforms": [
     "ios",

@@ -341,3 +341,29 @@ button.custom-icon:before {
 .button-pseudo-disabled{
   opacity: .4;
 }
+
+/* About page */
+
+.about-center {
+    position: fixed;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+}
+
+.app-name {
+    text-align:center;
+    margin-bottom: 10px;
+    font-size: 40px;
+}
+
+.app-version {
+    text-align:center;
+    margin-bottom: 10px;
+}
+
+.update-button{
+    text-align:center;
+    margin: 0 auto 0 auto;
+}
