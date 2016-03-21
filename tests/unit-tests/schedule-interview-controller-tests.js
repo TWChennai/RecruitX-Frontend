@@ -6,7 +6,7 @@ describe('scheduleInterviewController', function() {
   var $scope = {};
 
   beforeEach(inject(function($controller, $stateParams, MasterData) {
-    $stateParams.candidate = {};
+    $stateParams.candidate = {role_id: 1};
     $stateParams.candidate.interview_schedule = [];
 
     var interviewTypes = [{
@@ -31,7 +31,15 @@ describe('scheduleInterviewController', function() {
       priority: 4
     }];
 
+    var roles = [{
+      'skills': [{'id':1},{'id':2},{'id':3},{'id':4},{'id':5}],
+      'name': 'Dev',
+      'interview_types': [{'id':1},{'id':4},{'id':5},{'id':2},{'id':3}],
+      'id':1
+    }];
+
     spyOn(MasterData, 'getInterviewTypes').and.returnValue(interviewTypes);
+    spyOn(MasterData, 'getRoles').and.returnValue(roles);
 
     $controller('scheduleInterviewController', {
       $scope: $scope

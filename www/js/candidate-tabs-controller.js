@@ -10,7 +10,7 @@ angular.module('recruitX')
     $scope.isPanelistForAnyInterviewRound = false;
     $scope.notScheduled = 'Not Scheduled';
     $scope.noInterviews = true;
-    $scope.interviewTypes = interviewTypeHelperService.constructRoleInterviewTypesMap($scope.roleId)[$scope.roleId];
+    $scope.interviewTypes = interviewTypeHelperService.constructRoleInterviewTypesMap($scope.roleId);
     $scope.isLoggedinUserRecruiter = loggedinUserStore.isRecruiter();
     $scope.loggedinUser = loggedinUserStore.userId();
 

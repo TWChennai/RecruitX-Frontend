@@ -5,7 +5,7 @@ describe('CandidateTabsCtrl', function () {
 
   var $scope = {};
 
-  beforeEach(inject(function ($controller, loggedinUserStore, MasterData, $rootScope, interviewTypeHelperService) {
+  beforeEach(inject(function ($controller, loggedinUserStore, MasterData, $rootScope) {
     var interviewTypes = [{
       id: 1,
       name: 'Code Pairing',

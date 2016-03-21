@@ -3,7 +3,7 @@ angular.module('recruitX')
     'use strict';
 
     return {
-      constructRoleInterviewTypesMap: function(){
+      constructRoleInterviewTypesMap: function(current_roleId){
         var roleInterviewTypesMap = {};
         var roles = MasterData.getRoles();
         var allInterviewTypes = MasterData.getInterviewTypes();
@@ -23,7 +23,7 @@ angular.module('recruitX')
             }
           }
         }
-        return roleInterviewTypesMap;
+        return roleInterviewTypesMap[current_roleId];
       }
     };
   }])

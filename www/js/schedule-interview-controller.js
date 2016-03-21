@@ -1,10 +1,9 @@
 angular.module('recruitX')
-  .controller('scheduleInterviewController', ['$timeout', '$rootScope', '$state', 'MasterData', '$scope', '$stateParams', '$cordovaDatePicker', 'recruitFactory', '$filter', 'dialogService', function ($timeout, $rootScope, $state, MasterData, $scope, $stateParams, $cordovaDatePicker, recruitFactory, $filter, dialogService) {
+  .controller('scheduleInterviewController', ['interviewTypeHelperService', '$timeout', '$rootScope', '$state', 'MasterData', '$scope', '$stateParams', '$cordovaDatePicker', 'recruitFactory', '$filter', 'dialogService', function (interviewTypeHelperService, $timeout, $rootScope, $state, MasterData, $scope, $stateParams, $cordovaDatePicker, recruitFactory, $filter, dialogService) {
     'use strict';
 
     // TODO: Inline later - currently not working - need to figure out why so.
-    $scope.interviewRounds = MasterData.getInterviewTypes();
-
+    $scope.interviewRounds = interviewTypeHelperService.constructRoleInterviewTypesMap($stateParams.candidate.role_id);
     var interviewRoundsAsMap = $scope.interviewRounds.map(function (interviewRound) {
       return interviewRound.priority;
     });
