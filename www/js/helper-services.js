@@ -72,7 +72,8 @@ angular.module('recruitX')
       id: loggedinUser.profile.login.split('@')[0],
       is_recruiter: user.is_recruiter,
       calculated_hire_date: user.calculated_hire_date,
-      past_experience: user.past_experience
+      past_experience: user.past_experience,
+      role: user.role
     };
 
     window.localStorage[STORAGE_KEY] = JSON.stringify(userDetails);
@@ -96,6 +97,10 @@ angular.module('recruitX')
 
   loggedinUserStore.userFirstName = function () {
     return (JSON.parse(window.localStorage[STORAGE_KEY])).firstName;
+  };
+
+  loggedinUserStore.role = function () {
+    return (JSON.parse(window.localStorage[STORAGE_KEY])).role;
   };
 
   loggedinUserStore.clearDb = function () {

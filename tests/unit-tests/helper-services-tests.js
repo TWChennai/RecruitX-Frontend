@@ -18,12 +18,14 @@ describe('helper-services', function () {
       id: 'recruit',
       is_recruiter: true,
       calculated_hire_date: '2015-11-11',
-      past_experience: 1.23
+      past_experience: 1.23,
+      role: { name: 'Other',id: 3}
     };
     var userDetails = {
       is_recruiter: true,
       calculated_hire_date: '2015-11-11',
-      past_experience: 1.23
+      past_experience: 1.23,
+      role: { name: 'Other',id: 3}
     };
 
     it('should store a user that is logging in', function () {
@@ -72,6 +74,12 @@ describe('helper-services', function () {
         spyOn(loggedinUserStore, 'pastExperience').and.returnValue(1.5243);
 
         expect(loggedinUserStore.experience()).toBe(3.52);
+      });
+
+      it('should be able to get logged-in user role', function () {
+        var role = loggedinUserStore.role();
+        expect(role.name).toBe('Other');
+        expect(role.id).toBe(3);
       });
 
       it('should be able to delete the loggedin user information', function () {
