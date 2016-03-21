@@ -19,7 +19,20 @@ gen/
 /platforms/android
 /platforms/ios
 /platforms/platforms.json
-/plugins/*
+/plugins/android.json
+/plugins/cordova-open
+/plugins/cordova-plugin-camera
+/plugins/cordova-plugin-datepicker
+/plugins/cordova-plugin-file
+/plugins/cordova-plugin-file-transfer
+/plugins/cordova-plugin-splashscreen
+/plugins/cordova-plugin-whitelist
+/plugins/cordova-plugin-x-toast
+/plugins/cordova-plugin-network-information
+/plugins/fetch.json
+/plugins/ionic-plugin-keyboard
+/plugins/com.guinatal.refreshgallery
+/plugins/ios.json
 /resources/android
 /resources/ios
 
