@@ -7,21 +7,16 @@ angular.module('recruitX')
     $scope.candidate = {
       role_id: $scope.roles[0].id
     };
-    $scope.skill_ids = $scope.roles[0].skills;
     $scope.skills = [];
+    $scope.roleSkillsMap = skillHelperService.constructRoleSkillsMap($scope.roles, $scope.allSkills);
 
-    for (var skillIndex in $scope.skill_ids) {
-      var value = $scope.skill_ids[skillIndex];
-      $scope.skills.push(($filter('filter')($scope.allSkills, {
-        id: value.id
-      }))[0]);
-    }
-
-    $scope.refreshSkills = function (role_id) {
-      $scope.skill_ids = (($filter('filter')($scope.roles, {
-        id: role_id
-      }))[0]).skills;
+    $scope.refreshSkills = function () {
+      if ($scope.candidate.role_id in $scope.roleSkillsMap) {
+        $scope.skills = JSON.parse(JSON.stringify($scope.roleSkillsMap[$scope.candidate.role_id]));
+      }
     };
+
+    $scope.refreshSkills();
 
     $scope.blurElem = function () {
       document.querySelector('#experience').blur();

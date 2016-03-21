@@ -119,87 +119,34 @@ describe('createCandidateProfileController', function () {
     describe('refreshSkills', function () {
       it('should fetch the skills for the respective role', function () {
         $scope.candidate.role_id = 2;
-        $scope.expectedSkill_ids = [{
-          id: 3
+        $scope.roleSkillsMap = {
+          1: [{
+            id: 1,
+            name: 'Java'
+          }, {
+            id: 3,
+            name: 'Other'
+          }],
+          2: [{
+            id: 2,
+            name: 'Ruby'
+          }, {
+            id: 3,
+            name: 'Other'
+          }]
+        };
+        $scope.expectedSkills = [{
+          id: 2,
+          name: 'Ruby'
         }, {
-          id: 4
+          id: 3,
+          name: 'Other'
         }];
-        $scope.refreshSkills($scope.candidate.role_id = 2);
-        expect(angular.equals($scope.skill_ids, $scope.expectedSkill_ids)).toBe(true);
+
+        $scope.refreshSkills();
+        expect(angular.equals($scope.skills, $scope.expectedSkills)).toBe(true);
       });
     });
-  //   describe('constructRoleSkillsMap', function () {
-  //     it('should fetch the skills for the respective role', function () {
-  //       $scope.roleSkillsMap = {};
-  //       $scope.roleSkills = [{
-  //           "skill_id": 1,
-  //           "role_id": 1
-  //         }, {
-  //           "skill_id": 2,
-  //           "role_id": 1
-  //         }, {
-  //           "skill_id": 3,
-  //           "role_id": 1
-  //         }, {
-  //           "skill_id": 4,
-  //           "role_id": 1
-  //         }, {
-  //           "skill_id": 5,
-  //           "role_id": 1
-  //         }, {
-  //           "skill_id": 6,
-  //           "role_id": 2
-  //         }, {
-  //           "skill_id": 7,
-  //           "role_id": 2
-  //         }, {
-  //           "skill_id": 8,
-  //           "role_id": 2
-  //         }, {
-  //           "skill_id": 9,
-  //           "role_id": 2
-  //         }, {
-  //           "skill_id": 5,
-  //           "role_id": 2
-  //         }];
-  //       $scope.expectedRoleSkillsMap = {
-  //         1: [{
-  //             "name": "Java",
-  //             "id": 1
-  //           }, {
-  //             "name": "Ruby",
-  //             "id": 2
-  //           }, {
-  //             "name": "C#",
-  //             "id": 3
-  //           }, {
-  //             "name": "Python",
-  //             "id": 4
-  //           }, {
-  //             "name": "Other",
-  //             "id": 5
-  //           }],
-  //         2: [{
-  //             "name": "Selenium",
-  //             "id": 6
-  //           }, {
-  //             "name": "QTP",
-  //             "id": 7
-  //           }, {
-  //             "name": "Performance",
-  //             "id": 8
-  //           }, {
-  //             "name": "SOAPUI",
-  //             "id": 9
-  //           }, {
-  //             "name": "Other",
-  //             "id": 5
-  //           }]
-  //       };
-  //       constructRoleSkillsMap();
-  //       expect(angular.equals($scope.roleSkillsMap, $scope.expectedRoleSkillsMap)).toBe(true);
-  //     });
-  //   });
   });
 
   describe('form validations', function () {

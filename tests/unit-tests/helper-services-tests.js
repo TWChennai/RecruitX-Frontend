@@ -98,57 +98,28 @@ describe('helper-services', function () {
         'name': 'Ruby',
         'id': 2
       }, {
-        'name': 'C#',
-        'id': 3
-      }, {
-        'name': 'Python',
-        'id': 4
-      }, {
-        'name': 'Other',
-        'id': 5
-      }, {
         'name': 'Selenium',
         'id': 6
       }, {
         'name': 'QTP',
         'id': 7
-      }, {
-        'name': 'Performance',
-        'id': 8
-      }, {
-        'name': 'SOAPUI',
-        'id': 9
       }];
-      var roleSkills = [{
-        'skill_id': 1,
-        'role_id': 1
+      var roles = [{
+        'id': 1,
+        'name': 'Dev',
+        'skills': [{
+          'id': 1
+        }, {
+          'id': 2
+        }]
       }, {
-        'skill_id': 2,
-        'role_id': 1
-      }, {
-        'skill_id': 3,
-        'role_id': 1
-      }, {
-        'skill_id': 4,
-        'role_id': 1
-      }, {
-        'skill_id': 5,
-        'role_id': 1
-      }, {
-        'skill_id': 6,
-        'role_id': 2
-      }, {
-        'skill_id': 7,
-        'role_id': 2
-      }, {
-        'skill_id': 8,
-        'role_id': 2
-      }, {
-        'skill_id': 9,
-        'role_id': 2
-      }, {
-        'skill_id': 5,
-        'role_id': 2
+        'id': 2,
+        'name': 'QA',
+        'skills': [{
+          'id': 6
+        }, {
+          'id': 7
+        }]
       }];
       var expectedRoleSkillsMap = {
         1: [{
@@ -157,15 +128,6 @@ describe('helper-services', function () {
         }, {
           'name': 'Ruby',
           'id': 2
-        }, {
-          'name': 'C#',
-          'id': 3
-        }, {
-          'name': 'Python',
-          'id': 4
-        }, {
-          'name': 'Other',
-          'id': 5
         }],
         2: [{
           'name': 'Selenium',
@@ -173,19 +135,10 @@ describe('helper-services', function () {
         }, {
           'name': 'QTP',
           'id': 7
-        }, {
-          'name': 'Performance',
-          'id': 8
-        }, {
-          'name': 'SOAPUI',
-          'id': 9
-        }, {
-          'name': 'Other',
-          'id': 5
         }]
       };
 
-      roleSkillsMap = skillHelperService.constructRoleSkillsMap(roleSkills, allSkills);
+      roleSkillsMap = skillHelperService.constructRoleSkillsMap(roles, allSkills);
 
       expect(angular.equals(roleSkillsMap, expectedRoleSkillsMap)).toBe(true);
     });
