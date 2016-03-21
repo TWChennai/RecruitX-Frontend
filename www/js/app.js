@@ -61,13 +61,19 @@ angular.module('recruitX', ['ngFileUpload', 'ionic', 'ionic.service.core', 'ui.r
       .state('candidate-tabs.profile', {
         url: '/candidates/:candidate_id',
         templateUrl: 'templates/candidate-profile.html',
-        controller: 'CandidateTabsCtrl'
+        controller: 'CandidateTabsCtrl',
+        params: {
+          role_id: null
+        }
       })
 
       .state('candidate-tabs.interviews', {
         url: '/candidates/:candidate_id/interviews',
         templateUrl: 'templates/candidate-interviews.html',
-        controller: 'CandidateTabsCtrl'
+        controller: 'CandidateTabsCtrl',
+        params: {
+          role_id: null
+        }
       })
 
       .state('interview-details', {

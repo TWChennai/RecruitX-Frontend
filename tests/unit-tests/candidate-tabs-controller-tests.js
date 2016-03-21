@@ -5,7 +5,7 @@ describe('CandidateTabsCtrl', function () {
 
   var $scope = {};
 
-  beforeEach(inject(function ($controller, loggedinUserStore, MasterData, $rootScope) {
+  beforeEach(inject(function ($controller, loggedinUserStore, MasterData, $rootScope, interviewTypeHelperService) {
     var interviewTypes = [{
       id: 1,
       name: 'Code Pairing',
@@ -28,9 +28,17 @@ describe('CandidateTabsCtrl', function () {
       priority: 4
     }];
 
+    var roles = [{
+      'skills': [{'id':1},{'id':2},{'id':3},{'id':4},{'id':5}],
+      'name': 'Dev',
+      'interview_types': [{'id':1},{'id':4},{'id':5},{'id':2},{'id':3}],
+      'id':1
+    }];
+
     spyOn(loggedinUserStore, 'isRecruiter').and.returnValue('true');
     spyOn(loggedinUserStore, 'userId').and.returnValue('recruitx');
     spyOn(MasterData, 'getInterviewTypes').and.returnValue(interviewTypes);
+    spyOn(MasterData, 'getRoles').and.returnValue(roles);
 
     $scope = $rootScope.$new();
     $controller('CandidateTabsCtrl', {

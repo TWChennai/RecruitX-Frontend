@@ -1,4 +1,33 @@
 angular.module('recruitX')
+  .service('interviewTypeHelperService', ['$filter', 'MasterData', function ($filter, MasterData) {
+    'use strict';
+
+    return {
+      constructRoleInterviewTypesMap: function(){
+        var roleInterviewTypesMap = {};
+        var roles = MasterData.getRoles();
+        var allInterviewTypes = MasterData.getInterviewTypes();
+        for (var roleIndex in roles) {
+          var role = roles[roleIndex];
+          var roleId = role.id;
+          for (var interviewTypeIndex in role.interview_types) {
+            var interviewTypeId = role.interview_types[interviewTypeIndex].id;
+            if (roleId in roleInterviewTypesMap) {
+              roleInterviewTypesMap[roleId].push (($filter ('filter')(allInterviewTypes, {
+                id: interviewTypeId
+              }))[0]);
+            } else {
+              roleInterviewTypesMap[roleId] = ($filter ('filter')(allInterviewTypes, {
+                id: interviewTypeId
+              }));
+            }
+          }
+        }
+        return roleInterviewTypesMap;
+      }
+    };
+  }])
+
   .service('skillHelperService', ['$filter', 'MasterData', function ($filter, MasterData) {
     'use strict';
 

@@ -2,9 +2,9 @@
 
   <div class="tabs-striped tabs-top tabs-background-stable tabs-color-positive">
     <div class="tabs">
-      <a class="tab-item" ui-sref=".profile({candidate_id: candidateId})"
+      <a class="tab-item" ui-sref=".profile({candidate_id: candidateId, role_id: roleId})"
          ng-class="{'tab-item-active': isActive('candidate-tabs.profile')}">Profile</a>
-      <a class="tab-item" ui-sref=".interviews({candidate_id: candidateId})"
+      <a class="tab-item" ui-sref=".interviews({candidate_id: candidateId, role_id: roleId})"
          ng-class="{'tab-item-active': isActive('candidate-tabs.interviews')}">Interviews</a>
     </div>
   </div>

@@ -1,15 +1,16 @@
 angular.module('recruitX')
-  .controller('CandidateTabsCtrl', ['MasterData', '$state', '$filter', '$rootScope', '$scope', '$stateParams', 'recruitFactory', '$cordovaDatePicker', 'dialogService', 'loggedinUserStore', function (MasterData, $state, $filter, $rootScope, $scope, $stateParams, recruitFactory, $cordovaDatePicker, dialogService, loggedinUserStore) {
+  .controller('CandidateTabsCtrl', ['interviewTypeHelperService', 'MasterData', '$state', '$filter', '$rootScope', '$scope', '$stateParams', 'recruitFactory', '$cordovaDatePicker', 'dialogService', 'loggedinUserStore', function (interviewTypeHelperService, MasterData, $state, $filter, $rootScope, $scope, $stateParams, recruitFactory, $cordovaDatePicker, dialogService, loggedinUserStore) {
     'use strict';
 
     $scope.candidateId = $state.params.candidate_id;
+    $scope.roleId = $state.params.role_id;
     $scope.candidate = {};
     $scope.interviews = [];
     $scope.interviewSet = [];
     $scope.isPanelistForAnyInterviewRound = false;
     $scope.notScheduled = 'Not Scheduled';
     $scope.noInterviews = true;
-    $scope.interviewTypes = MasterData.getInterviewTypes();
+    $scope.interviewTypes = interviewTypeHelperService.constructRoleInterviewTypesMap($scope.roleId)[$scope.roleId];
     $scope.isLoggedinUserRecruiter = loggedinUserStore.isRecruiter();
     $scope.loggedinUser = loggedinUserStore.userId();
 
