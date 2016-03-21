@@ -3,7 +3,9 @@ angular.module('recruitX')
     'use strict';
 
     $scope.allSkills = MasterData.getSkills();
-    $scope.roles = MasterData.getRoles();
+    $scope.roles = ($filter('filter')(MasterData.getRoles(), {
+      name: '!Other'
+    }));
     $scope.candidate = {
       role_id: $scope.roles[0].id
     };

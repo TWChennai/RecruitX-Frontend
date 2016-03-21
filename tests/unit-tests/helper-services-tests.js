@@ -3,12 +3,13 @@ describe('helper-services', function () {
 
   beforeEach(module('recruitX'));
 
-  var loggedinUserStore;
-  var skillHelperService;
+  var loggedinUserStore, skillHelperService, MasterData, interviewTypeHelperService;
 
-  beforeEach(inject(function (_loggedinUserStore_, _skillHelperService_) {
+  beforeEach(inject(function (_loggedinUserStore_, _skillHelperService_, _MasterData_, _interviewTypeHelperService_) {
     loggedinUserStore = _loggedinUserStore_;
     skillHelperService = _skillHelperService_;
+    MasterData = _MasterData_;
+    interviewTypeHelperService = _interviewTypeHelperService_;
   }));
 
   describe('handle loggedin user info', function () {
@@ -141,6 +142,53 @@ describe('helper-services', function () {
       roleSkillsMap = skillHelperService.constructRoleSkillsMap(roles, allSkills);
 
       expect(angular.equals(roleSkillsMap, expectedRoleSkillsMap)).toBe(true);
+    });
+  });
+  describe('constructRoleInterviewTypesMap', function () {
+    it('should return a map of interview_types for the respective role', function () {
+      var interviewTypes = [{
+        'name': 'Java',
+        'id': 1
+      }, {
+        'name': 'Ruby',
+        'id': 2
+      }, {
+        'name': 'Selenium',
+        'id': 6
+      }, {
+        'name': 'QTP',
+        'id': 7
+      }];
+      var roles = [{
+        'id': 1,
+        'name': 'Dev',
+        'interview_types': [{
+          'id': 1
+        }, {
+          'id': 2
+        }]
+      }, {
+        'id': 2,
+        'name': 'QA',
+        'interview_types': [{
+          'id': 6
+        }, {
+          'id': 7
+        }]
+      }];
+      var expectedRoleSkillsMap = [{
+        'name': 'Java',
+        'id': 1
+      }, {
+        'name': 'Ruby',
+        'id': 2
+      }];
+      spyOn(MasterData, 'getRoles').and.returnValue(roles);
+      spyOn(MasterData, 'getInterviewTypes').and.returnValue(interviewTypes);
+
+      var roleInterviewTypesMap = interviewTypeHelperService.constructRoleInterviewTypesMap(1);
+
+      expect(angular.equals(roleInterviewTypesMap, expectedRoleSkillsMap)).toBe(true);
     });
   });
 });
