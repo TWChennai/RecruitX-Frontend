@@ -1,49 +1,68 @@
 angular.module('recruitX')
-.controller('aboutController', ['$scope', 'dialogService', '$rootScope', function($scope, dialogService, $rootScope){
+.controller('aboutController', ['$scope', 'dialogService', '$rootScope', '$cordovaToast', function($scope, dialogService, $rootScope, $cordovaToast){
 
   cordova.getAppVersion(function(version) {
     $scope.appVersion = version;
   });
 
   $scope.checkUpdates = function(){
-    var deploy = new Ionic.Deploy();
-// Check for updates
-    deploy.check().then(function(response) {
-  // response will be true/false
-      if (response) {
-        dialogService.askConfirmation('App Update', 'There is an update available. Do you want to install it?', function(){
-    // Download the updates
-          deploy.download().then(function() {
-            $rootScope.$broadcast('loading:hide');
-      // Extract the updates
-            deploy.extract().then(function() {
-        // Load the updated version
+    if(window.Connection && navigator.connection.type == Connection.NONE) {
+      $cordovaToast.showShortBottom('Please check your internet connection');
+    }
+  else{
+      var deploy = new Ionic.Deploy();
+     // Check for updates
+      deploy.check().then(function(response) {
+        // response will be true/false
+        if (response) {
+          dialogService.askConfirmation('App Update', 'There is an update available. Do you want to install it?', function(){
+            // Download the updates
+            deploy.download().then(function() {
               $rootScope.$broadcast('loading:hide');
-              deploy.load();
+              // Extract the updates
+              deploy.extract().then(function() {
+                $rootScope.$broadcast('loading:hide');
+                // Load the updated version
+                $cordovaToast.showShortBottom('Successfully updated!');
+                deploy.load();
+              }, function(error) {
+                  // Error extracting
+                $rootScope.$broadcast('loading:hide');
+                $cordovaToast.showShortBottom('Something went wrong. Please try again later');
+                console.log('error extracting');
+              }, function(progress) {
+                  // Do something with the zip extraction progress
+                $rootScope.$broadcast('loading:show');
+              });
             }, function(error) {
+                // Error downloading the updates
               $rootScope.$broadcast('loading:hide');
-              console.log('error extracting');
-        // Error extracting
+              if(window.Connection && navigator.connection.type == Connection.NONE) {
+                $cordovaToast.showShortBottom('Please check your internet connection');
+              }
+               else {
+                $cordovaToast.showShortBottom('Something went wrong. Please try again later');
+              }
+              console.log('error downloading updates');
             }, function(progress) {
+              // Do something with the download progress
               $rootScope.$broadcast('loading:show');
-        // Do something with the zip extraction progress
             });
-          }, function(error) {
-            $rootScope.$broadcast('loading:hide');
-            console.log('error downloading updates');
-      // Error downloading the updates
-          }, function(progress) {
-            $rootScope.$broadcast('loading:show');
-      // Do something with the download progress
           });
-        });
-      }
+        }
       else{
-        dialogService.showAlert('App Update', 'There are currently no updates available');
-      }
-    }, function(error) {
-      console.log('error checking updates');
-  // Error checking for updates
-    });
+          dialogService.showAlert('App Update', 'There are currently no updates available');
+        }
+      }, function(error) {
+           // Error checking for updates
+        if(window.Connection && navigator.connection.type == Connection.NONE) {
+          $cordovaToast.showShortBottom('Please check your internet connection');
+        }
+          else {
+          $cordovaToast.showShortBottom('Something went wrong. Please try again later');
+        }
+        console.log('error checking updates');
+      });
+    }
   };
 }]);

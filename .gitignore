@@ -29,6 +29,8 @@ gen/
 /plugins/cordova-plugin-whitelist
 /plugins/cordova-plugin-x-toast
 /plugins/cordova-plugin-network-information
+/plugins/cordova-plugin-app-version
+/plugins/ionic-plugin-deploy
 /plugins/fetch.json
 /plugins/ionic-plugin-keyboard
 /plugins/com.guinatal.refreshgallery
