@@ -9,7 +9,7 @@ angular.module('recruitX')
     if(window.Connection && navigator.connection.type == Connection.NONE) {
       $cordovaToast.showShortBottom('Please check your internet connection');
     }
-  else{
+    else{
       var deploy = new Ionic.Deploy();
      // Check for updates
       deploy.check().then(function(response) {
@@ -40,7 +40,7 @@ angular.module('recruitX')
               if(window.Connection && navigator.connection.type == Connection.NONE) {
                 $cordovaToast.showShortBottom('Please check your internet connection');
               }
-               else {
+              else {
                 $cordovaToast.showShortBottom('Something went wrong. Please try again later');
               }
               console.log('error downloading updates');
@@ -50,7 +50,7 @@ angular.module('recruitX')
             });
           });
         }
-      else{
+        else{
           dialogService.showAlert('App Update', 'There are currently no updates available');
         }
       }, function(error) {
@@ -58,7 +58,7 @@ angular.module('recruitX')
         if(window.Connection && navigator.connection.type == Connection.NONE) {
           $cordovaToast.showShortBottom('Please check your internet connection');
         }
-          else {
+        else {
           $cordovaToast.showShortBottom('Something went wrong. Please try again later');
         }
         console.log('error checking updates');

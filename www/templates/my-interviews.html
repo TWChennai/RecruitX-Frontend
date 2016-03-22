@@ -28,7 +28,7 @@
           </div>
           <div class="row pad-box">
             <div class="col col-30">
-              <h4><strong>Round: {{myinterview.interview_type.name}}</strong></h4>
+              <h4><strong>{{myinterview.candidate.role}}: {{myinterview.interview_type.name}}</strong></h4>
             </div>
             <div class="col col-70">
               <div class="pull-right" ng-switch="isInPipeline(myinterview.candidate)">
