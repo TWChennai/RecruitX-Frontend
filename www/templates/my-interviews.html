@@ -13,11 +13,11 @@
           <div class="row">
             <div class="col col-50" ng-if="isInPipeline(myinterview.candidate)">
               <strong>{{myinterview.candidate.name | limitTo: 10}}</strong>
-              <h5> ({{myinterview.candidate.experience}} Yrs) </h5>
+              <h5> ({{myinterview.candidate.experience | number: 1}} Yrs) </h5>
             </div>
             <div class="col col-50" ng-if="!isInPipeline(myinterview.candidate)">
               <span><strong>{{myinterview.candidate.name | limitTo: 10}}</strong></span>
-              <h5> ({{myinterview.candidate.experience}} Yrs) </h5>
+              <h5> ({{myinterview.candidate.experience | number: 1}} Yrs) </h5>
             </div>
             <div class="col col-30">
               <h3><strong ng-bind="myinterview.start_time | date:'dd/MM/yyyy'"></strong></h3>
