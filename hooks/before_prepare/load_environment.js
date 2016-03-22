@@ -7,6 +7,7 @@ var replace = require('gulp-replace-task');
 var oktaUrl = process.env.OKTA_URL;
 var apiKey = process.env.API_KEY;
 var apiUrl = process.env.API_URL;
+var deployChannel = process.env.DEPLOY_CHANNEL;
 process.stdout.write('loading env');
 
 // Replace each placeholder with the correct value for the variable.
@@ -22,6 +23,9 @@ gulp.src('app/app_constants.js')
       }, {
         match: 'apiUrl',
         replacement: apiUrl
+      }, {
+        match: 'deployChannel',
+        replacement: deployChannel
       }
     ]
   }))

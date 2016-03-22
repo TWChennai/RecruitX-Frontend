@@ -1,5 +1,5 @@
 angular.module('recruitX')
-.controller('aboutController', ['$scope', 'dialogService', '$rootScope', '$cordovaToast', function($scope, dialogService, $rootScope, $cordovaToast){
+.controller('aboutController', ['$scope', 'dialogService', '$rootScope', '$cordovaToast', 'deployChannel', function($scope, dialogService, $rootScope, $cordovaToast, deployChannel){
 
   cordova.getAppVersion(function(version) {
     $scope.appVersion = version;
@@ -11,6 +11,7 @@ angular.module('recruitX')
     }
     else{
       var deploy = new Ionic.Deploy();
+      deploy.setChannel(deployChannel);
      // Check for updates
       deploy.check().then(function(response) {
         // response will be true/false
