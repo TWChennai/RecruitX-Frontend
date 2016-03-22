@@ -146,9 +146,15 @@ angular.module('recruitX')
 
     var unprocessableEntityHandler = function(error, header) {
       $scope.finishRefreshing();
-      dialogService.showAlert(header, error.errors[0].reason).then(function () {
+      dialogService.showAlert(header, getFirstErrorInReadableForm(error.errors)).then(function () {
         $scope.manuallyRefreshInterviews();
       });
+    };
+
+    var getFirstErrorInReadableForm = function(errors) {
+      for (var error in errors) {
+        return errors[error][0];
+      }
     };
 
     $scope.signUpSuccessHandler = function () {
