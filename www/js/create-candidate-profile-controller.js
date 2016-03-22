@@ -15,6 +15,7 @@ angular.module('recruitX')
     $scope.refreshSkills = function () {
       if ($scope.candidate.role_id in $scope.roleSkillsMap) {
         $scope.skills = JSON.parse(JSON.stringify($scope.roleSkillsMap[$scope.candidate.role_id]));
+        $rootScope.$broadcast('roleChanged');
       }
     };
 

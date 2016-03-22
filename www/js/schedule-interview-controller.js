@@ -30,16 +30,24 @@ angular.module('recruitX')
       }));
     };
 
+    var clearData = function () {
+      for (var interviewIndex in $scope.interviewRounds) {
+        $scope.interviewRounds[interviewIndex].dateTime = undefined;
+      }
+    };
+
     var redirectToHomePage = function () {
       $timeout(function () {
-        for (var interviewIndex in $scope.interviewRounds) {
-          $scope.interviewRounds[interviewIndex].dateTime = undefined;
-        }
+        clearData();
         $rootScope.$broadcast('clearFormData');
         $rootScope.$broadcast('loaded:masterData');
       });
       $state.go('tabs.interviews');
     };
+
+    $rootScope.$on('roleChanged', function () {
+      clearData();
+    });
 
     $scope.dateTime = function (index) {
       var options = {
