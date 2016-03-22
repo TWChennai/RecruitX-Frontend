@@ -22,7 +22,7 @@
               <button class="ion-thumbsup modify-interview" ng-if="(isLoggedinUserRecruiter || isPanelistForAnyInterviewRound) && isFeedbackGiven(interviewType.status) && compareStatus(interviewType.status, 'Strong Pursue')"></button>
               <button class="ion-thumbsup modify-interview" ng-if="(isLoggedinUserRecruiter || isPanelistForAnyInterviewRound) && isFeedbackGiven(interviewType.status) && compareStatus(interviewType.status, 'Strong Pursue')"></button>
               <button class="button ion-edit modify-interview" ng-show="isLoggedinUserRecruiter && !isNotScheduled(interviewType) && !isFeedbackGiven(interviewType.status) && isPipelineNotClosed()" ng-click="dateTime(interviewType, $event, updateInterview)"></button>
-              <button class="button ion-plus modify-interview" ng-show="isLoggedinUserRecruiter && isNextSchedulableRound(interviewType) && !isFeedbackGiven(interviewType.status)" ng-click="dateTime(interviewType, $event, createInterview)"></button>
+              <button class="button ion-plus modify-interview pointer-events-enabled" ng-show="isLoggedinUserRecruiter && isNextSchedulableRound(interviewType) && !isFeedbackGiven(interviewType.status)" ng-click="dateTime(interviewType, $event, createInterview)"></button>
             </div>
           </div>
         </ion-item>

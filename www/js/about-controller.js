@@ -6,7 +6,7 @@ angular.module('recruitX')
   });
 
   $scope.checkUpdates = function(){
-    if(window.Connection && navigator.connection.type == Connection.NONE) {
+    if(window.Connection && navigator.connection.type === Connection.NONE) {
       $cordovaToast.showShortBottom('Please check your internet connection');
     }
     else{
@@ -38,7 +38,7 @@ angular.module('recruitX')
             }, function(error) {
                 // Error downloading the updates
               $rootScope.$broadcast('loading:hide');
-              if(window.Connection && navigator.connection.type == Connection.NONE) {
+              if(window.Connection && navigator.connection.type === Connection.NONE) {
                 $cordovaToast.showShortBottom('Please check your internet connection');
               }
               else {
@@ -56,7 +56,7 @@ angular.module('recruitX')
         }
       }, function(error) {
            // Error checking for updates
-        if(window.Connection && navigator.connection.type == Connection.NONE) {
+        if(window.Connection && navigator.connection.type === Connection.NONE) {
           $cordovaToast.showShortBottom('Please check your internet connection');
         }
         else {

@@ -342,8 +342,12 @@ button.custom-icon:before {
   margin: 0;
 }
 
-.pointer-events-disabled{
+.pointer-events-disabled {
   pointer-events:none;
+}
+
+.pointer-events-enabled {
+  pointer-events: all;
 }
 
 .button-pseudo-disabled{
