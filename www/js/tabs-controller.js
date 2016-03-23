@@ -30,7 +30,8 @@ angular.module('recruitX')
     $scope.refreshInterviews = function () {
       recruitFactory.getInterviews({
         panelist_login_name: loggedinUserStore.userId(),
-        panelist_experience: loggedinUserStore.experience()
+        panelist_experience: loggedinUserStore.experience(),
+        panelist_role: loggedinUserStore.role().name
       }, function (newItems) {
         $scope.items = newItems;
         $scope.noItems = $scope.items.length === 0 ? true : false;
