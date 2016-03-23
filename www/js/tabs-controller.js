@@ -115,7 +115,8 @@ angular.module('recruitX')
           interview_panelist: {
             'panelist_login_name': loggedinUserStore.userId(),
             'interview_id': item.id,
-            'panelist_experience': loggedinUserStore.experience()
+            'panelist_experience': loggedinUserStore.experience(),
+            'panelist_role': loggedinUserStore.role().name
           }
         };
         dialogService.askConfirmation('Sign up', 'Are you sure you want to sign up for this interview?', $scope.signUp);
