@@ -143,7 +143,7 @@ angular.module('recruitX')
     var now = new Date();
     var hireDate = new Date(loggedinUserStore.calculatedHireDate());
     var experience = (now.getTime() - hireDate.getTime())/oneYear;
-    return parseFloat((experience + loggedinUserStore.pastExperience()).toFixed(2));
+    return parseFloat((experience + parseFloat(loggedinUserStore.pastExperience())).toFixed(2));
   };
 
   return loggedinUserStore;
