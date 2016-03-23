@@ -356,26 +356,21 @@ button.custom-icon:before {
 
 /* About page */
 
-.about-center {
-    position: fixed;
-  top: 50%;
-  left: 50%;
-  /* bring your own prefixes */
-  transform: translate(-50%, -50%);
-}
-
 .app-name {
-    text-align:center;
     margin-bottom: 10px;
     font-size: 40px;
 }
 
 .app-version {
-    text-align:center;
     margin-bottom: 10px;
 }
 
-.update-button{
-    text-align:center;
-    margin: 0 auto 0 auto;
+.about-container .overflow-scroll .scroll{
+    display: flex;
+}
+
+.about{
+    width: 50%;
+    margin: auto;
+    text-align: center;
 }
