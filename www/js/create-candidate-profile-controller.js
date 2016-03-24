@@ -15,7 +15,7 @@ angular.module('recruitX')
     $scope.refreshSkills = function () {
       if ($scope.candidate.role_id in $scope.roleSkillsMap) {
         $scope.skills = JSON.parse(JSON.stringify($scope.roleSkillsMap[$scope.candidate.role_id]));
-        $rootScope.$broadcast('roleChanged');
+        $rootScope.$broadcast('roleChanged', {role_id: $scope.candidate.role_id});
       }
     };
 
@@ -80,6 +80,7 @@ angular.module('recruitX')
       if (!otherCheckBox.checked) {
         $scope.candidate.other_skills = undefined;
       }
+      $state.go('schedule-interview', {candidate: $scope.candidate});
     };
 
     $scope.resetForm = function () {

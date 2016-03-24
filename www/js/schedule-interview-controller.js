@@ -2,13 +2,21 @@ angular.module('recruitX')
   .controller('scheduleInterviewController', ['interviewTypeHelperService', '$timeout', '$rootScope', '$state', 'MasterData', '$scope', '$stateParams', '$cordovaDatePicker', 'recruitFactory', '$filter', 'dialogService', function (interviewTypeHelperService, $timeout, $rootScope, $state, MasterData, $scope, $stateParams, $cordovaDatePicker, recruitFactory, $filter, dialogService) {
     'use strict';
 
+    var MIN_PRIORITY,MAX_PRIORITY, interviewRoundsAsMap;
+
+    $scope.interviewRounds = [];
     // TODO: Inline later - currently not working - need to figure out why so.
-    $scope.interviewRounds = interviewTypeHelperService.constructRoleInterviewTypesMap($stateParams.candidate.role_id);
-    var interviewRoundsAsMap = $scope.interviewRounds.map(function (interviewRound) {
-      return interviewRound.priority;
-    });
-    var MIN_PRIORITY = Math.min.apply(Math, interviewRoundsAsMap);
-    var MAX_PRIORITY = Math.max.apply(Math, interviewRoundsAsMap);
+
+    var setup = function(role_id){
+      $scope.interviewRounds = interviewTypeHelperService.constructRoleInterviewTypesMap(role_id);
+      interviewRoundsAsMap = $scope.interviewRounds.map(function (interviewRound) {
+        return interviewRound.priority;
+      });
+      MIN_PRIORITY = Math.min.apply(Math, interviewRoundsAsMap);
+      MAX_PRIORITY = Math.max.apply(Math, interviewRoundsAsMap);
+    };
+
+    setup($stateParams.candidate.role_id);
 
     var currentInterviewScheduledAfterNextInterview = function (scheduleDateTime, nextInterviewTime) {
       return (scheduleDateTime > nextInterviewTime.setHours(nextInterviewTime.getHours() - 1));
@@ -45,8 +53,9 @@ angular.module('recruitX')
       $state.go('tabs.interviews');
     };
 
-    $rootScope.$on('roleChanged', function () {
+    $rootScope.$on('roleChanged', function (event, args) {
       clearData();
+      setup(args.role_id);
     });
 
     $scope.dateTime = function (index) {
