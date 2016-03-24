@@ -359,14 +359,17 @@ button.custom-icon:before {
 .app-name {
     margin-bottom: 10px;
     font-size: 40px;
+    color: white;
 }
 
 .app-version {
     margin-bottom: 10px;
+    color: white;
 }
 
 .about-container .overflow-scroll .scroll{
     display: flex;
+    background: #387ef5;
 }
 
 .about{
