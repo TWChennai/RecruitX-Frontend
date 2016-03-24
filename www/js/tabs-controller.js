@@ -1,5 +1,5 @@
 angular.module('recruitX')
-  .controller('TabsCtrl', ['$cordovaToast','$scope', 'recruitFactory', 'skillHelperService', 'loggedinUserStore', 'dialogService', '$ionicHistory', '$state', '$filter', function ($cordovaToast,$scope, recruitFactory, skillHelperService, loggedinUserStore, dialogService, $ionicHistory, $state, $filter) {
+  .controller('TabsCtrl', ['$cordovaToast', '$scope', 'recruitFactory', 'skillHelperService', 'loggedinUserStore', 'dialogService', '$ionicHistory', '$state', '$filter', function ($cordovaToast, $scope, recruitFactory, skillHelperService, loggedinUserStore, dialogService, $ionicHistory, $state, $filter) {
     'use strict';
 
     var refreshing = false;
@@ -88,8 +88,7 @@ angular.module('recruitX')
     $scope.loadMoreCandidates = function () {
       if (!refreshing && $scope.next_requesting_page <= $scope.total_pages) {
         $scope.refreshCandidates($scope.next_requesting_page);
-      }
-      else {
+      } else {
         $scope.$broadcast('scroll.infiniteScrollComplete');
       }
     };
@@ -97,20 +96,16 @@ angular.module('recruitX')
     $scope.loadMoreMyInterviews = function () {
       if (!refreshing && $scope.next_requesting_page <= $scope.total_pages) {
         $scope.refreshMyInterviews($scope.next_requesting_page);
-      }
-      else {
+      } else {
         $scope.$broadcast('scroll.infiniteScrollComplete');
       }
     };
 
     $scope.signingUp = function ($event, item) {
       $event.stopPropagation();
-      if(!item.signup)
-      {
+      if (!item.signup) {
         $cordovaToast.showShortBottom(item.signup_error);
-      }
-      else
-      {
+      } else {
         $scope.interview_panelist = {
           interview_panelist: {
             'panelist_login_name': loggedinUserStore.userId(),
@@ -125,7 +120,7 @@ angular.module('recruitX')
 
     $scope.decliningInterview = function ($event, myinterview) {
       $event.stopPropagation();
-      $scope.interview_panelist_id = (($filter('filter')(myinterview.panelists, function(panelist) {
+      $scope.interview_panelist_id = (($filter('filter')(myinterview.panelists, function (panelist) {
         return panelist.name === loggedinUserStore.userId();
       }))[0]).interview_panelist_id;
       dialogService.askConfirmation('Decline', 'Are you sure you want to decline this interview?', $scope.declineInterview);
@@ -139,21 +134,21 @@ angular.module('recruitX')
       recruitFactory.deleteInterviewPanelist($scope.interview_panelist_id, $scope.declineInterviewSuccessHandler, $scope.declineUnprocessableEntityHandler, $scope.defaultErrorHandler);
     };
 
-    var successHandler = function(header, message){
+    var successHandler = function (header, message) {
       $scope.finishRefreshing();
       dialogService.showAlertWithDismissHandler(header, message, function () {
         $scope.manuallyRefreshInterviews();
       });
     };
 
-    var unprocessableEntityHandler = function(error, header) {
+    var unprocessableEntityHandler = function (error, header) {
       $scope.finishRefreshing();
       dialogService.showAlert(header, getFirstErrorInReadableForm(error.errors)).then(function () {
         $scope.manuallyRefreshInterviews();
       });
     };
 
-    var getFirstErrorInReadableForm = function(errors) {
+    var getFirstErrorInReadableForm = function (errors) {
       for (var error in errors) {
         return errors[error][0];
       }
@@ -199,7 +194,7 @@ angular.module('recruitX')
       return new Date() < new Date(start_time);
     };
 
-    $scope.isActive = function(stateName) {
+    $scope.isActive = function (stateName) {
       return stateName === $state.current.name;
     };
 
@@ -207,7 +202,7 @@ angular.module('recruitX')
       $scope.manuallyRefreshInterviews();
     });
 
-    $scope.$on('$ionicView.beforeEnter', function(event, viewData) {
+    $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
       // For Home Button
       $ionicHistory.clearHistory();
       viewData.enableBack = false;
@@ -217,4 +212,4 @@ angular.module('recruitX')
       $scope.manuallyRefreshInterviews();
     })();
   }
-  ]);
+]);

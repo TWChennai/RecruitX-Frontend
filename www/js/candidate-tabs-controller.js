@@ -20,8 +20,7 @@ angular.module('recruitX')
         if (interviews.length === 0) {
           $scope.noInterviews = true;
           $scope.current_candidate = undefined;
-        }
-        else {
+        } else {
           $scope.noInterviews = false;
           $scope.current_candidate = $scope.interviews[0].candidate;
         }
@@ -120,7 +119,7 @@ angular.module('recruitX')
       return interviewStatus !== undefined && interviewStatus.name === status;
     };
 
-    $scope.canNotSeeFeedback = function (interviewType){
+    $scope.canNotSeeFeedback = function (interviewType) {
       return !(($scope.isLoggedinUserRecruiter || $scope.isPanelistForAnyInterviewRound) && !$scope.isNotScheduled(interviewType));
     };
 
@@ -175,7 +174,7 @@ angular.module('recruitX')
       });
     };
 
-    $scope.isActive = function(stateName) {
+    $scope.isActive = function (stateName) {
       return stateName === $state.current.name;
     };
 
@@ -184,5 +183,4 @@ angular.module('recruitX')
     }, function (response) {
       console.log('failed with response: ' + response);
     });
-
   }]);

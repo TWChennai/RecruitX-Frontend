@@ -18,12 +18,12 @@ angular.module('recruitX')
       return (previousInterviewTime === undefined || scheduleDateTime < previousInterviewTime.setHours(previousInterviewTime.getHours() + 1));
     };
 
-    var isCurrentInterviewScheduledClashWithSamePriorityInterview = function(scheduleDateTime, otherRoundTime) {
+    var isCurrentInterviewScheduledClashWithSamePriorityInterview = function (scheduleDateTime, otherRoundTime) {
       var otherRoundTimeTemp = new Date(otherRoundTime);
       return !((scheduleDateTime <= otherRoundTime.setHours(otherRoundTime.getHours() - 1)) || (scheduleDateTime >= otherRoundTimeTemp.setHours(otherRoundTimeTemp.getHours() + 1)));
     };
 
-    var getNextInterviewRounds = function(currentInterview) {
+    var getNextInterviewRounds = function (currentInterview) {
       return ($filter('filter')($scope.interviewRounds, {
         priority: currentInterview.priority + 1,
         dateTime: '!!'
@@ -78,7 +78,7 @@ angular.module('recruitX')
         }));
         var previousInterviewRound = nextLowerPriorityInterviewRounds[0];
 
-        var otherRoundsWithSamePriority = ($filter('filter')($scope.interviewRounds, function(interviewRound) {
+        var otherRoundsWithSamePriority = ($filter('filter')($scope.interviewRounds, function (interviewRound) {
           return (interviewRound.priority === currentInterviewRound.priority) && (interviewRound.id !== currentInterviewRound.id);
         }));
 
@@ -133,7 +133,7 @@ angular.module('recruitX')
       return error;
     };
 
-    $scope.checkWithRoundOfSamePriority = function(scheduleDateTime, currentInterviewRound, otherRoundsWithSamePriority) {
+    $scope.checkWithRoundOfSamePriority = function (scheduleDateTime, currentInterviewRound, otherRoundsWithSamePriority) {
       var error = {};
       if (otherRoundsWithSamePriority.length === 0) {
         return error;
@@ -150,7 +150,7 @@ angular.module('recruitX')
       return error;
     };
 
-    $scope.getInterviewWithMinStartTime = function(interviews) {
+    $scope.getInterviewWithMinStartTime = function (interviews) {
       var minInterview = interviews[0];
       for (var i = 0; i < interviews.length; i++) {
         var minDate = minInterview.dateTime;
@@ -194,10 +194,10 @@ angular.module('recruitX')
         return Boolean(interviewRound);
       });
 
-      recruitFactory.saveCandidate($stateParams, function() {
+      recruitFactory.saveCandidate($stateParams, function () {
         // console.log(response);
         dialogService.showAlertWithDismissHandler('Success', 'Candidate Interview successfully added!!', redirectToHomePage);
-      }, function(response) {
+      }, function (response) {
         var errors = response.data.errors;
         dialogService.showAlertWithDismissHandler('Failed', errors[0].reason);
       });

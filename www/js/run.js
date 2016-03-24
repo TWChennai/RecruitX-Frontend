@@ -6,9 +6,12 @@ angular.module('recruitX')
       var pendingRequests = 0;
       return {
         request: function (config) {
-          if(config.headers['Authorization'] === undefined) {
+          if (config.headers['Authorization'] === undefined) {
             config.timeout = 20000;
-            config.headers = { 'Authorization': apiKey, 'Content-Type': 'application/json'};
+            config.headers = {
+              'Authorization': apiKey,
+              'Content-Type': 'application/json'
+            };
           } else {
             config.timeout = 60000;
           }
@@ -89,8 +92,7 @@ angular.module('recruitX')
     } else {
       if (typeof OktaSignIn === 'undefined') {
         $cordovaToast.showShortBottom('Please connect to internet and try again');
-      }
-      else{
+      } else {
         $state.go('login');
         navigator.splashscreen.hide();
       }

@@ -1,5 +1,5 @@
 angular.module('recruitX')
-  .controller('interviewDetailsController', ['$filter', 'ionicLoadingService', 'MasterData', '$q', 'Upload', 'dialogService', 'apiUrl', '$cordovaFileTransfer', '$scope', '$stateParams', 'recruitFactory', '$rootScope', '$cordovaToast', 'Camera', 'loggedinUserStore','apiKey', '$state', function ( $filter, ionicLoadingService, MasterData, $q, Upload, dialogService, apiUrl, $cordovaFileTransfer, $scope, $stateParams, recruitFactory, $rootScope, $cordovaToast, Camera, loggedinUserStore, apiKey, $state) {
+  .controller('interviewDetailsController', ['$filter', 'ionicLoadingService', 'MasterData', '$q', 'Upload', 'dialogService', 'apiUrl', '$cordovaFileTransfer', '$scope', '$stateParams', 'recruitFactory', '$rootScope', '$cordovaToast', 'Camera', 'loggedinUserStore', 'apiKey', '$state', function ($filter, ionicLoadingService, MasterData, $q, Upload, dialogService, apiUrl, $cordovaFileTransfer, $scope, $stateParams, recruitFactory, $rootScope, $cordovaToast, Camera, loggedinUserStore, apiKey, $state) {
     'use strict';
 
     $scope.interviewStatus = MasterData.getInterviewStatuses();
@@ -52,7 +52,7 @@ angular.module('recruitX')
           $scope.feedbackImages = interview.feedback_images;
         }
         $scope.finishRefreshing();
-      }, function() {
+      }, function () {
         $state.go('tabs.interviews');
       });
     };
@@ -107,12 +107,14 @@ angular.module('recruitX')
 
     $scope.previewImage = function (index) {
       var feedbackImage = $scope.feedbackImages[index];
-      window.resolveLocalFileSystemURL(feedbackImage.URI, function(){
+      window.resolveLocalFileSystemURL(feedbackImage.URI, function () {
         cordova.plugins.disusered.open(feedbackImage.URI, function () {}, function (err) {
           console.log(err);
           $cordovaToast.showShortBottom('Something went wrong while opening the image.');
         });
-      }, function(fail){console.log('error'+fail);});
+      }, function (fail) {
+        console.log('error' + fail);
+      });
     };
 
     $scope.saveFeedback = function () {
@@ -153,7 +155,7 @@ angular.module('recruitX')
       }, function (error) {
         if (error.status === UNPROCESSABLE_ENTITY_STATUS) {
           dialogService.showAlertWithDismissHandler('Feedback', error.data.errors[0].reason,
-          $scope.refreshInterviewFeedback);
+            $scope.refreshInterviewFeedback);
         } else {
           $cordovaToast.showShortBottom('Something went wrong while processing your request. Please try again soon.');
         }
@@ -165,7 +167,11 @@ angular.module('recruitX')
         var filename = $scope.feedbackImages[index].file_name;
         var targetPath = fileSystem.root.toURL() + filename + '.jpg';
         $rootScope.$broadcast('loading:show');
-        $cordovaFileTransfer.download(fileServerURL + '/' + filename, targetPath, {headers: { 'Authorization': apiKey }}, true).then(function (result) {
+        $cordovaFileTransfer.download(fileServerURL + '/' + filename, targetPath, {
+          headers: {
+            'Authorization': apiKey
+          }
+        }, true).then(function (result) {
           $scope.feedbackImages[index].URI = result.nativeURL;
           $scope.feedbackImages[index].isDownloaded = true;
           $rootScope.$broadcast('loading:hide');

@@ -9,13 +9,14 @@ angular.module('recruitX')
       switch (status) {
         case 0:
           var isOffline = $cordovaNetwork.isOffline();
-          if(isOffline){
+          if (isOffline) {
             return 'Please check your internet connection';
           } else {
             return 'Something went wrong while processing your request. Please try again soon.';
           }
           break;
-        default: return 'Something went wrong while processing your request. Please try again soon.';
+        default:
+          return 'Something went wrong while processing your request. Please try again soon.';
       }
     };
 
@@ -31,14 +32,14 @@ angular.module('recruitX')
       if (MasterData.isLoaded()) {
         flesh_out_fn(input);
       } else {
-        MasterData.load().then( function() {
+        MasterData.load().then(function () {
           flesh_out_fn(input);
         });
       }
     };
 
     var fleshOutCandidate = function (candidate_input) {
-      load_and_flesh( function(candidate) {
+      load_and_flesh(function (candidate) {
         candidate.name = candidate.first_name + ' ' + candidate.last_name;
         candidate.all_skills = skillHelperService.formatAllSkills(candidate.skills, candidate.other_skills);
         candidate.role = (($filter('filter')(MasterData.getRoles(), {
@@ -51,22 +52,22 @@ angular.module('recruitX')
     };
 
     var fleshOutCandidates = function (candidates_input) {
-      load_and_flesh( function(candidates) {
-        for(var candidateIndex in candidates){
+      load_and_flesh(function (candidates) {
+        for (var candidateIndex in candidates) {
           fleshOutCandidate(candidates[candidateIndex]);
         }
       }, candidates_input);
     };
 
     var fleshOutInterview = function (interview_input) {
-      load_and_flesh( function(interview) {
+      load_and_flesh(function (interview) {
         interview.interview_type = ($filter('filter')(MasterData.getInterviewTypes(), {
           id: interview.interview_type_id
         }))[0];
         if (interview.panelists !== undefined) {
           // TODO: This seems like a temp placeholder - so why store in the interview?
           interview.panelistsArray = [];
-          for(var interviewPanelistIndex in interview.panelists){
+          for (var interviewPanelistIndex in interview.panelists) {
             interview.panelistsArray.push(interview.panelists[interviewPanelistIndex].name);
           }
           interview.formattedPanelists = interview.panelistsArray.join(', ');
@@ -85,9 +86,9 @@ angular.module('recruitX')
     };
 
     var fleshOutInterviews = function (interviews_input) {
-      load_and_flesh(function(interviews){
+      load_and_flesh(function (interviews) {
         // TODO: Please use a consistent for construct
-        for(var interviewIndex in interviews){
+        for (var interviewIndex in interviews) {
           fleshOutInterview(interviews[interviewIndex]);
         }
       }, interviews_input);
@@ -171,11 +172,11 @@ angular.module('recruitX')
 
       getAllCandidates: function (data, success) {
         $http.get(apiUrl + '/candidates', {
-          params: data
-        }).success(function (response) {
-          fleshOutCandidates(response.candidates);
-          success(response.candidates, response.total_pages);
-        })
+            params: data
+          }).success(function (response) {
+            fleshOutCandidates(response.candidates);
+            success(response.candidates, response.total_pages);
+          })
           .error(function () {});
       },
 
