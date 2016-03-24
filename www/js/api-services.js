@@ -172,11 +172,11 @@ angular.module('recruitX')
 
       getAllCandidates: function (data, success) {
         $http.get(apiUrl + '/candidates', {
-            params: data
-          }).success(function (response) {
-            fleshOutCandidates(response.candidates);
-            success(response.candidates, response.total_pages);
-          })
+          params: data
+        }).success(function (response) {
+          fleshOutCandidates(response.candidates);
+          success(response.candidates, response.total_pages);
+        })
           .error(function () {});
       },
 

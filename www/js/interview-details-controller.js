@@ -154,8 +154,8 @@ angular.module('recruitX')
         dialogService.showAlertWithDismissHandler('Success!!', 'Feedback submitted', $scope.refreshInterviewFeedback);
       }, function (error) {
         if (error.status === UNPROCESSABLE_ENTITY_STATUS) {
-          dialogService.showAlertWithDismissHandler('Feedback', error.data.errors[0].reason,
-            $scope.refreshInterviewFeedback);
+          dialogService.showAlertWithDismissHandler('Feedback', 'Error uploading Feedback',
+          $scope.refreshInterviewFeedback);
         } else {
           $cordovaToast.showShortBottom('Something went wrong while processing your request. Please try again soon.');
         }

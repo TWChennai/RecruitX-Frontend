@@ -199,7 +199,8 @@ angular.module('recruitX')
         dialogService.showAlertWithDismissHandler('Success', 'Candidate Interview successfully added!!', redirectToHomePage);
       }, function (response) {
         var errors = response.data.errors;
-        dialogService.showAlertWithDismissHandler('Failed', errors[0].reason);
+        console.log(response);
+        dialogService.showAlertWithDismissHandler('Failed', 'Failed to create candidate with given interview(s)');
       });
     };
 
