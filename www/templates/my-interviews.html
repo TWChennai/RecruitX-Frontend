@@ -33,7 +33,6 @@
             <div class="col col-70">
               <div class="pull-right" ng-switch="isInPipeline(myinterview.candidate)">
                 <div ng-switch-when="true">
-                  <button ng-show="isInFuture(myinterview.start_time)" class="button button-small button-positive"  ng-click="decliningInterview($event, myinterview)">Decline</button>
                   <button class="button button-small button-positive" ui-sref="interview-details({interview_id:myinterview.id})" ng-click="$event.stopPropagation()">Feedback</button>
                 </div>
                 <div ng-switch-when="false">
