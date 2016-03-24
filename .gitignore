@@ -39,11 +39,12 @@ gen/
 /plugins/ios.json
 /resources/android
 /resources/ios
+/www/lib/ionic-platform-web-client
+.io-config.json
 
 # Gradle files
 .gradle/
 build/
-!/www/lib/ionic-platform-web-client/build
 
 # Local configuration file (sdk path, etc)
 local.properties
@@ -116,7 +117,6 @@ fabric.properties
 ### AppceleratorTitanium ###
 # Build folder and log file
 build/
-!/www/lib/ionic-platform-web-client/build
 build.log
 
 

@@ -13,6 +13,8 @@ $ npm install -g ionic cordova eslint eslint-config-defaults eslint-config-googl
 
 Run `$ ionic state restore` from the app's root directory to set up platforms and plugins.
 
+Run `$ ionic add ionic-platform-web-client` to successfully use the app with app-update feature.
+
 ## To install all the test pre-requisites:
 
 ```bash
