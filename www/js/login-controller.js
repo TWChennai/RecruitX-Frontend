@@ -18,7 +18,7 @@ angular.module('recruitX')
               buttons: [
                 {
                   text: '<b>Done</b>',
-                  onTap: function (e) {
+                  onTap: function () {
                     return $scope.data.experience;
                   }
                 }

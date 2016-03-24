@@ -141,10 +141,10 @@ angular.module('recruitX')
   // Note: Though this value is present in the b/e, we are storing the calculated date in the mobile local storage
   // since the user might not logout, thus experience will never change - but we need it to change
     loggedinUserStore.experience = function () {
-      var oneYear = 24 * 60 * 60 * 1000 * 365;
+      var oneYearInMilliSecond = 31536000000;
       var now = new Date();
       var hireDate = new Date(loggedinUserStore.calculatedHireDate());
-      var experience = (now.getTime() - hireDate.getTime()) / oneYear;
+      var experience = (now.getTime() - hireDate.getTime()) / oneYearInMilliSecond;
       return parseFloat((experience + parseFloat(loggedinUserStore.pastExperience())).toFixed(2));
     };
 

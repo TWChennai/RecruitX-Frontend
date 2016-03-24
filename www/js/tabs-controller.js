@@ -141,17 +141,17 @@ angular.module('recruitX')
       });
     };
 
+    var getFirstErrorInReadableForm = function (errors) {
+      for (var error in errors) {
+        return errors[error][0];
+      }
+    };
+
     var unprocessableEntityHandler = function (error, header) {
       $scope.finishRefreshing();
       dialogService.showAlert(header, getFirstErrorInReadableForm(error.errors)).then(function () {
         $scope.manuallyRefreshInterviews();
       });
-    };
-
-    var getFirstErrorInReadableForm = function (errors) {
-      for (var error in errors) {
-        return errors[error][0];
-      }
     };
 
     $scope.signUpSuccessHandler = function () {
