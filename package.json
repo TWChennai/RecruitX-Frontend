@@ -13,6 +13,7 @@
     "gulp-sass": "^2.0.4",
     "gulp-util": "^2.2.14",
     "ionic-minify": "^2.0.5",
+    "jasmine-core": "^2.4.1",
     "karma": "^0.13.16",
     "karma-coverage": "^0.5.3",
     "karma-jasmine": "^0.3.6",
