@@ -5,8 +5,10 @@
 npm install
 #fi
 
-set -e
+bower install
+ionic add ionic-platform-web-client
 
+set -e
 karma start tests/unit-tests.conf.js
 
 # TODO: Not reporting exit code for eslint till the errors get fixed.
