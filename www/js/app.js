@@ -4,7 +4,7 @@
 // 'recruitX' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 
-angular.module('recruitX', ['ngFileUpload', 'ionic', 'ui.router', 'ngCordova', 'ngResource'])
+angular.module('recruitX', ['ngFileUpload', 'ionic','ionic.service.core', 'ui.router', 'ngCordova', 'ngResource'])
   .config(function ($stateProvider, $urlRouterProvider, $compileProvider, $ionicConfigProvider) {
     'use strict';
 
