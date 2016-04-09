@@ -87,7 +87,7 @@ angular.module('recruitX')
     $scope.canNotEnterFeedBack = function () {
       var currentTime = new Date();
       var interviewStartTime = new Date($scope.interview.start_time);
-      return !((interviewStartTime <= currentTime) && $scope.isValidPanelist()) || $scope.isFeedbackAvailable();
+      return !((interviewStartTime <= currentTime) && (loggedinUserStore.isRecruiter() || $scope.isValidPanelist())) || $scope.isFeedbackAvailable();
     };
 
     $scope.isFeedbackAvailable = function () {

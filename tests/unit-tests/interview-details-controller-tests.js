@@ -3,9 +3,10 @@ describe('interviewDetailsController', function () {
 
   beforeEach(module('recruitX'));
 
-  var $scope = {};
+  var $scope = {}, loggedinUserStore;
 
-  beforeEach(inject(function ($controller, loggedinUserStore, MasterData) {
+  beforeEach(inject(function ($controller, _loggedinUserStore_, MasterData) {
+    loggedinUserStore = _loggedinUserStore_;
     var interviewStatuses = [{
       name: 'Pass',
       id: 1
@@ -59,7 +60,6 @@ describe('interviewDetailsController', function () {
       var minutes = {};
 
       it('should return true if the interview start time is in the future and panelist is logged in user', function () {
-        // $scope.interview.start_time = '2016-02-05T09:17:00Z';
         currentDate = new Date();
         minutes = 30;
         futureDate = new Date(currentDate.setMinutes(currentDate.getMinutes() + minutes));
@@ -70,6 +70,7 @@ describe('interviewDetailsController', function () {
       });
 
       it('should return false if the interview start time is now and panelist is logged in user', function () {
+        spyOn(loggedinUserStore, 'isRecruiter').and.returnValue('false');
         $scope.interview.start_time = new Date();
         $scope.interview.panelistsArray = ['userId'];
 
@@ -77,7 +78,7 @@ describe('interviewDetailsController', function () {
       });
 
       it('should return true if the interview start time is in the future and panelist is not logged in user', function () {
-        // $scope.interview.start_time = '2016-02-05T09:17:00Z';
+        spyOn(loggedinUserStore, 'isRecruiter').and.returnValue('false');
         currentDate = new Date();
         minutes = 30;
         futureDate = new Date(currentDate.setMinutes(currentDate.getMinutes() + minutes));
@@ -88,6 +89,7 @@ describe('interviewDetailsController', function () {
       });
 
       it('should return false if the interview start time is in the past and panelist is logged in user and interview feedback is not available', function () {
+        spyOn(loggedinUserStore, 'isRecruiter').and.returnValue('false');
         currentDate = new Date();
         minutes = 1;
         $scope.interview.start_time = new Date(currentDate.getYear(), currentDate.getMonth(), currentDate.getDay() - 1);
@@ -97,6 +99,7 @@ describe('interviewDetailsController', function () {
       });
 
       it('should return true if the interview start time is in the past and panelist is logged in user and interview feedback is available', function () {
+        spyOn(loggedinUserStore, 'isRecruiter').and.returnValue('false');
         currentDate = new Date();
         minutes = 1;
         $scope.interview.start_time = new Date(currentDate.getYear(), currentDate.getMonth(), currentDate.getDay() - 1);
@@ -107,6 +110,7 @@ describe('interviewDetailsController', function () {
       });
 
       it('should return true if the interview start time is in the past and panelist is not logged in user and feedback is available', function () {
+        spyOn(loggedinUserStore, 'isRecruiter').and.returnValue('false');
         currentDate = new Date();
         minutes = 1;
         futureDate = new Date(currentDate.setMinutes(currentDate.getMinutes() - minutes));
@@ -117,7 +121,8 @@ describe('interviewDetailsController', function () {
         expect($scope.canNotEnterFeedBack()).toEqual(true);
       });
 
-      it('should return true if the interview start time is in the past and panelist is not logged in user and feedback is not available', function () {
+      it('should return true if the interview start time is in the past and panelist is not logged in user and feedback is not available and not recruiter', function () {
+        spyOn(loggedinUserStore, 'isRecruiter').and.returnValue(false);
         currentDate = new Date();
         minutes = 1;
         futureDate = new Date(currentDate.setMinutes(currentDate.getMinutes() - minutes));
@@ -125,6 +130,17 @@ describe('interviewDetailsController', function () {
         $scope.interview.panelists = ['test'];
 
         expect($scope.canNotEnterFeedBack()).toEqual(true);
+      });
+
+      it('should return false if the interview start time is in the past and logged in user is recruiter and feedback is not available', function () {
+        spyOn(loggedinUserStore, 'isRecruiter').and.returnValue(true);
+        currentDate = new Date();
+        minutes = 1;
+        futureDate = new Date(currentDate.setMinutes(currentDate.getMinutes() - minutes));
+        $scope.interview.start_time = futureDate;
+        $scope.interview.panelists = ['test'];
+
+        expect($scope.canNotEnterFeedBack()).toEqual(false);
       });
     });
 
