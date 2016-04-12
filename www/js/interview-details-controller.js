@@ -52,6 +52,9 @@ angular.module('recruitX')
           $scope.feedbackImages = interview.feedback_images;
         }
         $scope.finishRefreshing();
+        if(!$scope.interview.previous_interview_status) {
+          $cordovaToast.showShortBottom('Feedback for the previous round was not submitted');
+        }
       }, function () {
         $state.go('tabs.interviews');
       });
@@ -87,7 +90,7 @@ angular.module('recruitX')
     $scope.canNotEnterFeedBack = function () {
       var currentTime = new Date();
       var interviewStartTime = new Date($scope.interview.start_time);
-      return !((interviewStartTime <= currentTime) && (loggedinUserStore.isRecruiter() || $scope.isValidPanelist())) || $scope.isFeedbackAvailable();
+      return !($scope.interview.previous_interview_status && (interviewStartTime <= currentTime) && (loggedinUserStore.isRecruiter() || $scope.isValidPanelist())) || $scope.isFeedbackAvailable();
     };
 
     $scope.isFeedbackAvailable = function () {

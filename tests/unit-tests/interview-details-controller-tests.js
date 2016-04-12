@@ -65,6 +65,7 @@ describe('interviewDetailsController', function () {
         futureDate = new Date(currentDate.setMinutes(currentDate.getMinutes() + minutes));
         $scope.interview.start_time = futureDate;
         $scope.interview.panelists = ['userId'];
+        $scope.interview.previous_interview_status = true;
 
         expect($scope.canNotEnterFeedBack()).toEqual(true);
       });
@@ -73,6 +74,7 @@ describe('interviewDetailsController', function () {
         spyOn(loggedinUserStore, 'isRecruiter').and.returnValue('false');
         $scope.interview.start_time = new Date();
         $scope.interview.panelistsArray = ['userId'];
+        $scope.interview.previous_interview_status = true;
 
         expect($scope.canNotEnterFeedBack()).toEqual(false);
       });
@@ -84,6 +86,7 @@ describe('interviewDetailsController', function () {
         futureDate = new Date(currentDate.setMinutes(currentDate.getMinutes() + minutes));
         $scope.interview.start_time = futureDate;
         $scope.interview.panelistsArray = ['test'];
+        $scope.interview.previous_interview_status = true;
 
         expect($scope.canNotEnterFeedBack()).toEqual(true);
       });
@@ -94,6 +97,7 @@ describe('interviewDetailsController', function () {
         minutes = 1;
         $scope.interview.start_time = new Date(currentDate.getYear(), currentDate.getMonth(), currentDate.getDay() - 1);
         $scope.interview.panelistsArray = ['userId'];
+        $scope.interview.previous_interview_status = true;
 
         expect($scope.canNotEnterFeedBack()).toEqual(false);
       });
@@ -105,6 +109,7 @@ describe('interviewDetailsController', function () {
         $scope.interview.start_time = new Date(currentDate.getYear(), currentDate.getMonth(), currentDate.getDay() - 1);
         $scope.interview.panelistsArray = ['userId'];
         $scope.interview.status = 'feedback';
+        $scope.interview.previous_interview_status = true;
 
         expect($scope.canNotEnterFeedBack()).toEqual(true);
       });
@@ -117,6 +122,7 @@ describe('interviewDetailsController', function () {
         $scope.interview.start_time = futureDate;
         $scope.interview.panelists = ['test'];
         $scope.interview.status = 'feedback';
+        $scope.interview.previous_interview_status = true;
 
         expect($scope.canNotEnterFeedBack()).toEqual(true);
       });
@@ -128,6 +134,7 @@ describe('interviewDetailsController', function () {
         futureDate = new Date(currentDate.setMinutes(currentDate.getMinutes() - minutes));
         $scope.interview.start_time = futureDate;
         $scope.interview.panelists = ['test'];
+        $scope.interview.previous_interview_status = true;
 
         expect($scope.canNotEnterFeedBack()).toEqual(true);
       });
@@ -139,8 +146,21 @@ describe('interviewDetailsController', function () {
         futureDate = new Date(currentDate.setMinutes(currentDate.getMinutes() - minutes));
         $scope.interview.start_time = futureDate;
         $scope.interview.panelists = ['test'];
+        $scope.interview.previous_interview_status = true;
 
         expect($scope.canNotEnterFeedBack()).toEqual(false);
+      });
+
+      it('should return true if the interview start time is in the past and logged in user is recruiter and feedback is not available and previous interview status is false', function () {
+        spyOn(loggedinUserStore, 'isRecruiter').and.returnValue(true);
+        currentDate = new Date();
+        minutes = 1;
+        futureDate = new Date(currentDate.setMinutes(currentDate.getMinutes() - minutes));
+        $scope.interview.start_time = futureDate;
+        $scope.interview.panelists = ['test'];
+        $scope.interview.previous_interview_status = false;
+
+        expect($scope.canNotEnterFeedBack()).toEqual(true);
       });
     });
 
