@@ -248,11 +248,11 @@ describe('interviewDetailsController', function () {
     });
 
     describe('removePanelist', function(){
-      it('declineInterview should call deleteInterviewPanelist', function(){
-        spyOn(recruitFactory, 'deleteInterviewPanelist');
+      it('declineInterview should call removeInterviewPanelist', function(){
+        spyOn(recruitFactory, 'removeInterviewPanelist');
         $scope.removePanelist();
 
-        expect(recruitFactory.deleteInterviewPanelist).toHaveBeenCalled();
+        expect(recruitFactory.removeInterviewPanelist).toHaveBeenCalled();
       });
     });
   });

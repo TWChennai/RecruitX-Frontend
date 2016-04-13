@@ -223,6 +223,17 @@ angular.module('recruitX')
           });
       },
 
+      removeInterviewPanelist: function (data, success, unProcessableEntityErrorHandler, customErrorHandler) {
+        $http.delete(apiUrl + '/remove_panelists/' + data).success(success).error(
+          function (error, status) {
+            if (status === UNPROCESSABLE_ENTITY_STATUS) {
+              unProcessableEntityErrorHandler(error, status);
+            } else {
+              defaultErrorHandler(error, status, customErrorHandler);
+            }
+          });
+      },
+
       getInterviewStatus: function (success, customError) {
         $http.get(apiUrl + '/interview_statuses').success(success)
           .error(function (err, status) {

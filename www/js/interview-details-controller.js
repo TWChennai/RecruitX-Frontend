@@ -106,7 +106,7 @@ angular.module('recruitX')
     };
 
     $scope.removePanelist = function () {
-      recruitFactory.deleteInterviewPanelist($scope.interview_panelist_id, $scope.removePanelistSuccessHandler, $scope.removePanelistUnprocessableEntityHandler, $scope.defaultErrorHandler);
+      recruitFactory.removeInterviewPanelist($scope.interview_panelist_id, $scope.removePanelistSuccessHandler, $scope.removePanelistUnprocessableEntityHandler, $scope.defaultErrorHandler);
       $scope.manuallyRefreshInterviews();
     };
 
