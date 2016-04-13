@@ -49,7 +49,13 @@
               <h5>Panel</h5>
             </div>
             <div class="col col-50">
-              <h5>{{interview.formattedPanelists}}</h5>
+              <div ng-if="canRemovePanelist()" ng-repeat="panelist in interview.panelists">
+                <h5><ion-option-button style = "border: none; background: none;" ng-click="removingPanelist($event, panelist)" class="icon ion-close-round">&emsp;{{panelist.name}}</ion-option-button>
+                   </h5>
+              </div>
+              <div ng-if="!canRemovePanelist()">
+                <h5>{{interview.formattedPanelists}}</h5>
+              </div>
             </div>
           </div>
           <form name="feedackForm">

@@ -3,10 +3,12 @@ describe('interviewDetailsController', function () {
 
   beforeEach(module('recruitX'));
 
-  var $scope = {}, loggedinUserStore;
+  var $scope = {}, loggedinUserStore, dialogService, recruitFactory;
 
-  beforeEach(inject(function ($controller, _loggedinUserStore_, MasterData) {
+  beforeEach(inject(function ($controller, _loggedinUserStore_, MasterData, _dialogService_, _recruitFactory_) {
+    dialogService = _dialogService_;
     loggedinUserStore = _loggedinUserStore_;
+    recruitFactory = _recruitFactory_;
     var interviewStatuses = [{
       name: 'Pass',
       id: 1
@@ -182,6 +184,75 @@ describe('interviewDetailsController', function () {
         $scope.feedBackResult = 'Pass';
 
         expect($scope.canSubmit()).toEqual(true);
+      });
+    });
+
+    describe('canRemovePanelist', function ()  {
+      var currentDate = {};
+      var testDate = {};
+      var minutes = {};
+
+      it('should return true when logged in user is a recruiter and the interview is in future', function () {
+        spyOn(loggedinUserStore, 'isRecruiter').and.returnValue(true);
+        currentDate = new Date();
+        minutes = 1;
+        testDate = new Date(currentDate.setMinutes(currentDate.getMinutes() + minutes));
+        $scope.interview.start_time = testDate;
+        $scope.interview.panelists = ['test'];
+        $scope.interview.status = 'feedback';
+        $scope.interview.previous_interview_status = true;
+
+        expect($scope.canRemovePanelist()).toEqual(true);
+      });
+
+      it('should return false when logged in user is a recruiter and the interview is in past', function () {
+        spyOn(loggedinUserStore, 'isRecruiter').and.returnValue(true);
+        currentDate = new Date();
+        minutes = 1;
+        testDate = new Date(currentDate.setMinutes(currentDate.getMinutes() - minutes));
+        $scope.interview.start_time = testDate;
+        $scope.interview.panelists = ['test'];
+        $scope.interview.status = 'feedback';
+        $scope.interview.previous_interview_status = true;
+
+        expect($scope.canRemovePanelist()).toEqual(false);
+      });
+
+      it('should return false when logged in user is not a recruiter and the interview is in future', function () {
+        spyOn(loggedinUserStore, 'isRecruiter').and.returnValue(false);
+        currentDate = new Date();
+        minutes = 1;
+        testDate = new Date(currentDate.setMinutes(currentDate.getMinutes() + minutes));
+        $scope.interview.start_time = testDate;
+        $scope.interview.panelists = ['test'];
+        $scope.interview.status = 'feedback';
+        $scope.interview.previous_interview_status = true;
+
+        expect($scope.canRemovePanelist()).toEqual(false);
+      });
+    });
+
+    describe('removingPanelist', function() {
+      it('should ask confirmation for removing panelist', function() {
+        spyOn(dialogService, 'askConfirmation');
+        var event = jasmine.createSpyObj('$event', ['stopPropagation']);
+        var panelist = {
+          name: 'recruitx',
+          interview_panelist_id: 1
+        };
+
+        $scope.removingPanelist(event, panelist);
+
+        expect(dialogService.askConfirmation).toHaveBeenCalledWith('Remove', 'Are you sure you want to remove recruitx ?', jasmine.any(Function));
+      });
+    });
+
+    describe('removePanelist', function(){
+      it('declineInterview should call deleteInterviewPanelist', function(){
+        spyOn(recruitFactory, 'deleteInterviewPanelist');
+        $scope.removePanelist();
+
+        expect(recruitFactory.deleteInterviewPanelist).toHaveBeenCalled();
       });
     });
   });

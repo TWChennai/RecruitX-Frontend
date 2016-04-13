@@ -93,8 +93,44 @@ angular.module('recruitX')
       return !($scope.interview.previous_interview_status && (interviewStartTime <= currentTime) && (loggedinUserStore.isRecruiter() || $scope.isValidPanelist())) || $scope.isFeedbackAvailable();
     };
 
+    $scope.canRemovePanelist = function() {
+      var currentTime = new Date();
+      var interviewStartTime = new Date($scope.interview.start_time);
+      return loggedinUserStore.isRecruiter() && interviewStartTime > currentTime;
+    }
+
+    $scope.removingPanelist = function ($event, interview_panelist) {
+      $event.stopPropagation();
+      $scope.interview_panelist_id = interview_panelist.interview_panelist_id;
+      dialogService.askConfirmation('Remove', 'Are you sure you want to remove '+ interview_panelist.name +' ?', $scope.removePanelist);
+    };
+
+    $scope.removePanelist = function () {
+      recruitFactory.deleteInterviewPanelist($scope.interview_panelist_id, $scope.removePanelistSuccessHandler, $scope.removePanelistUnprocessableEntityHandler, $scope.defaultErrorHandler);
+      $scope.manuallyRefreshInterviews();
+    };
+
+    var successHandler = function (header, message) {
+      $scope.finishRefreshing();
+      dialogService.showAlertWithDismissHandler(header, message, function () {
+        $scope.manuallyRefreshInterviews();
+      });
+    };
+
+    $scope.removePanelistSuccessHandler = function () {
+      successHandler('Remove', 'Successfully removed panelist for this interview');
+    };
+
     $scope.isFeedbackAvailable = function () {
       return $scope.interview.status !== undefined;
+    };
+
+    $scope.removePanelistUnprocessableEntityHandler = function (error) {
+      unprocessableEntityHandler(error, 'Remove');
+    };
+
+    $scope.defaultErrorHandler = function () {
+      $scope.finishRefreshing();
     };
 
     $scope.getPhoto = function (index) {
