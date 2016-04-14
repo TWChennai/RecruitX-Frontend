@@ -186,6 +186,18 @@ angular.module('recruitX')
       });
     };
 
+    $scope.triggerSos = function () {
+      recruitFactory.sendSos(function(){
+        dialogService.showAlert('SOS', 'SOS Email has been successfully sent');
+      }, function(){
+        dialogService.showAlert('SOS', 'Something went wrong and SOS was not sent');
+      });
+    };
+
+    $scope.sendSos = function () {
+      dialogService.askConfirmation('SOS', 'Are you sure you want to send SOS Email?', $scope.triggerSos);
+    };
+
     $scope.isInPipeline = function (candidate) {
       return candidate !== undefined && candidate.pipelineStatus !== 'Closed';
     };

@@ -187,7 +187,7 @@ describe('interviewDetailsController', function () {
       });
     });
 
-    describe('canRemovePanelist', function ()  {
+    describe('canRemovePanelist', function () {
       var currentDate = {};
       var testDate = {};
       var minutes = {};

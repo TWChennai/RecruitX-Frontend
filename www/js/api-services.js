@@ -251,6 +251,10 @@ angular.module('recruitX')
 
       closePipeline: function (data, id, success, failure) {
         $http.put(apiUrl + '/candidates/' + id, data).then(success, failure);
+      },
+
+      sendSos: function (success, failure) {
+        $http.get(apiUrl + '/sos_email').then(success, failure);
       }
     };
   }])

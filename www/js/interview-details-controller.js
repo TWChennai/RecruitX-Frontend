@@ -97,7 +97,7 @@ angular.module('recruitX')
       var currentTime = new Date();
       var interviewStartTime = new Date($scope.interview.start_time);
       return loggedinUserStore.isRecruiter() && interviewStartTime > currentTime;
-    }
+    };
 
     $scope.removingPanelist = function ($event, interview_panelist) {
       $event.stopPropagation();

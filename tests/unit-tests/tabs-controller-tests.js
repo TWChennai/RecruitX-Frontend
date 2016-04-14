@@ -14,6 +14,7 @@ describe('TabsCtrl', function () {
     spyOn(_loggedinUserStore_, 'role').and.returnValue({name: 'Dev'});
     spyOn(_recruitFactory_, 'deleteInterviewPanelist');
     spyOn(_recruitFactory_, 'signUp');
+    spyOn(_recruitFactory_, 'sendSos');
     $scope = $rootScope.$new();
     dialogService = _dialogService_;
     recruitFactory = _recruitFactory_;
@@ -86,6 +87,19 @@ describe('TabsCtrl', function () {
       $scope.signingUp(event, interview);
 
       expect(dialogService.askConfirmation).toHaveBeenCalledWith('Sign up', 'Are you sure you want to sign up for this interview?', jasmine.any(Function));
+    });
+
+    it('sosEmail button should ask confirmation before sending email', function(){
+      spyOn(dialogService, 'askConfirmation');
+      $scope.sendSos();
+
+      expect(dialogService.askConfirmation).toHaveBeenCalledWith('SOS', 'Are you sure you want to send SOS Email?', jasmine.any(Function));
+    });
+
+    it('triggerSos should make a http call to sendSos', function(){
+      $scope.triggerSos();
+
+      expect(recruitFactory.sendSos).toHaveBeenCalled();
     });
 
     describe('isInFuture', function() {

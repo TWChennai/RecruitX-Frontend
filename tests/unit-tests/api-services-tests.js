@@ -201,6 +201,30 @@ describe('recruitFactory', function () {
     });
   });
 
+  describe('send sos email', function () {
+
+    it('should call success handler when successful', function(){
+      httpBackend.expectGET(baseUrl + '/sos_email').respond('success');
+      recruitFactory.sendSos(function(){
+        expect(true).toEqual(true);
+      }, function(){
+        expect(true).toEqual(false);
+      });
+      httpBackend.flush();
+    });
+
+    it('should call failure handler when successful', function(){
+      var errorStatus = 400;
+      httpBackend.expectGET(baseUrl + '/sos_email').respond(errorStatus, 'error');
+      recruitFactory.sendSos(function(){
+        expect(true).toEqual(false);
+      }, function(){
+        expect(true).toEqual(true);
+      });
+      httpBackend.flush();
+    });
+
+  });
   describe('delete interview panelist', function () {
     var id = 1;
     it('should delete data when successful', function () {
