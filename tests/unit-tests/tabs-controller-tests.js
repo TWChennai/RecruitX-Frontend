@@ -15,6 +15,7 @@ describe('TabsCtrl', function () {
     spyOn(_recruitFactory_, 'deleteInterviewPanelist');
     spyOn(_recruitFactory_, 'signUp');
     spyOn(_recruitFactory_, 'sendSos');
+    spyOn(_recruitFactory_, 'getSosStatus');
     $scope = $rootScope.$new();
     dialogService = _dialogService_;
     recruitFactory = _recruitFactory_;
@@ -100,6 +101,12 @@ describe('TabsCtrl', function () {
       $scope.triggerSos();
 
       expect(recruitFactory.sendSos).toHaveBeenCalled();
+    });
+
+    it('getSosStatus should make http request', function(){
+      $scope.getSosStatus();
+
+      expect(recruitFactory.getSosStatus).toHaveBeenCalled();
     });
 
     describe('isInFuture', function() {

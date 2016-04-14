@@ -201,8 +201,17 @@ describe('recruitFactory', function () {
     });
   });
 
-  describe('send sos email', function () {
+  describe('get sos status', function () {
+    it('should call succcess handler when successful', function(){
+      httpBackend.expectGET(baseUrl + '/sos_email?get_status=true').respond('success');
+      recruitFactory.getSosStatus(function(){
+        expect(true).toEqual(true);
+      });
+      httpBackend.flush();
+    });
+  });
 
+  describe('send sos email', function () {
     it('should call success handler when successful', function(){
       httpBackend.expectGET(baseUrl + '/sos_email').respond('success');
       recruitFactory.sendSos(function(){

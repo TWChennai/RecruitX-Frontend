@@ -23,6 +23,7 @@ angular.module('recruitX')
       if (!loggedinUserStore.isRecruiter()) {
         $scope.refreshMyInterviews(1);
       } else {
+        $scope.getSosStatus();
         $scope.refreshCandidates(1);
       }
     };
@@ -82,6 +83,12 @@ angular.module('recruitX')
         //TODO: Do this in a better way to avoid multiple calls to backend during pagination
         $scope.$broadcast('scroll.infiniteScrollComplete');
         refreshing = false;
+      });
+    };
+
+    $scope.getSosStatus = function () {
+      recruitFactory.getSosStatus(function (response) {
+        $scope.sosValidity = response.data.sos_validity;
       });
     };
 

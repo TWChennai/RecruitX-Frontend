@@ -4,7 +4,7 @@
   </ion-nav-buttons>
 
   <ion-nav-buttons side="right">
-    <button class="button button-icon icon ion-help-buoy custom-icon custom-nav-bar-icon" ng-click="sendSos()"></button>
+    <button class="button button-icon icon ion-help-buoy custom-icon custom-nav-bar-icon" ng-click="sendSos()" ng-if="sosValidity"></button>
     <button class="button button-icon icon ion-plus-round custom-icon custom-nav-bar-icon" ui-sref="create-candidate-profile" ng-if="isLoggedinUserRecruiter"></button>
     <button class="button button-icon icon ion-information custom-icon custom-nav-bar-icon" ui-sref="about"></button>
     <button class="button button-icon icon ion-log-out custom-icon custom-nav-bar-icon" ng-click="logout()"></button>

@@ -255,6 +255,10 @@ angular.module('recruitX')
 
       sendSos: function (success, failure) {
         $http.get(apiUrl + '/sos_email').then(success, failure);
+      },
+
+      getSosStatus: function (success) {
+        $http.get(apiUrl + '/sos_email?get_status=true').then(success);
       }
     };
   }])
