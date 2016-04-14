@@ -23,12 +23,14 @@ angular.module('recruitX')
       if (!loggedinUserStore.isRecruiter()) {
         $scope.refreshMyInterviews(1);
       } else {
-        $scope.getSosStatus();
         $scope.refreshCandidates(1);
       }
     };
 
     $scope.refreshInterviews = function () {
+      if (loggedinUserStore.isRecruiter()) {
+        $scope.getSosStatus();
+      }
       recruitFactory.getInterviews({
         panelist_login_name: loggedinUserStore.userId(),
         panelist_experience: loggedinUserStore.experience(),
