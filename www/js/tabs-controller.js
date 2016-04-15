@@ -1,5 +1,5 @@
 angular.module('recruitX')
-  .controller('TabsCtrl', ['$cordovaToast', '$scope', 'recruitFactory', 'skillHelperService', 'loggedinUserStore', 'dialogService', '$ionicHistory', '$state', '$filter', function ($cordovaToast, $scope, recruitFactory, skillHelperService, loggedinUserStore, dialogService, $ionicHistory, $state, $filter) {
+  .controller('TabsCtrl', ['$cordovaToast', '$scope', 'recruitFactory', 'skillHelperService', 'loggedinUserStore', 'dialogService', '$ionicHistory', '$state', '$filter', '$rootScope', function ($cordovaToast, $scope, recruitFactory, skillHelperService, loggedinUserStore, dialogService, $ionicHistory, $state, $filter, $rootScope) {
     'use strict';
 
     var refreshing = false;
@@ -88,9 +88,13 @@ angular.module('recruitX')
       });
     };
 
+    $rootScope.$on('sosChanged', function (event, args) {
+      $scope.sosValidity = args.sosValidity;
+    });
+
     $scope.getSosStatus = function () {
       recruitFactory.getSosStatus(function (response) {
-        $scope.sosValidity = response.data.sos_validity;
+        $rootScope.$broadcast('sosChanged', {sosValidity: response.data.sos_validity});
       });
     };
 
