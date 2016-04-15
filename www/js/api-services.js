@@ -3,6 +3,7 @@ angular.module('recruitX')
     'use strict';
 
     var UNPROCESSABLE_ENTITY_STATUS = 422;
+    var PRECONDITION_FAILED_ERROR = 428;
 
     var getErrorMessage = function (status) {
       // TODO: Need to add more statuses to the switch
@@ -253,8 +254,14 @@ angular.module('recruitX')
         $http.put(apiUrl + '/candidates/' + id, data).then(success, failure);
       },
 
-      sendSos: function (success, failure) {
-        $http.get(apiUrl + '/sos_email').then(success, failure);
+      sendSos: function (success, email_not_sent_handler, failure) {
+        $http.get(apiUrl + '/sos_email').then(success, function(err, status) {
+          if(err.status === PRECONDITION_FAILED_ERROR) {
+            email_not_sent_handler();
+          } else {
+            failure();
+          }
+        });
       },
 
       getSosStatus: function (success) {

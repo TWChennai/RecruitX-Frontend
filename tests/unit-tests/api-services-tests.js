@@ -218,17 +218,34 @@ describe('recruitFactory', function () {
         expect(true).toEqual(true);
       }, function(){
         expect(true).toEqual(false);
+      }, function(){
+        expect(true).toEqual(false);
       });
       httpBackend.flush();
     });
 
-    it('should call failure handler when successful', function(){
+    it('should call failure handler when failure', function(){
       var errorStatus = 400;
       httpBackend.expectGET(baseUrl + '/sos_email').respond(errorStatus, 'error');
       recruitFactory.sendSos(function(){
         expect(true).toEqual(false);
       }, function(){
+        expect(true).toEqual(false);
+      }, function(){
         expect(true).toEqual(true);
+      });
+      httpBackend.flush();
+    });
+
+    it('should call email not sent handler when status is 428', function(){
+      var errorStatus = 428;
+      httpBackend.expectGET(baseUrl + '/sos_email').respond(errorStatus, 'error');
+      recruitFactory.sendSos(function(){
+        expect(true).toEqual(false);
+      }, function(){
+        expect(true).toEqual(true);
+      }, function(){
+        expect(true).toEqual(false);
       });
       httpBackend.flush();
     });
