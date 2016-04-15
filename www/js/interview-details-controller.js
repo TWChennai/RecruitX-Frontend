@@ -107,7 +107,6 @@ angular.module('recruitX')
 
     $scope.removePanelist = function () {
       recruitFactory.removeInterviewPanelist($scope.interview_panelist_id, $scope.removePanelistSuccessHandler, $scope.removePanelistUnprocessableEntityHandler, $scope.defaultErrorHandler);
-      $scope.manuallyRefreshInterviews();
     };
 
     var successHandler = function (header, message) {
@@ -127,6 +126,13 @@ angular.module('recruitX')
 
     $scope.removePanelistUnprocessableEntityHandler = function (error) {
       unprocessableEntityHandler(error, 'Remove');
+    };
+
+    var unprocessableEntityHandler = function (error, header) {
+      $scope.finishRefreshing();
+      dialogService.showAlert(header, getFirstErrorInReadableForm(error.errors)).then(function () {
+        $scope.manuallyRefreshInterviews();
+      });
     };
 
     $scope.defaultErrorHandler = function () {
