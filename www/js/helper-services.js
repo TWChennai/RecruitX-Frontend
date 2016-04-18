@@ -12,14 +12,12 @@ angular.module('recruitX')
           var roleId = role.id;
           for (var interviewTypeIndex in role.interview_types) {
             var interviewTypeId = role.interview_types[interviewTypeIndex].id;
+            var interviewType = ($filter('filter')(allInterviewTypes, {id: interviewTypeId}));
+            interviewType[0].optional = role.interview_types[interviewTypeIndex].optional;
             if (roleId in roleInterviewTypesMap) {
-              roleInterviewTypesMap[roleId].push(($filter('filter')(allInterviewTypes, {
-                id: interviewTypeId
-              }))[0]);
+              roleInterviewTypesMap[roleId].push(interviewType[0]);
             } else {
-              roleInterviewTypesMap[roleId] = ($filter('filter')(allInterviewTypes, {
-                id: interviewTypeId
-              }));
+              roleInterviewTypesMap[roleId] = interviewType;
             }
           }
         }

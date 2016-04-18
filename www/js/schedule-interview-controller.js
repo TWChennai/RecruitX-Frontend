@@ -9,6 +9,7 @@ angular.module('recruitX')
 
     var setup = function(role_id){
       $scope.interviewRounds = interviewTypeHelperService.constructRoleInterviewTypesMap(role_id);
+      $scope.interviewRounds = $filter('orderBy')($scope.interviewRounds, 'priority');
       interviewRoundsAsMap = $scope.interviewRounds.map(function (interviewRound) {
         return interviewRound.priority;
       });
@@ -23,7 +24,7 @@ angular.module('recruitX')
     };
 
     var currentInterviewScheduledBeforePreviousInterview = function (scheduleDateTime, previousInterviewTime) {
-      return (previousInterviewTime === undefined || scheduleDateTime < previousInterviewTime.setHours(previousInterviewTime.getHours() + 1));
+      return (previousInterviewTime === undefined || scheduleDateTime < new Date(previousInterviewTime).setHours(previousInterviewTime.getHours() + 1));
     };
 
     var isCurrentInterviewScheduledClashWithSamePriorityInterview = function (scheduleDateTime, otherRoundTime) {
@@ -92,7 +93,6 @@ angular.module('recruitX')
         }));
 
         var nextInterviewRounds = getNextInterviewRounds(currentInterviewRound);
-
         var result1 = $scope.checkWithPreviousRound(dateTime, currentInterviewRound, previousInterviewRound);
         var result2 = $scope.checkWithNextRound(dateTime, currentInterviewRound, nextInterviewRounds);
         var result3 = $scope.checkWithRoundOfSamePriority(dateTime, currentInterviewRound, otherRoundsWithSamePriority);
@@ -112,13 +112,15 @@ angular.module('recruitX')
       });
     };
 
+    var isRoundToBeIgnored = function (interviewRound) {
+      return interviewRound.dateTime === undefined && interviewRound.optional;
+    };
+
     $scope.checkWithPreviousRound = function (scheduleDateTime, currentInterviewRound, previousInterviewRound) {
       var error = {};
       var currentPriority = currentInterviewRound.priority;
-      var previousInterviewTime = {};
-      if (currentPriority > MIN_PRIORITY) {
-        previousInterviewTime = previousInterviewRound.dateTime === undefined ? undefined : new Date(previousInterviewRound.dateTime);
-        if (currentInterviewScheduledBeforePreviousInterview(scheduleDateTime, previousInterviewTime)) {
+      if (currentPriority > MIN_PRIORITY && !isRoundToBeIgnored(previousInterviewRound)) {
+        if (currentInterviewScheduledBeforePreviousInterview(scheduleDateTime, previousInterviewRound.dateTime)) {
           error.message = 'Please schedule this round atleast 1hr after  ' + previousInterviewRound.name;
         }
       }
@@ -133,7 +135,7 @@ angular.module('recruitX')
       var nextInterviewRound = $scope.getInterviewWithMinStartTime(nextInterviewRounds);
       var currentPriority = currentInterviewRound.priority;
       var nextInterviewTime = {};
-      if (currentPriority < MAX_PRIORITY) {
+      if (currentPriority < MAX_PRIORITY && !isRoundToBeIgnored(nextInterviewRound)) {
         nextInterviewTime = new Date(nextInterviewRound.dateTime);
         if (currentInterviewScheduledAfterNextInterview(scheduleDateTime, nextInterviewTime)) {
           error.message = 'Please schedule this round atleast 1hr before  ' + nextInterviewRound.name;
@@ -153,7 +155,7 @@ angular.module('recruitX')
       }
       var otherRoundTime = {};
       otherRoundTime = new Date(otherRoundWithSamePriority.dateTime);
-      if (isCurrentInterviewScheduledClashWithSamePriorityInterview(scheduleDateTime, otherRoundTime)) {
+      if (isCurrentInterviewScheduledClashWithSamePriorityInterview(scheduleDateTime, otherRoundTime) && !isRoundToBeIgnored(otherRoundWithSamePriority)) {
         error.message = 'Please schedule this round atleast 1hr before/after ' + otherRoundWithSamePriority.name;
       }
       return error;
@@ -207,7 +209,6 @@ angular.module('recruitX')
         // console.log(response);
         dialogService.showAlertWithDismissHandler('Success', 'Candidate Interview successfully added!!', redirectToHomePage);
       }, function (response) {
-        var errors = response.data.errors;
         console.log(response);
         dialogService.showAlertWithDismissHandler('Failed', 'Failed to create candidate with given interview(s)');
       });
