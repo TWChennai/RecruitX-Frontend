@@ -1,8 +1,8 @@
 angular.module('recruitX')
-.controller('aboutController', ['$scope', 'dialogService', '$rootScope', '$cordovaToast', 'deployChannel', function ($scope, dialogService, $rootScope, $cordovaToast, deployChannel) {
+.controller('aboutController', ['$scope', 'version', 'dialogService', '$rootScope', '$cordovaToast', 'deployChannel', function ($scope, version, dialogService, $rootScope, $cordovaToast, deployChannel) {
   'use strict';
 
-  cordova.getAppVersion(function (version) {
+  cordova.getAppVersion(function () {
     $scope.appVersion = version;
   });
 
