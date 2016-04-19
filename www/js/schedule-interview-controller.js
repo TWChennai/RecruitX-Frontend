@@ -9,7 +9,6 @@ angular.module('recruitX')
 
     var setup = function(role_id){
       $scope.interviewRounds = interviewTypeHelperService.constructRoleInterviewTypesMap(role_id);
-      $scope.interviewRounds = $filter('orderBy')($scope.interviewRounds, 'priority');
       interviewRoundsAsMap = $scope.interviewRounds.map(function (interviewRound) {
         return interviewRound.priority;
       });

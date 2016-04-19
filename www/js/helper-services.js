@@ -21,7 +21,7 @@ angular.module('recruitX')
             }
           }
         }
-        return roleInterviewTypesMap[current_roleId];
+        return $filter('orderBy')(roleInterviewTypesMap[current_roleId], 'priority');
       }
     };
   }])

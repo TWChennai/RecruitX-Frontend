@@ -66,7 +66,6 @@ angular.module('recruitX')
           return;
         }
       }
-      $scope.interviewSet = $filter('orderBy')($scope.interviewSet, 'start_time');
     };
 
     $scope.isPipelineNotClosed = function () {
@@ -101,10 +100,14 @@ angular.module('recruitX')
 
     $scope.isNextSchedulableRound = function (currentInterview) {
       var previousPriority = currentInterview.priority - 1;
+      var nextPriority = currentInterview.priority + 1;
       var previousInterview = $filter('filter')($scope.interviewSet, {
         priority: previousPriority
       })[0];
-      return $scope.isNotScheduled(currentInterview) && !$scope.isNotScheduled(previousInterview);
+      var nextInterview = $filter('filter')($scope.interviewSet, {
+        priority: nextPriority
+      })[0];
+      return $scope.isNotScheduled(currentInterview) && (previousInterview === undefined || !$scope.isNotScheduled(previousInterview)) && (nextInterview === undefined || !$scope.isFeedbackGiven(nextInterview.status));
     };
 
     $scope.viewInterviewDetails = function (interviewType) {
