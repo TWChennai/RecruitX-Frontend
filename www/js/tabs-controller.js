@@ -1,5 +1,5 @@
 angular.module('recruitX')
-  .controller('TabsCtrl', ['$cordovaToast', '$scope', 'recruitFactory', 'skillHelperService', 'loggedinUserStore', 'dialogService', '$ionicHistory', '$state', '$filter', '$rootScope', function ($cordovaToast, $scope, recruitFactory, skillHelperService, loggedinUserStore, dialogService, $ionicHistory, $state, $filter, $rootScope) {
+  .controller('TabsCtrl', ['$cordovaToast', '$scope', 'recruitFactory', 'skillHelperService', 'loggedinUserStore', 'dialogService', '$ionicHistory', '$state', '$filter', '$rootScope', '$ionicAnalytics', function ($cordovaToast, $scope, recruitFactory, skillHelperService, loggedinUserStore, dialogService, $ionicHistory, $state, $filter, $rootScope, $ionicAnalytics) {
     'use strict';
 
     var refreshing = false;
@@ -16,6 +16,11 @@ angular.module('recruitX')
     $scope.finishRefreshing = function () {
       $scope.$broadcast('scroll.refreshComplete');
     };
+
+    $ionicAnalytics.track('Home Page', {
+      user_id: loggedinUserStore.userId()
+    });
+
 
     $scope.manuallyRefreshInterviews = function () {
       $scope.refreshInterviews();
