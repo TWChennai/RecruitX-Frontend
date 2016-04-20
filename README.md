@@ -31,7 +31,7 @@ Before running or building the app, make sure you have the environment variable,
 
 ## Contributing to this codebase:
 
-1. Please ensure that you adhere to the coding guidelines from the previous, exisintg code.
+1. Please ensure that you adhere to the coding guidelines from the previous, existing code.
 2. Please ensure that you run the following command as a pre-commit check:
   ```bash
   $ ./build.sh
@@ -39,7 +39,7 @@ Before running or building the app, make sure you have the environment variable,
 3. Please ensure that the git commit comments also follow the same pattern as previous comments - so that Mingle can parse the comments.
 
 ## Continuous integration:
-Our CI server can be found [here](http://10.134.125.194:8153/go/pipelines) - please request one of the existing team members to create access for you.
+Our CI server can be found [here](http://10.16.2.3:8153/go/pipelines) - please request one of the existing team members to create access for you.
 
 ## Mingle:
 Our mingle project wall can be found [here](https://recruitx.mingle.thoughtworks.com/projects/recruit_x/overview) - please request one of the existing team members to create access for you.
