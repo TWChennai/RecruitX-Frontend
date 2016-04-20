@@ -62,6 +62,7 @@ describe('interviewDetailsController', function () {
       var minutes = {};
 
       it('should return true if the interview start time is in the future and panelist is logged in user', function () {
+        spyOn(loggedinUserStore, 'isRecruiter').and.returnValue('false');
         currentDate = new Date();
         minutes = 30;
         futureDate = new Date(currentDate.setMinutes(currentDate.getMinutes() + minutes));
