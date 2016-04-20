@@ -18,7 +18,7 @@ angular.module('recruitX')
     };
 
     $ionicAnalytics.track('Home Page', {
-      user_id: loggedinUserStore.userId()
+      is_recruiter: loggedinUserStore.isRecruiter()
     });
 
 
@@ -145,6 +145,7 @@ angular.module('recruitX')
     };
 
     $scope.signUp = function () {
+      $ionicAnalytics.track('Sign up');
       recruitFactory.signUp($scope.interview_panelist, $scope.signUpSuccessHandler, $scope.signUpUnprocessableEntityHandler, $scope.defaultErrorHandler);
     };
 
