@@ -8,6 +8,10 @@ angular.module('recruitX')
     $scope.BLOBs = [];
     var UNPROCESSABLE_ENTITY_STATUS = 422;
 
+    $ionicAnalytics.track('Interview Details', {
+      is_recruiter: loggedinUserStore.isRecruiter()
+    });
+
     $scope.feedbackImages = [
       {
         label: 'Areas of strength',

@@ -52,6 +52,7 @@ angular.module('recruitX')
     };
 
     $scope.refreshMyInterviews = function (page_number) {
+      $ionicAnalytics.track('MyInterviews');
       var data = {
         'page': page_number
       };
@@ -150,6 +151,7 @@ angular.module('recruitX')
     };
 
     $scope.declineInterview = function () {
+      $ionicAnalytics.track('Decline');
       recruitFactory.deleteInterviewPanelist($scope.interview_panelist_id, $scope.declineInterviewSuccessHandler, $scope.declineUnprocessableEntityHandler, $scope.defaultErrorHandler);
     };
 
