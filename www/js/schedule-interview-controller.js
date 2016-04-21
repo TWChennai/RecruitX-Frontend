@@ -80,12 +80,7 @@ angular.module('recruitX')
           return;
         }
         var currentInterviewRound = $scope.interviewRounds[index];
-        var currentPriority = currentInterviewRound.priority;
-
-        var nextLowerPriorityInterviewRounds = ($filter('filter')($scope.interviewRounds, {
-          priority: currentPriority - 1
-        }));
-        var previousInterviewRound = nextLowerPriorityInterviewRounds[0];
+        var previousInterviewRound = $scope.interviewRounds[index - 1];
 
         var otherRoundsWithSamePriority = ($filter('filter')($scope.interviewRounds, function (interviewRound) {
           return (interviewRound.priority === currentInterviewRound.priority) && (interviewRound.id !== currentInterviewRound.id);
