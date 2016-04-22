@@ -31,11 +31,21 @@ angular.module('recruitX')
       return !((scheduleDateTime <= otherRoundTime.setHours(otherRoundTime.getHours() - 1)) || (scheduleDateTime >= otherRoundTimeTemp.setHours(otherRoundTimeTemp.getHours() + 1)));
     };
 
-    var getNextInterviewRounds = function (currentInterview) {
+    var getInterviewRoundsWithPriority = function (priority) {
       return ($filter('filter')($scope.interviewRounds, {
-        priority: currentInterview.priority + 1,
+        priority: priority,
         dateTime: '!!'
       }));
+    };
+
+    var getNextInterviewRounds = function (currentInterview) {
+      for(var priority = currentInterview.priority+1; priority <= MAX_PRIORITY; priority++){
+        var nextInterviewRounds = getInterviewRoundsWithPriority(priority);
+        if (nextInterviewRounds.length !== 0) {
+          return nextInterviewRounds;
+        }
+      }
+      return [];
     };
 
     var clearData = function () {
