@@ -59,6 +59,7 @@ angular.module('recruitX')
   $ionicPlatform.ready(function () {
 
     $ionicAnalytics.register();
+    $ionicAnalytics.dispatchInterval = 300;
 
     if (window.cordova && window.cordova.plugins.Keyboard) {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard

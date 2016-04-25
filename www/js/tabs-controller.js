@@ -1,5 +1,5 @@
 angular.module('recruitX')
-  .controller('TabsCtrl', ['$cordovaToast', '$scope', 'recruitFactory', 'skillHelperService', 'loggedinUserStore', 'dialogService', '$ionicHistory', '$state', '$filter', '$rootScope', '$ionicAnalytics', function ($cordovaToast, $scope, recruitFactory, skillHelperService, loggedinUserStore, dialogService, $ionicHistory, $state, $filter, $rootScope, $ionicAnalytics) {
+  .controller('TabsCtrl', ['$cordovaToast', '$scope', 'recruitFactory', 'skillHelperService', 'loggedinUserStore', 'dialogService', '$ionicHistory', '$state', '$filter', '$rootScope', '$ionicAnalytics', 'deployChannel', function ($cordovaToast, $scope, recruitFactory, skillHelperService, loggedinUserStore, dialogService, $ionicHistory, $state, $filter, $rootScope, $ionicAnalytics, deployChannel) {
     'use strict';
 
     var refreshing = false;
@@ -17,10 +17,11 @@ angular.module('recruitX')
       $scope.$broadcast('scroll.refreshComplete');
     };
 
-    $ionicAnalytics.track('Home Page', {
-      is_recruiter: loggedinUserStore.isRecruiter()
-    });
-
+    if(deployChannel === 'production') {
+      $ionicAnalytics.track('Home Page', {
+        is_recruiter: loggedinUserStore.isRecruiter()
+      });
+    }
 
     $scope.manuallyRefreshInterviews = function () {
       $scope.refreshInterviews();
@@ -52,7 +53,9 @@ angular.module('recruitX')
     };
 
     $scope.refreshMyInterviews = function (page_number) {
-      $ionicAnalytics.track('MyInterviews');
+      if(deployChannel === 'production') {
+        $ionicAnalytics.track('MyInterviews');
+      }
       var data = {
         'page': page_number
       };
@@ -146,12 +149,16 @@ angular.module('recruitX')
     };
 
     $scope.signUp = function () {
-      $ionicAnalytics.track('Sign up');
+      if(deployChannel === 'production') {
+        $ionicAnalytics.track('Sign up');
+      }
       recruitFactory.signUp($scope.interview_panelist, $scope.signUpSuccessHandler, $scope.signUpUnprocessableEntityHandler, $scope.defaultErrorHandler);
     };
 
     $scope.declineInterview = function () {
-      $ionicAnalytics.track('Decline');
+      if(deployChannel === 'production') {
+        $ionicAnalytics.track('Decline');
+      }
       recruitFactory.deleteInterviewPanelist($scope.interview_panelist_id, $scope.declineInterviewSuccessHandler, $scope.declineUnprocessableEntityHandler, $scope.defaultErrorHandler);
     };
 

@@ -1,5 +1,5 @@
 angular.module('recruitX')
-  .controller('interviewDetailsController', ['$filter', 'ionicLoadingService', 'MasterData', '$q', 'Upload', 'dialogService', 'apiUrl', '$cordovaFileTransfer', '$scope', '$stateParams', 'recruitFactory', '$rootScope', '$cordovaToast', 'Camera', 'loggedinUserStore', 'apiKey', '$state', '$ionicAnalytics', function ($filter, ionicLoadingService, MasterData, $q, Upload, dialogService, apiUrl, $cordovaFileTransfer, $scope, $stateParams, recruitFactory, $rootScope, $cordovaToast, Camera, loggedinUserStore, apiKey, $state, $ionicAnalytics) {
+  .controller('interviewDetailsController', ['$filter', 'ionicLoadingService', 'MasterData', '$q', 'Upload', 'dialogService', 'apiUrl', '$cordovaFileTransfer', '$scope', '$stateParams', 'recruitFactory', '$rootScope', '$cordovaToast', 'Camera', 'loggedinUserStore', 'apiKey', '$state', 'deployChannel','$ionicAnalytics', function ($filter, ionicLoadingService, MasterData, $q, Upload, dialogService, apiUrl, $cordovaFileTransfer, $scope, $stateParams, recruitFactory, $rootScope, $cordovaToast, Camera, loggedinUserStore, apiKey, $state, $ionicAnalytics, deployChannel) {
     'use strict';
 
     $scope.interviewStatus = MasterData.getInterviewStatuses();
@@ -88,9 +88,11 @@ angular.module('recruitX')
     };
 
     $scope.canNotEnterFeedBack = function () {
-      $ionicAnalytics.track('Interview Details', {
-        is_recruiter: loggedinUserStore.isRecruiter()
-      });
+      if(deployChannel === 'production') {
+        $ionicAnalytics.track('Interview Details', {
+          is_recruiter: loggedinUserStore.isRecruiter()
+        });
+      }
       var currentTime = new Date();
       var interviewStartTime = new Date($scope.interview.start_time);
       return !($scope.interview.previous_interview_status && (interviewStartTime <= currentTime) && (loggedinUserStore.isRecruiter() || $scope.isValidPanelist())) || $scope.isFeedbackAvailable();
