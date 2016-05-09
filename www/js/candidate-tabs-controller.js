@@ -12,6 +12,7 @@ angular.module('recruitX')
     $scope.noInterviews = true;
     $scope.interviewTypes = interviewTypeHelperService.constructRoleInterviewTypesMap($scope.roleId);
     $scope.isLoggedinUserRecruiter = loggedinUserStore.isRecruiter();
+    $scope.isLoggedinUserSuperUser = loggedinUserStore.isSuperUser();
     $scope.loggedinUser = loggedinUserStore.userId();
 
     $scope.fetchCandidateInterviews = function () {

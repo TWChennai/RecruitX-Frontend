@@ -14,7 +14,7 @@
     <div class="tabs">
       <a class="tab-item" ui-sref=".interviews"
          ng-class="{'tab-item-active': isActive('tabs.interviews')}">Interviews</a>
-      <a class="tab-item" ui-sref=".candidates" ng-if="isLoggedinUserRecruiter"
+      <a class="tab-item" ui-sref=".candidates" ng-if="isLoggedinUserRecruiter || isLoggedinUserSuperUser"
          ng-class="{'tab-item-active': isActive('tabs.candidates')}">Candidates</a>
       <a class="tab-item" ui-sref=".my-interviews" ng-if="!isLoggedinUserRecruiter"
          ng-class="{'tab-item-active': isActive('tabs.my-interviews')}">My Interviews</a>

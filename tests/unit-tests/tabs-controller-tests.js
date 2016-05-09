@@ -9,6 +9,7 @@ describe('TabsCtrl', function () {
     spyOn(_loggedinUserStore_, 'userFirstName').and.returnValue('recruitx');
     spyOn(_loggedinUserStore_, 'userId').and.returnValue('recruitx');
     spyOn(_loggedinUserStore_, 'isRecruiter').and.returnValue(true);
+    spyOn(_loggedinUserStore_, 'isSuperUser').and.returnValue(false);
     spyOn(_loggedinUserStore_, 'pastExperience').and.returnValue(experience);
     spyOn(_loggedinUserStore_, 'calculatedHireDate').and.returnValue('2015-11-11');
     spyOn(_loggedinUserStore_, 'role').and.returnValue({name: 'Dev'});
