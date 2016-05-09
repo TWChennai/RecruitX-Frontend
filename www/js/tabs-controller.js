@@ -6,6 +6,7 @@ angular.module('recruitX')
     $scope.items = [];
     $scope.loggedinUserName = loggedinUserStore.userFirstName();
     $scope.isLoggedinUserRecruiter = loggedinUserStore.isRecruiter();
+    $scope.isLoggedinUserSuperUser = loggedinUserStore.isSuperUser();
     $scope.all_candidates = [];
     $scope.next_requesting_page = 1;
     $scope.total_pages = 1;
@@ -26,7 +27,11 @@ angular.module('recruitX')
     $scope.manuallyRefreshInterviews = function () {
       $scope.refreshInterviews();
       refreshing = true;
-      if (!loggedinUserStore.isRecruiter()) {
+      if (loggedinUserStore.isSuperUser()) {
+        $scope.refreshCandidates(1);
+        $scope.refreshMyInterviews(1);
+      }
+      else if (!loggedinUserStore.isRecruiter()) {
         $scope.refreshMyInterviews(1);
       } else {
         $scope.refreshCandidates(1);
