@@ -146,6 +146,10 @@ angular.module('recruitX')
         $http.post(apiUrl + '/candidates', data).then(success, error);
       },
 
+      saveSlots: function (data, success, error) {
+        $http.post(apiUrl + '/slots', data).then(success, error);
+      },
+
       // TODO: Rename this method to convey the full intent
       getInterviews: function (data, success, customError) {
         // TODO: the 'data' argument is sent along as query string params, so why repeat the same?

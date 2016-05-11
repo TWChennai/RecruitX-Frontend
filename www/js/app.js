@@ -19,6 +19,12 @@ angular.module('recruitX', ['ngFileUpload', 'ionic', 'ionic.service.analytics', 
         controller: 'createCandidateProfileController'
       })
 
+    .state('create-slots', {
+      url: '/slots/new',
+      templateUrl: 'templates/create-slots.html',
+      controller: 'createSlotsController'
+    })
+
     .state('schedule-interview', {
       url: '/candidates/interviews/new',
       templateUrl: 'templates/schedule-interview.html',
