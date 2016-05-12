@@ -17,7 +17,7 @@
         <div class="item item-input" ng-class="{ 'has-error' : slotForm.count.$invalid && !slotForm.count.$pristine }">
         <label class="input-label">Number of Slots</label>
         <div class="new-block">
-          <input type="number" name="count" ng-model="slot.count" min="1" max="10" ng-pattern="/^[0-9]$/" required />
+          <input type="number" name="count" ng-model="slot.count" min="1" max="10" ng-pattern="/^[0-9]*$/" required />
           <p class="error" ng-show="slotForm.count.$error.required">Is required</p>
           <p class="error" ng-show="slotForm.count.$error.min">should be more than zero</p>
           <p class="error" ng-show="slotForm.count.$error.pattern">invalid number</p>
