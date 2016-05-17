@@ -2,7 +2,7 @@
   <ion-content has-tabs="true" class="padding has-tabs-top">
     <div class="list">
       <div class="list-item interviewDetails">
-        <div class="item">
+        <div class="item" ng-if="!isSlot">
           <div class="row">
             <div class="col col-50">
               <h5>Name</h5>
@@ -39,6 +39,42 @@
             </div>
             <div class="col col-50">
               <h5>{{candidate.all_skills}}</h5>
+            </div>
+          </div>
+        </div>
+        <div class="item" ng-if="isSlot">
+          <div class="row">
+            <div class="col col-50">
+              <h5>Experience</h5>
+            </div>
+            <div class="col col-50">
+              <h5>{{candidate.experience}}</h5>
+            </div>
+          </div>
+        </div>
+        <div class="item" ng-if="isSlot">
+          <div class="row">
+            <div class="col col-50">
+              <h5>Start Time</h5>
+            </div>
+            <div class="col col-30">
+              <h3><strong ng-bind="candidate.start_time | date:'dd/MM/yyyy'"></strong></h3>
+            </div>
+            <div class="col col-20 inherit_display">
+              <h3><strong ng-bind="candidate.start_time | date:'h:mma'"></strong></h3>
+            </div>
+          </div>
+        </div>
+        <div class="item" ng-if="isSlot">
+          <div class="row">
+            <div class="col col-50">
+              <h5>End Time</h5>
+            </div>
+            <div class="col col-30">
+              <h3><strong ng-bind="candidate.end_time | date:'dd/MM/yyyy'"></strong></h3>
+            </div>
+            <div class="col col-20 inherit_display">
+              <h3><strong ng-bind="candidate.end_time | date:'h:mma'"></strong></h3>
             </div>
           </div>
         </div>

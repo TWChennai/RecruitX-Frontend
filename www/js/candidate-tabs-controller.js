@@ -3,7 +3,10 @@ angular.module('recruitX')
     'use strict';
 
     $scope.candidateId = $state.params.candidate_id;
+    $scope.title = $state.params.title;
+    $scope.sub_title = $state.params.sub_title;
     $scope.roleId = $state.params.role_id;
+    $scope.isSlot = false;
     $scope.candidate = {};
     $scope.interviews = [];
     $scope.interviewSet = [];
@@ -29,7 +32,22 @@ angular.module('recruitX')
       });
     };
 
-    $scope.fetchCandidateInterviews();
+    if ($scope.candidateId) {
+      $scope.fetchCandidateInterviews();
+      recruitFactory.getCandidate($scope.candidateId, function (candidate) {
+        $scope.candidate = candidate;
+      }, function (response) {
+        console.log('failed with response: ' + response);
+      });
+    }
+    else {
+      $scope.isSlot = true;
+      recruitFactory.getSlotDetails($state.params.id, function(slot) {
+        $scope.candidate = slot;
+      }, function(error) {
+        console.log('failed with error:' + error);
+      });
+    }
 
     $scope.buildInterviewScheduleList = function () {
       $scope.interviewSet = [];
@@ -181,10 +199,4 @@ angular.module('recruitX')
     $scope.isActive = function (stateName) {
       return stateName === $state.current.name;
     };
-
-    recruitFactory.getCandidate($scope.candidateId, function (candidate) {
-      $scope.candidate = candidate;
-    }, function (response) {
-      console.log('failed with response: ' + response);
-    });
   }]);
