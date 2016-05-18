@@ -82,10 +82,6 @@ angular.module('recruitX')
             id: interview.last_interview_status
           }))[0].name;
         }
-        if (!interview.candidate.id) {
-          interview.details_page_title = 'Slot';
-          interview.details_page_sub_title = 'Details';
-        }
         fleshOutCandidate(interview.candidate);
       }, interview_input);
     };
@@ -97,20 +93,6 @@ angular.module('recruitX')
           fleshOutInterview(interviews[interviewIndex]);
         }
       }, interviews_input);
-    };
-
-    var fleshOutSlot = function (slot_input) {
-      load_and_flesh(function(slot) {
-        slot.role = (($filter('filter')(MasterData.getRoles(), {
-          id: slot.role_id
-        }))[0]).name;
-        slot.interview_type = ($filter('filter')(MasterData.getInterviewTypes(), {
-          id: slot.interview_type_id
-        }))[0];
-        slot.all_skills = slot.skills;
-        var start_time = new Date(slot.start_time);
-        slot.end_time = start_time.setHours(start_time.getHours() + 1);
-      }, slot_input);
     };
 
     return {
@@ -194,7 +176,7 @@ angular.module('recruitX')
       },
 
       getAllCandidates: function (data, success) {
-        $http.get(apiUrl + '/candidates', {
+      $http.get(apiUrl + '/candidates', {
           params: data
         }).success(function (response) {
           fleshOutCandidates(response.candidates);
@@ -288,13 +270,6 @@ angular.module('recruitX')
 
       getSosStatus: function (success) {
         $http.get(apiUrl + '/sos_email?get_status=true').then(success);
-      },
-
-      getSlotDetails: function(id, success, failure) {
-        $http.get(apiUrl + '/slots/' + id).success(function(response) {
-          fleshOutSlot(response);
-          success(response);
-        }).error(failure);
       }
     };
   }])
