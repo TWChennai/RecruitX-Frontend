@@ -237,6 +237,10 @@ angular.module('recruitX')
       return candidate !== undefined && candidate.pipelineStatus !== 'Closed';
     };
 
+    $scope.isVaildInterview = function(candidate) {
+      return $scope.isInPipeline(candidate) && candidate.id;
+    };
+
     $scope.isInFuture = function (start_time) {
       return new Date() < new Date(start_time);
     };
