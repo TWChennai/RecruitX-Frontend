@@ -3,6 +3,7 @@ angular.module('recruitX')
     'use strict';
 
     var refreshing = false;
+    var slot_or_interview = undefined;
     $scope.items = [];
     $scope.loggedinUserName = loggedinUserStore.userFirstName();
     $scope.isLoggedinUserRecruiter = loggedinUserStore.isRecruiter();
@@ -133,15 +134,29 @@ angular.module('recruitX')
       if (!item.signup) {
         $cordovaToast.showShortBottom(item.signup_error);
       } else {
-        $scope.interview_panelist = {
-          interview_panelist: {
-            'panelist_login_name': loggedinUserStore.userId(),
-            'interview_id': item.id,
-            'panelist_experience': loggedinUserStore.experience(),
-            'panelist_role': loggedinUserStore.role().name
-          }
-        };
-        dialogService.askConfirmation('Sign up', 'Are you sure you want to sign up for this interview?', $scope.signUp);
+        if (item.candidate.id) {
+          slot_or_interview = 'interview';
+          $scope.interview_panelist = {
+            interview_panelist: {
+              'panelist_login_name': loggedinUserStore.userId(),
+              'interview_id': item.id,
+              'panelist_experience': loggedinUserStore.experience(),
+              'panelist_role': loggedinUserStore.role().name
+            }
+          };
+        }
+        else {
+          slot_or_interview = 'slot';
+          $scope.interview_panelist = {
+            slot_panelist: {
+              'panelist_login_name': loggedinUserStore.userId(),
+              'slot_id': item.id,
+              'panelist_experience': loggedinUserStore.experience(),
+              'panelist_role': loggedinUserStore.role().name
+            }
+          };
+        }
+        dialogService.askConfirmation('Sign up', 'Are you sure you want to sign up for this ' + slot_or_interview + '?', $scope.signUp);
       }
     };
 
@@ -150,7 +165,14 @@ angular.module('recruitX')
       $scope.interview_panelist_id = (($filter('filter')(myinterview.panelists, function (panelist) {
         return panelist.name === loggedinUserStore.userId();
       }))[0]).interview_panelist_id;
-      dialogService.askConfirmation('Decline', 'Are you sure you want to decline this interview?', $scope.declineInterview);
+      if (myinterview.candidate.id) {
+        slot_or_interview = 'interview';
+        dialogService.askConfirmation('Decline', 'Are you sure you want to decline this interview?', $scope.declineInterview);
+      }
+      else {
+        slot_or_interview = 'slot';
+        dialogService.askConfirmation('Decline', 'Are you sure you want to decline this slot?', $scope.declineSlot);
+      }
     };
 
     $scope.signUp = function () {
@@ -165,6 +187,13 @@ angular.module('recruitX')
         $ionicAnalytics.track('Decline');
       }
       recruitFactory.deleteInterviewPanelist($scope.interview_panelist_id, $scope.declineInterviewSuccessHandler, $scope.declineUnprocessableEntityHandler, $scope.defaultErrorHandler);
+    };
+
+    $scope.declineSlot = function () {
+      if(deployChannel === 'production') {
+        $ionicAnalytics.track('Decline');
+      }
+      recruitFactory.deleteSlotPanelist($scope.interview_panelist_id, $scope.declineInterviewSuccessHandler, $scope.declineUnprocessableEntityHandler, $scope.defaultErrorHandler);
     };
 
     var successHandler = function (header, message) {
@@ -188,11 +217,11 @@ angular.module('recruitX')
     };
 
     $scope.signUpSuccessHandler = function () {
-      successHandler('Sign up', 'Thanks for signing up for this interview!');
+      successHandler('Sign up', 'Thanks for signing up for this ' + slot_or_interview + '!');
     };
 
     $scope.declineInterviewSuccessHandler = function () {
-      successHandler('Decline', 'Successfully declined for this interview');
+      successHandler('Decline', 'Successfully declined for this ' + slot_or_interview + '!');
     };
 
     $scope.signUpUnprocessableEntityHandler = function (error) {

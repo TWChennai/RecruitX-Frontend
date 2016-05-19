@@ -45,12 +45,33 @@ describe('TabsCtrl', function () {
         panelists: [{
           name: 'recruitx',
           interview_panelist_id: 1
-        }]
+        }],
+        candidate: {
+          id: 1
+        }
       };
 
       $scope.decliningInterview(event, myinterview);
 
-      expect(dialogService.askConfirmation).toHaveBeenCalledWith('Decline', 'Are you sure you want to decline this interview?', jasmine.any(Function));
+      expect(dialogService.askConfirmation).toHaveBeenCalledWith('Decline', 'Are you sure you want to decline this interview?', $scope.declineInterview);
+    });
+
+    it('decliningSlot should ask confirmation', function(){
+      spyOn(dialogService, 'askConfirmation');
+      var event = jasmine.createSpyObj('$event', ['stopPropagation']);
+      var myinterview = {
+        panelists: [{
+          name: 'recruitx',
+          interview_panelist_id: 1
+        }],
+        candidate: {
+          id: undefined
+        }
+      };
+
+      $scope.decliningInterview(event, myinterview);
+
+      expect(dialogService.askConfirmation).toHaveBeenCalledWith('Decline', 'Are you sure you want to decline this slot?', $scope.declineSlot);
     });
 
     it('declineInterview should call deleteInterviewPanelist', function(){
@@ -83,12 +104,31 @@ describe('TabsCtrl', function () {
       var event = jasmine.createSpyObj('$event', ['stopPropagation']);
       var interview = {
         id: 1,
-        signup: true
+        signup: true,
+        candidate: {
+          id: 1
+        }
       };
 
       $scope.signingUp(event, interview);
 
       expect(dialogService.askConfirmation).toHaveBeenCalledWith('Sign up', 'Are you sure you want to sign up for this interview?', jasmine.any(Function));
+    });
+
+    it('signingUp should ask confirmation if slot is eligible for signup', function(){
+      spyOn(dialogService, 'askConfirmation');
+      var event = jasmine.createSpyObj('$event', ['stopPropagation']);
+      var interview = {
+        id: 1,
+        signup: true,
+        candidate: {
+          id: undefined
+        }
+      };
+
+      $scope.signingUp(event, interview);
+
+      expect(dialogService.askConfirmation).toHaveBeenCalledWith('Sign up', 'Are you sure you want to sign up for this slot?', jasmine.any(Function));
     });
 
     it('sosEmail button should ask confirmation before sending email', function(){

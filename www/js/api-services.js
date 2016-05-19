@@ -176,12 +176,12 @@ angular.module('recruitX')
       },
 
       getAllCandidates: function (data, success) {
-      $http.get(apiUrl + '/candidates', {
+        $http.get(apiUrl + '/candidates', {
           params: data
         }).success(function (response) {
-          fleshOutCandidates(response.candidates);
-          success(response.candidates, response.total_pages);
-        })
+        fleshOutCandidates(response.candidates);
+        success(response.candidates, response.total_pages);
+      })
           .error(function () {});
       },
 
@@ -219,6 +219,17 @@ angular.module('recruitX')
 
       deleteInterviewPanelist: function (data, success, unProcessableEntityErrorHandler, customErrorHandler) {
         $http.delete(apiUrl + '/panelists/' + data).success(success).error(
+          function (error, status) {
+            if (status === UNPROCESSABLE_ENTITY_STATUS) {
+              unProcessableEntityErrorHandler(error, status);
+            } else {
+              defaultErrorHandler(error, status, customErrorHandler);
+            }
+          });
+      },
+
+      deleteSlotPanelist: function (data, success, unProcessableEntityErrorHandler, customErrorHandler) {
+        $http.delete(apiUrl + '/decline_slot/' + data).success(success).error(
           function (error, status) {
             if (status === UNPROCESSABLE_ENTITY_STATUS) {
               unProcessableEntityErrorHandler(error, status);
