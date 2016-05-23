@@ -14,8 +14,8 @@
       <div ng-repeat="interviewType in interviewSet">
         <ion-item class="item interview-container">
           <div class="row" ui-sref="interview-details({interview_id: interviewType.id})" disable-ui-sref="canNotSeeFeedback(interviewType)" ng-class="canNotSeeFeedback(interviewType) && 'pointer-events-disabled'">
-            <p class="col col-30">{{interviewType.name}}</p>
-            <p class="col col-40">{{interviewType.start_time | date: 'dd/MM/yyyy h:mma'}}</p>
+            <p class="col col-20">{{interviewType.name}}</p>
+            <p class="col col-50">{{interviewType.start_time | date: 'dd/MM/yyyy h:mma'}}</p>
             <div class="interview-schedule-icons col col-30">
               <button class="button ion-thumbsdown modify-interview color-red" ng-if="(isLoggedinUserRecruiter || isPanelistForAnyInterviewRound) && isFeedbackGiven(interviewType.status) && compareStatus(interviewType.status, 'Pass')"></button>
               <button class="button ion-thumbsup modify-interview" ng-if="(isLoggedinUserRecruiter || isPanelistForAnyInterviewRound) && isFeedbackGiven(interviewType.status) && compareStatus(interviewType.status, 'Pursue')"></button>
@@ -29,7 +29,7 @@
           <div ng-show="interviewType.displaySlots">
             <div class="row">
               <label class="input-label col col-20">Slots</label>
-              <select class="col col-80" name="selectedSlotId" id="selectedSlotId" ng-model="selectedSlot.id" ng-options="slot.id as slot.start_time for slot in slots" ng-change="show()">
+              <select class="col col-80" name="selectedSlotId" id="selectedSlotId" ng-model="selectedSlot.id" ng-options="slot.id as slot.start_time | date: 'dd/MM/yyyy h:mma' for slot in slots" ng-change="show()">
               </select>
             </div>
             <button class="button button-positive button-full no-margin" ng-click="convertSlotsToInterview()">Save
