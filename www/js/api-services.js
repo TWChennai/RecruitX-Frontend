@@ -142,12 +142,22 @@ angular.module('recruitX')
         });
       },
 
+      getSlots: function (data, success, error) {
+        $http.get(apiUrl + '/slots', {
+          params: data
+        }).then(success, error)
+      },
+
       saveCandidate: function (data, success, error) {
         $http.post(apiUrl + '/candidates', data).then(success, error);
       },
 
       saveSlots: function (data, success, error) {
         $http.post(apiUrl + '/slots', data).then(success, error);
+      },
+
+      convertSlotsToInterview: function(data, success, error) {
+        $http.post(apiUrl + '/slot_to_interview', data).then(success, error);
       },
 
       // TODO: Rename this method to convey the full intent

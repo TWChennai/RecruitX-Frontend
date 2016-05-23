@@ -12,18 +12,28 @@
     <ion-list inset>
       <!--TODO: Replace with collection repeat after making css changes-->
       <div ng-repeat="interviewType in interviewSet">
-        <ion-item class="item interview-container" ng-class="canNotSeeFeedback(interviewType) && 'pointer-events-disabled'" ui-sref="interview-details({interview_id: interviewType.id})" disable-ui-sref="canNotSeeFeedback(interviewType)">
-          <div class="row">
+        <ion-item class="item interview-container">
+          <div class="row" ui-sref="interview-details({interview_id: interviewType.id})" disable-ui-sref="canNotSeeFeedback(interviewType)" ng-class="canNotSeeFeedback(interviewType) && 'pointer-events-disabled'">
             <p class="col col-30">{{interviewType.name}}</p>
-            <p class="col col-50">{{interviewType.start_time | date: 'dd/MM/yyyy h:mma'}}</p>
-            <div class="interview-schedule-icons col col-20">
+            <p class="col col-40">{{interviewType.start_time | date: 'dd/MM/yyyy h:mma'}}</p>
+            <div class="interview-schedule-icons col col-30">
               <button class="button ion-thumbsdown modify-interview color-red" ng-if="(isLoggedinUserRecruiter || isPanelistForAnyInterviewRound) && isFeedbackGiven(interviewType.status) && compareStatus(interviewType.status, 'Pass')"></button>
               <button class="button ion-thumbsup modify-interview" ng-if="(isLoggedinUserRecruiter || isPanelistForAnyInterviewRound) && isFeedbackGiven(interviewType.status) && compareStatus(interviewType.status, 'Pursue')"></button>
               <button class="ion-thumbsup modify-interview" ng-if="(isLoggedinUserRecruiter || isPanelistForAnyInterviewRound) && isFeedbackGiven(interviewType.status) && compareStatus(interviewType.status, 'Strong Pursue')"></button>
               <button class="ion-thumbsup modify-interview" ng-if="(isLoggedinUserRecruiter || isPanelistForAnyInterviewRound) && isFeedbackGiven(interviewType.status) && compareStatus(interviewType.status, 'Strong Pursue')"></button>
               <button class="button ion-edit modify-interview" ng-show="isLoggedinUserRecruiter && !isNotScheduled(interviewType) && !isFeedbackGiven(interviewType.status) && isPipelineNotClosed()" ng-click="dateTime(interviewType, $event, updateInterview)"></button>
+              <button class="button ion-social-skype-outline modify-interview pointer-events-enabled" ng-show="isLoggedinUserRecruiter && isNextSchedulableRound(interviewType) && isPreviousRoundPursueOrStrongPursue(interviewType)" ng-click="showSlots($index, interviewType)"></button>
               <button class="button ion-plus modify-interview pointer-events-enabled" ng-show="isLoggedinUserRecruiter && isNextSchedulableRound(interviewType) && !isFeedbackGiven(interviewType.status)" ng-click="dateTime(interviewType, $event, createInterview)"></button>
             </div>
+          </div>
+          <div ng-show="interviewType.displaySlots">
+            <div class="row">
+              <label class="input-label col col-20">Slots</label>
+              <select class="col col-80" name="selectedSlotId" id="selectedSlotId" ng-model="selectedSlot.id" ng-options="slot.id as slot.start_time for slot in slots" ng-change="show()">
+              </select>
+            </div>
+            <button class="button button-positive button-full no-margin" ng-click="convertSlotsToInterview()">Save
+            </button>
           </div>
         </ion-item>
       </div>

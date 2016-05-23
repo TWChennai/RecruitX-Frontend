@@ -5,6 +5,7 @@ angular.module('recruitX')
     $scope.candidateId = $state.params.candidate_id;
     $scope.roleId = $state.params.role_id;
     $scope.candidate = {};
+    $scope.selectedSlotId = null;
     $scope.interviews = [];
     $scope.interviewSet = [];
     $scope.isPanelistForAnyInterviewRound = false;
@@ -117,6 +118,64 @@ angular.module('recruitX')
 
     $scope.isFeedbackGiven = function (status) {
       return status !== undefined && status !== '';
+    };
+
+    $scope.isPreviousRoundPursueOrStrongPursue = function (currentInterview) {
+      var previousInterview = ($filter('filter')($scope.interviewSet, {
+        priority: currentInterview.priority - 1
+      }))[0];
+      return previousInterview && previousInterview.status && (previousInterview.status.name === 'Pursue' || previousInterview.status.name === 'Strong Pursue');
+    };
+
+    var getPreviousRound = function(index) {
+      var currentInterview = $scope.interviewSet[index];
+      var previousInterviewBasedOnIndex = $scope.interviewSet[index - 1];
+      if (previousInterviewBasedOnIndex.start_time === $scope.notScheduled) {
+        var previousInterviewBasedOnPriority = ($filter('filter')($scope.interviewSet, {
+          priority: currentInterview.priority - 1
+        }))[0];
+        return previousInterviewBasedOnPriority;
+      }
+      return previousInterviewBasedOnIndex;
+    };
+
+    $scope.showSlots = function (index, interviewType) {
+      $scope.interviewSet[index].displaySlots = !$scope.interviewSet[index].displaySlots;
+      if ($scope.interviewSet[index].displaySlots) {
+        var previousInterview = getPreviousRound(index);
+        recruitFactory.getSlots({
+          interview_type_id: interviewType.interview_type_id,
+          previous_rounds_start_time: previousInterview.start_time,
+          role_id: $scope.roleId
+        }, function(response) {
+          if (response.data.length !== 0) {
+            $scope.slots = response.data;
+            $scope.selectedSlot = {
+              id: $scope.slots[0].id
+            };
+          }
+          else {
+            $scope.interviewSet[index].displaySlots = !$scope.interviewSet[index].displaySlots;
+            dialogService.showAlert('Slots', 'No slots available for this role and interview_type!');
+          }
+
+        }, function(error) {
+          console.log(error);
+        });
+      }
+    };
+
+    $scope.convertSlotsToInterview = function() {
+      recruitFactory.convertSlotsToInterview({
+        slot_id: $scope.selectedSlot.id,
+        candidate_id: $state.params.candidate_id
+      }, function() {
+        dialogService.showAlertWithDismissHandler('Slot', 'Slot has been converted to interview!', function () {
+          $scope.fetchCandidateInterviews();
+        });
+      }, function() {
+        dialogService.showAlert('Slot', 'Failed to convert Slot to interview!');
+      });
     };
 
     $scope.compareStatus = function (interviewStatus, status) {
