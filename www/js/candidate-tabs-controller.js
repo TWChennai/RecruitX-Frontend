@@ -124,6 +124,11 @@ angular.module('recruitX')
       var previousInterview = ($filter('filter')($scope.interviewSet, {
         priority: currentInterview.priority - 1
       }))[0];
+      if (!previousInterview) { //need to revisit and do it in a better way
+        previousInterview = ($filter('filter')($scope.interviewSet, {
+          priority: currentInterview.priority - 2
+        }))[0];
+      }
       return previousInterview && previousInterview.status && (previousInterview.status.name === 'Pursue' || previousInterview.status.name === 'Strong Pursue');
     };
 
