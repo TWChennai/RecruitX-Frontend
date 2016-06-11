@@ -145,7 +145,7 @@ angular.module('recruitX')
       getSlots: function (data, success, error) {
         $http.get(apiUrl + '/slots', {
           params: data
-        }).then(success, error)
+        }).then(success, error);
       },
 
       saveCandidate: function (data, success, error) {
@@ -189,9 +189,9 @@ angular.module('recruitX')
         $http.get(apiUrl + '/candidates', {
           params: data
         }).success(function (response) {
-        fleshOutCandidates(response.candidates);
-        success(response.candidates, response.total_pages);
-      })
+          fleshOutCandidates(response.candidates);
+          success(response.candidates, response.total_pages);
+        })
           .error(function () {});
       },
 

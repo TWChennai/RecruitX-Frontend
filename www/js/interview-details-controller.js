@@ -38,17 +38,13 @@ angular.module('recruitX')
     // $scope.imageURI = 'img/image_upload_icon.png';
 
     $scope.canSubmit = function () {
-      var feedbackUploaded = ($filter('filter')($scope.feedbackImages, {
-        previewDisabled: false
-      }));
-
-      return ($scope.feedBackResult !== undefined && feedbackUploaded !== undefined && feedbackUploaded.length !== 0);
+      return $scope.feedBackResult !== undefined;
     };
 
     $scope.refreshInterviewFeedback = function () {
       recruitFactory.getInterview($stateParams.interview_id, function (interview) {
         $scope.interview = interview;
-        if (interview.feedback_images.length !== 0) {
+        if (interview.status) {
           $scope.feedbackImages = interview.feedback_images;
         }
         $scope.finishRefreshing();
@@ -172,21 +168,23 @@ angular.module('recruitX')
       dialogService.askConfirmation('Confirm', 'Are you sure you want to submit?', $scope.uploadFeedback);
     };
 
+    $scope.isFeedbackWithoutImage = function() {
+      return $scope.isFeedbackAvailable() && !$scope.feedbackImages.length;
+    };
+
     $scope.uploadFeedback = function () {
       $scope.promises = [];
       $scope.isUploadComplete = false;
-      if ($scope.imageURIs && $scope.imageURIs.length) {
-        $scope.fileIndex = {};
-        for ($scope.fileIndex in $scope.imageURIs) {
-          $scope.promises.push(Upload.urlToBlob($scope.imageURIs[$scope.fileIndex]));
-        }
-        $q.all($scope.promises).then(function (data) {
-          for (var index in data) {
-            $scope.BLOBs.push(data[index]);
-          }
-          $scope.uploadFiles();
-        });
+      $scope.fileIndex = {};
+      for ($scope.fileIndex in $scope.imageURIs) {
+        $scope.promises.push(Upload.urlToBlob($scope.imageURIs[$scope.fileIndex]));
       }
+      $q.all($scope.promises).then(function (data) {
+        for (var index in data) {
+          $scope.BLOBs.push(data[index]);
+        }
+        $scope.uploadFiles();
+      });
     };
 
     $scope.uploadFiles = function () {

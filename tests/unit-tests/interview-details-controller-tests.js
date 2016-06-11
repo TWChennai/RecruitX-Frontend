@@ -171,14 +171,9 @@ describe('interviewDetailsController', function () {
       it('should return false when feedback result is not entered and feedback image is not uploaded', function () {
         expect($scope.canSubmit()).toEqual(false);
       });
-      it('should return false when feedback result is not entered and feedback image is uploaded', function () {
-
-        $scope.feedbackImages[0].previewDisabled = false;
-        expect($scope.canSubmit()).toEqual(false);
-      });
-      it('should return false when feedback result is entered and feedback image is not uploaded', function () {
+      it('should return true when feedback result is entered and feedback image is not uploaded', function () {
         $scope.feedBackResult = 'Pass';
-        expect($scope.canSubmit()).toEqual(false);
+        expect($scope.canSubmit()).toEqual(true);
       });
       it('should return true when feedback result is entered and feedback image is uploaded', function () {
         $scope.feedbackImages[0].previewDisabled = false;
