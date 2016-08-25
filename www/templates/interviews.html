@@ -35,7 +35,7 @@
                         ng-disabled="!isInPipeline(item.candidate)" ng-click="signingUp($event, item)">Signup
                 </button>
                 <p ng-show="!isLoggedinUserRecruiter && !isInPipeline(item.candidate)" class="button button-clear"><strong>Closed</strong></p>
-                <h4 ng-show="isLoggedinUserRecruiter || isLoggedinUserSuperUser">{{item.formattedPanelists}}</h4>
+                <h4>{{item.formattedPanelists}}</h4>
               </div>
             </div>
           </div>
