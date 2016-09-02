@@ -14,7 +14,6 @@ angular.module('recruitX')
     $scope.noMyInterviews = true;
     $scope.noItems = true;
     $scope.noCandidates = true;
-    $scope.currentTab = $state.params.tab;
 
     $scope.finishRefreshing = function () {
       $scope.$broadcast('scroll.refreshComplete');
@@ -26,27 +25,17 @@ angular.module('recruitX')
       });
     }
 
-    var isInterviewsTab = function() {
-      return $scope.currentTab === 'interviews';
-    };
-    var isCandidatesTab = function() {
-      return $scope.currentTab === 'candidates';
-    };
-    var isMyInterviewsTab = function() {
-      return $scope.currentTab === 'myInterviews';
-    };
-
     $scope.manuallyRefreshInterviews = function () {
-      isInterviewsTab() && $scope.refreshInterviews();
+      $scope.refreshInterviews();
       refreshing = true;
       if (loggedinUserStore.isSuperUser()) {
-        isCandidatesTab() && $scope.refreshCandidates(1);
-        isMyInterviewsTab() && $scope.refreshMyInterviews(1);
+        $scope.refreshCandidates(1);
+        $scope.refreshMyInterviews(1);
       }
       else if (!loggedinUserStore.isRecruiter()) {
-        isMyInterviewsTab() && $scope.refreshMyInterviews(1);
+        $scope.refreshMyInterviews(1);
       } else {
-        isCandidatesTab() && $scope.refreshCandidates(1);
+        $scope.refreshCandidates(1);
       }
     };
 
