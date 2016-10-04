@@ -27,7 +27,9 @@ Note:
 
 ## To run or build the app:
 
-Before running or building the app, make sure you have the environment variable, "OKTA_URL" set.
+Before running or building the app, make sure you have the following environment variables set:
+  API_URL, VERSION, OKTA_URL, API_KEY, DEPLOY_CHANNEL (ask team for the values)
+
 
 ## Contributing to this codebase:
 
