@@ -78,7 +78,8 @@ angular.module('recruitX', ['ngFileUpload', 'ionic', 'ionic.service.analytics', 
       templateUrl: 'templates/candidate-profile.html',
       controller: 'CandidateTabsCtrl',
       params: {
-        role_id: null
+        role_id: null,
+        tab: 'profile'
       }
     })
 
@@ -87,7 +88,8 @@ angular.module('recruitX', ['ngFileUpload', 'ionic', 'ionic.service.analytics', 
       templateUrl: 'templates/candidate-interviews.html',
       controller: 'CandidateTabsCtrl',
       params: {
-        role_id: null
+        role_id: null,
+        tab: 'interviews'
       }
     })
 

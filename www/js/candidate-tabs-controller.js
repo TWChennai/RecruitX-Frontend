@@ -15,6 +15,13 @@ angular.module('recruitX')
     $scope.isLoggedinUserRecruiter = loggedinUserStore.isRecruiter();
     $scope.isLoggedinUserSuperUser = loggedinUserStore.isSuperUser();
     $scope.loggedinUser = loggedinUserStore.userId();
+    $scope.currentTab = $state.params.tab;
+
+    $scope.fetchCandidateDetails = function() {
+      recruitFactory.getCandidate($scope.candidateId, function (candidate) {
+        $scope.candidate = candidate;
+      });
+    }
 
     $scope.fetchCandidateInterviews = function () {
       recruitFactory.getCandidateInterviews($scope.candidateId, function (interviews) {
@@ -29,8 +36,6 @@ angular.module('recruitX')
         $scope.buildInterviewScheduleList();
       });
     };
-
-    $scope.fetchCandidateInterviews();
 
     $scope.buildInterviewScheduleList = function () {
       $scope.interviewSet = [];
@@ -246,9 +251,11 @@ angular.module('recruitX')
       return stateName === $state.current.name;
     };
 
-    recruitFactory.getCandidate($scope.candidateId, function (candidate) {
-      $scope.candidate = candidate;
-    }, function (response) {
-      // console.log('failed with response: ' + response);
-    });
+    (function () {
+      if($scope.currentTab === 'profile') {
+        $scope.fetchCandidateDetails();
+      } else {
+        $scope.fetchCandidateInterviews();
+      }
+    })();
   }]);
