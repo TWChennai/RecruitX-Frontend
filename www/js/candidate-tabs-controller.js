@@ -165,7 +165,7 @@ angular.module('recruitX')
           }
 
         }, function(error) {
-          console.log(error);
+          // console.log(error);
         });
       }
     };
@@ -249,6 +249,6 @@ angular.module('recruitX')
     recruitFactory.getCandidate($scope.candidateId, function (candidate) {
       $scope.candidate = candidate;
     }, function (response) {
-      console.log('failed with response: ' + response);
+      // console.log('failed with response: ' + response);
     });
   }]);

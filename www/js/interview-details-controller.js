@@ -155,16 +155,16 @@ angular.module('recruitX')
       var feedbackImage = $scope.feedbackImages[index];
       window.resolveLocalFileSystemURL(feedbackImage.URI, function () {
         cordova.plugins.disusered.open(feedbackImage.URI, function () {}, function (err) {
-          console.log(err);
+          // console.log(err);
           $cordovaToast.showShortBottom('Something went wrong while opening the image.');
         });
       }, function (fail) {
-        console.log('error' + fail);
+        // console.log('error' + fail);
       });
     };
 
     $scope.saveFeedback = function () {
-      console.log('IN SAVE');
+      // console.log('IN SAVE');
       dialogService.askConfirmation('Confirm', 'Are you sure you want to submit?', $scope.uploadFeedback);
     };
 
@@ -229,7 +229,7 @@ angular.module('recruitX')
           $rootScope.$broadcast('loading:hide');
         }, function (progress) {
           // PROGRESS HANDLING GOES HERE
-          console.log(progress);
+          // console.log(progress);
         });
       });
     };

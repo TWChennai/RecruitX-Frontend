@@ -62,9 +62,9 @@ angular.module('recruitX')
         $scope.items = newItems;
         $scope.noItems = $scope.items.length === 0 ? true : false;
         $scope.finishRefreshing();
-        console.log('AM success' + $scope.items);
+        // console.log('AM success' + $scope.items);
       }, function (error) {
-        console.log('AM custom error' + error);
+        // console.log('AM custom error' + error);
         $scope.finishRefreshing();
       });
     };
@@ -89,7 +89,7 @@ angular.module('recruitX')
         $scope.$broadcast('scroll.infiniteScrollComplete');
         refreshing = false;
       }, function (error) {
-        console.log('AM custom error' + error);
+        // console.log('AM custom error' + error);
         $scope.finishRefreshing();
       });
     };

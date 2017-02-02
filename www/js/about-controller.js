@@ -33,7 +33,7 @@ angular.module('recruitX')
                 // Error extracting
                 $rootScope.$broadcast('loading:hide');
                 $cordovaToast.showShortBottom('Something went wrong. Please try again later');
-                console.log('error extracting');
+                // console.log('error extracting');
               }, function (progress) {
                 // Do something with the zip extraction progress
               });
@@ -45,7 +45,7 @@ angular.module('recruitX')
               } else {
                 $cordovaToast.showShortBottom('Something went wrong. Please try again later');
               }
-              console.log('error downloading updates');
+              // console.log('error downloading updates');
             }, function (progress) {
               // Do something with the download progress
             });
@@ -61,7 +61,7 @@ angular.module('recruitX')
         } else {
           $cordovaToast.showShortBottom('Something went wrong. Please try again later');
         }
-        console.log('error checking updates');
+        // console.log('error checking updates');
       });
     }
   };

@@ -326,7 +326,7 @@ angular.module('recruitX')
     },
 
     load: function () {
-      console.log('LOADING MASTER DATA ******************');
+      // console.log('LOADING MASTER DATA ******************');
       return $q.all([$http.get(apiUrl + '/interview_types'), $http.get(apiUrl + '/roles'), $http.get(apiUrl + '/skills'), $http.get(apiUrl + '/interview_statuses'), $http.get(apiUrl + '/pipeline_statuses')])
         .then(function (response) {
           data = {
