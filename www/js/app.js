@@ -45,7 +45,7 @@ angular.module('recruitX', ['ngFileUpload', 'ionic', 'ionic.service.analytics', 
       templateUrl: 'templates/interviews.html',
       controller: 'TabsCtrl',
       params: {
-        tab: ''
+        tab: 'interviews'
       }
     })
 
@@ -54,7 +54,7 @@ angular.module('recruitX', ['ngFileUpload', 'ionic', 'ionic.service.analytics', 
       templateUrl: 'templates/my-interviews.html',
       controller: 'TabsCtrl',
       params: {
-        tab: ''
+        tab: 'myInterviews'
       }
     })
 
@@ -63,7 +63,7 @@ angular.module('recruitX', ['ngFileUpload', 'ionic', 'ionic.service.analytics', 
       templateUrl: 'templates/candidates.html',
       controller: 'TabsCtrl',
       params: {
-        tab: ''
+        tab: 'candidates'
       }
     })
 
