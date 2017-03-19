@@ -1,9 +1,10 @@
 angular.module('recruitX')
-  .controller('TabsCtrl', ['$cordovaToast', '$scope', 'recruitFactory', 'skillHelperService', 'loggedinUserStore', 'dialogService', '$ionicHistory', '$state', '$filter', '$rootScope', '$ionicAnalytics', 'deployChannel', function ($cordovaToast, $scope, recruitFactory, skillHelperService, loggedinUserStore, dialogService, $ionicHistory, $state, $filter, $rootScope, $ionicAnalytics, deployChannel) {
+  .controller('TabsCtrl', ['$cordovaToast', '$scope', 'recruitFactory', 'skillHelperService', 'loggedinUserStore', 'dialogService', '$ionicHistory', '$state', '$filter', '$rootScope', '$ionicAnalytics', 'deployChannel', '$ionicPopup', '$q', function ($cordovaToast, $scope, recruitFactory, skillHelperService, loggedinUserStore, dialogService, $ionicHistory, $state, $filter, $rootScope, $ionicAnalytics, deployChannel, $ionicPopup, $q) {
     'use strict';
 
     var refreshing = false;
     var slot_or_interview = undefined;
+    $scope.data = {}
     $scope.items = [];
     $scope.loggedinUserName = loggedinUserStore.userFirstName();
     $scope.isLoggedinUserRecruiter = loggedinUserStore.isRecruiter();
@@ -140,34 +141,76 @@ angular.module('recruitX')
       }
     };
 
+    var get_panelist_name = function() {
+      if (loggedinUserStore.isSignupCop()) {
+        var alertPopup = $ionicPopup.show({
+          template: '<input ng-model="data.panelist_name">',
+          title: 'Enter panelist name',
+          scope: $scope,
+          buttons: [
+            {
+              text: '<b>For Me!</b>',
+              onTap: function () {
+                return loggedinUserStore.userId();
+              }
+            },
+            {
+              text: '<b>Done</b>',
+              onTap: function () {
+                return $scope.data.panelist_name;
+              }
+            }
+          ]
+        });
+
+        var htmlEl = angular.element(document.querySelector('html'));
+        htmlEl.on('click', function (event) {
+            if (event.target.nodeName === 'HTML') {
+                if (alertPopup) {
+                    alertPopup.close();
+                }
+            }
+        });
+
+        return alertPopup;
+    } else {
+        return $q(function(resolve) {
+          resolve(loggedinUserStore.userId())
+        });
+    }
+  }
+
     $scope.signingUp = function ($event, item) {
       $event.stopPropagation();
       if (!item.signup) {
         $cordovaToast.showShortBottom(item.signup_error);
       } else {
-        if (item.candidate.id) {
-          slot_or_interview = 'interview';
-          $scope.interview_panelist = {
-            interview_panelist: {
-              'panelist_login_name': loggedinUserStore.userId(),
-              'interview_id': item.id,
-              'panelist_experience': loggedinUserStore.experience(),
-              'panelist_role': loggedinUserStore.role().name
-            }
-          };
+        get_panelist_name().then(function(panelist_name) {
+          if (!!panelist_name) {
+            if (item.candidate.id) {
+            slot_or_interview = 'interview';
+            $scope.interview_panelist = {
+              interview_panelist: {
+                'panelist_login_name': panelist_name,
+                'interview_id': item.id,
+                'panelist_experience': loggedinUserStore.experience(),
+                'panelist_role': loggedinUserStore.role().name
+              }
+            };
+          } else {
+            slot_or_interview = 'slot';
+            $scope.interview_panelist = {
+              slot_panelist: {
+                'panelist_login_name': loggedinUserStore.userId(),
+                'slot_id': item.id,
+                'panelist_experience': loggedinUserStore.experience(),
+                'panelist_role': loggedinUserStore.role().name
+              }
+            };
+          }
+            dialogService.askConfirmation('Sign up', 'Are you sure you want to sign up for this ' + slot_or_interview + '?', $scope.signUp);
         }
-        else {
-          slot_or_interview = 'slot';
-          $scope.interview_panelist = {
-            slot_panelist: {
-              'panelist_login_name': loggedinUserStore.userId(),
-              'slot_id': item.id,
-              'panelist_experience': loggedinUserStore.experience(),
-              'panelist_role': loggedinUserStore.role().name
-            }
-          };
-        }
-        dialogService.askConfirmation('Sign up', 'Are you sure you want to sign up for this ' + slot_or_interview + '?', $scope.signUp);
+        })
       }
     };
 

@@ -101,6 +101,7 @@ angular.module('recruitX')
         id: loggedinUser.profile.login.split('@')[0],
         is_recruiter: user.is_recruiter,
         is_super_user: user.is_super_user,
+        is_signup_cop: user.is_signup_cop,
         calculated_hire_date: user.calculated_hire_date,
         past_experience: user.past_experience,
         role: user.role
@@ -111,6 +112,10 @@ angular.module('recruitX')
 
     loggedinUserStore.userId = function () {
       return (JSON.parse(window.localStorage[STORAGE_KEY])).id;
+    };
+
+    loggedinUserStore.isSignupCop = function () {
+      return (JSON.parse(window.localStorage[STORAGE_KEY])).is_signup_cop;
     };
 
     loggedinUserStore.isRecruiter = function () {
