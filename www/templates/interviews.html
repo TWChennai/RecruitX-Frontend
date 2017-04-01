@@ -23,8 +23,11 @@
             </div>
           </div>
           <div class="row pad-box">
-            <div ng-if="!isLoggedinUserRecruiter" class="col col-30">
+            <div ng-if="!isLoggedinUserRecruiter && !isSignupCop" class="col col-30">
               <h4><strong>{{item.interview_type.name}}: </strong>{{item.candidate.all_skills}}</h4>
+            </div>
+            <div ng-if="isSignupCop" class="col col-30">
+              <h4><strong>{{item.interview_type.name}}: </strong><i style="color: red">{{item.candidate.role}} </i>{{item.candidate.all_skills}}</h4>
             </div>
             <div ng-if="isLoggedinUserRecruiter" class="col col-30">
               <h4><strong>{{item.candidate.role}}: {{item.interview_type.name}}</strong></h4>

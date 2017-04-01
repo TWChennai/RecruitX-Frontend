@@ -8,6 +8,7 @@ angular.module('recruitX')
     $scope.items = [];
     $scope.loggedinUserName = loggedinUserStore.userFirstName();
     $scope.isLoggedinUserRecruiter = loggedinUserStore.isRecruiter();
+    $scope.isSignupCop = loggedinUserStore.isSignupCop();
     $scope.isLoggedinUserSuperUser = loggedinUserStore.isSuperUser();
     $scope.all_candidates = [];
     $scope.next_requesting_page = 1;
@@ -55,10 +56,11 @@ angular.module('recruitX')
       if (loggedinUserStore.isRecruiter()) {
         $scope.getSosStatus();
       }
+      var user_details = getUserDetails($scope.isSignupCop)
       recruitFactory.getInterviews({
-        panelist_login_name: loggedinUserStore.userId(),
-        panelist_experience: loggedinUserStore.experience(),
-        panelist_role: loggedinUserStore.role().name
+        panelist_login_name: user_details.name,
+        panelist_experience: user_details.experience,
+        panelist_role: user_details.role
       }, function (newItems) {
         $scope.items = newItems;
         $scope.noItems = $scope.items.length === 0 ? true : false;
@@ -69,6 +71,21 @@ angular.module('recruitX')
         $scope.finishRefreshing();
       });
     };
+
+    var getUserDetails = function(isSignupCop) {
+      if(isSignupCop) {
+        return {
+          name: "randomName",
+          experience: 99,
+          role: 'Ops'
+        }
+      }
+      return {
+        name: loggedinUserStore.userId(),
+        experience: loggedinUserStore.experience(),
+        role: loggedinUserStore.role().name
+      }
+    }
 
     $scope.refreshMyInterviews = function (page_number) {
       if(deployChannel === 'production') {
@@ -141,8 +158,8 @@ angular.module('recruitX')
       }
     };
 
-    var get_panelist_name = function() {
-      if (loggedinUserStore.isSignupCop()) {
+    var get_panelist = function() {
+      if ($scope.isSignupCop) {
         var alertPopup = $ionicPopup.show({
           template: '<input ng-model="data.panelist_name">',
           title: 'Enter panelist name',
@@ -151,13 +168,17 @@ angular.module('recruitX')
             {
               text: '<b>For Me!</b>',
               onTap: function () {
-                return loggedinUserStore.userId();
+                return getUserDetails(false);
               }
             },
             {
               text: '<b>Done</b>',
               onTap: function () {
-                return $scope.data.panelist_name;
+                return {
+                'name': $scope.data.panelist_name,
+                'experience': 99,
+                'role': "Ops"
+                }
               }
             }
           ]
@@ -175,7 +196,7 @@ angular.module('recruitX')
         return alertPopup;
     } else {
         return $q(function(resolve) {
-          resolve(loggedinUserStore.userId())
+          resolve(getUserDetails(false));
         });
     }
   }
@@ -185,16 +206,16 @@ angular.module('recruitX')
       if (!item.signup) {
         $cordovaToast.showShortBottom(item.signup_error);
       } else {
-        get_panelist_name().then(function(panelist_name) {
-          if (!!panelist_name) {
+        get_panelist().then(function(panelist) {
+          if (!!panelist) {
             if (item.candidate.id) {
             slot_or_interview = 'interview';
             $scope.interview_panelist = {
               interview_panelist: {
-                'panelist_login_name': panelist_name,
+                'panelist_login_name': panelist.name,
                 'interview_id': item.id,
-                'panelist_experience': loggedinUserStore.experience(),
-                'panelist_role': loggedinUserStore.role().name
+                'panelist_experience': panelist.experience,
+                'panelist_role': panelist.role
               }
             };
           } else {
