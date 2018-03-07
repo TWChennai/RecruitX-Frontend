@@ -21,7 +21,7 @@
   <preference name="orientation" value="portrait"/>
   <preference name="AndroidPersistentFileLocation" value="Compatibility"/>
   <feature name="StatusBar">
-    <param name="ios-package" value="CDVStatusBar" onload="true"/>
+    <param name="ios-package" onload="true" value="CDVStatusBar"/>
   </feature>
   <platform name="android">
     <icon src="resources/android/icon/drawable-ldpi-icon.png" density="ldpi"/>
@@ -63,4 +63,15 @@
     <splash src="resources/ios/splash/Default~iphone.png" width="320" height="480"/>
   </platform>
   <icon src="resources/android/icon/drawable-xhdpi-icon.png"/>
+  <plugin name="cordova-open" spec="~1.0.9"/>
+  <plugin name="cordova-plugin-camera" spec="~2.1.0"/>
+  <plugin name="cordova-plugin-datepicker" spec="~0.9.3"/>
+  <plugin name="cordova-plugin-network-information" spec="~1.2.1"/>
+  <plugin name="cordova-plugin-splashscreen" spec="~3.1.0"/>
+  <plugin name="cordova-plugin-whitelist" spec="~1.2.1"/>
+  <plugin name="cordova-plugin-x-toast" spec="~2.4.0"/>
+  <plugin name="ionic-plugin-keyboard" spec="~1.0.8"/>
+  <plugin name="com.guinatal.refreshgallery" spec="~1.0.9"/>
+  <plugin name="ionic-plugin-deploy" spec="~0.5.0"/>
+  <plugin name="cordova-plugin-app-version" spec="~0.1.8"/>
 </widget>
