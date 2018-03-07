@@ -3,7 +3,8 @@ RecruitX-Frontend
 
 ## Dependencies
 ```
-brew install node@8 phantomjs gradle
+install node 6.11.0 and nvm 3 or 4
+brew install phantomjs gradle
 npm install -g ionic@1.3.22 cordova bower
 
 npm install
@@ -24,17 +25,24 @@ DEPLOY_CHANNEL
 PHANTOMJS_BIN="$(which phantomjs)" ./node_modules/.bin/karma start tests/unit-tests.conf.js
 ```
 
+### Android
+1. Add an emulator using Android Studio
+This will install android as well as create vds.
+
+https://developer.android.com/studio/run/managing-avds.html
+
+
 ## Build and Run
 ```
-ionic platform add android
-ionic platform add ios
+1.
 
 ionic build android
 ionic build ios
 ```
 
-### Android
-1. Add an emulator using Android Studio
+Launch an emulator
+https://developer.android.com/studio/run/managing-avds.html
+
 2. Run `ionic run android`
 
 ### iOS
