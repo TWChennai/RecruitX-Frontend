@@ -34,12 +34,9 @@ gen/
 /plugins/fetch.json
 /plugins/ionic-plugin-keyboard
 /plugins/com.guinatal.refreshgallery
-/plugins/cordova-plugin-app-version
-/plugins/ionic-plugin-deploy
 /plugins/ios.json
 /resources/android
 /resources/ios
-/www/lib/ionic-platform-web-client
 .io-config.json
 
 # Gradle files

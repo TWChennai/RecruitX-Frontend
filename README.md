@@ -8,7 +8,6 @@ brew install phantomjs gradle
 npm install -g ionic@1.3.22 cordova bower
 
 npm install
-bower install
 ```
 
 ### Environment variables:
@@ -32,12 +31,12 @@ This will install android as well as create vds.
 https://developer.android.com/studio/run/managing-avds.html
 
 
-## Build and Run
+## Build and Run Android
 ```
 1.
 
 ionic build android
-ionic build ios
+
 ```
 
 Launch an emulator
@@ -45,7 +44,16 @@ https://developer.android.com/studio/run/managing-avds.html
 
 2. Run `ionic run android`
 
-### iOS
+
+
+### Build and Run iOS
+
+```
+1.
+
+ionic build ios
+
+```
 
 1. Open the iOS app in Xcode `open platforms/ios/RecruitX.xcworkspace`
 2. Run the app (CMD + R)
