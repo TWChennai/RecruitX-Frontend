@@ -28,7 +28,7 @@ RecruitX-Frontend
   asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git
   bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring
   asdf install
-  asdf install nodejs 6.13
+  asdf install nodejs 6.11.0
   ```
 
 Note: The versions of tools installed can be found in `.asdf/installs/`
