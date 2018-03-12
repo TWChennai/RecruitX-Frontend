@@ -220,3 +220,6 @@ fabric.properties
 /platforms/
 /plugins/
 /resources/
+
+# Project specific files
+www/js/app_constants.js
