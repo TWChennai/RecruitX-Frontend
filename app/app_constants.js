@@ -3,4 +3,5 @@ angular.module('recruitX')
   .constant('apiKey', '@@apiKey')
   .constant('apiUrl', '@@apiUrl')
   .constant('deployChannel', '@@deployChannel')
-  .constant('version','@@version');
+  .constant('version','@@version')
+  .constant('oktaEnabled', '@@oktaEnabled');

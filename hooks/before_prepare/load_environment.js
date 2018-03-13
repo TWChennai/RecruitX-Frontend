@@ -9,6 +9,7 @@ var apiKey = process.env.API_KEY;
 var apiUrl = process.env.API_URL;
 var deployChannel = process.env.DEPLOY_CHANNEL;
 var version = process.env.VERSION;
+var oktaEnabled = process.env.OKTA_ENABLED;
 process.stdout.write('loading env');
 
 // Replace each placeholder with the correct value for the variable.
@@ -30,6 +31,9 @@ gulp.src('app/app_constants.js')
       }, {
         match: 'version',
         replacement: version
+      }, {
+        match: 'oktaEnabled',
+        replacement: oktaEnabled
       }
     ]
   }))

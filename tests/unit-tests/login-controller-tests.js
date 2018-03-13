@@ -44,7 +44,8 @@ describe('loginController', function () {
           loggedinUserStore: userStore,
           $state: state,
           $ionicHistory: history,
-          recruitFactory: mockRecruitFactory
+          recruitFactory: mockRecruitFactory,
+          oktaEnabled: 'true'
         });
       };
     }));
