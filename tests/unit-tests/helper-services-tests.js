@@ -62,6 +62,7 @@ describe('helper-services', function () {
       });
 
       it('should be able to find office', function(){
+
         expect(loggedinUserStore.office()).toBe('Chennai');
       });
 
