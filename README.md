@@ -51,7 +51,7 @@ API_KEY
 DEPLOY_CHANNEL
 OKTA_ENABLED
 
-To connect app with local server, API_URL should contain ip address of your local machine instead of 'localhost'
+To connect with app with local server, API_URL should contain ip address of your local machine instead of 'localhost'.
 ```
 
 ## Run Tests
