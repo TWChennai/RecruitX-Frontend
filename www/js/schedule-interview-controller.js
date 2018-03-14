@@ -1,5 +1,5 @@
 angular.module('recruitX')
-  .controller('scheduleInterviewController', ['interviewTypeHelperService', '$timeout', '$rootScope', '$state', 'MasterData', '$scope', '$stateParams', '$cordovaDatePicker', 'recruitFactory', '$filter', 'dialogService', function (interviewTypeHelperService, $timeout, $rootScope, $state, MasterData, $scope, $stateParams, $cordovaDatePicker, recruitFactory, $filter, dialogService) {
+  .controller('scheduleInterviewController', ['interviewTypeHelperService', '$timeout', '$rootScope', '$state', 'MasterData', '$scope', '$stateParams', '$cordovaDatePicker', 'recruitFactory', '$filter', 'dialogService', 'loggedinUserStore', function (interviewTypeHelperService, $timeout, $rootScope, $state, MasterData, $scope, $stateParams, $cordovaDatePicker, recruitFactory, $filter, dialogService, loggedinUserStore) {
     'use strict';
 
     var MIN_PRIORITY,MAX_PRIORITY, interviewRoundsAsMap;
@@ -208,6 +208,8 @@ angular.module('recruitX')
       $stateParams.candidate.interview_rounds = interviewRounds.filter(function (interviewRound) {
         return Boolean(interviewRound);
       });
+
+      $stateParams.candidate.office = loggedinUserStore.office();
 
       recruitFactory.saveCandidate($stateParams, function () {
         // console.log(response);
