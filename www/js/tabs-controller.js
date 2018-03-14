@@ -114,7 +114,8 @@ angular.module('recruitX')
 
     $scope.refreshCandidates = function (page_number) {
       var data = {
-        'page': page_number
+        'page': page_number,
+        'office': loggedinUserStore.office()
       };
       if (page_number === 1) {
         $scope.next_requesting_page = 1;
