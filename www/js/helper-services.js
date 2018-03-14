@@ -104,6 +104,7 @@ angular.module('recruitX')
         is_signup_cop: user.is_signup_cop,
         calculated_hire_date: user.calculated_hire_date,
         past_experience: user.past_experience,
+        office: user.office,
         role: user.role
       };
 
@@ -129,6 +130,10 @@ angular.module('recruitX')
     loggedinUserStore.pastExperience = function () {
       return (JSON.parse(window.localStorage[STORAGE_KEY])).past_experience;
     };
+
+    loggedinUserStore.office = function () {
+      return (JSON.parse(window.localStorage[STORAGE_KEY])).office;
+    }
 
     loggedinUserStore.calculatedHireDate = function () {
       return (JSON.parse(window.localStorage[STORAGE_KEY])).calculated_hire_date;

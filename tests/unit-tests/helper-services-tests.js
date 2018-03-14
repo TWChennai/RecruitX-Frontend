@@ -20,12 +20,14 @@ describe('helper-services', function () {
       is_recruiter: true,
       calculated_hire_date: '2015-11-11',
       past_experience: 1.23,
+      office: 'Chennai',
       role: { name: 'Other',id: 3}
     };
     var userDetails = {
       is_recruiter: true,
       calculated_hire_date: '2015-11-11',
       past_experience: 1.23,
+      office: 'Chennai',
       role: { name: 'Other',id: 3}
     };
 
@@ -57,6 +59,10 @@ describe('helper-services', function () {
 
       it('should be able to find if the role', function () {
         expect(loggedinUserStore.isRecruiter()).toBe(true);
+      });
+
+      it('should be able to find office', function(){
+        expect(loggedinUserStore.office()).toBe('Chennai');
       });
 
       it('should be able to find if the pastExperience', function () {
