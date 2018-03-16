@@ -1,5 +1,5 @@
 angular.module('recruitX')
-  .controller('createSlotsController', ['$scope', 'MasterData', '$filter', '$cordovaDatePicker', 'recruitFactory', 'dialogService', '$timeout', '$rootScope', '$state', function ($scope, MasterData, $filter, $cordovaDatePicker, recruitFactory, dialogService, $timeout, $rootScope, $state) {
+  .controller('createSlotsController', ['$scope', 'MasterData', '$filter', '$cordovaDatePicker', 'recruitFactory', 'dialogService', '$timeout', '$rootScope', '$state', 'loggedinUserStore', function ($scope, MasterData, $filter, $cordovaDatePicker, recruitFactory, dialogService, $timeout, $rootScope, $state, loggedinUserStore) {
     'use strict';
 
     $scope.roles = ($filter('filter')(MasterData.getRoles(), {
@@ -11,6 +11,7 @@ angular.module('recruitX')
     $scope.slot = {
       role_id: $scope.roles[0].id,
       interview_type_id: $scope.interviewRounds[2].id,
+      office: loggedinUserStore.office(),
       count: 1
     };
 
