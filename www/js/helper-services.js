@@ -133,11 +133,7 @@ angular.module('recruitX')
 
     loggedinUserStore.office = function () {
       return (JSON.parse(window.localStorage[STORAGE_KEY])).office;
-<<<<<<< HEAD
-    }
-=======
     };
->>>>>>> [Jeremy/Udhay] Office data added in local store
 
     loggedinUserStore.calculatedHireDate = function () {
       return (JSON.parse(window.localStorage[STORAGE_KEY])).calculated_hire_date;
