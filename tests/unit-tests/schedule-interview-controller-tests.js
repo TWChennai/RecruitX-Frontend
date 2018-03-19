@@ -4,11 +4,13 @@ describe('scheduleInterviewController', function() {
   beforeEach(module('recruitX'));
 
   var $scope = {};
+  var recruitFactory;
 
-  beforeEach(inject(function($controller, $stateParams, MasterData) {
+  beforeEach(inject(function($controller, $stateParams, MasterData, _loggedinUserStore_, _recruitFactory_) {
     $stateParams.candidate = {role_id: 1};
     $stateParams.candidate.interview_schedule = [];
-
+    spyOn(_loggedinUserStore_, 'office').and.returnValue('chennai');
+    spyOn(_recruitFactory_, 'saveCandidate');
     var interviewTypes = [{
       id: 1,
       name: 'Code Pairing',
@@ -30,7 +32,7 @@ describe('scheduleInterviewController', function() {
       name: 'P3',
       priority: 4
     }];
-
+    recruitFactory = _recruitFactory_;
     var roles = [{
       'skills': [{'id':1},{'id':2},{'id':3},{'id':4},{'id':5}],
       'name': 'Dev',
@@ -59,6 +61,14 @@ describe('scheduleInterviewController', function() {
         // $scope.interviewRounds[1].dateTime = new Date();
         expect($scope.isFormInvalid()).toEqual(true);
       });
+    });
+
+    describe('Check Office is being sent', function() {
+      it('should send office name in the payload for saveCandidate', function() {
+        $scope.postCandidate();
+        expect(Object.keys(recruitFactory.saveCandidate.calls.mostRecent().args[0].candidate)).toContain('office');
+      });
+
     });
 
     describe('checkWithPreviousRound', function() {
