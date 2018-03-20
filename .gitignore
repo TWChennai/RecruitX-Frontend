@@ -269,8 +269,10 @@ fabric.properties
 
 
 /.io-config.json
-/.envrc
 /resources/
 
 # Project specific files
 www/js/app_constants.js
+
+# Git-crypt
+frontend.key

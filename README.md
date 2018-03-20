@@ -39,14 +39,15 @@ npm install -g ionic@1.3.22 cordova bower
 npm install
 ```
 
-## Environment variables:
-```
-API_URL
-VERSION
-OKTA_URL
-API_KEY
-DEPLOY_CHANNEL
-OKTA_ENABLED
+### Other Dependencies
+
+* Download and install direnv , then hook it bash / zsh.
+  https://direnv.net/
+
+* Download and install git-crypt.
+  copy the backend.key into project folder. unlock the .envrc file which will export environment variables
+  ```bash
+     git-crypt unlock backend.key
 
 To connect with app with local server, API_URL should contain ip address of your local machine instead of 'localhost'.
 ```
