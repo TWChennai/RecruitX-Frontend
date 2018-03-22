@@ -60,7 +60,8 @@ angular.module('recruitX')
       recruitFactory.getInterviews({
         panelist_login_name: user_details.name,
         panelist_experience: user_details.experience,
-        panelist_role: user_details.role
+        panelist_role: user_details.role,
+        office: loggedinUserStore.office()
       }, function (newItems) {
         $scope.items = newItems;
         $scope.noItems = $scope.items.length === 0 ? true : false;

@@ -23,7 +23,6 @@ angular.module('recruitX')
 
     var defaultErrorHandler = function (err, status, customError) {
       $cordovaToast.showShortBottom(getErrorMessage(status));
-      // console.log(getErrorMessage(status));
       if (customError !== undefined) {
         customError();
       }
