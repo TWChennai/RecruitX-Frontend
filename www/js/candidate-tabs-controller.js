@@ -219,7 +219,7 @@ angular.module('recruitX')
         callback(interview, interviewType);
       });
     };
-
+  
     $scope.updateInterview = function (interview, interviewType) {
       recruitFactory.updateInterviewSchedule({
         interview: {

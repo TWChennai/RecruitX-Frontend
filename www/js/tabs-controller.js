@@ -22,19 +22,19 @@ angular.module('recruitX')
       $scope.$broadcast('scroll.refreshComplete');
     };
 
-    if(deployChannel === 'production') {
+    if (deployChannel === 'production') {
       $ionicAnalytics.track('Home Page', {
         is_recruiter: loggedinUserStore.isRecruiter()
       });
     }
 
-    var isInterviewsTab = function() {
+    var isInterviewsTab = function () {
       return $scope.currentTab === 'interviews';
     };
-    var isCandidatesTab = function() {
+    var isCandidatesTab = function () {
       return $scope.currentTab === 'candidates';
     };
-    var isMyInterviewsTab = function() {
+    var isMyInterviewsTab = function () {
       return $scope.currentTab === 'myInterviews';
     };
 
@@ -73,8 +73,8 @@ angular.module('recruitX')
       });
     };
 
-    var getUserDetails = function(isSignupCop) {
-      if(isSignupCop) {
+    var getUserDetails = function (isSignupCop) {
+      if (isSignupCop) {
         return {
           name: "randomName",
           experience: 99,
@@ -89,7 +89,7 @@ angular.module('recruitX')
     }
 
     $scope.refreshMyInterviews = function (page_number) {
-      if(deployChannel === 'production') {
+      if (deployChannel === 'production') {
         $ionicAnalytics.track('MyInterviews');
       }
       var data = {
@@ -140,7 +140,7 @@ angular.module('recruitX')
 
     $scope.getSosStatus = function () {
       recruitFactory.getSosStatus(function (response) {
-        $rootScope.$broadcast('sosChanged', {sosValidity: response.data.sos_validity});
+        $rootScope.$broadcast('sosChanged', { sosValidity: response.data.sos_validity });
       });
     };
 
@@ -160,7 +160,7 @@ angular.module('recruitX')
       }
     };
 
-    var get_panelist = function() {
+    var get_panelist = function () {
       if ($scope.isSignupCop) {
         var alertPopup = $ionicPopup.show({
           template: '<input ng-model="data.panelist_name">',
@@ -177,9 +177,9 @@ angular.module('recruitX')
               text: '<b>Done</b>',
               onTap: function () {
                 return {
-                'name': $scope.data.panelist_name,
-                'experience': 99,
-                'role': "Ops"
+                  'name': $scope.data.panelist_name,
+                  'experience': 99,
+                  'role': "Ops"
                 }
               }
             }
@@ -188,51 +188,53 @@ angular.module('recruitX')
 
         var htmlEl = angular.element(document.querySelector('html'));
         htmlEl.on('click', function (event) {
-            if (event.target.nodeName === 'HTML') {
-                if (alertPopup) {
-                    alertPopup.close();
-                }
+          if (event.target.nodeName === 'HTML') {
+            if (alertPopup) {
+              alertPopup.close();
             }
+          }
         });
 
         return alertPopup;
-    } else {
-        return $q(function(resolve) {
+      } else {
+        return $q(function (resolve) {
           resolve(getUserDetails(false));
         });
+      }
     }
-  }
 
     $scope.signingUp = function ($event, item) {
       $event.stopPropagation();
       if (!item.signup) {
         $cordovaToast.showShortBottom(item.signup_error);
       } else {
-        get_panelist().then(function(panelist) {
+        get_panelist().then(function (panelist) {
           if (!!panelist) {
             if (item.candidate.id) {
-            slot_or_interview = 'interview';
-            $scope.interview_panelist = {
-              interview_panelist: {
-                'panelist_login_name': panelist.name,
-                'interview_id': item.id,
-                'panelist_experience': panelist.experience,
-                'panelist_role': panelist.role
-              }
-            };
-          } else {
-            slot_or_interview = 'slot';
-            $scope.interview_panelist = {
-              slot_panelist: {
-                'panelist_login_name': loggedinUserStore.userId(),
-                'slot_id': item.id,
-                'panelist_experience': loggedinUserStore.experience(),
-                'panelist_role': loggedinUserStore.role().name
-              }
-            };
-          }
+              slot_or_interview = 'interview';
+              $scope.interview_panelist = {
+                interview_panelist: {
+                  'panelist_login_name': panelist.name,
+                  'interview_id': item.id,
+                  'panelist_experience': panelist.experience,
+                  'panelist_role': panelist.role,
+                  'office': loggedinUserStore.office()
+                }
+              };
+            } else {
+              slot_or_interview = 'slot';
+              $scope.interview_panelist = {
+                slot_panelist: {
+                  'panelist_login_name': loggedinUserStore.userId(),
+                  'slot_id': item.id,
+                  'panelist_experience': loggedinUserStore.experience(),
+                  'panelist_role': loggedinUserStore.role().name,
+                  'office': loggedinUserStore.office()
+                }
+              };
+            }
             dialogService.askConfirmation('Sign up', 'Are you sure you want to sign up for this ' + slot_or_interview + '?', $scope.signUp);
-        }
+          }
         })
       }
     };
@@ -253,21 +255,21 @@ angular.module('recruitX')
     };
 
     $scope.signUp = function () {
-      if(deployChannel === 'production') {
+      if (deployChannel === 'production') {
         $ionicAnalytics.track('Sign up');
       }
       recruitFactory.signUp($scope.interview_panelist, $scope.signUpSuccessHandler, $scope.signUpUnprocessableEntityHandler, $scope.defaultErrorHandler);
     };
 
     $scope.declineInterview = function () {
-      if(deployChannel === 'production') {
+      if (deployChannel === 'production') {
         $ionicAnalytics.track('Decline');
       }
       recruitFactory.deleteInterviewPanelist($scope.interview_panelist_id, $scope.declineInterviewSuccessHandler, $scope.declineUnprocessableEntityHandler, $scope.defaultErrorHandler);
     };
 
     $scope.declineSlot = function () {
-      if(deployChannel === 'production') {
+      if (deployChannel === 'production') {
         $ionicAnalytics.track('Decline');
       }
       recruitFactory.deleteSlotPanelist($scope.interview_panelist_id, $scope.declineInterviewSuccessHandler, $scope.declineUnprocessableEntityHandler, $scope.defaultErrorHandler);
@@ -326,11 +328,11 @@ angular.module('recruitX')
     };
 
     $scope.triggerSos = function () {
-      recruitFactory.sendSos(function(){
+      recruitFactory.sendSos(function () {
         dialogService.showAlert('SOS', 'SOS Email has been successfully sent');
-      }, function() {
+      }, function () {
         dialogService.showAlertWithDismissHandler('SOS', 'SOS Email was not sent as there are no interviews requiring signups in the next 2 days', $scope.getSosStatus);
-      }, function(){
+      }, function () {
         dialogService.showAlertWithDismissHandler('SOS', 'Something went wrong and SOS was not sent', $scope.getSosStatus);
       });
     };
@@ -343,7 +345,7 @@ angular.module('recruitX')
       return candidate !== undefined && candidate.pipelineStatus !== 'Closed';
     };
 
-    $scope.isVaildInterview = function(candidate) {
+    $scope.isVaildInterview = function (candidate) {
       return $scope.isInPipeline(candidate) && candidate.id;
     };
 
@@ -369,4 +371,4 @@ angular.module('recruitX')
       $scope.manuallyRefreshInterviews();
     })();
   }
-]);
+  ]);
