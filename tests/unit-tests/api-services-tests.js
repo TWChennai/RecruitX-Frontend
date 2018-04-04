@@ -213,8 +213,9 @@ describe('recruitFactory', function () {
 
   describe('send sos email', function () {
     it('should call success handler when successful', function(){
+      var data = null;
       httpBackend.expectGET(baseUrl + '/sos_email').respond('success');
-      recruitFactory.sendSos(function(){
+      recruitFactory.sendSos(data, function(){
         expect(true).toEqual(true);
       }, function(){
         expect(true).toEqual(false);
@@ -225,9 +226,10 @@ describe('recruitFactory', function () {
     });
 
     it('should call failure handler when failure', function(){
+      var data = null;
       var errorStatus = 400;
       httpBackend.expectGET(baseUrl + '/sos_email').respond(errorStatus, 'error');
-      recruitFactory.sendSos(function(){
+      recruitFactory.sendSos(data, function(){
         expect(true).toEqual(false);
       }, function(){
         expect(true).toEqual(false);
@@ -238,9 +240,10 @@ describe('recruitFactory', function () {
     });
 
     it('should call email not sent handler when status is 428', function(){
+      var data=null;
       var errorStatus = 428;
       httpBackend.expectGET(baseUrl + '/sos_email').respond(errorStatus, 'error');
-      recruitFactory.sendSos(function(){
+      recruitFactory.sendSos(data, function(){
         expect(true).toEqual(false);
       }, function(){
         expect(true).toEqual(true);

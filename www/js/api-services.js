@@ -278,8 +278,10 @@ angular.module('recruitX')
         $http.put(apiUrl + '/candidates/' + id, data).then(success, failure);
       },
 
-      sendSos: function (success, email_not_sent_handler, failure) {
-        $http.get(apiUrl + '/sos_email').then(success, function(err, status) {
+      sendSos: function (data, success, email_not_sent_handler, failure) {
+        $http.get(apiUrl + '/sos_email', {
+          params: data
+        }).then(success, function(err, status) {
           if(err.status === PRECONDITION_FAILED_ERROR) {
             email_not_sent_handler();
           } else {

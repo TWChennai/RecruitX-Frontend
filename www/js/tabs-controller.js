@@ -326,7 +326,10 @@ angular.module('recruitX')
     };
 
     $scope.triggerSos = function () {
-      recruitFactory.sendSos(function(){
+      var data = {
+        'office': loggedinUserStore.office()
+      };
+      recruitFactory.sendSos(data, function(){
         dialogService.showAlert('SOS', 'SOS Email has been successfully sent');
       }, function() {
         dialogService.showAlertWithDismissHandler('SOS', 'SOS Email was not sent as there are no interviews requiring signups in the next 2 days', $scope.getSosStatus);
