@@ -291,7 +291,13 @@ angular.module('recruitX')
       },
 
       getSosStatus: function (success) {
-        $http.get(apiUrl + '/sos_email?get_status=true').then(success);
+        var data = {
+          'get_status': true,
+          'office': loggedinUserStore.office()
+        };
+        $http.get(apiUrl + '/sos_email?', {
+          params: data
+        }).then(success);
       }
     };
   }])

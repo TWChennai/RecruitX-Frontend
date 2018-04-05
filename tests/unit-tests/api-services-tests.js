@@ -203,7 +203,7 @@ describe('recruitFactory', function () {
 
   describe('get sos status', function () {
     it('should call succcess handler when successful', function(){
-      httpBackend.expectGET(baseUrl + '/sos_email?get_status=true').respond('success');
+      httpBackend.expectGET(baseUrl + '/sos_email?&get_status=true&office=Chennai').respond('success');
       recruitFactory.getSosStatus(function(){
         expect(true).toEqual(true);
       });
