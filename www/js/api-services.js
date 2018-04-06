@@ -275,7 +275,11 @@ angular.module('recruitX')
       },
 
       closePipeline: function (data, id, success, failure) {
-        $http.put(apiUrl + '/candidates/' + id, data).then(success, failure);
+        var office = {
+          'office': loggedinUserStore.office()
+        };
+
+        $http.put(apiUrl + '/candidates/' + id, data, office).then(success, failure);
       },
 
       sendSos: function (data, success, email_not_sent_handler, failure) {
