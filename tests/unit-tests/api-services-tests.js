@@ -8,6 +8,7 @@ describe('recruitFactory', function () {
   beforeEach(inject(function ($cordovaToast, $httpBackend, apiUrl, _recruitFactory_, loggedinUserStore) {
     recruitFactory = _recruitFactory_;
     spyOn(loggedinUserStore, 'userId').and.returnValue('userId');
+    spyOn(loggedinUserStore, 'office').and.returnValue("chennai")
     $httpBackend.whenGET(/templates.*/).respond(200, '');
     httpBackend = $httpBackend;
     cordovaToast = $cordovaToast;
@@ -133,8 +134,8 @@ describe('recruitFactory', function () {
 
   describe('closePipeline', function () {
     it('closePipeline should post data when successful', function () {
-      httpBackend.expectPUT(baseUrl + '/candidates/id', 'data').respond('success');
-      recruitFactory.closePipeline('data', 'id', function (response) {
+      httpBackend.expectPUT(baseUrl + '/candidates/id', {"office":"chennai"}).respond('success');
+      recruitFactory.closePipeline({}, 'id', function (response) {
         expect(response.data).toEqual('success');
       });
 
@@ -142,10 +143,10 @@ describe('recruitFactory', function () {
     });
 
     it('closePipeline should display alert when error and should not call the success method', function () {
-      httpBackend.expectPUT(baseUrl + '/candidates/id', 'data').respond(422, 'error');
+      httpBackend.expectPUT(baseUrl + '/candidates/id', {"office":"chennai"}).respond(422, 'error');
       spyOn(cordovaToast, 'showShortBottom');
 
-      recruitFactory.closePipeline('data', 'id', function (success) {
+      recruitFactory.closePipeline({}, 'id', function (success) {
         expect(false).toEqual(success);
       }, function () {
         expect(true).toEqual(true);
@@ -203,7 +204,7 @@ describe('recruitFactory', function () {
 
   describe('get sos status', function () {
     it('should call succcess handler when successful', function(){
-      httpBackend.expectGET(baseUrl + '/sos_email?&get_status=true&office=Chennai').respond('success');
+      httpBackend.expectGET(baseUrl + '/sos_email?&get_status=true&office=chennai').respond('success');
       recruitFactory.getSosStatus(function(){
         expect(true).toEqual(true);
       });

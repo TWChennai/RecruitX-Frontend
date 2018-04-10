@@ -42,7 +42,7 @@ angular.module('recruitX')
     };
 
     $scope.refreshInterviewFeedback = function () {
-      recruitFactory.getInterview(loggedinUserStore.office(),$stateParams.interview_id, function (interview) {
+      recruitFactory.getInterview($stateParams.interview_id, function (interview) {
         $scope.interview = interview;
         if (interview.status) {
           $scope.feedbackImages = interview.feedback_images;
