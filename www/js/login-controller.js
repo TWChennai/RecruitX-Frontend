@@ -9,9 +9,8 @@ angular.module('recruitX')
         "id": "00u1f0p4lwy4igdAh0h8",
         "passwordChanged": "2018-03-06T09:25:46.000Z",
         "profile": {
-
-          "login": "haiderp@thoughtworks.com",
-          "firstName": "haider",
+          "login": "jruchi@thoughtworks.com",
+          "firstName": "ruchi",
           "lastName": "Jackson",
           "locale": "en",
           "timeZone": "America/Los_Angeles"

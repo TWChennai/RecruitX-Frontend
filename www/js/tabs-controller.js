@@ -224,10 +224,10 @@ angular.module('recruitX')
             slot_or_interview = 'slot';
             $scope.interview_panelist = {
               slot_panelist: {
-                'panelist_login_name': loggedinUserStore.userId(),
+                'panelist_login_name': panelist.name,
                 'slot_id': item.id,
-                'panelist_experience': loggedinUserStore.experience(),
-                'panelist_role': loggedinUserStore.role().name
+                'panelist_experience': panelist.experience,
+                'panelist_role': panelist.role
               }
             };
           }
