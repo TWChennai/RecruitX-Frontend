@@ -34,8 +34,8 @@
             </div>
             <div class="col col-70">
               <div class="pull-right">
-                <button ng-show="isInPipeline(item.candidate)" class="button button-small button-positive" ng-class="{'button-pseudo-disabled': !item.signup}"
-                        ng-disabled="!isInPipeline(item.candidate)" ng-click="signingUp($event, item)">Signup
+                <button ng-show="isInPipeline(item.candidate)" class="button button-small button-positive" 
+                        ng-disabled="!isInPipeline(item.candidate) || !item.signup" ng-click="signingUp($event, item)">Signup
                 </button>
                 <p ng-show="!isLoggedinUserRecruiter && !isInPipeline(item.candidate)" class="button button-clear"><strong>Closed</strong></p>
                 <h4>{{item.formattedPanelists}}</h4>
