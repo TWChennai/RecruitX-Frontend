@@ -9,6 +9,7 @@
   </author>
     <content src="index.html" />
     <access origin="*" />
+    <preference name="AndroidLaunchMode" value="singleTask" />
     <preference name="webviewbounce" value="false" />
     <preference name="UIWebViewBounce" value="false" />
     <preference name="DisallowOverscroll" value="true" />
@@ -74,5 +75,23 @@
     <plugin name="com.guinatal.refreshgallery" spec="~1.0.9" />
     <plugin name="ionic-plugin-deploy" spec="~0.5.0" />
     <plugin name="cordova-plugin-app-version" spec="~0.1.8" />
+    <plugin name="ionic-plugin-deeplinks" spec="^1.0.15">
+        <variable name="URL_SCHEME" value="recruitx" />
+        <variable name="DEEPLINK_SCHEME" value="https" />
+        <variable name="DEEPLINK_HOST" value="recruitx.com" />
+        <variable name="ANDROID_PATH_PREFIX" value="/" />
+        <variable name="ANDROID_2_PATH_PREFIX" value="/" />
+        <variable name="ANDROID_3_PATH_PREFIX" value="/" />
+        <variable name="ANDROID_4_PATH_PREFIX" value="/" />
+        <variable name="ANDROID_5_PATH_PREFIX" value="/" />
+        <variable name="DEEPLINK_2_SCHEME" value=" " />
+        <variable name="DEEPLINK_2_HOST" value=" " />
+        <variable name="DEEPLINK_3_SCHEME" value=" " />
+        <variable name="DEEPLINK_3_HOST" value=" " />
+        <variable name="DEEPLINK_4_SCHEME" value=" " />
+        <variable name="DEEPLINK_4_HOST" value=" " />
+        <variable name="DEEPLINK_5_SCHEME" value=" " />
+        <variable name="DEEPLINK_5_HOST" value=" " />
+    </plugin>
     <engine name="ios" spec="^4.5.4" />
 </widget>

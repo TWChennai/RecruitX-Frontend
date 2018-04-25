@@ -33,10 +33,23 @@ RecruitX-Frontend
 ## Dependencies
 Install other dependencies
 ```bash
+
 brew install phantomjs gradle
-npm install -g ionic@1.3.22 cordova bower
+
+npm install -g ionic@1.3.22 cordova bower 
 
 npm install
+
+ionic plugin add cordova-plugin-inappbrowser
+
+npm install --save @ionic-native/in-app-browser (you may have to resolve dependencies manually)
+
+ionic plugin add ionic-plugin-deeplinks --variable URL_SCHEME=recruitx --variable DEEPLINK_SCHEME=https --variable DEEPLINK_HOST=recruitx.com --save
+
+npm install --save @ionic-native/deeplinks  (you may have to resolve dependencies manually)
+
+cp ./node_modules/ionic-native/dist/ionic.native.min.js www/lib/ionic-native
+
 ```
 
 ### Other Dependencies

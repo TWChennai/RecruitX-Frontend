@@ -1,5 +1,5 @@
 angular.module('recruitX')
-  .controller('TabsCtrl', ['$cordovaToast', '$scope', 'recruitFactory', 'skillHelperService', 'loggedinUserStore', 'dialogService', '$ionicHistory', '$state', '$filter', '$rootScope', '$ionicAnalytics', 'deployChannel', '$ionicPopup', '$q', function ($cordovaToast, $scope, recruitFactory, skillHelperService, loggedinUserStore, dialogService, $ionicHistory, $state, $filter, $rootScope, $ionicAnalytics, deployChannel, $ionicPopup, $q) {
+  .controller('TabsCtrl', ['$cordovaToast', '$scope', 'recruitFactory', 'skillHelperService', 'loggedinUserStore', 'dialogService', '$ionicHistory', '$state', '$filter', '$rootScope', '$ionicAnalytics', 'deployChannel', '$ionicPopup', 'oktaSignoutUrl', '$q', function ($cordovaToast, $scope, recruitFactory, skillHelperService, loggedinUserStore, dialogService, $ionicHistory, $state, $filter, $rootScope, $ionicAnalytics, deployChannel, $ionicPopup, oktaSignoutUrl, $q) {
     'use strict';
 
     var refreshing = false;
@@ -321,7 +321,8 @@ angular.module('recruitX')
           disableAnimate: true
         });
 
-        $state.go('login');
+        cordova.InAppBrowser.open(oktaSignoutUrl, "_system");
+        //TODO: Should redirect to LOGIN HOME Page, to initiate login again
       });
     };
 

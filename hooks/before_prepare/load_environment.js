@@ -5,6 +5,7 @@ var replace = require('gulp-replace-task');
 
 // Get the environment from the command line
 var oktaUrl = process.env.OKTA_URL;
+var oktaSignoutUrl = process.env.OKTA_SIGNOUT_URL;
 var apiKey = process.env.API_KEY;
 var apiUrl = process.env.API_URL;
 var deployChannel = process.env.DEPLOY_CHANNEL;
@@ -19,6 +20,9 @@ gulp.src('app/app_constants.js')
       {
         match: 'oktaUrl',
         replacement: oktaUrl
+      }, {
+        match: 'oktaSignoutUrl',
+        replacement: oktaSignoutUrl
       }, {
         match: 'apiKey',
         replacement: apiKey

@@ -4,7 +4,7 @@
 // 'recruitX' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 
-angular.module('recruitX', ['ngFileUpload', 'ionic', 'ionic.service.analytics', 'ui.router', 'ngCordova', 'ngResource'])
+angular.module('recruitX', ['ngFileUpload', 'ionic', 'ionic.native', 'ionic.service.analytics', 'ui.router', 'ngCordova', 'ngResource'])
   .config(function ($stateProvider, $urlRouterProvider, $compileProvider, $ionicConfigProvider) {
     'use strict';
 
@@ -19,95 +19,95 @@ angular.module('recruitX', ['ngFileUpload', 'ionic', 'ionic.service.analytics', 
         controller: 'createCandidateProfileController'
       })
 
-    .state('create-slots', {
-      url: '/slots/new',
-      templateUrl: 'templates/create-slots.html',
-      controller: 'createSlotsController'
-    })
+      .state('create-slots', {
+        url: '/slots/new',
+        templateUrl: 'templates/create-slots.html',
+        controller: 'createSlotsController'
+      })
 
-    .state('schedule-interview', {
-      url: '/candidates/interviews/new',
-      templateUrl: 'templates/schedule-interview.html',
-      controller: 'scheduleInterviewController',
-      params: {
-        candidate: null
-      }
-    })
+      .state('schedule-interview', {
+        url: '/candidates/interviews/new',
+        templateUrl: 'templates/schedule-interview.html',
+        controller: 'scheduleInterviewController',
+        params: {
+          candidate: null
+        }
+      })
 
-    .state('tabs', {
-      url: '/tab',
-      templateUrl: 'templates/tabs.html',
-      controller: 'TabsCtrl'
-    })
+      .state('tabs', {
+        url: '/tab',
+        templateUrl: 'templates/tabs.html',
+        controller: 'TabsCtrl'
+      })
 
-    .state('tabs.interviews', {
-      url: '/interviews',
-      templateUrl: 'templates/interviews.html',
-      controller: 'TabsCtrl',
-      params: {
-        tab: 'interviews'
-      }
-    })
+      .state('tabs.interviews', {
+        url: '/interviews',
+        templateUrl: 'templates/interviews.html',
+        controller: 'TabsCtrl',
+        params: {
+          tab: 'interviews'
+        }
+      })
 
-    .state('tabs.my-interviews', {
-      url: '/my_interviews',
-      templateUrl: 'templates/my-interviews.html',
-      controller: 'TabsCtrl',
-      params: {
-        tab: 'myInterviews'
-      }
-    })
+      .state('tabs.my-interviews', {
+        url: '/my_interviews',
+        templateUrl: 'templates/my-interviews.html',
+        controller: 'TabsCtrl',
+        params: {
+          tab: 'myInterviews'
+        }
+      })
 
-    .state('tabs.candidates', {
-      url: '/candidates',
-      templateUrl: 'templates/candidates.html',
-      controller: 'TabsCtrl',
-      params: {
-        tab: 'candidates'
-      }
-    })
+      .state('tabs.candidates', {
+        url: '/candidates',
+        templateUrl: 'templates/candidates.html',
+        controller: 'TabsCtrl',
+        params: {
+          tab: 'candidates'
+        }
+      })
 
-    .state('candidate-tabs', {
-      url: '/candidate-tab',
-      templateUrl: 'templates/candidate-tabs.html',
-      controller: 'CandidateTabsCtrl'
-    })
+      .state('candidate-tabs', {
+        url: '/candidate-tab',
+        templateUrl: 'templates/candidate-tabs.html',
+        controller: 'CandidateTabsCtrl'
+      })
 
-    .state('candidate-tabs.profile', {
-      url: '/candidates/:candidate_id',
-      templateUrl: 'templates/candidate-profile.html',
-      controller: 'CandidateTabsCtrl',
-      params: {
-        role_id: null,
-        tab: 'profile'
-      }
-    })
+      .state('candidate-tabs.profile', {
+        url: '/candidates/:candidate_id',
+        templateUrl: 'templates/candidate-profile.html',
+        controller: 'CandidateTabsCtrl',
+        params: {
+          role_id: null,
+          tab: 'profile'
+        }
+      })
 
-    .state('candidate-tabs.interviews', {
-      url: '/candidates/:candidate_id/interviews',
-      templateUrl: 'templates/candidate-interviews.html',
-      controller: 'CandidateTabsCtrl',
-      params: {
-        role_id: null,
-        tab: 'interviews'
-      }
-    })
+      .state('candidate-tabs.interviews', {
+        url: '/candidates/:candidate_id/interviews',
+        templateUrl: 'templates/candidate-interviews.html',
+        controller: 'CandidateTabsCtrl',
+        params: {
+          role_id: null,
+          tab: 'interviews'
+        }
+      })
 
-    .state('interview-details', {
-      url: '/interviews/:interview_id',
-      templateUrl: 'templates/interview-details.html',
-      controller: 'interviewDetailsController'
-    })
+      .state('interview-details', {
+        url: '/interviews/:interview_id',
+        templateUrl: 'templates/interview-details.html',
+        controller: 'interviewDetailsController'
+      })
 
-    .state('login', {
-      url: '/login',
-      templateUrl: 'templates/login.html',
-      controller: 'loginController'
-    })
+      .state('login', {
+        url: '/login',
+        templateUrl: 'templates/login.html',
+        controller: 'loginController'
+      })
 
-    .state('about', {
-      url: '/about',
-      templateUrl: 'templates/about.html',
-      controller: 'aboutController'
-    });
+      .state('about', {
+        url: '/about',
+        templateUrl: 'templates/about.html',
+        controller: 'aboutController'
+      });
   });
