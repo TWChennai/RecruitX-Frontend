@@ -177,7 +177,7 @@ angular.module('recruitX')
               text: '<b>Done</b>',
               onTap: function () {
                 return {
-                'name': $scope.data.panelist_name,
+                'name': ($scope.data.panelist_name).toLowerCase(),
                 'experience': 99,
                 'role': "Ops"
                 }
