@@ -56,8 +56,6 @@ angular.module('recruitX')
   .run(function ($ionicPlatform, $rootScope, $timeout, $state, $cordovaToast, $ionicAnalytics, $cordovaDeeplinks, $ionicHistory, recruitFactory, MasterData, loggedinUserStore) {
     'use strict';
 
-    if(!window.localStorage.LOGGING_IN_PROGRESS)
-      window.localStorage.LOGGING_IN_PROGRESS = false;
     
     $ionicPlatform.ready(function () {
     
@@ -93,17 +91,7 @@ angular.module('recruitX')
       if (window.StatusBar) {
         window.StatusBar.styleDefault();
       }
-      if (!!window.localStorage.LOGGEDIN_USER) {
-        $ionicHistory.clearCache().then(function () {
-          loadMasterData();
-          $state.go('tabs.interviews');
-        });
-      }
-      else if (!JSON.parse(window.localStorage.LOGGING_IN_PROGRESS))
-      {
-        window.localStorage.LOGGING_IN_PROGRESS = true;
-        $state.go('login');        
-      }
+      $state.go('login');
 
       $cordovaDeeplinks.route({
         '/login': {

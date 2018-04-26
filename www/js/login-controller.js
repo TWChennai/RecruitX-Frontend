@@ -4,7 +4,30 @@ angular.module('recruitX')
 
     $scope.data = {};
     
-    if (!window.localStorage['LOGGEDIN_USER']) {
-      cordova.InAppBrowser.open(oktaUrl, '_system');
+    if (window.localStorage['LOGGEDIN_USER']) {
+      $ionicHistory.nextViewOptions({
+        disableBack: true,
+        historyRoot: true
+      });
+      $ionicHistory.clearCache().then(function () {
+        $rootScope.$broadcast('load:masterData');
+        $state.go('tabs.interviews');
+      });
+    }
+
+    $scope.login = function(){
+      if (!window.localStorage['LOGGEDIN_USER']) {
+        cordova.InAppBrowser.open(oktaUrl, '_system');
+      }
+      else{
+        $ionicHistory.nextViewOptions({
+          disableBack: true,
+          historyRoot: true
+        });
+        $ionicHistory.clearCache().then(function () {
+          $rootScope.$broadcast('load:masterData');
+          $state.go('tabs.interviews');
+        });
+      }
     }
   }]);

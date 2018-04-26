@@ -322,7 +322,7 @@ angular.module('recruitX')
         });
 
         cordova.InAppBrowser.open(oktaSignoutUrl, "_system");
-        //TODO: Should redirect to LOGIN HOME Page, to initiate login again
+        $state.go('login');
       });
     };
 
