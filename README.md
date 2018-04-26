@@ -48,6 +48,7 @@ ionic plugin add ionic-plugin-deeplinks --variable URL_SCHEME=recruitx --variabl
 
 npm install --save @ionic-native/deeplinks  (you may have to resolve dependencies manually)
 
+mkdir www/lib/ionic-native
 cp ./node_modules/ionic-native/dist/ionic.native.min.js www/lib/ionic-native
 
 ```
