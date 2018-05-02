@@ -21,8 +21,7 @@ RecruitX-Frontend
   echo "source /usr/local/opt/asdf/asdf.sh" >> ~/.zshrc
   ```
 
-  * Install node
-
+  * Install node (Developed on version 8.9)
   ```bash
   asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git
   bash /usr/local/opt/asdf/plugins/nodejs/bin/import-release-team-keyring
@@ -36,21 +35,9 @@ Install other dependencies
 
 brew install phantomjs gradle
 
-npm install -g ionic@1.3.22 cordova bower 
+yarn global add ionic@1.3.3 cordova bower 
 
-npm install
-
-ionic plugin add cordova-plugin-inappbrowser
-
-npm install --save @ionic-native/in-app-browser (you may have to resolve dependencies manually)
-
-ionic plugin add ionic-plugin-deeplinks --variable URL_SCHEME=recruitx --variable DEEPLINK_SCHEME=https --variable DEEPLINK_HOST=recruitx.com --save
-
-npm install --save @ionic-native/deeplinks  (you may have to resolve dependencies manually)
-
-mkdir www/lib/ionic-native
-cp ./node_modules/ionic-native/dist/ionic.native.min.js www/lib/ionic-native
-
+./setup.sh
 ```
 
 ### Other Dependencies
