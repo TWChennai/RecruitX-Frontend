@@ -140,6 +140,17 @@ angular.module('recruitX')
     };
 
     $scope.getPhoto = function (index) {
+      var permissions = cordova.plugins.permissions;
+      permissions.requestPermission(permissions.CAMERA, success, error);
+
+      function error() {
+        $cordovaToast.showShortBottom("RecruitX needs camera permissions to capture feedback images");
+      }
+
+      function success(status) {
+        if (!status.hasPermission) error();
+      }
+      
       Camera.getPicture().then(function (imageURI) {
         var feedbackImage = $scope.feedbackImages[index];
         feedbackImage.URI = imageURI;
