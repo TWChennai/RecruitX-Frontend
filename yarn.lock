@@ -938,11 +938,15 @@ cordova-open@^1.0.9:
   version "1.0.12"
   resolved "https://registry.yarnpkg.com/cordova-open/-/cordova-open-1.0.12.tgz#3dd6efc192cec5a3e746955f3cd61b999f4d8430"
 
+cordova-plugin-android-permissions@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/cordova-plugin-android-permissions/-/cordova-plugin-android-permissions-1.0.0.tgz#9e7c116be668eb7dfa41491b13d8d47da9548149"
+
 cordova-plugin-app-version@^0.1.8:
   version "0.1.9"
   resolved "https://registry.yarnpkg.com/cordova-plugin-app-version/-/cordova-plugin-app-version-0.1.9.tgz#9db0607863337a710489302e5f50a904f1449bdb"
 
-cordova-plugin-camera@^2.1.0:
+cordova-plugin-camera@^2.3.1:
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/cordova-plugin-camera/-/cordova-plugin-camera-2.4.1.tgz#195e34e12db64f1c49e764f7d4e3f261aa3d94c1"
 
