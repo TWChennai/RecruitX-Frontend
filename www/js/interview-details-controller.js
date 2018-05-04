@@ -190,7 +190,7 @@ angular.module('recruitX')
       Upload.upload({
         url: fileServerURL,
         headers: {
-          'Authorization': apiKey,
+          'Authorization': window.localStorage.API_TOKEN,
           'Content-Type': 'image/jpeg'
         },
         data: {
