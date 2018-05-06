@@ -97,8 +97,8 @@ angular.module('recruitX')
 
       loggedinUserStore.storeUser = function (loggedinUser, user) {
         var userDetails = {
-          firstName: loggedinUser.firstname,
-          id: loggedinUser.login.split('@')[0],
+          firstName: loggedinUser.profile.firstName,
+          id: loggedinUser.profile.login.split('@')[0],
           is_recruiter: user.is_recruiter,
           is_super_user: user.is_super_user,
           is_signup_cop: user.is_signup_cop,
