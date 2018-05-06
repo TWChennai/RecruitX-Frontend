@@ -5,7 +5,7 @@ describe('loginController', function () {
 
   describe('', function () {
 
-    var createController, scope, userStore, validUser, state, history;
+    var createController, scope, userStore, validUser, state, history, cordova;
     var clearCacheCalled;
     beforeEach(inject(function ($controller, $rootScope) {
       validUser = {
@@ -41,7 +41,7 @@ describe('loginController', function () {
           loggedinUserStore: userStore,
           $state: state,
           $ionicHistory: history,
-          oktaEnabled: 'true'
+          cordova: cordova
         });
       };
     }));
@@ -91,6 +91,24 @@ describe('loginController', function () {
         });
         expect(clearCacheCalled).toBe(true);
       });
+      it('should check for user login and if not loggedIn, redirect to InAppBrowser', function () {
+        var actualURL, actualArg;
+        cordova = {
+          InAppBrowser: {
+            open: function (url, arg) {
+              actualURL = url
+              actualArg = arg
+            }
+          }
+        }
+        createController();
+        spyOn(userStore, 'userId');
+
+        scope.login();
+        expect(userStore.userId).toHaveBeenCalled();
+        expect(actualURL).toBe('@@oktaUrl');
+        expect(actualArg).toBe('_system');
+      })
     });
   });
 });

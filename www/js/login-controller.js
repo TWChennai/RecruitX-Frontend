@@ -1,5 +1,5 @@
 angular.module('recruitX')
-  .controller('loginController', ['$ionicPopup', '$rootScope', '$scope', '$state', '$ionicHistory', 'loggedinUserStore', 'oktaUrl', function ($ionicPopup, $rootScope, $scope, $state, $ionicHistory, loggedinUserStore, oktaUrl) {
+  .controller('loginController', ['$ionicPopup', '$rootScope', '$scope', '$state', '$ionicHistory', 'loggedinUserStore', 'oktaUrl', 'cordova', function ($ionicPopup, $rootScope, $scope, $state, $ionicHistory, loggedinUserStore, oktaUrl, cordova) {
     'use strict';
 
     var isUserSignedIn = function () {
