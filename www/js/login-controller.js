@@ -3,14 +3,10 @@ angular.module('recruitX')
     'use strict';
 
     var isUserSignedIn = function () {
-      return loggedinUserStore.userId;
+      return loggedinUserStore.userId();
     };
 
-    if (isUserSignedIn()) {
-      launchHomePage();
-    }
-
-    var launchHomePage = function() {
+    var launchHomePage = function () {
       $ionicHistory.nextViewOptions({
         disableBack: true,
         historyRoot: true
@@ -19,9 +15,13 @@ angular.module('recruitX')
         $rootScope.$broadcast('load:masterData');
         $state.go('tabs.interviews');
       });
+    };
+
+    if (isUserSignedIn()) {
+      launchHomePage();
     }
 
-    $scope.login = function(){
+    $scope.login = function() {
       if (!isUserSignedIn()) {
         cordova.InAppBrowser.open(oktaUrl, '_system');
       } else {

@@ -3,9 +3,10 @@ describe('loginController', function () {
 
   beforeEach(module('recruitX'));
 
-  describe('let users log in', function () {
+  describe('', function () {
 
-    var createController, scope, oktaWidget, userStore, validUser, state, history, mockRecruitFactory;
+    var createController, scope, userStore, validUser, state, history;
+    var clearCacheCalled;
     beforeEach(inject(function ($controller, $rootScope) {
       validUser = {
         'id': '1241kjhhlkj634345',
@@ -18,21 +19,18 @@ describe('loginController', function () {
 
       scope = $rootScope.$new();
       userStore = {
-        storeUser: function () {}
+        storeUser: function () {},
+        userId: function() {}
       };
-      oktaWidget = {
-        renderEl: function () {}
-      };
+      clearCacheCalled = false;
       history = {
         nextViewOptions: function () {},
         clearCache: function () {
+          clearCacheCalled = true;
           return {
             then: function () {}
           };
         }
-      };
-      mockRecruitFactory = {
-        isRecruiter: function () {}
       };
       state = {
         go: function () {}
@@ -43,65 +41,37 @@ describe('loginController', function () {
           loggedinUserStore: userStore,
           $state: state,
           $ionicHistory: history,
-          recruitFactory: mockRecruitFactory,
           oktaEnabled: 'true'
         });
       };
     }));
+    describe('constructor', function () {
+      it('should check for user login and if loggedIn, redirect to home page', function () {
+        spyOn(userStore, 'userId').and.returnValue('recruitx');
+        spyOn(state, 'go');
+        spyOn(history, 'nextViewOptions');
 
-    it('should store a user and navigate to signup page when a user is authorised', function () {
-      var recruiter = {
-        is_recruiter: true
-      };
-      oktaWidget.renderEl = function (targetElementConfig, responseCallback) {
-        expect(targetElementConfig.el).toEqual('#okta-login-container');
-        responseCallback({
-          status: 'SUCCESS',
-          user: validUser
+        createController();
+
+        expect(userStore.userId).toHaveBeenCalled();
+        expect(history.nextViewOptions).toHaveBeenCalledWith({
+          disableBack: true,
+          historyRoot: true
         });
-      };
-
-      mockRecruitFactory.isRecruiter = function (userId, responseCallback) {
-        expect(userId).toEqual('recruitx');
-        responseCallback(recruiter);
-      };
-
-      spyOn(userStore, 'storeUser');
-      spyOn(oktaWidget, 'renderEl').and.callThrough();
-      spyOn(mockRecruitFactory, 'isRecruiter').and.callThrough();
-      spyOn(state, 'go');
-      spyOn(history, 'nextViewOptions');
-
-      createController();
-
-      expect(oktaWidget.renderEl).toHaveBeenCalled();
-      expect(userStore.storeUser).toHaveBeenCalledWith(validUser, recruiter);
-      expect(history.nextViewOptions).toHaveBeenCalledWith({
-        disableBack: true,
-        historyRoot: true
+        expect(clearCacheCalled).toBe(true);
       });
-    });
 
-    it('should not store or navigate to sign up page if login is unsuccessful', function () {
-      oktaWidget.renderEl = function (targetElementConfig, responseCallback) {
-        expect(targetElementConfig.el).toEqual('#okta-login-container');
-        responseCallback({
-          status: 'FAIL',
-          user: validUser
-        });
-      };
+      it('should check for user login and if not loggedIn, do nothing', function () {
+        spyOn(userStore, 'userId')
+        spyOn(state, 'go');
+        spyOn(history, 'nextViewOptions');
 
-      spyOn(userStore, 'storeUser');
-      spyOn(oktaWidget, 'renderEl').and.callThrough();
-      spyOn(state, 'go');
-      spyOn(history, 'nextViewOptions');
+        createController();
 
-      createController();
-
-      expect(oktaWidget.renderEl).toHaveBeenCalled();
-      expect(userStore.storeUser).not.toHaveBeenCalled();
-      expect(state.go).not.toHaveBeenCalled();
-      expect(history.nextViewOptions).not.toHaveBeenCalled();
+        expect(userStore.userId).toHaveBeenCalled();
+        expect(history.nextViewOptions).not.toHaveBeenCalled();
+        expect(clearCacheCalled).toBe(false);
+      });  
     });
   });
 });
