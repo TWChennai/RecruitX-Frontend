@@ -40,7 +40,6 @@ describe('loginController', function () {
       createController = function () {
         return $controller('loginController', {
           $scope: scope,
-          oktaSigninWidget: oktaWidget,
           loggedinUserStore: userStore,
           $state: state,
           $ionicHistory: history,
