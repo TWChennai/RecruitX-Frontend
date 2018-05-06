@@ -45,6 +45,7 @@ describe('loginController', function () {
         });
       };
     }));
+
     describe('constructor', function () {
       it('should check for user login and if loggedIn, redirect to home page', function () {
         spyOn(userStore, 'userId').and.returnValue('recruitx');
@@ -72,6 +73,24 @@ describe('loginController', function () {
         expect(history.nextViewOptions).not.toHaveBeenCalled();
         expect(clearCacheCalled).toBe(false);
       });  
+    });
+
+    describe('login function', function () {
+      it('should check for user login and if loggedIn, redirect to home page', function () {
+        createController();
+        spyOn(userStore, 'userId').and.returnValue('recruitx');
+        spyOn(state, 'go');
+        spyOn(history, 'nextViewOptions');
+
+        scope.login();
+
+        expect(userStore.userId).toHaveBeenCalled();
+        expect(history.nextViewOptions).toHaveBeenCalledWith({
+          disableBack: true,
+          historyRoot: true
+        });
+        expect(clearCacheCalled).toBe(true);
+      });
     });
   });
 });
