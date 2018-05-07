@@ -104,9 +104,13 @@ angular.module('recruitX')
         var decodedUserDetails = atob(splitToken[1]);
         var userObject = JSON.parse(decodedUserDetails);
         var loginName = userObject.login.split("@")[0];
+        var loggedinUser = new Object();
+        loggedinUser.profile = new Object();
+        loggedinUser.profile.firstName = userObject.firstname;
+        loggedinUser.profile.login = userObject.login;
         window.localStorage.API_TOKEN = jwtToken;
         recruitFactory.isRecruiter(loginName, function (response) {
-          loggedinUserStore.storeUser(userObject, response);
+          loggedinUserStore.storeUser(loggedinUser, response);
           window.localStorage.LOGGING_IN_PROGRESS = false;
 
           $ionicHistory.nextViewOptions({
