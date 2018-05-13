@@ -1,6 +1,6 @@
 RecruitX-Frontend
 
-[![CircleCI](https://circleci.com/gh/twlabs/old-recruitx.svg?style=svg&circle-token=8c7a2ff51d9f1969b77a8b4408950fcb91294ba5)](https://circleci.com/gh/twlabs/old-recruitx)
+**This project has been moved into Labs and if you want to contribute, you can go to Labs on the cloud from OKTA and you can get the access to the repo and CI**
 
 ## Dev Setup
 
